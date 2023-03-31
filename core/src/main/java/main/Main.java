@@ -9,5 +9,6 @@ public class Main {
         jframe.setTitle("Peter's car");
         jframe.setVisible(true);
 
+        System.out.println("push to main XDDDDDDDDDDDDDDDD");
     }
 }
