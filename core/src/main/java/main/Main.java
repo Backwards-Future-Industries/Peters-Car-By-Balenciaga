@@ -8,7 +8,5 @@ public class Main {
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setTitle("Peter's car");
         jframe.setVisible(true);
-
-        System.out.println("push to main XDDDDDDDDDDDDDDDD");
     }
 }
