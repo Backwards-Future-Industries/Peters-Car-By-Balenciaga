@@ -1,7 +1,7 @@
 package utilities;
 
 public class Vector2D {
-    //to make this class has we drawn inspiration from this repository
+    //to make this class we have drawn inspiration from this repository
     //https://gist.github.com/gunvirranu/6816d65c0231981787ebefd3bdb61f98
 
     private double x;

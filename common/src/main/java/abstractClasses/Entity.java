@@ -14,10 +14,10 @@ public abstract class Entity {
         this.sprite = sprite;
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
-    public void setHealth(int health) {
+    void setHealth(int health) {
         this.health = health;
     }
 
