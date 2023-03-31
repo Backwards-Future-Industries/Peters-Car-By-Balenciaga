@@ -1,5 +1,5 @@
 package interfaces;
 
 public interface IDrawable {
-    public void draw();
+    void draw(int posx, int posY);
 }
