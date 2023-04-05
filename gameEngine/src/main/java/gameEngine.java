@@ -1,37 +1,25 @@
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
-
 import java.util.LinkedList;
 
 public class gameEngine {
 
-    private int framerate;
-
-
+    private double framerate;
     private LinkedList<IPlugin> newEntities;
     private LinkedList<IProcessing> processes;
     private LinkedList<IDrawable> drawables;
 
-    public gameEngine(int framerate){
+    public gameEngine(double framerate){
         this.framerate = framerate;
         start();
     }
 
     private void start(){
-
-    }
-
-    private Runnable drawLoop(){
-        Runnable runnable = () -> {
-                while (true){
-
-                }
-        };
-        return runnable;
-    }
-    private void gameLoop(){
-
+        DrawLoop drawLoop = new DrawLoop(framerate,drawables);
+        GameLoop gameLoop = new GameLoop(newEntities,processes);
+        drawLoop.start();
+        gameLoop.start();
     }
 
 }
