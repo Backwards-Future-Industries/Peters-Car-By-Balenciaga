@@ -14,15 +14,22 @@ public class GameEngine {
     private LinkedList<IPlugin> newEntities;
     private LinkedList<IProcessing> processes;
     private LinkedList<IDrawable> drawables;
+    private DrawLoop drawLoop;
+    private GameLoop gameLoop;
     private ArrayList<Inputs> inputs;
 
     private UserInputs userInputs;
-    private  JFrame window;
+    JFrame window;
 
     public GameEngine(double framerate){
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.inputs = new ArrayList<Inputs>();
+        this.newEntities = new LinkedList<IPlugin>();
+        this.processes = new LinkedList<IProcessing>();
+        this.drawables = new LinkedList<IDrawable>();
+        this.drawLoop = new DrawLoop();
+        this.gameLoop = new GameLoop();
         openWindow();
         start();
     }
@@ -33,14 +40,10 @@ public class GameEngine {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Peter's car");
         window.addKeyListener(userInputs);
-
         window.setVisible(true);
     }
 
-
     private void start(){
-        DrawLoop drawLoop = new DrawLoop();
-        GameLoop gameLoop = new GameLoop();
         drawLoop.start();
         gameLoop.start();
     }
@@ -50,13 +53,21 @@ public class GameEngine {
         return System.currentTimeMillis() - lastDraw;
     }
 
+    public void stop(){
+        drawLoop.kill();
+        gameLoop.kill();
+    }
+
     private class DrawLoop extends Thread{
+       private boolean isRunning;
+
         public DrawLoop(){
+            this.isRunning = true;
         }
         @Override
         public void run() {
             lastDraw = 0;
-            while (true) {
+            while (isRunning) {
                 while (1.0/(getDeltaTime()*1000.0) <= framerate){
                     for (IDrawable entity : drawables) {
                         entity.draw();
@@ -65,14 +76,20 @@ public class GameEngine {
                 }
             }
         }
+
+        public void kill(){
+            this.isRunning = false;
+        }
     }
 
     private class GameLoop extends Thread{
-
-        public GameLoop(){}
+        private boolean isRunning;
+        public GameLoop(){
+            this.isRunning = false;
+        }
         @Override
         public void run() {
-            while (true) {
+            while (isRunning) {
                 inputs = userInputs.getInputs();
                 for(IPlugin newEntity : newEntities){
                     newEntity.create();
@@ -82,6 +99,10 @@ public class GameEngine {
                     entity.process(inputs);
                 }
             }
+        }
+
+        public void kill(){
+            this.isRunning = false;
         }
     }
 }
