@@ -17,6 +17,7 @@
 
     <modules>
         <module>core</module>
+        <module>collision</module>
         <module>common</module>
         <module>enemy</module>
         <module>gameEngine</module>
