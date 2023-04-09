@@ -6,21 +6,23 @@ import java.awt.image.BufferedImage;
 
 public class PlayerPlugin extends Entity implements IPlugin {
 
-    public PlayerPlugin(int health, BufferedImage sprite) {
-        super(health, sprite);
+    private Entity player;
+
+    public PlayerPlugin() {
+        super(5, null);
     }
 
 
-    private Entity makePlayer(int health, BufferedImage sprite,double x, double y){
-        Entity playerPlugin = new PlayerPlugin(health,sprite);
+    private Entity makePlayer(double x, double y){
+        Entity playerPlugin = new PlayerPlugin();
         playerPlugin.setPosition(x,y);
-
         return playerPlugin;
     }
 
     @Override
     public Entity create() {
-        return null;
+        player = makePlayer(10,10);
+        return player;
     }
 
 
