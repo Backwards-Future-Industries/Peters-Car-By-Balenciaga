@@ -16,10 +16,10 @@ public abstract class Entity {
         radius = 20; //placeholder default value
     }
 
-    public int getHealth() {
+    int getHealth() {
         return health;
     }
-    public void setHealth(int health) {
+    void setHealth(int health) {
         this.health = health;
     }
 
