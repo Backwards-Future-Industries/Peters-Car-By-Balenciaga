@@ -13,6 +13,7 @@ public abstract class Entity {
     public Entity(int health, BufferedImage sprite){
         this.health = health;
         this.sprite = sprite;
+        radius = 20; //placeholder default value
     }
 
     public int getHealth() {
