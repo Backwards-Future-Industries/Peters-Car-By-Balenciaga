@@ -36,7 +36,7 @@ public class GameEngine {
 
     private void openWindow(){
         window = new JFrame();
-        window.setSize(1000,1000);
+        window.setSize(500,500);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Peter's car");
         window.addKeyListener(userInputs);
