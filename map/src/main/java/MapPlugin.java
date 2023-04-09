@@ -1,7 +1,7 @@
 
 public class MapPlugin {
-    private int width = 10;
-    private int height = 10;
+    private int width;
+    private int height;
     private Tile[][] tiles;
 
 
@@ -15,6 +15,31 @@ public class MapPlugin {
             for (int y = 0; y < height; y++) {
                 tiles[x][y] = new Tile(x,y);
             }
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void display() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                System.out.println(tiles[x][y].getType() + " ");
+            }
+            System.out.println();
         }
     }
 
