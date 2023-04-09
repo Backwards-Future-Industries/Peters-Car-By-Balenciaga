@@ -1,6 +1,5 @@
 import abstractClasses.Entity;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
@@ -15,10 +14,6 @@ class CollisionDetectionTest {
             super(health, sprite);
         }
 
-        @Override
-        public void setPosition(double positionX, double positionY) {
-            super.setPosition(positionX, positionY);
-        }
     }
 
     TestEntity testEntity1 = new TestEntity(1,null);
