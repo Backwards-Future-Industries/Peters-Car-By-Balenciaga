@@ -6,7 +6,8 @@ public abstract class Entity {
     private int health;
     private BufferedImage sprite;
     private double positionX;
-    private  double positionY;
+    private double positionY;
+    private double radius;
 
 
     public Entity(int health, BufferedImage sprite){
@@ -32,5 +33,13 @@ public abstract class Entity {
 
     public double[] getPosition() {
         return new double[]{this.positionX,this.positionY};
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }

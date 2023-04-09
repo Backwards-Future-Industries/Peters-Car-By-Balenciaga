@@ -10,10 +10,19 @@ public class CollisionDetection implements IProcessing {
 
     }
 
-
-    //We need to agree on a radius or something similar for this to work, obviously.
-
+    //Everything is a circle (for now?)
     public boolean isColliding (Entity entity1, Entity entity2){
-        return entity1.getPosition() == entity2.getPosition();
+
+        double[] ePos1 = entity1.getPosition();
+        double[] ePos2 = entity2.getPosition();
+
+        double dx = ePos1[0] - ePos2[0];
+        double dy = ePos1[1] - ePos2[1];
+
+        //Pythagoras to check distance between center points of enteties
+        double distance = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
+
+        //Checks if the radius of the two points collide (collision)
+        return distance < (entity1.getRadius() + entity2.getRadius());
     }
 }
