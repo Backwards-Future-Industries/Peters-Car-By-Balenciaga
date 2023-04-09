@@ -21,8 +21,8 @@ public class PlayerPlugin extends Entity implements IPlugin {
 
     @Override
     public Entity create() {
-        player = makePlayer(10,10);
-        return player;
+        this.player = makePlayer(10,10);
+        return this.player;
     }
 
 
