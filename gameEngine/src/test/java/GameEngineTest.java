@@ -20,7 +20,7 @@ class GameEngineTest {
     @Test
     public void OpenWindowTest(){
         Assertions.assertEquals("Peter's car",gameEngine.window.getTitle());
-        Assertions.assertEquals(500,gameEngine.window.getWidth());
+        Assertions.assertEquals(400,gameEngine.window.getWidth());
         Assertions.assertEquals(500,gameEngine.window.getHeight());
         Assertions.assertEquals(1,gameEngine.window.getKeyListeners().length);
         Assertions.assertTrue(gameEngine.window.isVisible());
