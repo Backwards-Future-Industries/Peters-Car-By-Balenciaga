@@ -1,3 +1,4 @@
+
 public class MapPlugin {
     private int width = 10;
     private int height = 10;
