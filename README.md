@@ -1,3 +1,3 @@
 # Peters Car
 
-![Peters bil](peters_bil.png)
+![Peters bil](common/src/main/java/utilities/peters_bil.png)
