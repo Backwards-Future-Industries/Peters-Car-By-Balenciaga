@@ -12,7 +12,6 @@ public class PlayerPlugin extends Entity implements IPlugin {
         super(5, null);
     }
 
-
     private Entity makePlayer(double x, double y){
         Entity playerPlugin = new PlayerPlugin();
         playerPlugin.setPosition(x,y);
