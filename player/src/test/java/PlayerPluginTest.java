@@ -1,10 +1,8 @@
-import abstractClasses.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import player.PlayerPlugin;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class PlayerPluginTest {

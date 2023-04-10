@@ -1,3 +1,5 @@
+package player;
+
 import interfaces.IMovement;
 import interfaces.IProcessing;
 import utilities.Inputs;
