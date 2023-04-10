@@ -31,6 +31,7 @@ class EnemyPluginTest {
         try {
             lowTierGodImage = ImageIO.read(EnemyPluginTest.class.getClassLoader().getResource("images/ltg.png"));
             lowTierGod = new EnemyPlugin();
+            lowTierGod.create();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
