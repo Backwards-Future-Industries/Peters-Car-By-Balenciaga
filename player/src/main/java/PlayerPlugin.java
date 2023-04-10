@@ -1,28 +1,31 @@
 import interfaces.IPlugin;
 import abstractClasses.Entity;
 
-import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 
 public class PlayerPlugin extends Entity implements IPlugin {
 
     private Entity player;
+    private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
-    public PlayerPlugin() {
-        super(5, null);
-    }
-
-
-    private Entity makePlayer(double x, double y){
-        Entity playerPlugin = new PlayerPlugin();
-        playerPlugin.setPosition(x,y);
-        return playerPlugin;
+    PlayerPlugin() throws IOException {
+        super(5, ImageIO.read(sprite));
+        setPosition(10,10);
     }
 
     @Override
     public Entity create() {
-        this.player = makePlayer(10,10);
-        return this.player;
+        Entity newPlayer;
+        try {
+            newPlayer = new PlayerPlugin();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return newPlayer;
     }
 
 
