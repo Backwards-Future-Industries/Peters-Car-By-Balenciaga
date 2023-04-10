@@ -19,9 +19,11 @@ class GameEngineTest {
     @Tag("test")
     @Test
     public void OpenWindowTest(){
+        int lenght = 500;
+        gameEngine.window.setSize(lenght,lenght);
         Assertions.assertEquals("Peter's car",gameEngine.window.getTitle());
-        Assertions.assertEquals(500,gameEngine.window.getWidth());
-        Assertions.assertEquals(500,gameEngine.window.getHeight());
+        Assertions.assertEquals(lenght,gameEngine.window.getWidth());
+        Assertions.assertEquals(lenght,gameEngine.window.getHeight());
         Assertions.assertEquals(1,gameEngine.window.getKeyListeners().length);
         Assertions.assertTrue(gameEngine.window.isVisible());
     }
