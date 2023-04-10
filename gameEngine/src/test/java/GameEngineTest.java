@@ -21,12 +21,12 @@ class GameEngineTest {
     @Test
     public void OpenWindowTest(){
         int length = 500;
-        gameEngine.window.setSize(length,length);
-        Assertions.assertEquals("Peter's car",gameEngine.window.getTitle());
-        Assertions.assertEquals(length,gameEngine.window.getWidth());
-        Assertions.assertEquals(length,gameEngine.window.getHeight());
-        Assertions.assertEquals(1,gameEngine.window.getKeyListeners().length);
-        Assertions.assertTrue(gameEngine.window.isVisible());
+        gameEngine.getWindow().setSize(length,length);
+        Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
+        Assertions.assertEquals(length,gameEngine.getWindow().getWidth());
+        Assertions.assertEquals(length,gameEngine.getWindow().getHeight());
+        Assertions.assertEquals(1,gameEngine.getWindow().getKeyListeners().length);
+        Assertions.assertTrue(gameEngine.getWindow().isVisible());
     }
 
 }
