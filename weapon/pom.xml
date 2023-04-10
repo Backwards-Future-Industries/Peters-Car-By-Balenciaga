@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>bullet</artifactId>
+    <artifactId>weapon</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>bullet</name>
+    <name>Bullet</name>
     <packaging>war</packaging>
 
     <properties>

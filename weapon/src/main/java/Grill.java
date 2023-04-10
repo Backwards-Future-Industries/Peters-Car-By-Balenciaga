@@ -3,14 +3,13 @@ import abstractClasses.Weapon;
 
 import java.awt.image.BufferedImage;
 
-public class bullet extends Weapon {
-
-    public bullet(int health, BufferedImage sprite) {
+public class Grill extends Weapon{
+    public Grill(int health, BufferedImage sprite) {
         super(health, sprite);
     }
 
     @Override
     public Entity shot() {
-        return null;
+        return new Bullet(1, null);
     }
 }
