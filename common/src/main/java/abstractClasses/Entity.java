@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
     private int health;
+
     private BufferedImage sprite;
     private double positionX;
     private double positionY;
@@ -16,15 +17,19 @@ public abstract class Entity {
         radius = 20; //placeholder default value
     }
 
-    int getHealth() {
+    public int getHealth() {
         return health;
     }
-    void setHealth(int health) {
+    public void setHealth(int health) {
         this.health = health;
     }
 
     public synchronized BufferedImage getSprite() {
         return sprite;
+    }
+
+    public void setSprite(BufferedImage sprite) {
+        this.sprite = sprite;
     }
 
     public void setPosition(double positionX, double positionY) {
