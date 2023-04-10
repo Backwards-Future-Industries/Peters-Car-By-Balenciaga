@@ -1,3 +1,3 @@
 # Peters Car
 
-![Peters bil](core/src/main/java/main/peters_bil.gif)
+![Peters bil](https://im2.ezgif.com/tmp/ezgif-2-d4a6748389.gif)
