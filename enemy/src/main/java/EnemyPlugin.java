@@ -27,7 +27,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
 
     @Override
     public Entity delete() {
-        this.setHealth(0);
+        lowTierGod.setHealth(0);
         return lowTierGod;
     }
 }

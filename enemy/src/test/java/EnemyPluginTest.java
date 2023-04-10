@@ -45,5 +45,6 @@ class EnemyPluginTest {
 
     @Test
     void delete() {
+        Assertions.assertEquals(0,lowTierGod.delete().getHealth());
     }
 }
