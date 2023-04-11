@@ -6,9 +6,10 @@ public abstract class Entity {
     private int health;
 
     private BufferedImage sprite;
-    private double positionX;
-    private double positionY;
+    private int[] position;
     private double radius;
+
+    private int[] windowSize;
 
 
     public Entity(int health, BufferedImage sprite){
@@ -32,13 +33,28 @@ public abstract class Entity {
         this.sprite = sprite;
     }
 
-    public void setPosition(double positionX, double positionY) {
-        this.positionX = positionX;
-        this.positionY = positionY;
+    public void setPosition(int[] position) {
+        if(position[0] < 0){
+            position[0] = 0;
+        }
+        if (position[0] > windowSize[0]){
+            position[0] = windowSize[0];
+        }
+        if (position[1] < 0){
+            position[1] = 0;
+        }
+        if (position[1] > windowSize[1]){
+            position[1] = windowSize[1];
+        }
+        this.position = position;
     }
 
-    public double[] getPosition() {
-        return new double[]{this.positionX,this.positionY};
+    public void setWindowSize(int[] windowSize){
+        this.windowSize = windowSize;
+    }
+
+    public int[] getPosition() {
+        return position;
     }
 
     public void setRadius(double radius) {

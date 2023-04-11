@@ -14,28 +14,29 @@ public class UserInputs extends KeyAdapter {
 
     public UserInputs(){
         super();
-
+        this.inputs = new ArrayList<Inputs>();
     }
     @Override
     public void keyPressed(KeyEvent e){
 
         int keyCode = e.getKeyCode();
 
-        if(keyCode == KeyEvent.VK_W){
+        if(keyCode == KeyEvent.VK_W && !inputs.contains(Inputs.KEY_W)){
             inputs.add(Inputs.KEY_W);
         }
-        if(keyCode == KeyEvent.VK_A){
+        if(keyCode == KeyEvent.VK_A && !inputs.contains(Inputs.KEY_A)){
             inputs.add(Inputs.KEY_A);
         }
-        if(keyCode == KeyEvent.VK_S){
+        if(keyCode == KeyEvent.VK_S && !inputs.contains(Inputs.KEY_S)){
             inputs.add(Inputs.KEY_S);
         }
-        if(keyCode == KeyEvent.VK_D){
+        if(keyCode == KeyEvent.VK_D && !inputs.contains(Inputs.KEY_D)){
             inputs.add(Inputs.KEY_D);
         }
-        if(keyCode == KeyEvent.VK_SPACE){
+        if(keyCode == KeyEvent.VK_SPACE && !inputs.contains(Inputs.KEY_SPACE)){
             inputs.add(Inputs.KEY_SPACE);
         }
+
     }
     @Override
     public void keyReleased(KeyEvent e) {

@@ -6,6 +6,7 @@ import interfaces.IProcessing;
 import utilities.Inputs;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -25,6 +26,7 @@ public class GameEngine {
     private ArrayList<Inputs> inputs;
     private UserInputs userInputs;
     private JFrame window;
+    private JPanel panel;
 
     public GameEngine(double framerate){
         this.framerate = framerate;
@@ -44,9 +46,19 @@ public class GameEngine {
 
     private void openWindow(){
         window = new JFrame();
+        this.panel = new JPanel(){
+          @Override
+          public void paintComponent(Graphics g) {
+              super.paintComponent(g);
+              for (IDrawable entity : getDrawables()) {
+                  entity.draw(g);
+              }
+          }
+        };
         window.setSize(500,500);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Peter's car");
+        window.add(panel);
         window.addKeyListener(userInputs);
         window.setVisible(true);
     }
@@ -68,6 +80,11 @@ public class GameEngine {
 
     public JFrame getWindow() {
         return window;
+    }
+
+    public int[] getWindowSize(){
+        Dimension d =  window.getSize();
+        return new int[]{d.width,d.height};
     }
 
     public LinkedList<IDrawable> getDrawables() {
@@ -130,9 +147,7 @@ public class GameEngine {
             lastDraw = 0;
             while (isRunning) {
                 while (1.0/(getDeltaTime()*1000.0) <= framerate){
-                    for (IDrawable entity : getDrawables()) {
-                        entity.draw();
-                    }
+                    panel.repaint();
                     lastDraw = System.currentTimeMillis();
                 }
             }
@@ -146,7 +161,7 @@ public class GameEngine {
     private class GameLoop extends Thread{
         private boolean isRunning;
         public GameLoop(){
-            this.isRunning = false;
+            this.isRunning = true;
         }
         @Override
         public void run() {

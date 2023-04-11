@@ -21,15 +21,16 @@ class CollisionDetectionTest {
 
     @Test
     public void colliding(){
-         testEntity1.setPosition(400,400);
-         testEntity2.setPosition(400,439);
+
+         testEntity1.setPosition(new int[]{400,400});
+         testEntity2.setPosition(new int[]{400,439});
          Assertions.assertTrue(collisionDetection.isColliding(testEntity1,testEntity2));
     }
 
     @Test
     public void notColliding(){
-        testEntity1.setPosition(400,400);
-        testEntity2.setPosition(400,440);
+        testEntity1.setPosition(new int[]{400,400});
+        testEntity2.setPosition(new int[]{400,440});
         Assertions.assertFalse(collisionDetection.isColliding(testEntity1,testEntity2));
     }
 
