@@ -175,6 +175,11 @@ public class GameEngine {
                 for(IProcessing entity : getProcesses()){
                     entity.process(inputs);
                 }
+                try {
+                    sleep(10);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
 
