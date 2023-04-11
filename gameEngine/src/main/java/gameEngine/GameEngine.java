@@ -71,33 +71,51 @@ public class GameEngine {
     }
 
     public LinkedList<IDrawable> getDrawables() {
-        synchronized(drawLock){
+        drawLock.lock();
+        try {
             return drawables;
+        }finally {
+            drawLock.unlock();
         }
     }
     public LinkedList<IPlugin> getNewEntities() {
-        synchronized (newLock){
+        newLock.lock();
+        try{
             return newEntities;
+        } finally {
+            newLock.unlock();
         }
     }
     public LinkedList<IProcessing> getProcesses() {
-        synchronized (processLock){
+        processLock.lock();
+        try {
             return processes;
+        }finally {
+            processLock.unlock();
         }
     }
-    public void addDrawables(IDrawable iDrawable) {
-        synchronized (drawLock){
-            this.drawables.add(iDrawable);
+    public void addDrawables(IDrawable draw) {
+        drawLock.lock();
+        try {
+            this.drawables.add(draw);
+        }finally {
+            drawLock.unlock();
         }
     }
     public void addNewEntities(IPlugin newEntity) {
-        synchronized (newLock){
+        newLock.lock();
+        try {
             this.newEntities.add(newEntity);
+        }finally {
+            newLock.unlock();
         }
     }
     public void addProcesses(IProcessing process) {
-        synchronized (processLock){
+        processLock.lock();
+        try {
             this.processes.add(process);
+        }finally {
+            processLock.unlock();
         }
     }
 
