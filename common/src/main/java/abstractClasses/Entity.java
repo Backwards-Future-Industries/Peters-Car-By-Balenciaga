@@ -37,14 +37,14 @@ public abstract class Entity {
         if(position[0] < 0){
             position[0] = 0;
         }
-        if (position[0] > windowSize[0]){
-            position[0] = windowSize[0];
+        if (position[0] > windowSize[0]-50){
+            position[0] = windowSize[0]-50;
         }
         if (position[1] < 0){
             position[1] = 0;
         }
-        if (position[1] > windowSize[1]){
-            position[1] = windowSize[1];
+        if (position[1] > windowSize[1]-50){
+            position[1] = windowSize[1]-50;
         }
         this.position = position;
     }
