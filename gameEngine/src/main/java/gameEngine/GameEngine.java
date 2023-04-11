@@ -55,6 +55,7 @@ public class GameEngine {
               }
           }
         };
+        panel.setSize(500,500);
         window.setSize(500,500);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Peter's car");
