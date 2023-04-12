@@ -10,7 +10,7 @@ public class Main {
         GameEngine gm = new GameEngine(60);
         PlayerPlugin player;
         try {
-            player = new PlayerPlugin(gm.getWindowSize());
+            player = new PlayerPlugin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

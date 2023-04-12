@@ -27,7 +27,6 @@ public interface IMovement {
          newPosition[0] = position[0] + x;
          newPosition[1] = position[1] + y;
 
-         System.out.println("old: " + position[0]+","+ position[1] + "      new: " + newPosition[0]+","+ newPosition[1]);
          return newPosition;
     }
 }

@@ -12,7 +12,7 @@ public class PlayerPluginTest {
     @BeforeEach
     void setPlayerPlugin(){
         try {
-            this.playerPlugin = new PlayerPlugin(new int[]{500,500});
+            this.playerPlugin = new PlayerPlugin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

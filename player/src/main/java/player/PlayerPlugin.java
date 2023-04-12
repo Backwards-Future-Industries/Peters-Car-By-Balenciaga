@@ -19,9 +19,8 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     private Entity player;
     private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
-    public PlayerPlugin(int[] windowSize) throws IOException {
+    public PlayerPlugin() throws IOException {
         super(5, ImageIO.read(sprite));
-        setWindowSize(windowSize);
         setPosition(new int[]{10,10});
     }
 
@@ -29,7 +28,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     public Entity create() {
         Entity newPlayer;
         try {
-            newPlayer = new PlayerPlugin(new int[]{500,500});
+            newPlayer = new PlayerPlugin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
