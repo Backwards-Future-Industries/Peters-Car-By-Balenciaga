@@ -15,8 +15,8 @@ public class CollisionDetection implements IProcessing {
     //Everything is a circle (for now?)
     public boolean isColliding(Entity entity1, Entity entity2) {
 
-        double[] ePos1 = entity1.getPosition();
-        double[] ePos2 = entity2.getPosition();
+        int[] ePos1 = entity1.getPosition();
+        int[] ePos2 = entity2.getPosition();
 
         double dx = ePos1[0] - ePos2[0];
         double dy = ePos1[1] - ePos2[1];

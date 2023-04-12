@@ -11,7 +11,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
 
     protected EnemyPlugin() throws IOException {
         super(10,ImageIO.read(defaultImage));
-        setPosition(10,10);
+        setPosition(new int[]{10,10});
     }
 
     @Override
