@@ -51,7 +51,7 @@ public class GameEngine {
           public void paintComponent(Graphics g) {
               super.paintComponent(g);
               for (IDrawable entity : getDrawables()) {
-                  entity.draw(g);
+                  entity.draw((Graphics2D) g,panel);
               }
           }
         };
@@ -68,7 +68,6 @@ public class GameEngine {
         drawLoop.start();
         gameLoop.start();
     }
-
 
     private double getDeltaTime(){
         return System.currentTimeMillis() - lastDraw;

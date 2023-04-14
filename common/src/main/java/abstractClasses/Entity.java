@@ -1,5 +1,6 @@
 package abstractClasses;
 
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public abstract class Entity {
@@ -9,10 +10,13 @@ public abstract class Entity {
     private int[] position;
     private double radius;
 
+    private AffineTransform transform;
+
 
     public Entity(int health, BufferedImage sprite){
         this.health = health;
         this.sprite = sprite;
+        this.transform = new AffineTransform();
         radius = 20; //placeholder default value
     }
 
@@ -45,5 +49,8 @@ public abstract class Entity {
 
     public double getRadius() {
         return radius;
+    }
+    public AffineTransform getTransform() {
+        return transform;
     }
 }

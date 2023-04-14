@@ -8,7 +8,9 @@ import interfaces.IProcessing;
 import utilities.Inputs;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -42,9 +44,10 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g, JPanel panel) {
         int[] posistion = getPosition();
-        g.fillRect(posistion[0],posistion[1],50,50);
+        AffineTransform transform = new AffineTransform();
+        g.drawImage(getSprite(),getTransform(), panel);
 
     }
 
