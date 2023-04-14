@@ -1,3 +1,5 @@
+package weapons;
+
 import abstractClasses.Entity;
 import interfaces.*;
 import java.awt.image.BufferedImage;
@@ -12,6 +14,7 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin{
     public void draw() {
 
     }
+
 
     @Override
     public boolean create() {

@@ -1,3 +1,5 @@
+package weapons;
+
 import abstractClasses.Entity;
 import abstractClasses.Weapon;
 
