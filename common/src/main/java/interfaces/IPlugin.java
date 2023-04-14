@@ -1,8 +1,10 @@
 package interfaces;
 
+import abstractClasses.Entity;
+
 public interface IPlugin {
 
-    public boolean create();
-    public boolean delete();
+    Entity create();
+    Entity delete();
 
 }

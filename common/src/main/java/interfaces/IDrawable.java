@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.awt.*;
+
 public interface IDrawable {
-    public void draw();
+    void draw(Graphics g);
 }

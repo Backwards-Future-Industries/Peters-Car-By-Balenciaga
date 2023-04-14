@@ -1,3 +1,4 @@
+import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -19,11 +20,13 @@ class GameEngineTest {
     @Tag("test")
     @Test
     public void OpenWindowTest(){
-        Assertions.assertEquals("Peter's car",gameEngine.window.getTitle());
-        Assertions.assertEquals(500,gameEngine.window.getWidth());
-        Assertions.assertEquals(500,gameEngine.window.getHeight());
-        Assertions.assertEquals(1,gameEngine.window.getKeyListeners().length);
-        Assertions.assertTrue(gameEngine.window.isVisible());
+        int length = 500;
+        gameEngine.getWindow().setSize(length,length);
+        Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
+        Assertions.assertEquals(length,gameEngine.getWindow().getWidth());
+        Assertions.assertEquals(length,gameEngine.getWindow().getHeight());
+        Assertions.assertEquals(1,gameEngine.getWindow().getKeyListeners().length);
+        Assertions.assertTrue(gameEngine.getWindow().isVisible());
     }
 
 }
