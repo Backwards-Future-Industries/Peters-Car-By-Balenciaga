@@ -7,5 +7,5 @@ public abstract class Weapon extends Entity {
     public Weapon(int health, BufferedImage sprite) {
         super(health, sprite);
     }
-    public abstract Entity shot() throws IOException;
+    public abstract Entity shoot() throws IOException;
 }

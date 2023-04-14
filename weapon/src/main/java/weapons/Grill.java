@@ -10,14 +10,19 @@ import java.net.URL;
 
 public class Grill extends Weapon{
 
-    private static URL bullet = Grill.class.getClassLoader().getResource("images/bullet.png");
 
     public Grill(int health, BufferedImage sprite) {
         super(health, sprite);
     }
 
     @Override
-    public Entity shot() throws IOException {
-        return new Bullet(1, ImageIO.read(bullet));
+    public Entity shoot() throws IOException {
+        return null;
     }
+
+
+    /*public void shoot() throws IOException {
+        Bullet bullet = new Bullet();
+        bullet.create();
+    }*/
 }
