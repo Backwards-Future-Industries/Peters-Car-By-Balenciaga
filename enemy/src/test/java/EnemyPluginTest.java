@@ -1,17 +1,19 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilities.image.Image;
+import utilities.image.ImageLoader;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class EnemyPluginTest {
     private EnemyPlugin lowTierGod;
     private double[] positions;
-    private BufferedImage lowTierGodImage;
+    private Image lowTierGodImage;
 
     private boolean ImageComparator(BufferedImage a, BufferedImage b){
         if (a.getWidth() == b.getWidth() && a.getHeight() == b.getHeight()){
@@ -28,8 +30,9 @@ class EnemyPluginTest {
     @BeforeEach
     void setUp() {
         positions = new double[]{10, 10};
+        URL url = EnemyPluginTest.class.getClassLoader().getResource("images/ltg.png");
         try {
-            lowTierGodImage = ImageIO.read(EnemyPluginTest.class.getClassLoader().getResource("images/ltg.png"));
+            lowTierGodImage = ImageLoader.loadImage(url);
             lowTierGod = new EnemyPlugin();
             lowTierGod.create();
         } catch (IOException e) {
@@ -41,7 +44,8 @@ class EnemyPluginTest {
     void create() {
         Assertions.assertNotEquals(positions,lowTierGod.getPosition());
         Assertions.assertEquals(10,lowTierGod.getHealth());
-        Assertions.assertTrue(ImageComparator(lowTierGodImage,lowTierGod.getSprite()));
+        Assertions.assertEquals(lowTierGodImage,lowTierGod.getSprite());
+        Assertions.assertTrue(ImageComparator(lowTierGodImage.getBufferedImage(),lowTierGod.getSprite().getBufferedImage()));
     }
 
     @Test

@@ -1,22 +1,23 @@
 package abstractClasses;
 
+import utilities.image.Image;
+import utilities.image.ImageLoader;
+
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public abstract class Entity {
     private int health;
 
-    private BufferedImage sprite;
+    private Image sprite;
     private int[] position;
     private double radius;
 
-    private AffineTransform transform;
 
-
-    public Entity(int health, BufferedImage sprite){
+    public Entity(int health, URL sprite){
         this.health = health;
-        this.sprite = sprite;
-        this.transform = new AffineTransform();
+        this.sprite = ImageLoader.loadImage(sprite);
         radius = 20; //placeholder default value
     }
 
@@ -27,12 +28,12 @@ public abstract class Entity {
         this.health = health;
     }
 
-    public synchronized BufferedImage getSprite() {
+    public synchronized Image getSprite() {
         return sprite;
     }
 
-    public void setSprite(BufferedImage sprite) {
-        this.sprite = sprite;
+    public void setSprite(URL sprite) {
+        this.sprite = ImageLoader.loadImage(sprite);
     }
 
     public void setPosition(int[] position) {
@@ -49,8 +50,5 @@ public abstract class Entity {
 
     public double getRadius() {
         return radius;
-    }
-    public AffineTransform getTransform() {
-        return transform;
     }
 }

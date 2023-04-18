@@ -22,7 +22,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, ImageIO.read(sprite));
+        super(5, sprite);
         setPosition(new int[]{10,10});
     }
 
@@ -46,8 +46,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     @Override
     public void draw(Graphics2D g, JPanel panel) {
         int[] posistion = getPosition();
-        AffineTransform transform = new AffineTransform();
-        g.drawImage(getSprite(),getTransform(), panel);
+        g.drawImage(getSprite().getBufferedImage(),getSprite().getTransform(), panel);
 
     }
 
