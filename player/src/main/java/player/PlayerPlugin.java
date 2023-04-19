@@ -6,6 +6,7 @@ import interfaces.IPlugin;
 import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.Inputs;
+import utilities.Vector2D;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,11 +18,14 @@ import java.util.ArrayList;
 public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing, IMovement {
 
     private Entity player;
+
     private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, ImageIO.read(sprite));
+        super(5, ImageIO.read(sprite),1,5);
         setPosition(new int[]{10,10});
+        setRadians(Math.PI*((double) 1/2));
+        setDirection(new Vector2D(0,0));
     }
 
     @Override
@@ -50,7 +54,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     @Override
     public void process(ArrayList<Inputs> inputs) {
-        setPosition(defaultMove(inputs, getPosition()));
+        setPosition(defaultMove(inputs,this));
 
     }
 }
