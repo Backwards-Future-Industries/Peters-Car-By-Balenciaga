@@ -55,8 +55,9 @@ public class GameEngine {
               }
           }
         };
-        panel.setSize(500,500);
-        window.setSize(500,500);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        panel.setSize(screenSize.width,screenSize.height);
+        window.setSize(screenSize.width,screenSize.height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Peter's car");
         window.add(panel);

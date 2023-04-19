@@ -44,8 +44,10 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     @Override
     public void draw(Graphics2D g, JPanel panel) {
         int[] posistion = getPosition();
-        g.drawImage(getSprite().getSourceImage(),getSprite().getTransform(), panel);
-        getSprite().rotate(1);
+        int[] desRect = {4,2,5,6};
+        g.drawImage(getSprite().getTransformedImage(),posistion[0],posistion[1],panel);
+        //g.drawImage(getSprite().getTransformedImage(),getSprite().getTransformOp(),posistion[0],posistion[1]);
+        getSprite().rotate(0.001);
 
     }
 
