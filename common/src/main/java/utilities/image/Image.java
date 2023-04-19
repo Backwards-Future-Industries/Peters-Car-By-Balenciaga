@@ -3,32 +3,20 @@ package utilities.image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
 
 public class Image {
 
     private BufferedImage sourceImage;
-    private BufferedImage transformedImage;
+    private BufferedImage image;
     private AffineTransform transform;
-    private AffineTransformOp transformOp;
 
     private double rotation;
 
-    Image(BufferedImage sourceImage){
+    Image(BufferedImage sourceImage, double[] scale){
         this.sourceImage = sourceImage;
-        this.transformedImage = copy(this.sourceImage);
         this.transform = new AffineTransform();
-        this.transformOp = new AffineTransformOp(transform,AffineTransformOp.TYPE_BICUBIC);
         this.rotation = 0.;
-        scale();
-    }
-
-    private BufferedImage copy(BufferedImage bufferedImage){
-        ColorModel cm = bufferedImage.getColorModel();
-        boolean isAlpha = cm.isAlphaPremultiplied();
-        WritableRaster raster = bufferedImage.copyData(null);
-        return new BufferedImage(cm, raster, isAlpha,null);
+        scale(scale[0],scale[1]);
     }
 
     public AffineTransform getTransform() {
@@ -37,30 +25,24 @@ public class Image {
     public BufferedImage getSourceImage() {
         return sourceImage;
     }
-    public BufferedImage getTransformedImage() {
-        return transformedImage;
-    }
 
-    public void scale(){
-        transform = AffineTransform.getScaleInstance(0.2,0.2);
-        transformOp = new AffineTransformOp(transform,AffineTransformOp.TYPE_BICUBIC);
-        transformOp.filter(sourceImage,transformedImage);
+    public BufferedImage getImage() {
+        return image;
     }
+    public void scale(double sx, double sy){
+        transform = AffineTransform.getScaleInstance(sx,sy);
+        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+        image = op.filter(sourceImage,image);
 
-    public void rotate(double addition){
+    }
+    public void rotate(double addition, int[] position){
         rotation = rotation + addition;
-        transform = AffineTransform.getRotateInstance(rotation,sourceImage.getWidth()/2,sourceImage.getHeight()/2);
-        transformOp = new AffineTransformOp(transform,AffineTransformOp.TYPE_BICUBIC);
-        transformOp.filter(sourceImage,transformedImage);
+        transform = AffineTransform.getRotateInstance(rotation,position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
+
     }
-    public void freshRotate(double radians){
+    public void freshRotate(double radians, int[] position){
         rotation = radians;
-        transform = AffineTransform.getRotateInstance(rotation,sourceImage.getWidth()/2,sourceImage.getHeight()/2);
-        transformOp = new AffineTransformOp(transform,AffineTransformOp.TYPE_BICUBIC);
-        transformOp.filter(sourceImage,transformedImage);
+        transform = AffineTransform.getRotateInstance(rotation, position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
     }
 
-    public AffineTransformOp getTransformOp() {
-        return transformOp;
-    }
 }

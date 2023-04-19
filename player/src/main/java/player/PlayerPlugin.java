@@ -9,6 +9,7 @@ import utilities.Inputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, sprite);
+        super(5, sprite, new double[]{0.5,0.5});
         setPosition(new int[]{10,10});
     }
 
@@ -44,11 +45,14 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     @Override
     public void draw(Graphics2D g, JPanel panel) {
         int[] posistion = getPosition();
-        int[] desRect = {4,2,5,6};
-        g.drawImage(getSprite().getTransformedImage(),posistion[0],posistion[1],panel);
-        //g.drawImage(getSprite().getTransformedImage(),getSprite().getTransformOp(),posistion[0],posistion[1]);
-        getSprite().rotate(0.001);
 
+        AffineTransform backup = g.getTransform();
+
+        AffineTransform transform = getSprite().getTransform();
+        g.setTransform(transform);
+        g.drawImage(getSprite().getImage(),posistion[0],posistion[1],panel);
+
+        g.setTransform(backup);
     }
 
     @Override

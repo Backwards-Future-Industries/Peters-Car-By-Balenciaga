@@ -30,7 +30,7 @@ class EnemyPluginTest {
         positions = new double[]{10, 10};
         URL url = EnemyPluginTest.class.getClassLoader().getResource("images/ltg.png");
         try {
-            lowTierGodImage = ImageLoader.loadImage(url);
+            lowTierGodImage = ImageLoader.loadImage(url, new double[]{1,1});
             lowTierGod = new EnemyPlugin();
             lowTierGod.create();
         } catch (IOException e) {
@@ -42,8 +42,7 @@ class EnemyPluginTest {
     void create() {
         Assertions.assertNotEquals(positions,lowTierGod.getPosition());
         Assertions.assertEquals(10,lowTierGod.getHealth());
-        Assertions.assertEquals(lowTierGodImage,lowTierGod.getSprite());
-        Assertions.assertTrue(ImageComparator(lowTierGodImage.getSourceImage(),lowTierGod.getSprite().getSourceImage()));
+        Assertions.assertTrue(ImageComparator(lowTierGodImage.getImage(),lowTierGod.getSprite().getImage()));
     }
 
     @Test

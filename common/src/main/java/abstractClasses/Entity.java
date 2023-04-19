@@ -12,13 +12,17 @@ public abstract class Entity {
 
     private Image sprite;
     private int[] position;
+    private double[] scale;
     private double radius;
 
+    public Entity(int health, URL sprite, double[] scale){
+        this.health = health;
+        this.sprite = ImageLoader.loadImage(sprite,scale);
+        radius = 20; //placeholder default value
+    }
 
     public Entity(int health, URL sprite){
-        this.health = health;
-        this.sprite = ImageLoader.loadImage(sprite);
-        radius = 20; //placeholder default value
+        this(health,sprite,new double[]{1,1});
     }
 
     public int getHealth() {
@@ -33,7 +37,7 @@ public abstract class Entity {
     }
 
     public void setSprite(URL sprite) {
-        this.sprite = ImageLoader.loadImage(sprite);
+        this.sprite = ImageLoader.loadImage(sprite, scale);
     }
 
     public void setPosition(int[] position) {
