@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class EnemyPluginTest {
     private EnemyPlugin lowTierGod;
     private double[] positions;
@@ -45,7 +43,7 @@ class EnemyPluginTest {
         Assertions.assertNotEquals(positions,lowTierGod.getPosition());
         Assertions.assertEquals(10,lowTierGod.getHealth());
         Assertions.assertEquals(lowTierGodImage,lowTierGod.getSprite());
-        Assertions.assertTrue(ImageComparator(lowTierGodImage.getBufferedImage(),lowTierGod.getSprite().getBufferedImage()));
+        Assertions.assertTrue(ImageComparator(lowTierGodImage.getSourceImage(),lowTierGod.getSprite().getSourceImage()));
     }
 
     @Test

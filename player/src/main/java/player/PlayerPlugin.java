@@ -7,10 +7,8 @@ import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.Inputs;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -46,7 +44,8 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     @Override
     public void draw(Graphics2D g, JPanel panel) {
         int[] posistion = getPosition();
-        g.drawImage(getSprite().getBufferedImage(),getSprite().getTransform(), panel);
+        g.drawImage(getSprite().getSourceImage(),getSprite().getTransform(), panel);
+        getSprite().rotate(1);
 
     }
 
