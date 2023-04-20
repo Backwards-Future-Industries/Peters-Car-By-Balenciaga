@@ -10,7 +10,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
     private static URL defaultImage = EnemyPlugin.class.getClassLoader().getResource("images/ltg.png");
 
     protected EnemyPlugin() throws IOException {
-        super(10,ImageIO.read(defaultImage));
+        super(10,defaultImage);
         setPosition(new int[]{10,10});
     }
 
