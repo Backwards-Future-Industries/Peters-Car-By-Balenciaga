@@ -4,6 +4,7 @@ import abstractClasses.Entity;
 import utilities.Inputs;
 import utilities.Vector2D;
 
+import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 import java.util.ArrayList;
 
 public interface IMovement {
@@ -28,17 +29,15 @@ public interface IMovement {
             dy -= Math.sin(radians) * entity.getAcceleration()/2;
         }
 
-        //Make sure speed is less than MaxSpeed!!!
-        double speed = Math.sqrt(dx * dx + dy * dy);
-        if (speed > entity.getMaxSpeed()) {
-            dx = (dx / speed) * entity.getMaxSpeed();
-            dy = (dy / speed) * entity.getMaxSpeed();
-        }
-
 
         //Makes sure that when radians passes 2pi its reset to 0 removing potential overflow
         if (Math.abs(radians) > 2*Math.PI) {
             radians = 0;
+        }
+
+        //Prevents radians from being negative (Completely unnecessary but looks nice :))
+        if (radians < 0){
+            radians += 2*Math.PI;
         }
 
         //Using the rotation matrix to rotate the direction vector counter-clockwise and updating its radians
@@ -55,10 +54,13 @@ public interface IMovement {
             radians += rotationSpeed;
         }
 
-        System.out.println("dx: "+dx);
-        System.out.println("dy: "+dy);
-        System.out.println("Speed: "+speed);
-
+        //Make sure speed is less than MaxSpeed. By calculating the unit for the direction and the extending it with the max speed and save it as the new direction vector
+        double speed = Math.sqrt(dx * dx + dy * dy);
+        if (speed > entity.getMaxSpeed()) {
+            dx = (dx / speed) * entity.getMaxSpeed();
+            dy = (dy / speed) * entity.getMaxSpeed();
+            speed = Math.sqrt(dx * dx + dy * dy);
+        }
 
         // SOMEWHERE IN THIS CODE THE CAR LOSES MOMENTUM PURELY BECAUSE ITS ROTATING WHICH IS MOST LIKELY DUE TO SOME DIGITS BEING LOST DUE TO TYPECASTING :((((((
         entity.setRadians(radians);
@@ -68,6 +70,10 @@ public interface IMovement {
         newPosition[1] = (int) (entity.getPosition()[1] + Math.round(dy));
 
         entity.setPosition(newPosition);
+
+        System.out.println("dx: "+dx);
+        System.out.println("dy: "+dy);
+        System.out.println("Speed: "+speed);
 
         return newPosition;
     }
