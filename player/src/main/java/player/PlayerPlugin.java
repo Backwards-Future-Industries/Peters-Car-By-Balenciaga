@@ -46,13 +46,10 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     public void draw(Graphics2D g, JPanel panel) {
         int[] posistion = getPosition();
 
-        AffineTransform backup = g.getTransform();
-
         AffineTransform transform = getSprite().getTransform();
         g.setTransform(transform);
         g.drawImage(getSprite().getImage(),posistion[0],posistion[1],panel);
 
-        g.setTransform(backup);
     }
 
     @Override
