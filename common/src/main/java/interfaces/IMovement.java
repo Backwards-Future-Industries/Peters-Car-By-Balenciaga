@@ -36,11 +36,11 @@ public interface IMovement {
 
         //Turning
         if (inputs.contains(Inputs.KEY_A)) {
-            radians += Math.PI * ((double) 1 / 32);
+            radians -= Math.PI * ((double) 1 / 32);
         }
 
         if (inputs.contains(Inputs.KEY_D)) {
-            radians -= Math.PI * ((double) 1 / 32);
+            radians += Math.PI * ((double) 1 / 32);
         }
 
         entity.setRadians(radians);
