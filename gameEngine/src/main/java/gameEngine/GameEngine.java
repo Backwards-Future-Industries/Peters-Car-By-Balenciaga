@@ -7,6 +7,7 @@ import utilities.Inputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -50,8 +51,12 @@ public class GameEngine {
           @Override
           public void paintComponent(Graphics g) {
               super.paintComponent(g);
+              Graphics2D g2d = (Graphics2D) g;
+              AffineTransform backup = g2d.getTransform();
+
               for (IDrawable entity : getDrawables()) {
-                  entity.draw((Graphics2D) g,panel);
+                  entity.draw(g2d,panel);
+                  g2d.setTransform(backup);
               }
           }
         };
