@@ -7,6 +7,7 @@ import utilities.Inputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -50,13 +51,18 @@ public class GameEngine {
           @Override
           public void paintComponent(Graphics g) {
               super.paintComponent(g);
+              Graphics2D g2d = (Graphics2D) g;
+              AffineTransform backup = g2d.getTransform();
+
               for (IDrawable entity : getDrawables()) {
-                  entity.draw(g);
+                  entity.draw(g2d,panel);
+                  g2d.setTransform(backup);
               }
           }
         };
-        panel.setSize(500,500);
-        window.setSize(500,500);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        panel.setSize(screenSize.width,screenSize.height);
+        window.setSize(screenSize.width,screenSize.height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Peter's car");
         window.add(panel);
@@ -68,7 +74,6 @@ public class GameEngine {
         drawLoop.start();
         gameLoop.start();
     }
-
 
     private double getDeltaTime(){
         return System.currentTimeMillis() - lastDraw;

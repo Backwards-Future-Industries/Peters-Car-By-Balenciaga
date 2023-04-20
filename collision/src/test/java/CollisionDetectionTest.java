@@ -3,21 +3,22 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 class CollisionDetectionTest {
 
     CollisionDetection collisionDetection = new CollisionDetection();
-
+    private static URL sprite = TestEntity.class.getClassLoader().getResource("images/placeholder.png");
     private class TestEntity extends Entity {
 
-        public TestEntity(int health, BufferedImage sprite) {
+        public TestEntity(int health, URL sprite) {
             super(health, sprite);
         }
 
     }
 
-    TestEntity testEntity1 = new TestEntity(1,null);
-    TestEntity testEntity2 = new TestEntity(1,null);
+    TestEntity testEntity1 = new TestEntity(1,sprite);
+    TestEntity testEntity2 = new TestEntity(1,sprite);
 
     @Test
     public void colliding(){
