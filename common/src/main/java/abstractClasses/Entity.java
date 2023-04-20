@@ -25,11 +25,13 @@ public abstract class Entity {
         this.health = health;
         this.scale = scale;
         this.sprite = ImageLoader.loadImage(sprite,scale);
+        this.acceleration = 0;
+        this.maxSpeed = 0;
         radius = 20; //placeholder default value
     }
     
-    public Entity(int health, URL sprite, int acceleration, int maxSpeed){
-        this(health,sprite,new double[]{1,1});
+    public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed){
+        this(health,sprite,scale);
         this.acceleration = acceleration;
         this.maxSpeed   = maxSpeed;
         radius = 20; //placeholder default value

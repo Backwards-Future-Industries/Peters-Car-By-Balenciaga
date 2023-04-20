@@ -10,10 +10,11 @@ public interface IMovement {
     default int[] defaultMove(ArrayList<Inputs> inputs, Entity entity) {
         double dx = entity.getDirection().getX();
         double dy = entity.getDirection().getY();
-        System.out.println("dx:" +dx + " dy:"+dy);
 
         double radians = entity.getRadians();
         int[] newPosition = new int[2];
+
+        System.out.println();
 
         //Accelerate
         if (inputs.contains(Inputs.KEY_W)) {
@@ -23,8 +24,8 @@ public interface IMovement {
 
         //De-accelerate
         if (inputs.contains(Inputs.KEY_S)) {
-            dx -= Math.cos(radians) * entity.getAcceleration() / 2;
-            dy -= Math.sin(radians) * entity.getAcceleration() / 2;
+            dx -= Math.cos(radians) * entity.getAcceleration();
+            dy -= Math.sin(radians) * entity.getAcceleration();
         }
 
         //Make sure speed is less than MaxSpeed!!!
@@ -43,15 +44,22 @@ public interface IMovement {
             radians += Math.PI * ((double) 1 / 32);
         }
 
+        if (Math.round(radians%(2*Math.PI)*1000)/1000 == 0) {
+            radians=0;
+        }
+
         entity.setRadians(radians);
-        entity.setDirection(new Vector2D(dx, dy));
+        entity.setDirection(new Vector2D(Math.cos(radians)*speed, Math.sin(radians)*speed));
 
         newPosition[0] += entity.getPosition()[0]+ dx;
         newPosition[1] += entity.getPosition()[1]+ dy;
 
         entity.setPosition(newPosition);
 
-        System.out.println("dx:" +dx + " dy:"+dy);
+        speed = Math.sqrt(dx * dx + dy * dy);
+
+        System.out.println("radians: " + radians);
+        System.out.println("Speed: "+ speed);
 
         return newPosition;
     }
