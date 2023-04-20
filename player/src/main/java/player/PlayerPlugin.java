@@ -20,12 +20,12 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     private Entity player;
 
-    private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
+    private static final URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, sprite, new double[]{0.5,0.5},1,5);
-        setPosition(new int[]{10,10});
-        setRadians(Math.PI*((double) 1/2));
+        super(5, sprite, new double[]{0.5,0.5},1,10);
+        setPosition(new int[]{700,500});
+        setRadians(0);
         setDirection(new Vector2D(0,0));
     }
 
@@ -48,11 +48,11 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
-        int[] posistion = getPosition();
+        int[] position = getPosition();
 
         AffineTransform transform = getSprite().getTransform();
         g.setTransform(transform);
-        g.drawImage(getSprite().getImage(),posistion[0],posistion[1],panel);
+        g.drawImage(getSprite().getImage(),position[0],position[1],panel);
 
     }
 
@@ -60,7 +60,5 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     public void process(ArrayList<Inputs> inputs) {
         setPosition(defaultMove(inputs,this));
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
-
-
     }
 }

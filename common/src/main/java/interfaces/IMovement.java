@@ -10,6 +10,7 @@ public interface IMovement {
     default int[] defaultMove(ArrayList<Inputs> inputs, Entity entity) {
         double dx = entity.getDirection().getX();
         double dy = entity.getDirection().getY();
+        double rotationSpeed = Math.PI * ((double) 1 / 32);
 
         double radians = entity.getRadians();
         int[] newPosition = new int[2];
@@ -23,8 +24,8 @@ public interface IMovement {
 
         //De-accelerate
         if (inputs.contains(Inputs.KEY_S)) {
-            dx -= Math.cos(radians) * entity.getAcceleration();
-            dy -= Math.sin(radians) * entity.getAcceleration();
+            dx -= Math.cos(radians) * entity.getAcceleration()/2;
+            dy -= Math.sin(radians) * entity.getAcceleration()/2;
         }
 
         //Make sure speed is less than MaxSpeed!!!
@@ -34,32 +35,39 @@ public interface IMovement {
             dy = (dy / speed) * entity.getMaxSpeed();
         }
 
-        //Turning
+
+        //Makes sure that when radians passes 2pi its reset to 0 removing potential overflow
+        if (Math.abs(radians) > 2*Math.PI) {
+            radians = 0;
+        }
+
+        //Using the rotation matrix to rotate the direction vector counter-clockwise and updating its radians
         if (inputs.contains(Inputs.KEY_A)) {
-            radians -= Math.PI * ((double) 1 / 32);
+            dx = dx*Math.cos(-rotationSpeed)-dy*Math.sin(-rotationSpeed);
+            dy = dx*Math.sin(-rotationSpeed)+dy*Math.cos(-rotationSpeed);
+            radians -= rotationSpeed;
         }
 
+        //Using the rotation matrix to rotate the direction vector clockwise and updating its radians
         if (inputs.contains(Inputs.KEY_D)) {
-            radians += Math.PI * ((double) 1 / 32);
+            dx = dx*Math.cos(rotationSpeed)-dy*Math.sin(rotationSpeed);
+            dy = dx*Math.sin(rotationSpeed)+dy*Math.cos(rotationSpeed);
+            radians += rotationSpeed;
         }
 
-        if (Math.round(radians%(2*Math.PI)*1000)/1000 == 0) {
-            radians=0;
-        }
+        System.out.println("dx: "+dx);
+        System.out.println("dy: "+dy);
+        System.out.println("Speed: "+speed);
 
+
+        // SOMEWHERE IN THIS CODE THE CAR LOSES MOMENTUM PURELY BECAUSE ITS ROTATING WHICH IS MOST LIKELY DUE TO SOME DIGITS BEING LOST DUE TO TYPECASTING :((((((
         entity.setRadians(radians);
-        entity.setDirection(new Vector2D(Math.cos(radians)*speed, Math.sin(radians)*speed));
+        entity.setDirection(new Vector2D(dx, dy));
 
-        newPosition[0] += entity.getPosition()[0]+ dx;
-        newPosition[1] += entity.getPosition()[1]+ dy;
+        newPosition[0] = (int) (entity.getPosition()[0] + Math.round(dx));
+        newPosition[1] = (int) (entity.getPosition()[1] + Math.round(dy));
 
         entity.setPosition(newPosition);
-
-        speed = Math.sqrt(dx * dx + dy * dy);
-
-        System.out.println("radians: " + radians);
-        System.out.println("Speed: "+ speed);
-
 
         return newPosition;
     }
