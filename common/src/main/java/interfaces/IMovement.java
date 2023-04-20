@@ -14,7 +14,6 @@ public interface IMovement {
         double radians = entity.getRadians();
         int[] newPosition = new int[2];
 
-        System.out.println();
 
         //Accelerate
         if (inputs.contains(Inputs.KEY_W)) {
@@ -60,6 +59,7 @@ public interface IMovement {
 
         System.out.println("radians: " + radians);
         System.out.println("Speed: "+ speed);
+
 
         return newPosition;
     }

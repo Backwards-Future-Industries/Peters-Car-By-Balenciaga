@@ -61,5 +61,6 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
         setPosition(defaultMove(inputs,this));
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
 
+
     }
 }
