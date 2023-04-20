@@ -17,6 +17,7 @@ public abstract class Entity {
 
     public Entity(int health, URL sprite, double[] scale){
         this.health = health;
+        this.scale = scale;
         this.sprite = ImageLoader.loadImage(sprite,scale);
         radius = 20; //placeholder default value
     }
