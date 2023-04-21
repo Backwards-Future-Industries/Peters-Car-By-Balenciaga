@@ -7,10 +7,10 @@ import java.net.URL;
 
 public class EnemyPlugin extends Entity implements IPlugin {
     private Entity lowTierGod;
-    private static URL defaultImage = EnemyPlugin.class.getClassLoader().getResource("images/ltg.png");
+    private static URL sprite = EnemyPlugin.class.getClassLoader().getResource("images/ltg.png");
 
     protected EnemyPlugin() throws IOException {
-        super(10,defaultImage);
+        super(10,sprite, new double[]{0.5,0.5});
         setPosition(new int[]{10,10});
     }
 
