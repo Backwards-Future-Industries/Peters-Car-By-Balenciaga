@@ -20,17 +20,18 @@ public abstract class Entity {
     private double radians = 0;
     private Vector2D direction;
 
+    public Entity(int health, URL sprite){
+        this(health,sprite,new double[]{1,1});
+
+    }
     public Entity(int health, URL sprite, double[] scale){
-        this.health = health;
-        this.scale = scale;
-        this.sprite = ImageLoader.loadImage(sprite,scale);
-        this.acceleration = 0;
-        this.maxSpeed = 0;
-        radius = 20; //placeholder default value
+        this(health,sprite,scale,0,0);
     }
     
     public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed){
-        this(health,sprite,scale);
+        this.health = health;
+        this.scale = scale;
+        this.sprite = ImageLoader.loadImage(sprite,scale);
         this.acceleration = acceleration;
         this.maxSpeed   = maxSpeed;
         radius = 20; //placeholder default value

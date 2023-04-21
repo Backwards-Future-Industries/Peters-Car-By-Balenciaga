@@ -7,24 +7,25 @@ import player.PlayerPlugin;
 import java.io.IOException;
 
 public class PlayerPluginTest {
-    private double position;
+    private int[] position;
     private Entity playerPlugin;
 
     @BeforeEach
     void setPlayerPlugin(){
         try {
             this.playerPlugin = new PlayerPlugin().create();
+            this.playerPlugin.setPosition(new int[]{700, 500});
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.position = 10.0;
+        this.position = new int[]{700,500};
 
     }
 
     @Test
     public void testPosition(){
-        Assertions.assertEquals(position,playerPlugin.getPosition()[0]);
-        Assertions.assertEquals(position,playerPlugin.getPosition()[1]);
+        Assertions.assertEquals(position[0],playerPlugin.getPosition()[0]);
+        Assertions.assertEquals(position[1],playerPlugin.getPosition()[1]);
     }
 }
 
