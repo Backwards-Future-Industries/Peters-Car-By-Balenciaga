@@ -3,8 +3,6 @@ package interfaces;
 import abstractClasses.Entity;
 import utilities.Inputs;
 import utilities.Vector2D;
-
-import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 import java.util.ArrayList;
 
 public interface IMovement {
