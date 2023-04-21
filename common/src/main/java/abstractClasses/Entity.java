@@ -48,8 +48,9 @@ public abstract class Entity {
         return sprite;
     }
 
-    public void setSprite(URL sprite) {
-        this.sprite = ImageLoader.loadImage(sprite, scale);
+    public void setSprite(URL sprite, double[] scale) {
+        this.scale = scale;
+        this.sprite = ImageLoader.loadImage(sprite, this.scale);
     }
 
     public void setPosition(int[] position) {

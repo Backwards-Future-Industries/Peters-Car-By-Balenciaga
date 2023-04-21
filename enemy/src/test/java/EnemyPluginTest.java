@@ -13,6 +13,7 @@ class EnemyPluginTest {
     private double[] positions;
     private Image lowTierGodImage;
 
+    //https://stackoverflow.com/questions/15305037/java-compare-one-bufferedimage-to-another
     private boolean ImageComparator(BufferedImage a, BufferedImage b){
         if (a.getWidth() == b.getWidth() && a.getHeight() == b.getHeight()){
             for (int i = 0; i< a.getWidth()* a.getHeight(); i++){
