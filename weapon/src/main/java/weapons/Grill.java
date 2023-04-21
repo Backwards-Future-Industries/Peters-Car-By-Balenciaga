@@ -11,7 +11,7 @@ import java.net.URL;
 public class Grill extends Weapon{
 
 
-    public Grill(int health, BufferedImage sprite) {
+    public Grill(int health, URL sprite) {
         super(health, sprite);
     }
 
