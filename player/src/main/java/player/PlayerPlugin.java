@@ -20,7 +20,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     private Entity player;
 
-    private static final URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
+    private static final URL sprite = PlayerPlugin.class.getResource("/images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
         super(5, sprite, new double[]{0.5,0.5},1,10);
@@ -28,6 +28,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
         setRadians(0);
         setDirection(new Vector2D(0,0));
     }
+
 
     @Override
     public Entity create() {
