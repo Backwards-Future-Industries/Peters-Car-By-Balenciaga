@@ -1,10 +1,7 @@
 package player;
 
-import interfaces.IDrawable;
-import interfaces.IMovement;
-import interfaces.IPlugin;
+import interfaces.*;
 import abstractClasses.Entity;
-import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.Vector2D;
 
@@ -31,7 +28,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
 
     @Override
-    public Entity create() {
+    public Entity create(GameEngine gameEngine) {
         Entity newPlayer;
         try {
             newPlayer = new PlayerPlugin();
@@ -43,7 +40,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
 
     @Override
-    public Entity delete() {
+    public Entity delete(GameEngine gameEngine) {
         return null;
     }
 
@@ -58,7 +55,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, GameEngine gameEngine) {
         setPosition(defaultMove(inputs,this));
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
     }

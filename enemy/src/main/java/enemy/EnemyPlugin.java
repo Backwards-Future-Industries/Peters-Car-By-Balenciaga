@@ -1,6 +1,7 @@
 package enemy;
 
 import abstractClasses.Entity;
+import interfaces.GameEngine;
 import interfaces.IPlugin;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
     }
 
     @Override
-    public Entity create() {
+    public Entity create(GameEngine gameEngine) {
         try {
             lowTierGod = new EnemyPlugin();
         } catch (IOException e) {
@@ -27,7 +28,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
     }
 
     @Override
-    public Entity delete() {
+    public Entity delete(GameEngine gameEngine) {
         this.setHealth(0);
         return this;
     }

@@ -12,10 +12,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameEngine {
+public class GameEngine implements interfaces.GameEngine {
 
     private double framerate;
     private long lastDraw;
+    private long lastProcess;
     private LinkedList<IPlugin> newEntities;
     private LinkedList<IProcessing> processes;
     private LinkedList<IDrawable> drawables;
@@ -37,7 +38,7 @@ public class GameEngine {
         this.processes = new LinkedList<IProcessing>();
         this.drawables = new LinkedList<IDrawable>();
         this.drawLoop = new DrawLoop();
-        this.gameLoop = new GameLoop();
+        this.gameLoop = new GameLoop(this);
         this.drawLock = new ReentrantLock(true);
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
@@ -74,9 +75,14 @@ public class GameEngine {
         drawLoop.start();
         gameLoop.start();
     }
-
-    private double getDeltaTime(){
+    @Override
+    public long getDeltaDrawTime(){
         return System.currentTimeMillis() - lastDraw;
+    }
+
+    @Override
+    public long getDeltaProcessTime() {
+        return System.currentTimeMillis() - lastProcess;
     }
 
     public void stop(){
@@ -92,7 +98,7 @@ public class GameEngine {
         Dimension d =  window.getSize();
         return new int[]{d.width,d.height};
     }
-
+    @Override
     public LinkedList<IDrawable> getDrawables() {
         drawLock.lock();
         try {
@@ -101,6 +107,7 @@ public class GameEngine {
             drawLock.unlock();
         }
     }
+    @Override
     public LinkedList<IPlugin> getNewEntities() {
         newLock.lock();
         try{
@@ -109,6 +116,7 @@ public class GameEngine {
             newLock.unlock();
         }
     }
+    @Override
     public LinkedList<IProcessing> getProcesses() {
         processLock.lock();
         try {
@@ -117,28 +125,70 @@ public class GameEngine {
             processLock.unlock();
         }
     }
-    public void addDrawables(IDrawable draw) {
+    @Override
+    public boolean addDrawables(IDrawable draw) {
         drawLock.lock();
         try {
-            this.drawables.add(draw);
-        }finally {
+            if (this.drawables.add(draw)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        finally {
             drawLock.unlock();
         }
     }
-    public void addNewEntities(IPlugin newEntity) {
+    @Override
+    public boolean addNewEntities(IPlugin newEntity) {
         newLock.lock();
         try {
-            this.newEntities.add(newEntity);
+            if (this.newEntities.add(newEntity)){
+                return true;
+            }else{
+                return false;
+            }
         }finally {
             newLock.unlock();
         }
     }
-    public void addProcesses(IProcessing process) {
+    @Override
+    public boolean addProcesses(IProcessing process) {
         processLock.lock();
         try {
-            this.processes.add(process);
+            if (this.processes.add(process)){
+                return true;
+            }else{
+                return false;
+            }
         }finally {
             processLock.unlock();
+        }
+    }
+    @Override
+    public boolean removeDrawables(IDrawable drawable) {
+        drawLock.lock();
+        try{
+            if (drawables.remove(drawable)){
+                return true;
+            }else{
+                return false;
+            }
+        }finally {
+            drawLock.unlock();
+        }
+    }
+    @Override
+    public boolean removeProcesses(IProcessing process) {
+        processLock.lock();
+        try {
+            if (processes.remove(process)){
+                return true;
+            }else {
+                return false;
+            }
+        }finally {
+            processLock.lock();
         }
     }
 
@@ -152,7 +202,7 @@ public class GameEngine {
         public void run() {
             lastDraw = 0;
             while (isRunning) {
-                while (1.0/(getDeltaTime()*1000.0) <= framerate){
+                while (1.0/(getDeltaDrawTime()*1000.0) <= framerate){
                     panel.repaint();
                     lastDraw = System.currentTimeMillis();
                 }
@@ -166,25 +216,24 @@ public class GameEngine {
 
     private class GameLoop extends Thread{
         private boolean isRunning;
-        public GameLoop(){
+        interfaces.GameEngine gameEngine;
+        public GameLoop(interfaces.GameEngine gameEngine){
             this.isRunning = true;
+            this.gameEngine = gameEngine;
         }
         @Override
         public void run() {
+            lastProcess = 0;
             while (isRunning) {
                 inputs = userInputs.getInputs();
                 for(IPlugin newEntity : getNewEntities()){
-                    newEntity.create();
+                    newEntity.create(gameEngine);
                 }
                 getNewEntities().clear();
                 for(IProcessing entity : getProcesses()){
-                    entity.process(inputs);
+                    entity.process(inputs, gameEngine);
                 }
-                try {
-                    sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                lastProcess = System.currentTimeMillis();
             }
         }
 

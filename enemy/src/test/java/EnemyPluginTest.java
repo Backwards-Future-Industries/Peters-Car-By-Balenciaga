@@ -20,7 +20,7 @@ class EnemyPluginTest {
         try {
             //lowTierGodImage = ImageLoader.loadImage(url, new double[]{1,1});
             lowTierGod = new EnemyPlugin();
-            lowTierGod.create();
+            lowTierGod.create(null);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -36,6 +36,6 @@ class EnemyPluginTest {
 
     @Test
     void delete() {
-        Assertions.assertEquals(0,lowTierGod.delete().getHealth());
+        Assertions.assertEquals(0,lowTierGod.delete(null).getHealth());
     }
 }
