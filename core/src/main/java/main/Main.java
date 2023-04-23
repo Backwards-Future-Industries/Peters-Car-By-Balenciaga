@@ -1,15 +1,9 @@
 package main;
 
-import abstractClasses.Entity;
 import gameEngine.GameEngine;
-import interfaces.IPlugin;
 import player.PlayerPlugin;
-import utilities.SPILocater;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.ServiceLoader;
 
 public class Main {
 

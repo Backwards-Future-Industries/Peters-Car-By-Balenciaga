@@ -9,16 +9,18 @@ public class TestMap {
 
     @BeforeEach
     public void setUp() {
-        mapPlugin = new MapPlugin(5,5);
+
     }
 
     @Test
     public void testMapWidth() {
+        mapPlugin = new MapPlugin(5,5);
         Assertions.assertEquals(5,mapPlugin.getWidth());
     }
 
     @Test
     public void testMapHeight() {
+        mapPlugin = new MapPlugin(5,5);
         Assertions.assertEquals(5,mapPlugin.getHeight());
     }
 

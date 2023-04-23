@@ -1,12 +1,11 @@
 package utilities;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
 
-public class SPILocater {
+public class SPIlocator {
 
     /*
     All places where the SPIlocator is needed, create a new method like down below

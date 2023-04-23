@@ -1,3 +1,5 @@
+import utilities.SPIlocator;
+
 module core {
     requires player;
     requires gameEngine;
@@ -5,5 +7,5 @@ module core {
 
     uses interfaces.IPlugin;
     uses abstractClasses.Entity;
-    uses utilities.SPILocater;
+    uses SPIlocator;
 }
