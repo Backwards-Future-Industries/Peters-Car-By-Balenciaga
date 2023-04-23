@@ -1,5 +1,6 @@
 package utilities;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
@@ -7,15 +8,26 @@ import java.util.ServiceLoader;
 
 public class SPILocater {
 
-    ArrayList<Object> arrayList = new ArrayList();
+    /*
+    All places where the SPIlocator is needed, create a new method like down below
 
-    public <T> List<T> localteAll(Class service){
+    public Collection<IPlugin> getPlugin(){
+        return SPILocater.localteAll(IPlugin.class);
+    }
 
-        ServiceLoader serviceLoader = ServiceLoader.load(service);
+    Remeber to make it a collection that contains the Interface you want to call to access it's methods
+     */
+
+
+    public static  <T> List<T> localteAll(Class service){
+        ServiceLoader<T> serviceLoader = ServiceLoader.load(service);
+
+        List<T> list = new ArrayList<T>();
+
         for (T instance : serviceLoader){
-            arrayList.add(c);
+            list.add(instance);
         }
 
-        return arrayList;
+        return list;
     }
 }
