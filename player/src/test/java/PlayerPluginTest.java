@@ -23,6 +23,7 @@ public class PlayerPluginTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         this.position = new int[]{700,500};
 
         Assertions.assertEquals(this.position[0],playerPlugin.getPosition()[0]);

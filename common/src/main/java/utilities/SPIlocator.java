@@ -18,7 +18,7 @@ public class SPIlocator {
      */
 
 
-    public static  <T> List<T> localteAll(Class service){
+    public static  <T> List<T> locateAll(Class service){
         ServiceLoader<T> serviceLoader = ServiceLoader.load(service);
 
         List<T> list = new ArrayList<T>();
