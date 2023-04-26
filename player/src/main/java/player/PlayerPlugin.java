@@ -26,7 +26,6 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
         super(5, sprite, new double[]{0.5,0.5},1,10);
         setPosition(new int[]{700,500});
         setRadians(0);
-        setDirection(new Vector2D(0,0));
     }
 
     @Override
