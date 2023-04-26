@@ -6,6 +6,7 @@ import interfaces.IPlugin;
 import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.Inputs;
+import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +19,14 @@ import java.util.ArrayList;
 public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing, IMovement {
 
     private Entity player;
-    private static URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
+
+    private static final URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, sprite, new double[]{0.5,0.5});
-        setPosition(new int[]{10,10});
+        super(5, sprite, new double[]{0.5,0.5},1,10);
+        setPosition(new int[]{700,500});
+        setRadians(0);
+        setDirection(new Vector2D(0,0));
     }
 
     @Override
@@ -44,17 +48,17 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
-        int[] posistion = getPosition();
+        int[] position = getPosition();
 
         AffineTransform transform = getSprite().getTransform();
         g.setTransform(transform);
-        g.drawImage(getSprite().getImage(),posistion[0],posistion[1],panel);
+        g.drawImage(getSprite().getImage(),position[0],position[1],panel);
 
     }
 
     @Override
     public void process(ArrayList<Inputs> inputs) {
-        setPosition(defaultMove(inputs, getPosition()));
-
+        setPosition(defaultMove(inputs,this));
+        this.getSprite().freshRotate(this.getRadians(),this.getPosition());
     }
 }
