@@ -4,13 +4,17 @@ import interfaces.IDrawable;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
+
 import utilities.Inputs;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameEngine implements IGameEngine {
@@ -30,6 +34,13 @@ public class GameEngine implements IGameEngine {
     private UserInputs userInputs;
     private JFrame window;
     private JPanel panel;
+
+
+
+    {
+        panel = new JPanel();
+
+    }
 
     public GameEngine(double framerate){
         this.framerate = framerate;
@@ -242,4 +253,33 @@ public class GameEngine implements IGameEngine {
             this.isRunning = false;
         }
     }
+    /*
+    public MapShapes(JPanel panel) {
+
+        this.panel = panel;
+
+        tile = new Tile[10];
+
+        getTileImage();
+
+        return panel;
+
+    }
+
+    public void getTileImage() {
+
+        try {
+
+            tile[0] = new Tile();
+            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/grass.png")));
+            tile[1] = new Tile();
+            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/earth.png")));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    */
+
+
 }

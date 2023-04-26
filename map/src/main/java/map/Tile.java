@@ -5,6 +5,8 @@ public class Tile {
     private int y;
     private String type;
 
+
+
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
@@ -25,4 +27,6 @@ public class Tile {
         int randomIndex = (int) (Math.random() * types.length);
         return types[randomIndex];
     }
+
+
 }

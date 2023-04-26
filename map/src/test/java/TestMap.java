@@ -1,5 +1,4 @@
 
-
 import map.MapPlugin;
 import map.Tile;
 import org.junit.jupiter.api.Assertions;
@@ -30,3 +29,4 @@ public class TestMap {
         Assertions.assertNotNull(tile.getType());
     }
 }
+*/

@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
+
 public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing, IMovement {
 
     private Entity player;

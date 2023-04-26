@@ -14,11 +14,17 @@ public class Main {
     public static void main(String[] args) {
         GameEngine gm = new GameEngine(60);
         PlayerPlugin player;
+
         try {
+
             player = new PlayerPlugin();
+            mapShapes = new MapShapes();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        // By adding mapShapes before the player, we can control the players color from the draw-method in class MapShapes
+
+        gm.addDrawables(mapShapes);
         gm.addDrawables(player);
         gm.addProcesses(player);
 

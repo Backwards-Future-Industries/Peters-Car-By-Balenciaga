@@ -1,5 +1,5 @@
-package map;
-
+//package map;
+/*
 public class MapPlugin {
     private int width;
     private int height;
@@ -46,3 +46,5 @@ public class MapPlugin {
 
 
 }
+
+ */
