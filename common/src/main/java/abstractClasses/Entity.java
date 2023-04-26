@@ -39,6 +39,9 @@ public abstract class Entity {
         radius = 20; //placeholder default value
     }
 
+
+
+
     public int getHealth() {
         return health;
     }

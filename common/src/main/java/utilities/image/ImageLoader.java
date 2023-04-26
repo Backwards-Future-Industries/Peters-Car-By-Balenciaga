@@ -18,6 +18,8 @@ public class ImageLoader {
         return image;
     }
 
+
+
     //https://stackoverflow.com/questions/15305037/java-compare-one-bufferedimage-to-another
     public static boolean Comparator(BufferedImage a, BufferedImage b){
         if (a.getWidth() == b.getWidth() && a.getHeight() == b.getHeight()){

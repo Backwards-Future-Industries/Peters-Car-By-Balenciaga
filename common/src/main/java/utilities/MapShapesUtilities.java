@@ -3,8 +3,10 @@ package utilities;
 import abstractClasses.Entity;
 import interfaces.IDrawable;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public class MapShapesUtilities extends Entity implements IDrawable {
 
@@ -35,7 +37,7 @@ public class MapShapesUtilities extends Entity implements IDrawable {
 
     Rectangle[] rectangleArray;
 
-    public MapShapesUtilities(int health, BufferedImage sprite) {
+    public MapShapesUtilities(int health, URL sprite) {
         super(health, sprite);
     }
 
@@ -57,12 +59,10 @@ public class MapShapesUtilities extends Entity implements IDrawable {
         g2.draw(rectangleArray[2]);
     }
  */
-    @Override
-    public void draw(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.draw(rectangleArray[0]);
-        g2.draw(rectangleArray[1]);
-        g2.draw(rectangleArray[2]);
-    }
 
+
+    @Override
+    public void draw(Graphics2D g, JPanel panel) {
+
+    }
 }

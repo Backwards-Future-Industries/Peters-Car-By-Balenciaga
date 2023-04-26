@@ -1,14 +1,18 @@
 package map;
 
+import abstractClasses.Entity;
 import abstractClasses.Shapes;
 import interfaces.IDrawable;
 import map.tile.Tile;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -33,10 +37,24 @@ public class MapShapes extends Shapes implements IDrawable {
     Tile[] tileArrayRedRectangle;
     Tile[] tileArrayOrangeHexagon;
 
+    private AffineTransform transform;
+
+
+    private static final URL texture = MapShapes.class.getClassLoader().getResource("images/grass.png");
+
+
+
+
+    public AffineTransform getTransform() {
+        return transform;
+    }
+
 
 
     public MapShapes() throws IOException {
-        super(50,50,25,25);
+        super(1,texture,new double[]{0.5,0.5});
+        setPosition(new int[]{0,1});
+
     }
 
     public JPanel createJPanel() {
@@ -86,6 +104,7 @@ public class MapShapes extends Shapes implements IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
+        /*
         g.setColor(Color.GREEN);
         g.fillRect(100,100,50,50);
         g.setColor(Color.RED);
@@ -140,8 +159,16 @@ public class MapShapes extends Shapes implements IDrawable {
 
         }
         g.setColor(Color.YELLOW);
+        */
+        int[] texturesPosition = getPosition();
 
+        AffineTransform transform = getSprite().getTransform();
+        g.setTransform(transform);
+        g.drawImage(getSprite().getImage(),texturesPosition[0],texturesPosition[1],panel);
 
+       // AffineTransform transform = getTexture().getTransform();
+       // g.setTransform(transform);
+       // g.drawImage(getTexture().getImage(),texturesPosition[5],texturesPosition[10],panel);
     }
 
 

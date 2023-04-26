@@ -1,51 +1,36 @@
 package abstractClasses;
 
 import interfaces.IDrawable;
+import utilities.image.Image;
+import utilities.image.ImageLoader;
 
 import java.awt.*;
 import java.awt.Graphics;
+import java.net.URL;
 
-public abstract class Shapes implements IDrawable {
+public abstract class Shapes extends Entity implements IDrawable {
 
-    private int[] position;
-    private int x;
-    private int y;
-    private int width = x*x;
-    private int height = y*y;
+
+
+    private int width;
+    private int height;
 
     Rectangle[] rectangleArray;
 
+    int health;
+    private Image texture;
 
+    double[] scale;
 
     private Graphics graphics;
 
 
-    public Shapes (int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    public Shapes(int health, URL texture, double[] scale) {
+        super(health,texture,scale);
+        this.texture = ImageLoader.loadImage(texture,scale);
+        this.scale = scale;
     }
 
-
-
-
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public int getWidth() {
         return width;
@@ -63,9 +48,7 @@ public abstract class Shapes implements IDrawable {
         this.height = height;
     }
 
-    public int[] getPosition() {
-        return position;
-    }
+
 
 
 
