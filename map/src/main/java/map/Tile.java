@@ -1,32 +1,18 @@
 package map;
 
-public class Tile {
-    private int x;
-    private int y;
-    private String type;
+import abstractClasses.Entity;
+import org.jetbrains.annotations.NotNull;
 
+import java.net.URL;
 
+public class Tile extends Entity {
 
-    public Tile(int x, int y) {
-        this.x = x;
-        this.y = y;
-        type = randomTileType();
+    public Tile(eTile eTile) {
+        if (eTile == eTile.EARTH){
+            setSprite(Tile.class.getClassLoader().getResource("images/earth.png"),new double[]{1,1});
+        }
+        if (eTile == eTile.GRASS){
+            setSprite(Tile.class.getClassLoader().getResource("images/grass.png"),new double[]{1,1});
+        }
     }
-
-    // getter for the tile's type
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    private String randomTileType() {
-        String[] types = {"Road", "Grass", "Mountain"};
-        int randomIndex = (int) (Math.random() * types.length);
-        return types[randomIndex];
-    }
-
-
 }

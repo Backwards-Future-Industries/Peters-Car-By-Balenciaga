@@ -20,6 +20,12 @@ public abstract class Entity {
     private double radians = 0;
     private Vector2D direction;
 
+    public Entity(){
+        this(-1);
+    }
+    public Entity(int health){
+        this(health, null);
+    }
     public Entity(int health, URL sprite){
         this(health,sprite,new double[]{1,1});
 
@@ -31,11 +37,15 @@ public abstract class Entity {
     public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed){
         this.health = health;
         this.scale = scale;
-        this.sprite = ImageLoader.loadImage(sprite,scale);
         this.acceleration = acceleration;
         this.maxSpeed   = maxSpeed;
         this.direction = new Vector2D(0,0);
         this.position = new int[]{0,0};
+        if(sprite == null){
+            sprite = Entity.class.getClassLoader().getResource("images/placeholder.png");
+        }
+        this.sprite = ImageLoader.loadImage(sprite,scale);
+
         radius = 20; //placeholder default value
     }
 
