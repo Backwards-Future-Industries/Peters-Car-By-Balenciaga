@@ -83,8 +83,9 @@ public class MapShapes extends Shapes implements IDrawable {
         g2.draw(rectangleArray[2]);
     }
  */
+
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g, JPanel panel) {
         g.setColor(Color.GREEN);
         g.fillRect(100,100,50,50);
         g.setColor(Color.RED);
@@ -138,7 +139,10 @@ public class MapShapes extends Shapes implements IDrawable {
             g.fillPolygon(hexagon2);
 
         }
-            g.setColor(Color.YELLOW);
+        g.setColor(Color.YELLOW);
+
+
+    }
 
 
         /*
@@ -155,7 +159,6 @@ public class MapShapes extends Shapes implements IDrawable {
         g.drawPolygon(new Polygon(new int[50],new int[50],3));
         g.drawPolyline(new int[200],new int[200],33);
         */
-    }
 
     public void drawTiles(Graphics2D g2) {
         g2.drawImage(tileArrayRedRectangle[0].image,0,0,Color.YELLOW,null);
@@ -185,9 +188,6 @@ public class MapShapes extends Shapes implements IDrawable {
         graphics2D.draw(rectangleArray[1]);
         graphics2D.draw(rectangleArray[2]);
     }
-
-
-
 
 
 
