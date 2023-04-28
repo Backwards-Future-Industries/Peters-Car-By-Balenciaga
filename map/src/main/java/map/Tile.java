@@ -1,7 +1,6 @@
 package map;
 
 import abstractClasses.Entity;
-import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 

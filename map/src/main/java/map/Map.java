@@ -2,6 +2,7 @@ package map;
 
 import abstractClasses.Entity;
 import interfaces.IDrawable;
+import interfaces.IGameEngine;
 import interfaces.IPlugin;
 
 
@@ -25,14 +26,15 @@ public class Map implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create() {
+    public Entity create(IGameEngine gameEngine) {
         return null;
     }
 
     @Override
-    public Entity delete() {
+    public Entity delete(IGameEngine gameEngine) {
         return null;
     }
+
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
