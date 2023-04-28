@@ -26,8 +26,6 @@ public class Main {
         for (IPlugin iPlugin : Main.getPlugin()){
             System.out.println(iPlugin.create().getAcceleration());
         }
-
-
     }
 
     public static Collection<IPlugin> getPlugin(){
