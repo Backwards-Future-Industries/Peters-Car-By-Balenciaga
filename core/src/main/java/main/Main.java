@@ -22,7 +22,6 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        // By adding mapShapes before the player, we can control the players color from the draw-method in class MapShapes
 
         gm.addDrawables(map);
         gm.addDrawables(player);
