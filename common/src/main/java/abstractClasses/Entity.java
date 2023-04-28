@@ -42,7 +42,7 @@ public abstract class Entity {
         this.direction = new Vector2D(0,0);
         this.position = new int[]{0,0};
         if(sprite == null){
-            sprite = Entity.class.getClassLoader().getResource("images/placeholder.png");
+            sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
         this.sprite = ImageLoader.loadImage(sprite,scale);
 

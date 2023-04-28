@@ -13,7 +13,7 @@ public class Bitmap {
 
 
     public Bitmap(){
-        URL url = Bitmap.class.getClassLoader().getResource("bitmaps/bitmap1.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitmap1.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
