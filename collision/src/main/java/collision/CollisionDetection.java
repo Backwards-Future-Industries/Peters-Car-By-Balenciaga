@@ -1,7 +1,7 @@
 package collision;
 
 import abstractClasses.Entity;
-import interfaces.GameEngine;
+import interfaces.IGameEngine;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class CollisionDetection implements IProcessing {
     //Need a way to access all existing enteties in case of a ittertion approach to
     //collision detection, alternatives are greatly appreciated.
     @Override
-    public void process(ArrayList<Inputs> inputs, GameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
 
     }
 

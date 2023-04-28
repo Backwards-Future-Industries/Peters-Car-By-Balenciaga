@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.LinkedList;
 
-public interface GameEngine {
+public interface IGameEngine {
 
     LinkedList<IDrawable> getDrawables();
     LinkedList<IPlugin> getNewEntities();

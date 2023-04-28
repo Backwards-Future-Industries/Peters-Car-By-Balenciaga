@@ -1,6 +1,7 @@
 package gameEngine;
 
 import interfaces.IDrawable;
+import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.Inputs;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameEngine implements interfaces.GameEngine {
+public class GameEngine implements IGameEngine {
 
     private double framerate;
     private long lastDraw;
@@ -216,8 +217,8 @@ public class GameEngine implements interfaces.GameEngine {
 
     private class GameLoop extends Thread{
         private boolean isRunning;
-        interfaces.GameEngine gameEngine;
-        public GameLoop(interfaces.GameEngine gameEngine){
+        IGameEngine gameEngine;
+        public GameLoop(IGameEngine gameEngine){
             this.isRunning = true;
             this.gameEngine = gameEngine;
         }

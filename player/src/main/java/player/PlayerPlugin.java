@@ -28,7 +28,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
 
     @Override
-    public Entity create(GameEngine gameEngine) {
+    public Entity create(IGameEngine gameEngine) {
         Entity newPlayer;
         try {
             newPlayer = new PlayerPlugin();
@@ -40,7 +40,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
 
     @Override
-    public Entity delete(GameEngine gameEngine) {
+    public Entity delete(IGameEngine gameEngine) {
         return null;
     }
 
@@ -55,7 +55,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs, GameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         setPosition(defaultMove(inputs,this));
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
     }

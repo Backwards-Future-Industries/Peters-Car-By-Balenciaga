@@ -4,7 +4,7 @@ import abstractClasses.Entity;
 
 public interface IPlugin {
 
-    Entity create(GameEngine gameEngine);
-    Entity delete(GameEngine gameEngine);
+    Entity create(IGameEngine gameEngine);
+    Entity delete(IGameEngine gameEngine);
 
 }

@@ -6,5 +6,5 @@ import java.util.ArrayList;
 
 public interface IProcessing {
 
-    public void process(ArrayList<Inputs> inputs, GameEngine gameEngine);
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine);
 }
