@@ -1,3 +1,5 @@
+package collision;
+
 import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.Inputs;

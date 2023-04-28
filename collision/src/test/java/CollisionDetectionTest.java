@@ -1,8 +1,8 @@
 import abstractClasses.Entity;
+import collision.CollisionDetection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 class CollisionDetectionTest {

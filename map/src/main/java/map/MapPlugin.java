@@ -1,3 +1,4 @@
+package map;
 
 public class MapPlugin {
     private int width;
