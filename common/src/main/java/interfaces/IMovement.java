@@ -3,76 +3,80 @@ package interfaces;
 import abstractClasses.Entity;
 import utilities.Inputs;
 import utilities.Vector2D;
+
 import java.util.ArrayList;
 
 public interface IMovement {
     default int[] defaultMove(ArrayList<Inputs> inputs, Entity entity) {
-        double dx = entity.getDirection().getX();
-        double dy = entity.getDirection().getY();
-        double rotationSpeed = Math.PI * ((double) 1 / 32);
-
+        Vector2D direction = entity.getDirection();
+        double acceleration = entity.getAcceleration();
         double radians = entity.getRadians();
         int[] newPosition = new int[2];
 
-
-        //Accelerate
-        if (inputs.contains(Inputs.KEY_W)) {
-            dx += Math.cos(radians) * entity.getAcceleration();
-            dy += Math.sin(radians) * entity.getAcceleration();
+        for (Inputs input : inputs){
+            switch (input) {
+                case KEY_W -> {
+                    accelerate(acceleration,direction,radians);
+                }
+                case KEY_A -> {
+                    radians = rotate(direction,radians,-1);
+                }
+                case KEY_S -> {
+                    deAccelerate(acceleration,direction,radians);
+                }
+                case KEY_D -> {
+                    radians = rotate(direction,radians,1);
+                }
+                default -> {
+                }
+            }
         }
-
-        //De-accelerate
-        if (inputs.contains(Inputs.KEY_S)) {
-            dx -= Math.cos(radians) * entity.getAcceleration()/2;
-            dy -= Math.sin(radians) * entity.getAcceleration()/2;
-        }
-
 
         //Makes sure that when radians passes 2pi its reset to 0 removing potential overflow
-        if (Math.abs(radians) > 2*Math.PI) {
+        if (Math.abs(radians) > 2 * Math.PI) {
             radians = 0;
         }
 
         //Prevents radians from being negative (Completely unnecessary but looks nice :))
-        if (radians < 0){
-            radians += 2*Math.PI;
-        }
-
-        //Using the rotation matrix to rotate the direction vector counter-clockwise and updating its radians
-        if (inputs.contains(Inputs.KEY_A)) {
-            dx = dx*Math.cos(-rotationSpeed)-dy*Math.sin(-rotationSpeed);
-            dy = dx*Math.sin(-rotationSpeed)+dy*Math.cos(-rotationSpeed);
-            radians -= rotationSpeed;
-        }
-
-        //Using the rotation matrix to rotate the direction vector clockwise and updating its radians
-        if (inputs.contains(Inputs.KEY_D)) {
-            dx = dx*Math.cos(rotationSpeed)-dy*Math.sin(rotationSpeed);
-            dy = dx*Math.sin(rotationSpeed)+dy*Math.cos(rotationSpeed);
-            radians += rotationSpeed;
+        if (radians < 0) {
+            radians += 2 * Math.PI;
         }
 
         //Make sure speed is less than MaxSpeed. By calculating the unit for the direction and the extending it with the max speed and save it as the new direction vector
-        double speed = Math.sqrt(dx * dx + dy * dy);
+        double speed = Math.sqrt(Math.pow(direction.getX(),2) + Math.pow(direction.getY(),2));
         if (speed > entity.getMaxSpeed()) {
-            dx = (dx / speed) * entity.getMaxSpeed();
-            dy = (dy / speed) * entity.getMaxSpeed();
-            speed = Math.sqrt(dx * dx + dy * dy);
+            direction.setX((direction.getX() / speed) * entity.getMaxSpeed());
+            direction.setY((direction.getY() / speed) * entity.getMaxSpeed());
         }
 
         // SOMEWHERE IN THIS CODE THE CAR LOSES MOMENTUM PURELY BECAUSE ITS ROTATING WHICH IS MOST LIKELY DUE TO SOME DIGITS BEING LOST DUE TO TYPECASTING :((((((
         entity.setRadians(radians);
-        entity.setDirection(new Vector2D(dx, dy));
+        entity.setDirection(direction);
 
-        newPosition[0] = (int) (entity.getPosition()[0] + Math.round(dx));
-        newPosition[1] = (int) (entity.getPosition()[1] + Math.round(dy));
+        newPosition[0] = (int) (entity.getPosition()[0] + Math.round(direction.getX()));
+        newPosition[1] = (int) (entity.getPosition()[1] + Math.round(direction.getY()));
 
         entity.setPosition(newPosition);
 
-        System.out.println("dx: "+dx);
-        System.out.println("dy: "+dy);
-        System.out.println("Speed: "+speed);
-
         return newPosition;
+    }
+
+    private void accelerate(double acceleration, Vector2D direction, double radians) {
+        direction.setX(direction.getX() + Math.cos(radians) * acceleration);
+        direction.setY(direction.getY() + Math.sin(radians) * acceleration);
+    }
+
+    private void deAccelerate(double acceleration, Vector2D direction, double radians) {
+        direction.setX(direction.getX() - Math.cos(radians) * acceleration / 2);
+        direction.setY(direction.getY() - Math.sin(radians) * acceleration / 2);
+    }
+
+    //Using the rotation matrix to rotate the direction vector and updating its radians
+    private double rotate(Vector2D direction, double radians, int rotationDirection){
+        double rotationSpeed = Math.PI * ((double) 1 / 32);
+        direction.setX(direction.getX() * Math.cos(rotationDirection*rotationSpeed) - direction.getY() * Math.sin(rotationDirection*rotationSpeed));
+        direction.setY(direction.getX() * Math.sin(rotationDirection*rotationSpeed) + direction.getY() * Math.cos(rotationDirection*rotationSpeed));
+        radians += rotationDirection*rotationSpeed;
+        return radians;
     }
 }

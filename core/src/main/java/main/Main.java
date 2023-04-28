@@ -12,7 +12,7 @@ import java.util.Collection;
 public class Main {
 
     public static void main(String[] args) {
-    /*    GameEngine gm = new GameEngine(60);
+        GameEngine gm = new GameEngine(60);
         PlayerPlugin player;
         try {
             player = new PlayerPlugin();
@@ -24,11 +24,8 @@ public class Main {
 
 
         for (IPlugin iPlugin : Main.getPlugin()){
-            System.out.println(iPlugin.create().getAcceleration());
+            System.out.println(iPlugin.create(gm).getAcceleration());
         }
-
-     */
-
     }
 
     public static Collection<IPlugin> getPlugin(){
