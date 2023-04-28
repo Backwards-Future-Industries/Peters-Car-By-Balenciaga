@@ -10,13 +10,13 @@ import java.net.URL;
 
 class EnemyPluginTest {
     private EnemyPlugin lowTierGod;
-    private double[] positions;
+    private int[] positions;
     private Image lowTierGodImage;
-    private static final URL url = EnemyPluginTest.class.getResource("/images/ltg.png");
+    private static final URL url = EnemyPlugin.class.getResource("/images/ltg.png");
 
     @BeforeEach
     void setUp() {
-        positions = new double[]{10, 10};
+        positions = new int[]{10, 10};
         try {
             //lowTierGodImage = ImageLoader.loadImage(url, new double[]{1,1});
             lowTierGod = new EnemyPlugin();
