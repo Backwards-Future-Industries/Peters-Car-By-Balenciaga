@@ -22,7 +22,7 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>peters.car</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
