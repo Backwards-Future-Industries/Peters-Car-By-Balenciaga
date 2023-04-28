@@ -12,11 +12,6 @@ public class PlayerPluginTest {
 
     @BeforeEach
     void setPlayerPlugin(){
-
-    }
-
-    @Test
-    public void testPosition(){
         try {
             this.playerPlugin = new PlayerPlugin().create();
             this.playerPlugin.setPosition(new int[]{700, 500});
@@ -25,7 +20,10 @@ public class PlayerPluginTest {
         }
 
         this.position = new int[]{700,500};
+    }
 
+    @Test
+    public void testPosition(){
         Assertions.assertEquals(this.position[0],playerPlugin.getPosition()[0]);
         Assertions.assertEquals(this.position[1],playerPlugin.getPosition()[1]);
     }
