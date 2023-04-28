@@ -12,17 +12,6 @@ import java.util.Collection;
 public class Main {
 
     public static void main(String[] args) {
-    /*    GameEngine gm = new GameEngine(60);
-        PlayerPlugin player;
-        try {
-            player = new PlayerPlugin();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        gm.addDrawables(player);
-        gm.addProcesses(player);
-
-     */
         for (IPlugin iPlugin : Main.getPlugin()){
             System.out.println(iPlugin.create().getAcceleration());
         }
