@@ -1,7 +1,10 @@
 package main;
 
+import abstractClasses.Entity;
 import gameEngine.GameEngine;
+import interfaces.IDrawable;
 import interfaces.IPlugin;
+import interfaces.IProcessing;
 import player.PlayerPlugin;
 import utilities.SPIlocator;
 import map.Map;
@@ -42,4 +45,11 @@ public class Main {
 
     }
 
+    public static Collection<IProcessing> getProcess(){
+        return SPIlocator.locateAll(IProcessing.class);
+    }
+
+    public static Collection<IDrawable> getDraw(){
+        return SPIlocator.locateAll(IDrawable.class);
+    }
 }

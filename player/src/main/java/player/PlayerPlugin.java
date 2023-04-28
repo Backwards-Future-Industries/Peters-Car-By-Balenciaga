@@ -48,7 +48,6 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
         AffineTransform transform = getSprite().getTransform();
         g.setTransform(transform);
         g.drawImage(getSprite().getImage(),position[0],position[1],panel);
-
     }
 
     @Override
