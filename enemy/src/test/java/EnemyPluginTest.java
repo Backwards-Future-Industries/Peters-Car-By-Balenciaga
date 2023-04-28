@@ -1,10 +1,10 @@
+import enemy.EnemyPlugin;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
@@ -16,13 +16,10 @@ class EnemyPluginTest {
     void setUp() {
         positions = new double[]{10, 10};
         URL url = EnemyPluginTest.class.getClassLoader().getResource("images/ltg.png");
-        try {
             lowTierGodImage = ImageLoader.loadImage(url, new double[]{1,1});
-            lowTierGod = new EnemyPlugin();
             lowTierGod.create();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            lowTierGod.create();
+
     }
 
     @Test

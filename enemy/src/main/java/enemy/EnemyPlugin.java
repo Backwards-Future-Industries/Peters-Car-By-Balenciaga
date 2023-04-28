@@ -1,7 +1,8 @@
+package enemy;
+
 import abstractClasses.Entity;
 import interfaces.IPlugin;
 
-import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.net.URL;
 
@@ -9,7 +10,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
     private Entity lowTierGod;
     private static URL defaultImage = EnemyPlugin.class.getClassLoader().getResource("images/ltg.png");
 
-    protected EnemyPlugin() throws IOException {
+    public EnemyPlugin() throws IOException {
         super(10,defaultImage);
         setPosition(new int[]{10,10});
     }
