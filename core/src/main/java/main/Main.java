@@ -30,7 +30,6 @@ public class Main {
             System.out.println(iPlugin.create(gm).getAcceleration());
         }
 
-
     }
 
     public static Collection<IPlugin> getPlugin(){
