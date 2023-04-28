@@ -3,6 +3,7 @@ package weapons;
 import abstractClasses.Entity;
 import interfaces.*;
 import utilities.Inputs;
+import utilities.Vector2D;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,6 +22,10 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     public Bullet() throws IOException {
         super(health, sprite, new double[]{0.01, 0.01});
         setPosition(new int[] {20, 20});
+        setDirection(new Vector2D(0, 0));
+        setRadians(0.5);
+        setMaxSpeed(2);
+        setAcceleration(1);
     }
 
 
@@ -48,6 +53,6 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
 
     @Override
     public void process(ArrayList<Inputs> inputs) {
-        setPosition(defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), getPosition()));
+        setPosition(defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
     }
 }

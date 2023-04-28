@@ -7,7 +7,7 @@
     <groupId>org.example</groupId>
     <artifactId>weapon</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>weapons.Bullet</name>
+    <name>weapons</name>
     <packaging>war</packaging>
 
     <properties>
