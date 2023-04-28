@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class EnemyPlugin extends Entity implements IPlugin {
     private Entity lowTierGod;
-    private static URL defaultImage = EnemyPlugin.class.getClassLoader().getResource("images/ltg.png");
+    private static final URL defaultImage = EnemyPlugin.class.getResource("images/ltg.png");
 
     public EnemyPlugin() throws IOException {
         super(10,defaultImage);
