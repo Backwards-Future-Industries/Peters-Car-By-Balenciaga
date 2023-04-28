@@ -1,4 +1,5 @@
 import abstractClasses.Entity;
+import interfaces.IGameEngine;
 import interfaces.IMovement;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,8 +28,8 @@ class IMovementTest {
         testEntity = new concreteEntity(5, sprite);
         movement = new IMovement() {
             @Override
-            public int[] defaultMove(ArrayList<Inputs> inputs, Entity entity) {
-                return IMovement.super.defaultMove(inputs, entity);
+            public int[] defaultMove(ArrayList<Inputs> inputs, Entity entity, IGameEngine gameEngine) {
+                return IMovement.super.defaultMove(inputs, entity,gameEngine);
             }
         };
 
