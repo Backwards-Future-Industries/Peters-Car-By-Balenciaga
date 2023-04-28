@@ -23,7 +23,7 @@
         <module>gameEngine</module>
         <module>map</module>
         <module>player</module>
-        <module>weapon</module>
+        <module>grill</module>
     </modules>
 
     <dependencies>

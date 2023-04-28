@@ -5,10 +5,8 @@ import interfaces.*;
 import utilities.Inputs;
 import utilities.Vector2D;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,23 +15,27 @@ import java.util.Arrays;
 public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IProcessing{
 
     private final static int health = 1;
+    private int[] position;
+    private Vector2D direction;
+    private int bulletSpeed = 3;
+    private int bulletAcceleration = 1;
     private static URL sprite = Bullet.class.getClassLoader().getResource("images/bullet.png");
 
-    public Bullet() throws IOException {
+    public Bullet(int[] position, Vector2D direction) throws IOException {
         super(health, sprite, new double[]{0.01, 0.01});
-        setPosition(new int[] {20, 20});
-        setDirection(new Vector2D(0, 0));
-        setRadians(0.5);
-        setMaxSpeed(2);
-        setAcceleration(1);
+        this.position = position;
+        this.direction = direction;
+        setPosition(position);
+        setDirection(direction);
+        setMaxSpeed(bulletSpeed);
+        setAcceleration(bulletAcceleration);
     }
 
-
     @Override
-    public Entity create(GameEngine gm) {
+    public Entity create(IGameEngine gm) {
         Entity newBullet;
         try {
-            newBullet = new Bullet();
+            newBullet = new Bullet(position, direction);
         } catch (IOException exception) {
             throw new RuntimeException();
         }
@@ -41,7 +43,7 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     }
 
     @Override
-    public Entity delete() {
+    public Entity delete(IGameEngine gameEngine) {
         return null;
     }
 
@@ -52,7 +54,7 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         setPosition(defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
     }
 }

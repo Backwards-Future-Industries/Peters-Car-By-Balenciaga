@@ -3,6 +3,7 @@ package weapons;
 import abstractClasses.Entity;
 import abstractClasses.Weapon;
 import interfaces.IDrawable;
+import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.Inputs;
@@ -31,34 +32,31 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public Entity create() {
+    public void shoot() throws IOException {
+        //Bullet bullet = new Bullet();
+        //bullet.create();
+    }
+
+    @Override
+    public Entity create(IGameEngine gameEngine) {
         Entity newGrill;
         newGrill = new Grill(1);
         return newGrill;
     }
 
     @Override
-    public Entity delete() {
+    public Entity delete(IGameEngine gameEngine) {
         return null;
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         if(inputs.contains(Inputs.KEY_SPACE)) {
             try {
                 this.shoot();
-                System.out.println(inputs);
-                inputs.clear();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
-
-
-    @Override
-    public void shoot() throws IOException {
-        Bullet bullet = new Bullet();
-        bullet.create();
     }
 }

@@ -15,10 +15,8 @@ public class Main {
     public static void main(String[] args) {
         GameEngine gm = new GameEngine(60);
         PlayerPlugin player;
-        //Bullet bullet;
         try {
             player = new PlayerPlugin();
-            //bullet = new Bullet();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
