@@ -30,7 +30,7 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
 
 
     @Override
-    public Entity create() {
+    public Entity create(GameEngine gm) {
         Entity newBullet;
         try {
             newBullet = new Bullet();

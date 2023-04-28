@@ -13,12 +13,12 @@ import java.util.Collection;
 public class Main {
 
     public static void main(String[] args) {
-    /*    GameEngine gm = new GameEngine(60);
+        GameEngine gm = new GameEngine(60);
         PlayerPlugin player;
-        Bullet bullet;
+        //Bullet bullet;
         try {
             player = new PlayerPlugin();
-            bullet = new Bullet();
+            //bullet = new Bullet();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -27,10 +27,10 @@ public class Main {
 
 
         for (IPlugin iPlugin : Main.getPlugin()){
-            System.out.println(iPlugin.create().getAcceleration());
+            System.out.println(iPlugin.create(gm).getAcceleration());
         }
 
-     */
+
     }
 
     public static Collection<IPlugin> getPlugin(){
