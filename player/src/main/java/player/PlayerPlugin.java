@@ -1,10 +1,7 @@
 package player;
 
-import interfaces.IDrawable;
-import interfaces.IMovement;
-import interfaces.IPlugin;
+import interfaces.*;
 import abstractClasses.Entity;
-import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.Vector2D;
 
@@ -20,7 +17,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     private Entity player;
 
-    private static final URL sprite = PlayerPlugin.class.getClassLoader().getResource("images/blueCar.png");
+    private static final URL sprite = PlayerPlugin.class.getResource("/images/blueCar.png");
 
     public PlayerPlugin() throws IOException {
         super(5, sprite, new double[]{0.5,0.5},1,10);
@@ -29,8 +26,9 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
         setDirection(new Vector2D(0,0));
     }
 
+
     @Override
-    public Entity create() {
+    public Entity create(IGameEngine gameEngine) {
         Entity newPlayer;
         try {
             newPlayer = new PlayerPlugin();
@@ -42,7 +40,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
 
     @Override
-    public Entity delete() {
+    public Entity delete(IGameEngine gameEngine) {
         return null;
     }
 
@@ -57,7 +55,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         setPosition(defaultMove(inputs,this));
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
     }

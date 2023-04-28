@@ -13,19 +13,19 @@ public class PlayerPluginTest {
     @BeforeEach
     void setPlayerPlugin(){
         try {
-            this.playerPlugin = new PlayerPlugin().create();
+            this.playerPlugin = new PlayerPlugin().create(null);
             this.playerPlugin.setPosition(new int[]{700, 500});
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.position = new int[]{700,500};
 
+        this.position = new int[]{700,500};
     }
 
     @Test
     public void testPosition(){
-        Assertions.assertEquals(position[0],playerPlugin.getPosition()[0]);
-        Assertions.assertEquals(position[1],playerPlugin.getPosition()[1]);
+        Assertions.assertEquals(this.position[0],playerPlugin.getPosition()[0]);
+        Assertions.assertEquals(this.position[1],playerPlugin.getPosition()[1]);
     }
 }
 
