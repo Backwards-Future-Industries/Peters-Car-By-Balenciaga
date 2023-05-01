@@ -7,19 +7,19 @@ import interfaces.IProcessing;
 
 import utilities.Inputs;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Objects;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameEngine implements IGameEngine {
 
-    private double framerate;
+    private int framerate;
     private long lastDraw;
     private long lastProcess;
     private LinkedList<IPlugin> newEntities;
@@ -35,6 +35,9 @@ public class GameEngine implements IGameEngine {
     private JFrame window;
     private JPanel panel;
 
+    private ScheduledExecutorService gameLoopExecutor;
+    private ScheduledExecutorService drawLoopExecutor;
+
 
 
     {
@@ -42,7 +45,7 @@ public class GameEngine implements IGameEngine {
 
     }
 
-    public GameEngine(double framerate){
+    public GameEngine(int framerate){
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.inputs = new ArrayList<Inputs>();
@@ -50,10 +53,11 @@ public class GameEngine implements IGameEngine {
         this.processes = new LinkedList<IProcessing>();
         this.drawables = new LinkedList<IDrawable>();
         this.drawLoop = new DrawLoop();
-        this.gameLoop = new GameLoop(this);
         this.drawLock = new ReentrantLock(true);
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
+        this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
+        this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         openWindow();
         start();
     }
@@ -84,8 +88,18 @@ public class GameEngine implements IGameEngine {
     }
 
     private void start(){
+
+
+
         drawLoop.start();
-        gameLoop.start();
+
+        //https://stackoverflow.com/a/34179907
+        gameLoopExecutor.scheduleAtFixedRate(new gameEngine.GameLoop(
+                new UserInputs().getInputs(),this),0,1000/framerate, TimeUnit.MILLISECONDS);
+        //inputs = userInputs.getInputs();
+        //gameLoopExecutor.submit(new gameEngine.GameLoop(inputs,this));
+
+        //gameLoop.start();
     }
     @Override
     public long getDeltaDrawTime(){
@@ -98,8 +112,7 @@ public class GameEngine implements IGameEngine {
     }
 
     public void stop(){
-        drawLoop.kill();
-        gameLoop.kill();
+
     }
 
     public JFrame getWindow() {
@@ -160,6 +173,15 @@ public class GameEngine implements IGameEngine {
             }else{
                 return false;
             }
+        }finally {
+            newLock.unlock();
+        }
+    }
+
+    private void clearNewEntities(){
+        newLock.lock();
+        try {
+            newEntities.clear();
         }finally {
             newLock.unlock();
         }
@@ -225,61 +247,5 @@ public class GameEngine implements IGameEngine {
             this.isRunning = false;
         }
     }
-
-    private class GameLoop extends Thread{
-        private boolean isRunning;
-        IGameEngine gameEngine;
-        public GameLoop(IGameEngine gameEngine){
-            this.isRunning = true;
-            this.gameEngine = gameEngine;
-        }
-        @Override
-        public void run() {
-            lastProcess = 0;
-            while (isRunning) {
-                inputs = userInputs.getInputs();
-                for(IPlugin newEntity : getNewEntities()){
-                    newEntity.create(gameEngine);
-                }
-                getNewEntities().clear();
-                for(IProcessing entity : getProcesses()){
-                    entity.process(inputs, gameEngine);
-                }
-                lastProcess = System.currentTimeMillis();
-            }
-        }
-
-        public void kill(){
-            this.isRunning = false;
-        }
-    }
-    /*
-    public MapShapes(JPanel panel) {
-
-        this.panel = panel;
-
-        tile = new Tile[10];
-
-        getTileImage();
-
-        return panel;
-
-    }
-
-    public void getTileImage() {
-
-        try {
-
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/grass.png")));
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/resources/earth.png")));
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
-
 
 }
