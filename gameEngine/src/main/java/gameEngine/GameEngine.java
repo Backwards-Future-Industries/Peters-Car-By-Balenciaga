@@ -6,6 +6,7 @@ import interfaces.IPlugin;
 import interfaces.IProcessing;
 
 import utilities.Inputs;
+import utilities.Layers;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,7 +24,9 @@ public class GameEngine implements IGameEngine {
     private int framerate;
     private LinkedList<IPlugin> newEntities;
     private LinkedList<IProcessing> processes;
-    private LinkedList<IDrawable> drawables;
+    private LinkedList<IDrawable> foreground;
+    private LinkedList<IDrawable> middleground;
+    private LinkedList<IDrawable> background;
     private ReentrantLock newLock;
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
@@ -46,7 +49,9 @@ public class GameEngine implements IGameEngine {
         this.userInputs = new UserInputs();
         this.newEntities = new LinkedList<IPlugin>();
         this.processes = new LinkedList<IProcessing>();
-        this.drawables = new LinkedList<IDrawable>();
+        this.foreground = new LinkedList<IDrawable>();
+        this.middleground = new LinkedList<IDrawable>();
+        this.background = new LinkedList<IDrawable>();
         this.drawLock = new ReentrantLock(true);
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
@@ -125,7 +130,11 @@ public class GameEngine implements IGameEngine {
     public LinkedList<IDrawable> getDrawables() {
         drawLock.lock();
         try {
-            return drawables;
+            LinkedList<IDrawable> combined = new LinkedList<IDrawable>();
+            combined.addAll(background);
+            combined.addAll(middleground);
+            combined.addAll(foreground);
+            return combined;
         }finally {
             drawLock.unlock();
         }
@@ -150,17 +159,31 @@ public class GameEngine implements IGameEngine {
     }
     @Override
     public boolean addDrawables(IDrawable draw) {
+        return addDrawables(draw,Layers.MIDDLEGROUND);
+    }
+    @Override
+    public boolean addDrawables(IDrawable draw, Layers layer) {
         drawLock.lock();
         try {
-            if (this.drawables.add(draw)){
-                return true;
-            }else{
-                return false;
+            if(layer == Layers.BACKGROUND){
+                if(this.background.add(draw)){
+                    return true;
+                }
             }
-        }
-        finally {
+            if(layer == Layers.MIDDLEGROUND){
+                if(this.middleground.add(draw)){
+                    return true;
+                }
+            }
+            if(layer == Layers.FOREGROUND){
+                if(this.foreground.add(draw)){
+                    return true;
+                }
+            }
+        }finally {
             drawLock.unlock();
         }
+        return false;
     }
     @Override
     public boolean addNewEntities(IPlugin newEntity) {
@@ -198,17 +221,28 @@ public class GameEngine implements IGameEngine {
         }
     }
     @Override
-    public boolean removeDrawables(IDrawable drawable) {
+    public boolean removeDrawables(IDrawable drawable, Layers layer) {
         drawLock.lock();
         try{
-            if (drawables.remove(drawable)){
-                return true;
-            }else{
-                return false;
+            if(layer == Layers.BACKGROUND){
+                if(this.background.remove(drawable)){
+                    return true;
+                }
+            }
+            if(layer == Layers.MIDDLEGROUND){
+                if(this.middleground.remove(drawable)){
+                    return true;
+                }
+            }
+            if(layer == Layers.FOREGROUND){
+                if(this.foreground.remove(drawable)){
+                    return true;
+                }
             }
         }finally {
             drawLock.unlock();
         }
+        return false;
     }
     @Override
     public boolean removeProcesses(IProcessing process) {
