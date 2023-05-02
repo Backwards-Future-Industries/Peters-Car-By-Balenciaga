@@ -9,6 +9,7 @@ import utilities.Inputs;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,17 +21,12 @@ import java.util.concurrent.locks.ReentrantLock;
 public class GameEngine implements IGameEngine {
 
     private int framerate;
-    private long lastDraw;
-    private long lastProcess;
     private LinkedList<IPlugin> newEntities;
     private LinkedList<IProcessing> processes;
     private LinkedList<IDrawable> drawables;
     private ReentrantLock newLock;
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
-    private DrawLoop drawLoop;
-    private GameLoop gameLoop;
-    private ArrayList<Inputs> inputs;
     private UserInputs userInputs;
     private JFrame window;
     private JPanel panel;
@@ -48,11 +44,9 @@ public class GameEngine implements IGameEngine {
     public GameEngine(int framerate){
         this.framerate = framerate;
         this.userInputs = new UserInputs();
-        this.inputs = new ArrayList<Inputs>();
         this.newEntities = new LinkedList<IPlugin>();
         this.processes = new LinkedList<IProcessing>();
         this.drawables = new LinkedList<IDrawable>();
-        this.drawLoop = new DrawLoop();
         this.drawLock = new ReentrantLock(true);
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
@@ -88,31 +82,35 @@ public class GameEngine implements IGameEngine {
     }
 
     private void start(){
-
-
-
-        drawLoop.start();
-
         //https://stackoverflow.com/a/34179907
-        gameLoopExecutor.scheduleAtFixedRate(new gameEngine.GameLoop(
-                new UserInputs().getInputs(),this),0,1000/framerate, TimeUnit.MILLISECONDS);
-        //inputs = userInputs.getInputs();
-        //gameLoopExecutor.submit(new gameEngine.GameLoop(inputs,this));
-
-        //gameLoop.start();
+        drawLoopExecutor.scheduleAtFixedRate(new gameEngine.DrawLoop(this),
+                0,1000/framerate,TimeUnit.MILLISECONDS);
+        gameLoopExecutor.scheduleAtFixedRate(new gameEngine.GameLoop(new UserInputs().getInputs(),this),
+                0,1000/framerate, TimeUnit.MILLISECONDS);
     }
+
+    protected ArrayList<Inputs> getInputs(){
+        return userInputs.getInputs();
+    }
+
+    protected void updateWindow(){
+        panel.repaint();
+    }
+
     @Override
     public long getDeltaDrawTime(){
-        return System.currentTimeMillis() - lastDraw;
+        return -1;
     }
 
     @Override
     public long getDeltaProcessTime() {
-        return System.currentTimeMillis() - lastProcess;
+        return -1;
     }
 
     public void stop(){
-
+        drawLoopExecutor.shutdown();
+        gameLoopExecutor.shutdown();
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
     public JFrame getWindow() {
@@ -178,7 +176,7 @@ public class GameEngine implements IGameEngine {
         }
     }
 
-    private void clearNewEntities(){
+    protected void clearNewEntities(){
         newLock.lock();
         try {
             newEntities.clear();
@@ -223,28 +221,6 @@ public class GameEngine implements IGameEngine {
             }
         }finally {
             processLock.lock();
-        }
-    }
-
-    private class DrawLoop extends Thread{
-       private boolean isRunning;
-
-        public DrawLoop(){
-            this.isRunning = true;
-        }
-        @Override
-        public void run() {
-            lastDraw = 0;
-            while (isRunning) {
-                while (1.0/(getDeltaDrawTime()*1000.0) <= framerate){
-                    panel.repaint();
-                    lastDraw = System.currentTimeMillis();
-                }
-            }
-        }
-
-        public void kill(){
-            this.isRunning = false;
         }
     }
 

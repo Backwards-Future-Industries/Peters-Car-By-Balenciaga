@@ -16,8 +16,6 @@ class GameEngineTest {
     void tearDown() {
         gameEngine.stop();
     }
-
-    @Tag("test")
     @Test
     public void OpenWindowTest(){
         int length = 500;

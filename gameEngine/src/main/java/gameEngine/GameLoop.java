@@ -20,10 +20,17 @@ public class GameLoop implements Runnable {
     @Override
     public void run() {
 
+        inputs = gameEngine.getInputs();
+
+        if (inputs.contains(Inputs.KEY_ESC)){
+            gameEngine.stop();
+            return;
+        }
+
         for(IPlugin newEntity : gameEngine.getNewEntities()){
             newEntity.create(gameEngine);
         }
-
+        gameEngine.clearNewEntities();
         for(IProcessing entity : gameEngine.getProcesses()){
             entity.process(inputs, gameEngine);
         }

@@ -2,12 +2,15 @@ package gameEngine;
 
 public class DrawLoop implements Runnable{
 
-    public DrawLoop(){
 
+    private GameEngine gameEngine;
+
+    public DrawLoop(GameEngine gameEngine){
+        this.gameEngine = gameEngine;
     }
 
     @Override
     public void run() {
-
+        gameEngine.updateWindow();
     }
 }
