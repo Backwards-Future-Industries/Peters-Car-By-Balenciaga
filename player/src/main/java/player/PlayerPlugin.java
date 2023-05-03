@@ -3,6 +3,7 @@ package player;
 import interfaces.*;
 import abstractClasses.Entity;
 import utilities.Inputs;
+import utilities.SPIlocator;
 import utilities.Vector2D;
 
 import javax.swing.*;
@@ -11,10 +12,10 @@ import java.awt.geom.AffineTransform;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 
 
-
-public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing, IMovement {
+public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing {
 
     private Entity player;
 
@@ -56,7 +57,13 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
-        setPosition(defaultMove(inputs,this,gameEngine));
+        for (IMovement iMovement : getPlugin()){
+            iMovement.defaultMove(inputs,this);
+        }
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
+    }
+
+    private Collection<IMovement> getPlugin(){
+        return SPIlocator.locateAll(IMovement.class);
     }
 }
