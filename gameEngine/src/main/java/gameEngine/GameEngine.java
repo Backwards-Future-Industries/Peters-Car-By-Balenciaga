@@ -95,7 +95,7 @@ public class GameEngine implements IGameEngine {
         panel.repaint();
     }
 
-    public void stop(){
+    protected void stop(){
         drawLoopExecutor.shutdown();
         gameLoopExecutor.shutdown();
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
@@ -109,6 +109,10 @@ public class GameEngine implements IGameEngine {
         Dimension d =  window.getSize();
         return new int[]{d.width,d.height};
     }
+
+    /**
+     * @return List of all entities that gets drawn.
+     */
     @Override
     public LinkedList<IDrawable> getDrawables() {
         drawLock.lock();
@@ -122,6 +126,10 @@ public class GameEngine implements IGameEngine {
             drawLock.unlock();
         }
     }
+
+    /**
+     * @return List of all entities that's inbound for the game.
+     */
     @Override
     public LinkedList<IPlugin> getNewEntities() {
         newLock.lock();
@@ -131,6 +139,10 @@ public class GameEngine implements IGameEngine {
             newLock.unlock();
         }
     }
+
+    /**
+     * @return List of all entities that has a process to run.
+     */
     @Override
     public LinkedList<IProcessing> getProcesses() {
         processLock.lock();
@@ -140,10 +152,21 @@ public class GameEngine implements IGameEngine {
             processLock.unlock();
         }
     }
+
+    /**
+     * Works just like {@link GameEngine#addDrawables(IDrawable, Layers)}. Layers is presumed to be Middleground.
+     * @see GameEngine#addDrawables(IDrawable, Layers)
+     */
     @Override
     public boolean addDrawables(IDrawable draw) {
         return addDrawables(draw,Layers.MIDDLEGROUND);
     }
+
+    /**
+     * @param draw implementation of {@link IDrawable} to be inserted in the draw cycle.
+     * @param layer which layer it should be drawn on.
+     * @return returns true if successful.
+     */
     @Override
     public boolean addDrawables(IDrawable draw, Layers layer) {
         drawLock.lock();
@@ -168,6 +191,11 @@ public class GameEngine implements IGameEngine {
         }
         return false;
     }
+
+    /**
+     * @param newEntity new implementation of {@link IPlugin} that has to be processed by the GameEngine to become part of the game.
+     * @return returns true if successful.
+     */
     @Override
     public boolean addNewEntities(IPlugin newEntity) {
         newLock.lock();
@@ -190,6 +218,11 @@ public class GameEngine implements IGameEngine {
             newLock.unlock();
         }
     }
+
+    /**
+     * @param process implementation of {@link IProcessing} that's ready to join the gameLoop.
+     * @return returns true if successful.
+     */
     @Override
     public boolean addProcesses(IProcessing process) {
         processLock.lock();
@@ -203,6 +236,12 @@ public class GameEngine implements IGameEngine {
             processLock.unlock();
         }
     }
+
+    /**
+     * @param drawable implementation of {@link IDrawable} that has to be removed.
+     * @param layer which layer it resides on.
+     * @return returns true if successful.
+     */
     @Override
     public boolean removeDrawables(IDrawable drawable, Layers layer) {
         drawLock.lock();
@@ -227,6 +266,11 @@ public class GameEngine implements IGameEngine {
         }
         return false;
     }
+
+    /**
+     * @param process implementation of {@link IProcessing} that has to be removed.
+     * @return returns true if successful.
+     */
     @Override
     public boolean removeProcesses(IProcessing process) {
         processLock.lock();
