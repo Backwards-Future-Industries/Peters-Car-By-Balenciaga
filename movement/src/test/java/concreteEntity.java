@@ -1,5 +1,3 @@
-package movement;
-
 import abstractClasses.Entity;
 
 import java.net.URL;

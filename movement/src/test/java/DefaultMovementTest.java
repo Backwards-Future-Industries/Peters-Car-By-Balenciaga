@@ -1,7 +1,5 @@
-package movement;
-
 import abstractClasses.Entity;
-import interfaces.IMovement;
+import movement.DefaultMovement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Inputs;
