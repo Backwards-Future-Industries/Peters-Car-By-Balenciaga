@@ -52,14 +52,6 @@ public class MapShapesUtilities extends Entity implements IDrawable {
         }
         return rectangleArray;
     }
-/*
-    public void draw(Graphics2D g2) {
-        g2.draw(rectangleArray[0]);
-        g2.draw(rectangleArray[1]);
-        g2.draw(rectangleArray[2]);
-    }
- */
-
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {

@@ -21,8 +21,8 @@ public class Map implements IDrawable, IPlugin {
 
     public Map() throws IOException {
         this.bitmap = new Bitmap();
-        this.grass = new Tile(eTile.GRASS);
-        this.earth = new Tile(eTile.EARTH);
+        this.grass = new Tile(TileType.GRASS);
+        this.earth = new Tile(TileType.EARTH);
     }
 
     @Override
@@ -38,17 +38,20 @@ public class Map implements IDrawable, IPlugin {
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
+        // Prøv og merge bufferedImages ind til et enkelt image
+        // Ved at merge bufferedImages til et enkelt image, vil køretiden blive bedre
+        // Se bufferedImage-doku
 
-        eTile[][] map = bitmap.getMap();
+        TileType[][] map = bitmap.getMap();
 
         int[] position = new int[]{0,0};
 
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
-                if(map[x][y] == eTile.EARTH){
+                if(map[x][y] == TileType.EARTH){
                     g.drawImage(earth.getSprite().getImage(),position[0],position[1],panel);
                 }
-                if(map[x][y] == eTile.GRASS){
+                if(map[x][y] == TileType.GRASS){
                     g.drawImage(grass.getSprite().getImage(),position[0],position[1],panel);
                 }
                 position = new int[]{position[0]+16,position[1]};

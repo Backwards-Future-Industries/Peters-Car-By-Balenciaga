@@ -2,7 +2,7 @@ package map;
 
 import java.awt.*;
 
-public enum eTile {
+public enum TileType {
     GRASS(Color.white),EARTH(Color.black),BLANK(Color.GRAY);
 
     private Color color;
@@ -11,7 +11,7 @@ public enum eTile {
         return this.color;
     }
 
-    private eTile(Color color){
+    private TileType(Color color){
         this.color = color;
     }
 
