@@ -1,4 +1,4 @@
-package weapon;
+package grill;
 
 import abstractClasses.Entity;
 import abstractClasses.Weapon;
@@ -10,13 +10,17 @@ import utilities.Inputs;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
 
-    private static URL sprite = Entity.class.getClassLoader().getResource("images/placeholder.png");
+    private static URL sprite = Entity.class.getClassLoader().getResource("grillImages/placeholder.png");
+
+    public Grill(){
+        super(1,sprite);
+        setPosition(new int[]{50, 50});
+    }
 
     public Grill(int health) {
         super(health, sprite);

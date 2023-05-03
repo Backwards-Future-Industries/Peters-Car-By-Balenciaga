@@ -1,4 +1,4 @@
-package weapon;
+package grill;
 
 import abstractClasses.Entity;
 import interfaces.*;
@@ -14,7 +14,6 @@ import java.util.Collection;
 import java.util.List;
 
 public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
-
     private static final URL sprite = Bullet.class.getResource("images/bullet.png");
 
     public Bullet(int[] position, Vector2D direction){
