@@ -6,6 +6,7 @@ import player.PlayerPlugin;
 import utilities.SPIlocator;
 import map.Map;
 
+
 import java.io.IOException;
 import java.util.Collection;
 
@@ -29,6 +30,15 @@ public class Main {
         gm.addDrawables(map);
         gm.addDrawables(player);
         gm.addProcesses(player);
+
+        for (IPlugin iPlugin : Main.getPlugin()){
+            System.out.println(iPlugin.create(gm).getAcceleration());
+        }
+
+    }
+
+    public static Collection<IPlugin> getPlugin(){
+        return SPIlocator.locateAll(IPlugin.class);
 
     }
 
