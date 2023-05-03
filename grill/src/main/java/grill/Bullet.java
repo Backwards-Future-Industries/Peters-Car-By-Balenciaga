@@ -3,47 +3,35 @@ package grill;
 import abstractClasses.Entity;
 import interfaces.*;
 import utilities.Inputs;
+import utilities.SPIlocator;
 import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
-public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IProcessing{
-
-    private final static int health = 1;
-    private int[] position;
-    private Vector2D direction;
-    private int bulletSpeed = 3;
-    private int bulletAcceleration = 1;
-    private static URL sprite = Bullet.class.getResource("grillImages/bullet.png");
+public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
+    private static final URL sprite = Bullet.class.getResource("images/bullet.png");
 
     public Bullet(){
-        super(health, sprite, new double[]{0.01, 0.01});
-        position = new int[]{0,0};
-        direction = new Vector2D(1.0,1.0);
-        setPosition(position);
-        setDirection(direction);
-        setMaxSpeed(bulletSpeed);
-        setAcceleration(bulletAcceleration);
+        this(new int[]{0,0},new Vector2D(1.0,1.0));
     }
 
     public Bullet(int[] position, Vector2D direction){
-        super(health, sprite, new double[]{0.01, 0.01});
-        this.position = position;
-        this.direction = direction;
+        super(1, sprite, new double[]{0.01, 0.01});
         setPosition(position);
         setDirection(direction);
-        setMaxSpeed(bulletSpeed);
-        setAcceleration(bulletAcceleration);
+        setMaxSpeed(3);
+        setAcceleration(1);
     }
 
     @Override
     public Entity create(IGameEngine gm) {
         Entity newBullet;
-        newBullet = new Bullet(position, direction);
+        newBullet = new Bullet(getPosition(), getDirection());
         return newBullet;
     }
 
@@ -60,6 +48,11 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
 
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
-        setPosition(defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
+        for (IMovement iMovement : getPlugin()){
+            setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this));
+        }
+    }
+    private Collection<IMovement> getPlugin(){
+        return SPIlocator.locateAll(IMovement.class);
     }
 }

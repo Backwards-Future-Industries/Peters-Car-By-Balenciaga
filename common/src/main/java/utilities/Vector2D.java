@@ -23,4 +23,12 @@ public class Vector2D {
     public double getLength(){
         return Math.sqrt(x * x + y * y);
     }
+
+    @Override
+    public String toString() {
+        return "Vector2D{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }
