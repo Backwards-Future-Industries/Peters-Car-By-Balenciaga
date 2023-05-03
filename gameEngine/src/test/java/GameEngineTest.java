@@ -1,23 +1,18 @@
 import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 
 class GameEngineTest {
 
     private GameEngine gameEngine;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         this.gameEngine = new GameEngine(60);
     }
 
-    @org.junit.jupiter.api.AfterEach
-    void tearDown() {
-        gameEngine.stop();
-    }
-
-    @Tag("test")
     @Test
     public void OpenWindowTest(){
         int length = 500;
