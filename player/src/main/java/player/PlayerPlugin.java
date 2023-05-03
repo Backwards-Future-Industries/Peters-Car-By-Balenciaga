@@ -4,8 +4,6 @@ import interfaces.*;
 import abstractClasses.Entity;
 import utilities.Inputs;
 import utilities.SPIlocator;
-import utilities.Vector2D;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;

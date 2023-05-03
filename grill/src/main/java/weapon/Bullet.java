@@ -8,35 +8,27 @@ import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
 
-    private final static int health = 1;
-    private int[] position;
-    private Vector2D direction;
-    private int bulletSpeed = 3;
-    private int bulletAcceleration = 1;
-    private static URL sprite = Bullet.class.getResource("images/bullet.png");
+    private static final URL sprite = Bullet.class.getResource("images/bullet.png");
 
     public Bullet(int[] position, Vector2D direction){
-        super(health, sprite, new double[]{0.01, 0.01});
-        this.position = position;
-        this.direction = direction;
+        super(1, sprite, new double[]{0.01, 0.01});
         setPosition(position);
         setDirection(direction);
-        setMaxSpeed(bulletSpeed);
-        setAcceleration(bulletAcceleration);
+        setMaxSpeed(3);
+        setAcceleration(1);
     }
 
     @Override
     public Entity create(IGameEngine gm) {
         Entity newBullet;
-        newBullet = new Bullet(position, direction);
+        newBullet = new Bullet(getPosition(), getDirection());
         return newBullet;
     }
 
@@ -54,7 +46,7 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         for (IMovement iMovement : getPlugin()){
-            setPosition(iMovement.defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
+            setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this));
         }
     }
     private Collection<IMovement> getPlugin(){
