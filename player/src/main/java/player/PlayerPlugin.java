@@ -60,6 +60,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     }
 
     private Collection<IMovement> getPlugin(){
+        System.out.println(SPIlocator.locateAll(IMovement.class));
         return SPIlocator.locateAll(IMovement.class);
     }
 }
