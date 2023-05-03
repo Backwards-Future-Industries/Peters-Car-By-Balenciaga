@@ -1,4 +1,4 @@
-package weapons;
+package weapon;
 
 import abstractClasses.Entity;
 import interfaces.*;

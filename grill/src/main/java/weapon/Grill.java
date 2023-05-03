@@ -1,4 +1,4 @@
-package weapons;
+package weapon;
 
 import abstractClasses.Entity;
 import abstractClasses.Weapon;
@@ -8,10 +8,8 @@ import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.Inputs;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public void shoot() throws IOException {
+    public void shoot(){
         //Bullet bullet = new Bullet();
         //bullet.create();
     }
@@ -52,11 +50,7 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         if(inputs.contains(Inputs.KEY_SPACE)) {
-            try {
-                this.shoot();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            this.shoot();
         }
     }
 }

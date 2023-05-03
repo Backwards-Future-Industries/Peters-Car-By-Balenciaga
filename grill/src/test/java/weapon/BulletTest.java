@@ -1,4 +1,4 @@
-package weapons;
+package weapon;
 
 import abstractClasses.Entity;
 import org.junit.jupiter.api.AfterEach;
