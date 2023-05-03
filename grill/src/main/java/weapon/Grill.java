@@ -18,6 +18,11 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
 
     private static URL sprite = Entity.class.getClassLoader().getResource("images/placeholder.png");
 
+    public Grill(){
+        super(1,sprite);
+        setPosition(new int[]{50, 50});
+    }
+
     public Grill(int health) {
         super(health, sprite);
         setPosition(new int[]{50, 50});

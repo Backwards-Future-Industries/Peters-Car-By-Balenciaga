@@ -21,6 +21,16 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     private int bulletAcceleration = 1;
     private static URL sprite = Bullet.class.getResource("images/bullet.png");
 
+    public Bullet(){
+        super(health, sprite, new double[]{0.01, 0.01});
+        position = new int[]{0,0};
+        direction = new Vector2D(1.0,1.0);
+        setPosition(position);
+        setDirection(direction);
+        setMaxSpeed(bulletSpeed);
+        setAcceleration(bulletAcceleration);
+    }
+
     public Bullet(int[] position, Vector2D direction){
         super(health, sprite, new double[]{0.01, 0.01});
         this.position = position;
