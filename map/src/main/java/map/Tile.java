@@ -1,28 +1,17 @@
 package map;
 
-public class Tile {
-    private int x;
-    private int y;
-    private String type;
+import abstractClasses.Entity;
 
-    public Tile(int x, int y) {
-        this.x = x;
-        this.y = y;
-        type = randomTileType();
-    }
+import java.net.URL;
 
-    // getter for the tile's type
-    public String getType() {
-        return type;
-    }
+public class Tile extends Entity {
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    private String randomTileType() {
-        String[] types = {"Road", "Grass", "Mountain"};
-        int randomIndex = (int) (Math.random() * types.length);
-        return types[randomIndex];
+    public Tile(eTile eTile) {
+        if (eTile == eTile.EARTH){
+            setSprite(Tile.class.getResource("/mapImages/earth.png"),new double[]{1,1});
+        }
+        if (eTile == eTile.GRASS){
+            setSprite(Tile.class.getResource("/mapImages/grass.png"),new double[]{1,1});
+        }
     }
 }

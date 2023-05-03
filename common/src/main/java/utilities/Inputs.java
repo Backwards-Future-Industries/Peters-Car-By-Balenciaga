@@ -6,4 +6,5 @@ public enum Inputs {
     KEY_S,
     KEY_D,
     KEY_SPACE,
+    KEY_ESC
 }

@@ -4,45 +4,59 @@ import interfaces.IDrawable;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
+
 import utilities.Inputs;
+import utilities.Layers;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameEngine implements IGameEngine {
 
-    private double framerate;
-    private long lastDraw;
-    private long lastProcess;
+    private int framerate;
     private LinkedList<IPlugin> newEntities;
     private LinkedList<IProcessing> processes;
-    private LinkedList<IDrawable> drawables;
+    private LinkedList<IDrawable> foreground;
+    private LinkedList<IDrawable> middleground;
+    private LinkedList<IDrawable> background;
     private ReentrantLock newLock;
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
-    private DrawLoop drawLoop;
-    private GameLoop gameLoop;
-    private ArrayList<Inputs> inputs;
     private UserInputs userInputs;
     private JFrame window;
     private JPanel panel;
 
-    public GameEngine(double framerate){
+    private ScheduledExecutorService gameLoopExecutor;
+    private ScheduledExecutorService drawLoopExecutor;
+
+
+
+    {
+        panel = new JPanel();
+
+    }
+
+    public GameEngine(int framerate){
         this.framerate = framerate;
         this.userInputs = new UserInputs();
-        this.inputs = new ArrayList<Inputs>();
         this.newEntities = new LinkedList<IPlugin>();
         this.processes = new LinkedList<IProcessing>();
-        this.drawables = new LinkedList<IDrawable>();
-        this.drawLoop = new DrawLoop();
-        this.gameLoop = new GameLoop(this);
+        this.foreground = new LinkedList<IDrawable>();
+        this.middleground = new LinkedList<IDrawable>();
+        this.background = new LinkedList<IDrawable>();
         this.drawLock = new ReentrantLock(true);
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
+        this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
+        this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         openWindow();
         start();
     }
@@ -73,22 +87,35 @@ public class GameEngine implements IGameEngine {
     }
 
     private void start(){
-        drawLoop.start();
-        gameLoop.start();
+        //https://stackoverflow.com/a/34179907
+        drawLoopExecutor.scheduleAtFixedRate(new gameEngine.DrawLoop(this),
+                0,1000/framerate,TimeUnit.MILLISECONDS);
+        gameLoopExecutor.scheduleAtFixedRate(new gameEngine.GameLoop(new UserInputs().getInputs(),this),
+                0,1000/framerate, TimeUnit.MILLISECONDS);
     }
+
+    protected ArrayList<Inputs> getInputs(){
+        return userInputs.getInputs();
+    }
+
+    protected void updateWindow(){
+        panel.repaint();
+    }
+
     @Override
     public long getDeltaDrawTime(){
-        return System.currentTimeMillis() - lastDraw;
+        return -1;
     }
 
     @Override
     public long getDeltaProcessTime() {
-        return System.currentTimeMillis() - lastProcess;
+        return -1;
     }
 
     public void stop(){
-        drawLoop.kill();
-        gameLoop.kill();
+        drawLoopExecutor.shutdown();
+        gameLoopExecutor.shutdown();
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
     public JFrame getWindow() {
@@ -103,7 +130,11 @@ public class GameEngine implements IGameEngine {
     public LinkedList<IDrawable> getDrawables() {
         drawLock.lock();
         try {
-            return drawables;
+            LinkedList<IDrawable> combined = new LinkedList<IDrawable>();
+            combined.addAll(background);
+            combined.addAll(middleground);
+            combined.addAll(foreground);
+            return combined;
         }finally {
             drawLock.unlock();
         }
@@ -128,17 +159,31 @@ public class GameEngine implements IGameEngine {
     }
     @Override
     public boolean addDrawables(IDrawable draw) {
+        return addDrawables(draw,Layers.MIDDLEGROUND);
+    }
+    @Override
+    public boolean addDrawables(IDrawable draw, Layers layer) {
         drawLock.lock();
         try {
-            if (this.drawables.add(draw)){
-                return true;
-            }else{
-                return false;
+            if(layer == Layers.BACKGROUND){
+                if(this.background.add(draw)){
+                    return true;
+                }
             }
-        }
-        finally {
+            if(layer == Layers.MIDDLEGROUND){
+                if(this.middleground.add(draw)){
+                    return true;
+                }
+            }
+            if(layer == Layers.FOREGROUND){
+                if(this.foreground.add(draw)){
+                    return true;
+                }
+            }
+        }finally {
             drawLock.unlock();
         }
+        return false;
     }
     @Override
     public boolean addNewEntities(IPlugin newEntity) {
@@ -149,6 +194,15 @@ public class GameEngine implements IGameEngine {
             }else{
                 return false;
             }
+        }finally {
+            newLock.unlock();
+        }
+    }
+
+    protected void clearNewEntities(){
+        newLock.lock();
+        try {
+            newEntities.clear();
         }finally {
             newLock.unlock();
         }
@@ -167,17 +221,28 @@ public class GameEngine implements IGameEngine {
         }
     }
     @Override
-    public boolean removeDrawables(IDrawable drawable) {
+    public boolean removeDrawables(IDrawable drawable, Layers layer) {
         drawLock.lock();
         try{
-            if (drawables.remove(drawable)){
-                return true;
-            }else{
-                return false;
+            if(layer == Layers.BACKGROUND){
+                if(this.background.remove(drawable)){
+                    return true;
+                }
+            }
+            if(layer == Layers.MIDDLEGROUND){
+                if(this.middleground.remove(drawable)){
+                    return true;
+                }
+            }
+            if(layer == Layers.FOREGROUND){
+                if(this.foreground.remove(drawable)){
+                    return true;
+                }
             }
         }finally {
             drawLock.unlock();
         }
+        return false;
     }
     @Override
     public boolean removeProcesses(IProcessing process) {
@@ -193,53 +258,4 @@ public class GameEngine implements IGameEngine {
         }
     }
 
-    private class DrawLoop extends Thread{
-       private boolean isRunning;
-
-        public DrawLoop(){
-            this.isRunning = true;
-        }
-        @Override
-        public void run() {
-            lastDraw = 0;
-            while (isRunning) {
-                while (1.0/(getDeltaDrawTime()*1000.0) <= framerate){
-                    panel.repaint();
-                    lastDraw = System.currentTimeMillis();
-                }
-            }
-        }
-
-        public void kill(){
-            this.isRunning = false;
-        }
-    }
-
-    private class GameLoop extends Thread{
-        private boolean isRunning;
-        IGameEngine gameEngine;
-        public GameLoop(IGameEngine gameEngine){
-            this.isRunning = true;
-            this.gameEngine = gameEngine;
-        }
-        @Override
-        public void run() {
-            lastProcess = 0;
-            while (isRunning) {
-                inputs = userInputs.getInputs();
-                for(IPlugin newEntity : getNewEntities()){
-                    newEntity.create(gameEngine);
-                }
-                getNewEntities().clear();
-                for(IProcessing entity : getProcesses()){
-                    entity.process(inputs, gameEngine);
-                }
-                lastProcess = System.currentTimeMillis();
-            }
-        }
-
-        public void kill(){
-            this.isRunning = false;
-        }
-    }
 }

@@ -13,11 +13,12 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
+
 public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing, IMovement {
 
     private Entity player;
 
-    private static final URL sprite = PlayerPlugin.class.getResource("/images/blueCar.png");
+    private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
 
     public PlayerPlugin() throws IOException {
         super(5, sprite, new double[]{0.5,0.5},1,10);
