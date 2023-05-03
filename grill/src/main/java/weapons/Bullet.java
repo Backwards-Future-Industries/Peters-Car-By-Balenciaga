@@ -19,9 +19,9 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     private Vector2D direction;
     private int bulletSpeed = 3;
     private int bulletAcceleration = 1;
-    private static URL sprite = Bullet.class.getClassLoader().getResource("images/bullet.png");
+    private static URL sprite = Bullet.class.getResource("images/bullet.png");
 
-    public Bullet(int[] position, Vector2D direction) throws IOException {
+    public Bullet(int[] position, Vector2D direction){
         super(health, sprite, new double[]{0.01, 0.01});
         this.position = position;
         this.direction = direction;
@@ -34,11 +34,7 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     @Override
     public Entity create(IGameEngine gm) {
         Entity newBullet;
-        try {
-            newBullet = new Bullet(position, direction);
-        } catch (IOException exception) {
-            throw new RuntimeException();
-        }
+        newBullet = new Bullet(position, direction);
         return newBullet;
     }
 

@@ -30,7 +30,7 @@ public class Main {
         gm.addDrawables(map);
         gm.addDrawables(player);
         gm.addProcesses(player);
-        
+
         for (IPlugin iPlugin : Main.getPlugin()){
             System.out.println(iPlugin.create(gm).getAcceleration());
         }
