@@ -37,13 +37,6 @@ public class GameEngine implements IGameEngine {
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
-
-
-    {
-        panel = new JPanel();
-
-    }
-
     public GameEngine(int framerate){
         this.framerate = framerate;
         this.userInputs = new UserInputs();
@@ -100,16 +93,6 @@ public class GameEngine implements IGameEngine {
 
     protected void updateWindow(){
         panel.repaint();
-    }
-
-    @Override
-    public long getDeltaDrawTime(){
-        return -1;
-    }
-
-    @Override
-    public long getDeltaProcessTime() {
-        return -1;
     }
 
     public void stop(){
