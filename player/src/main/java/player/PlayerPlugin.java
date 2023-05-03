@@ -15,8 +15,6 @@ import java.util.Collection;
 
 public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing {
 
-    private Entity player;
-
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
 
     public PlayerPlugin() throws IOException {
