@@ -16,6 +16,10 @@ import java.util.List;
 public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     private static final URL sprite = Bullet.class.getResource("images/bullet.png");
 
+    public Bullet(){
+        this(new int[]{0,0},new Vector2D(1.0,1.0));
+    }
+
     public Bullet(int[] position, Vector2D direction){
         super(1, sprite, new double[]{0.01, 0.01});
         setPosition(position);
