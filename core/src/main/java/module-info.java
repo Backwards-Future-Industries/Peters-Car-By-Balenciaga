@@ -1,3 +1,4 @@
+import interfaces.IDrawable;
 import utilities.SPIlocator;
 
 module core {
@@ -9,4 +10,5 @@ module core {
     uses interfaces.IPlugin;
     uses abstractClasses.Entity;
     uses SPIlocator;
+    uses IDrawable;
 }
