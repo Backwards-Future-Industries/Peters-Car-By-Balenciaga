@@ -3,6 +3,7 @@ package weapon;
 import abstractClasses.Entity;
 import interfaces.*;
 import utilities.Inputs;
+import utilities.SPIlocator;
 import utilities.Vector2D;
 
 import javax.swing.*;
@@ -11,8 +12,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
-public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IProcessing{
+public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
 
     private final static int health = 1;
     private int[] position;
@@ -51,6 +53,11 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
 
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
-        setPosition(defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
+        for (IMovement iMovement : getPlugin()){
+            setPosition(iMovement.defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
+        }
+    }
+    private Collection<IMovement> getPlugin(){
+        return SPIlocator.locateAll(IMovement.class);
     }
 }

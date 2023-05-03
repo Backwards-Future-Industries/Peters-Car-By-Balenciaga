@@ -58,7 +58,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         for (IMovement iMovement : getPlugin()){
-            iMovement.defaultMove(inputs,this);
+            setPosition(iMovement.defaultMove(inputs,this));
         }
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
     }

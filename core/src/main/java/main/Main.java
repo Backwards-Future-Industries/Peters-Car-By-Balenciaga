@@ -31,9 +31,9 @@ public class Main {
         gm.addDrawables(player);
         gm.addProcesses(player);
 
-        for (IPlugin iPlugin : Main.getPlugin()){
-            System.out.println(iPlugin.create(gm).getAcceleration());
-        }
+//        for (IPlugin iPlugin : Main.getPlugin()){
+//            System.out.println(iPlugin.create(gm).getAcceleration());
+//        }
 
     }
 
