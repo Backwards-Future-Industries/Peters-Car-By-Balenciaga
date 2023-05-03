@@ -1,10 +1,8 @@
-package weapon;
-
 import abstractClasses.Entity;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Vector2D;
+import grill.Bullet;
 
 import java.io.IOException;
 
@@ -18,7 +16,7 @@ class BulletTest {
 
     private Vector2D direction = new Vector2D(2,4);
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() {
         this.bullet = new Bullet(position, direction);
     }
 

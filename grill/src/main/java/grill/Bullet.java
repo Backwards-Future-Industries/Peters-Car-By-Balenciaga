@@ -1,4 +1,4 @@
-package weapon;
+package grill;
 
 import abstractClasses.Entity;
 import interfaces.*;
@@ -7,7 +7,6 @@ import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +18,7 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
     private Vector2D direction;
     private int bulletSpeed = 3;
     private int bulletAcceleration = 1;
-    private static URL sprite = Bullet.class.getResource("images/bullet.png");
+    private static URL sprite = Bullet.class.getResource("grillImages/bullet.png");
 
     public Bullet(){
         super(health, sprite, new double[]{0.01, 0.01});
