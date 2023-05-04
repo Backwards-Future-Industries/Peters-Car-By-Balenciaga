@@ -1,25 +1,26 @@
 package abstractClasses;
 
+import utilities.Shapes;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
 import utilities.Vector2D;
 
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 public abstract class Entity {
     private int health;
-
     private Image sprite;
     private int[] position;
     private double[] scale;
     private double radius;
     private double acceleration;
     private double maxSpeed;
-    // Instead of radians, I have made a Shape-Array to add shapes
-    private double radians = 0;
+    // Instead of radians, I have made a Shape-Array that contains shapes. The Shapes will be the mapImages
+   // private double radians = 0;
     private Vector2D direction;
+
+    private Shapes[] mapShapes;
     
     public Entity(){
         this(-1);
@@ -46,8 +47,9 @@ public abstract class Entity {
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
         this.sprite = ImageLoader.loadImage(sprite,scale);
+        this.mapShapes = new Shapes[]{};
 
-        radius = 20; //placeholder default value
+       // radius = 20; //placeholder default value
     }
 
 
@@ -71,6 +73,7 @@ public abstract class Entity {
 
     public void setPosition(int[] position) {
         this.position = position;
+
     }
 
     public int[] getPosition() {
@@ -100,7 +103,7 @@ public abstract class Entity {
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
-
+    /*
     public double getRadians() {
         return radians;
     }
@@ -108,7 +111,7 @@ public abstract class Entity {
     public void setRadians(double radians) {
         this.radians = radians;
     }
-
+    */
     public Vector2D getDirection() {
         return direction;
     }

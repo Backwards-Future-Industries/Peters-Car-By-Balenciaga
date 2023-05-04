@@ -2,16 +2,23 @@ package utilities;
 
 import abstractClasses.Entity;
 
-public class Shape extends Entity {
+public class Shapes extends Entity {
 
     int[] position;
     int height;
     int width;
 
-    public Shape () {
+    public Shapes() {
 
     }
 
+    /*
+    public Shapes(int width, int height) {
+        this.width = width;
+        this.height = height;
+
+    }
+    */
     @Override
     public int[] getPosition() {
         return position;
