@@ -76,15 +76,6 @@ public class Map extends Entity implements IDrawable, IPlugin {
         combinedTiles();
     }
 
-    @Override
-    public Entity create(IGameEngine gameEngine) {
-        return null;
-    }
-
-    @Override
-    public Entity delete(IGameEngine gameEngine) {
-        return null;
-    }
 
 
     @Override

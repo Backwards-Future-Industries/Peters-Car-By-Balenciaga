@@ -3,6 +3,7 @@ package enemy;
 import abstractClasses.Entity;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
+import utilities.GameData;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,9 +16,8 @@ public class EnemyPlugin extends Entity implements IPlugin {
         super(10,defaultImage,new double[]{1,1},1,10);
         setPosition(new int[]{10,10});
     }
-
     @Override
-    public Entity create(IGameEngine gameEngine) {
+    public Entity create(GameData gameEngine) {
         try {
             lowTierGod = new EnemyPlugin();
         } catch (IOException e) {
@@ -28,7 +28,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameEngine) {
         this.setHealth(0);
         return this;
     }

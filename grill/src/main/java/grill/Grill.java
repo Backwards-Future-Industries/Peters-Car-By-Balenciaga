@@ -3,9 +3,9 @@ package grill;
 import abstractClasses.Entity;
 import abstractClasses.Weapon;
 import interfaces.IDrawable;
-import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
+import utilities.GameData;
 import utilities.Inputs;
 
 import javax.swing.*;
@@ -40,19 +40,19 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public Entity create(IGameEngine gameEngine) {
+    public Entity create(GameData gameEngine) {
         Entity newGrill;
         newGrill = new Grill(1);
         return newGrill;
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameEngine) {
         return null;
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs) {
         if(inputs.contains(Inputs.KEY_SPACE)) {
             this.shoot();
         }
