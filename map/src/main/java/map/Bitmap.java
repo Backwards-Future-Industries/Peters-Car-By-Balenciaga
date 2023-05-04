@@ -11,9 +11,8 @@ public class Bitmap {
     private TileType[][] map;
     private BufferedImage bitmap;
 
-
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMapTest.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMapWallTest.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -35,6 +34,7 @@ public class Bitmap {
                 map[x][y] = TileType;
             }
         }
+
     }
 
     private TileType findTile(int blue, int green, int red){
@@ -42,8 +42,13 @@ public class Bitmap {
         if(blue > 250 && green > 250 && red > 250){
             color = Color.black;
         }
+
         if(blue < 5 && green < 5 && red < 5){
             color = Color.white;
+        }
+
+        if (blue < 5 && green < 5 && red > 250){
+            color = Color.red;
         }
 
         if(TileType.GRASS.getColor() == color){
@@ -51,6 +56,9 @@ public class Bitmap {
         }
         if(TileType.EARTH.getColor() == color){
             return TileType.EARTH;
+        }
+        if (TileType.WALLTEST.getColor() == color){
+            return TileType.WALLTEST;
         }
         return TileType.BLANK;
     }

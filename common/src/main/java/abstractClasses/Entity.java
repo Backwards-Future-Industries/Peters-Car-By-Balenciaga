@@ -17,9 +17,10 @@ public abstract class Entity {
     private double radius;
     private double acceleration;
     private double maxSpeed;
+    // Instead of radians, I have made a Shape-Array to add shapes
     private double radians = 0;
     private Vector2D direction;
-
+    
     public Entity(){
         this(-1);
     }

@@ -14,15 +14,17 @@ import java.io.IOException;
 public class Map implements IDrawable, IPlugin {
 
     private Bitmap bitmap;
-
     private Tile grass;
     private Tile earth;
+    private Tile wallTest;
 
 
     public Map() throws IOException {
         this.bitmap = new Bitmap();
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);
+        this.wallTest = new Tile(TileType.WALLTEST);
+
     }
 
     @Override
@@ -54,12 +56,12 @@ public class Map implements IDrawable, IPlugin {
                 if(map[x][y] == TileType.GRASS){
                     g.drawImage(grass.getSprite().getImage(),position[0],position[1],panel);
                 }
+                if(map[x][y] == TileType.WALLTEST){
+                    g.drawImage(wallTest.getSprite().getImage(),position[0],position[1],panel);
+                }
                 position = new int[]{position[0]+16,position[1]};
             }
             position = new int[]{0,position[1]+16};
         }
-
     }
-
-
 }

@@ -11,5 +11,10 @@ public class Tile extends Entity {
         if (tileType == tileType.GRASS){
             setSprite(Tile.class.getResource("/mapImages/grass.png"),new double[]{1,1});
         }
+        if (tileType == tileType.WALLTEST){
+            setSprite(Tile.class.getResource("/mapImages/wallTest.png"),new double[]{1,1});
+        }
     }
+
+
 }
