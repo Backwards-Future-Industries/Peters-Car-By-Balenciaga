@@ -11,9 +11,10 @@ public class CollisionDetection implements IProcessing {
     //Need a way to access all existing enteties in case of a ittertion approach to
     //collision detection, alternatives are greatly appreciated.
     @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs) {
 
     }
+
 
     //Everything is a circle (for now?)
     public boolean isColliding(Entity entity1, Entity entity2) {
@@ -30,5 +31,7 @@ public class CollisionDetection implements IProcessing {
         //Checks if the radius of the two points collide (collision)
         return distance < (entity1.getRadius() + entity2.getRadius());
     }
+
+
 }
 
