@@ -1,6 +1,5 @@
 import abstractClasses.Entity;
-import interfaces.IMovement;
-import org.junit.jupiter.api.BeforeAll;
+import movement.DefaultMovement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Inputs;
@@ -13,28 +12,23 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-class IMovementTest {
+class DefaultMovementTest {
     private static Vector2D expectedDirection;
     private static int[] expectedPosition;
     private int[] position;
     private static Entity testEntity;
-    private static IMovement movement;
+    private static DefaultMovement movement;
     private ArrayList<Inputs> inputs;
     private double radians;
     @BeforeEach
     void setup(){
-        URL sprite = EntityTest.class.getClassLoader().getResource("images/placeholder.png");
+        URL sprite = DefaultMovement.class.getClassLoader().getResource("images/placeholder.png");
         testEntity = new concreteEntity(5, sprite);
-        movement = new IMovement() {
-            @Override
-            public int[] defaultMove(ArrayList<Inputs> inputs, Entity entity) {
-                return IMovement.super.defaultMove(inputs, entity);
-            }
-        };
-
         expectedPosition = new int[]{1,0};
         expectedDirection = new Vector2D(0,0);
         this.inputs = new ArrayList<>();
+        movement = new DefaultMovement();
+
     }
 
     @Test

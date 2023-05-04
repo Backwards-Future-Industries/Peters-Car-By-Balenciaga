@@ -16,6 +16,4 @@ public interface IGameEngine {
     boolean addProcesses(IProcessing process);
     boolean removeDrawables(IDrawable drawable, Layers layer);
     boolean removeProcesses(IProcessing process);
-    long getDeltaDrawTime();
-    long getDeltaProcessTime();
 }
