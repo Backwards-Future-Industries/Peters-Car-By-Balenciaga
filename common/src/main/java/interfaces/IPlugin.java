@@ -1,10 +1,10 @@
 package interfaces;
 
 import abstractClasses.Entity;
+import utilities.GameData;
 
 public interface IPlugin {
 
-    Entity create(IGameEngine gameEngine);
-    Entity delete(IGameEngine gameEngine);
-
+    Entity create(GameData gameEngine);
+    Entity delete(GameData gameEngine);
 }
