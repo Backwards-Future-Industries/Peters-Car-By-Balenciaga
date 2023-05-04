@@ -8,17 +8,14 @@ public class Shapes extends Entity {
     int height;
     int width;
 
-    public Shapes() {
-
-    }
-
-    /*
     public Shapes(int width, int height) {
         this.width = width;
         this.height = height;
 
+        setPosition(new int[]{1,1});
+
     }
-    */
+
     @Override
     public int[] getPosition() {
         return position;
