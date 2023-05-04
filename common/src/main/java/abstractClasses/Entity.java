@@ -20,7 +20,7 @@ public abstract class Entity {
    // private double radians = 0;
     private Vector2D direction;
 
-    private Shapes[] mapShapes;
+    private Shapes[] Shape;
     
     public Entity(){
         this(-1);
@@ -47,7 +47,9 @@ public abstract class Entity {
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
         this.sprite = ImageLoader.loadImage(sprite,scale);
-        this.mapShapes = new Shapes[]{};
+        this.Shape = new Shapes[]{
+                new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
+        };
 
        // radius = 20; //placeholder default value
     }
