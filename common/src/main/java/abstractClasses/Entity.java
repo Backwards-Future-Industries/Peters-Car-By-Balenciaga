@@ -6,6 +6,7 @@ import utilities.image.ImageLoader;
 
 import utilities.Vector2D;
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
 
 public abstract class Entity {
@@ -72,6 +73,11 @@ public abstract class Entity {
     public void setSprite(URL sprite, double[] scale) {
         this.scale = scale;
         this.sprite = ImageLoader.loadImage(sprite, this.scale);
+    }
+
+    public void setSprite(BufferedImage bufferedImage, double[] scale) {
+        this.scale = scale;
+        this.sprite = ImageLoader.loadImage(bufferedImage, this.scale);
     }
 
     public void setPosition(int[] position) {
