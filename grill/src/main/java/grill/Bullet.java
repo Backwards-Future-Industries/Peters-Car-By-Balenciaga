@@ -60,6 +60,6 @@ public class Bullet extends Entity implements IDrawable, IMovement, IPlugin, IPr
 
     @Override
     public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
-        setPosition(defaultMove(new ArrayList<Inputs>(Arrays.asList(Inputs.KEY_W)), this));
+        setPosition(defaultMove(new ArrayList<>(Arrays.asList(Inputs.KEY_W)), this));
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
 
-    private static URL sprite = Entity.class.getClassLoader().getResource("grillImages/placeholder.png");
+    private static URL sprite = Entity.class.getResource("grillImages/placeholder.png");
 
     public Grill(){
         super(1,sprite);
