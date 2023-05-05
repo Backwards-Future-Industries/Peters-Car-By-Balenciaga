@@ -24,6 +24,11 @@ public class Map extends Entity implements IDrawable, IPlugin {
 
     private ArrayList <Shapes> shapesArray;
 
+    // combinedTiles:
+    // Combines the buffered images into one image, which is then drawn in the draw-method
+    // This makes the draw method draw the map once instead of 60 times as it otherwise would do.
+    // It also adds the mapImages (the graphic for the tiles) as Shapes to an arraylist -
+    // so the tiles/shapes can be defined as obstacles, roads ect. and collision control can be performed on the map.
     private void combinedTiles() {
 
         BufferedImage bufferedImage = new BufferedImage(bitmap.getMap().length*16,
@@ -58,8 +63,6 @@ public class Map extends Entity implements IDrawable, IPlugin {
         }
         this.setSprite(bufferedImage,new double[]{1,1});
         this.setShape((shapesArray.toArray(this.getShape())));
-
-        System.out.println("LOLOL");
     }
 
 
@@ -84,14 +87,9 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
 
-
-
     @Override
     public void draw(Graphics2D g, JPanel panel) {
-        // Prøv og merge bufferedImages ind til et enkelt image
-        // Ved at merge bufferedImages til et enkelt image, vil køretiden blive bedre
-        // Se bufferedImage-doku
-        //Lav metode der rykker bufferedImage sammen - to buffered images der rykkes sammen.
+
         g.drawImage(getSprite().getImage(),0,0,panel);
 
     }
