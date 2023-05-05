@@ -8,13 +8,24 @@ public class Shapes {
     int height;
     int width;
 
+    Types type;
+
     public Shapes(int width, int height) {
+        this(width,height,new int[]{0,0},Types.UNDEFINED);
+    }
+
+    public Shapes(int width, int height, int[] position, Types type) {
         this.width = width;
         this.height = height;
+        this.position = position;
+        this.type = type;
 
         setPosition(new int[]{1,1});
 
     }
+
+
+
 
     //
     public int[] getPosition() {

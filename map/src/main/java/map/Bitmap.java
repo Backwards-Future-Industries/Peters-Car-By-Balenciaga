@@ -57,8 +57,8 @@ public class Bitmap {
         if(TileType.EARTH.getColor() == color){
             return TileType.EARTH;
         }
-        if (TileType.WALLTEST.getColor() == color){
-            return TileType.WALLTEST;
+        if (TileType.OBSTACLE.getColor() == color){
+            return TileType.OBSTACLE;
         }
         return TileType.BLANK;
     }
