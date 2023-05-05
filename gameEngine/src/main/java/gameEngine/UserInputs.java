@@ -33,6 +33,9 @@ public class UserInputs extends KeyAdapter {
         if(keyCode == KeyEvent.VK_D && !inputs.contains(Inputs.KEY_D)){
             inputs.add(Inputs.KEY_D);
         }
+        if(keyCode == KeyEvent.VK_C && !inputs.contains(Inputs.KEY_C)){
+            inputs.add(Inputs.KEY_C);
+        }
         if(keyCode == KeyEvent.VK_SPACE && !inputs.contains(Inputs.KEY_SPACE)){
             inputs.add(Inputs.KEY_SPACE);
         }
@@ -57,6 +60,9 @@ public class UserInputs extends KeyAdapter {
         }
         if(keyCode == KeyEvent.VK_D){
             inputs.remove(Inputs.KEY_D);
+        }
+        if(keyCode == KeyEvent.VK_C){
+            inputs.remove(Inputs.KEY_C);
         }
         if(keyCode == KeyEvent.VK_SPACE){
             inputs.remove(Inputs.KEY_SPACE);
