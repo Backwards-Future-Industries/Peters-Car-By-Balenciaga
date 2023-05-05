@@ -8,18 +8,17 @@ import java.net.URL;
 
 public class Bitmap {
 
-    private eTile[][] map;
+    private TileType[][] map;
     private BufferedImage bitmap;
 
-
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitmap1.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMapWallTest.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.map = new eTile[bitmap.getWidth()][bitmap.getHeight()];
+        this.map = new TileType[bitmap.getWidth()][bitmap.getHeight()];
         loadMap();
     }
 
@@ -31,31 +30,40 @@ public class Bitmap {
                 int blue = color & 0xff;
                 int green = (color & 0xff00) >> 8;
                 int red = (color & 0xff0000) >> 16;
-                eTile eTile = findTile(blue,green,red);
-                map[x][y] = eTile;
+                TileType TileType = findTile(blue,green,red);
+                map[x][y] = TileType;
             }
         }
+
     }
 
-    private eTile findTile(int blue, int green, int red){
+    private TileType findTile(int blue, int green, int red){
         Color color = Color.cyan;
         if(blue > 250 && green > 250 && red > 250){
             color = Color.black;
         }
+
         if(blue < 5 && green < 5 && red < 5){
             color = Color.white;
         }
 
-        if(eTile.GRASS.getColor() == color){
-            return eTile.GRASS;
+        if (blue < 5 && green < 5 && red > 250){
+            color = Color.red;
         }
-        if(eTile.EARTH.getColor() == color){
-            return eTile.EARTH;
+
+        if(TileType.GRASS.getColor() == color){
+            return TileType.GRASS;
         }
-        return eTile.BLANK;
+        if(TileType.EARTH.getColor() == color){
+            return TileType.EARTH;
+        }
+        if (TileType.OBSTACLE.getColor() == color){
+            return TileType.OBSTACLE;
+        }
+        return TileType.BLANK;
     }
 
-    public eTile[][] getMap() {
+    public TileType[][] getMap() {
         return map;
     }
 }

@@ -1,5 +1,6 @@
 package abstractClasses;
 
+import utilities.Shapes;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
@@ -10,16 +11,18 @@ import java.net.URL;
 
 public abstract class Entity {
     private int health;
-
     private Image sprite;
     private int[] position;
     private double[] scale;
     private double radius;
     private double acceleration;
     private double maxSpeed;
+    // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
     private double radians = 0;
     private Vector2D direction;
 
+    private Shapes[] shape;
+    
     public Entity(){
         this(-1);
     }
@@ -44,7 +47,11 @@ public abstract class Entity {
         if(sprite == null){
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
+        // the shapes-array fetches the sprite, that relates to the image and gets the values of the width && height
         this.sprite = ImageLoader.loadImage(sprite,scale);
+        this.shape = new Shapes[]{
+                new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
+        };
 
         radius = 20; //placeholder default value
     }
@@ -68,8 +75,21 @@ public abstract class Entity {
         this.sprite = ImageLoader.loadImage(sprite, this.scale);
     }
 
+    public void setSprite(BufferedImage bufferedImage, double[] scale) {
+        this.scale = scale;
+        this.sprite = ImageLoader.loadImage(bufferedImage, this.scale);
+    }
+
     public void setPosition(int[] position) {
         this.position = position;
+        // Checks if there are only 1 object in the array
+        // This way we can make sure that the thing is a shape and not a map since a map contains multiple collidable
+        // types
+        // The object will be added to the shape-array
+        if (this.shape.length == 1) {
+            this.shape[0].setPosition(position);
+        }
+
     }
 
     public int[] getPosition() {
@@ -114,5 +134,14 @@ public abstract class Entity {
 
     public void setDirection(Vector2D direction) {
         this.direction = direction;
+    }
+
+
+    public void setShape(Shapes[] shape) {
+        this.shape = shape;
+    }
+
+    public Shapes[] getShape() {
+        return shape;
     }
 }

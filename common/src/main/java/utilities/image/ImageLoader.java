@@ -18,6 +18,12 @@ public class ImageLoader {
         return image;
     }
 
+    public static Image loadImage(BufferedImage bufferedImage,double[] scale){
+        Image image = new Image(bufferedImage,scale);
+
+        return image;
+    }
+
 
 
     //https://stackoverflow.com/questions/15305037/java-compare-one-bufferedimage-to-another
