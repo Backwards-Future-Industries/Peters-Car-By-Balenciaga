@@ -16,7 +16,7 @@ public class Shapes {
 
     }
 
-
+    //
     public int[] getPosition() {
         return position;
     }
@@ -41,4 +41,7 @@ public class Shapes {
     public void setWidth(int width) {
         this.width = width;
     }
+
+
+
 }

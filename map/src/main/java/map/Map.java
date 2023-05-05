@@ -8,15 +8,20 @@ import interfaces.IPlugin;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 
-public class Map implements IDrawable, IPlugin {
+public class Map extends Entity implements IDrawable, IPlugin {
 
     private Bitmap bitmap;
     private Tile grass;
     private Tile earth;
     private Tile wallTest;
+
+    private void combinedTiles() {
+
+    }
 
 
     public Map() throws IOException {
@@ -38,11 +43,15 @@ public class Map implements IDrawable, IPlugin {
     }
 
 
+
+
     @Override
     public void draw(Graphics2D g, JPanel panel) {
         // Prøv og merge bufferedImages ind til et enkelt image
         // Ved at merge bufferedImages til et enkelt image, vil køretiden blive bedre
         // Se bufferedImage-doku
+
+        //Lav metode der rykker bufferedImage sammen - to buffered images der rykkes sammen.
 
         TileType[][] map = bitmap.getMap();
 

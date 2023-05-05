@@ -16,11 +16,11 @@ public abstract class Entity {
     private double radius;
     private double acceleration;
     private double maxSpeed;
-    // Instead of radians, I have made a Shape-Array that contains shapes. The Shapes will be the mapImages
-   // private double radians = 0;
+    // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
+    private double radians = 0;
     private Vector2D direction;
 
-    private Shapes[] Shape;
+    private Shapes[] shape;
     
     public Entity(){
         this(-1);
@@ -46,12 +46,13 @@ public abstract class Entity {
         if(sprite == null){
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
+        // the shapes-array fetches the sprite, that relates to the image and gets the values of the width && height
         this.sprite = ImageLoader.loadImage(sprite,scale);
-        this.Shape = new Shapes[]{
+        this.shape = new Shapes[]{
                 new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
         };
 
-       // radius = 20; //placeholder default value
+        radius = 20; //placeholder default value
     }
 
 
@@ -75,6 +76,12 @@ public abstract class Entity {
 
     public void setPosition(int[] position) {
         this.position = position;
+        // tjekker om der kun er 1 ting i arrayet
+        // i så fald vides at det er en shape og ikke er et map, da et map indeholder flere collidable ting
+        // den vil gå ind i shape array
+        if (this.shape.length == 1) {
+            this.shape[0].setPosition(position);
+        }
 
     }
 
@@ -105,7 +112,7 @@ public abstract class Entity {
     public void setMaxSpeed(int maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
-    /*
+
     public double getRadians() {
         return radians;
     }
@@ -113,12 +120,21 @@ public abstract class Entity {
     public void setRadians(double radians) {
         this.radians = radians;
     }
-    */
+
     public Vector2D getDirection() {
         return direction;
     }
 
     public void setDirection(Vector2D direction) {
         this.direction = direction;
+    }
+
+
+    public void setShape(Shapes[] shape) {
+        this.shape = shape;
+    }
+
+    public Shapes[] getShape() {
+        return shape;
     }
 }
