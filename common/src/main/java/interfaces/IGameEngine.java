@@ -11,7 +11,7 @@ public interface IGameEngine {
     LinkedList<IProcessing> getProcesses();
     boolean addDrawables(IDrawable drawable);
     boolean addDrawables(IDrawable drawable, Layers layer);
-    // hvis ikke layer gives - vil addDrawables sætte indputtet (aka et map) til "MIDDLEGROUND"
+    // If a layer is not specified, the addDrawables method will place the input (e.g. a map) to the "MIDDLEGROUND"
     boolean addNewEntities(IPlugin newEntity);
     boolean addProcesses(IProcessing process);
     boolean removeDrawables(IDrawable drawable, Layers layer);

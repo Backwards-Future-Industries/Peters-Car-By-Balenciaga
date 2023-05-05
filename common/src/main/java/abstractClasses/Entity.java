@@ -82,9 +82,10 @@ public abstract class Entity {
 
     public void setPosition(int[] position) {
         this.position = position;
-        // tjekker om der kun er 1 ting i arrayet
-        // i så fald vides at det er en shape og ikke er et map, da et map indeholder flere collidable ting
-        // den vil gå ind i shape array
+        // Checks if there are only 1 object in the array
+        // This way we can make sure that the thing is a shape and not a map since a map contains multiple collidable
+        // types
+        // The object will be added to the shape-array
         if (this.shape.length == 1) {
             this.shape[0].setPosition(position);
         }
