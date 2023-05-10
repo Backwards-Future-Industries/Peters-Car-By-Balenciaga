@@ -34,7 +34,7 @@ public class GameEngine{
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
-    public GameEngine(int framerate) throws IOException {
+    public GameEngine(int framerate) {
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -92,11 +92,13 @@ public class GameEngine{
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void addEntities() throws IOException {
+    public void addEntities() {
         for(IPlugin iPlugin : getPlugin()) {
             Entity entity = iPlugin.create(gameData);
             gameData.addNewEntities(entity);
         }
+        System.out.println(gameData.getNewEntities().size());
+
     }
 
     public JFrame getWindow() {

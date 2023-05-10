@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface IPlugin {
 
-    Entity create(GameData gameData) throws IOException;
+    Entity create(GameData gameData);
     Entity delete(GameData gameData);
 
 }

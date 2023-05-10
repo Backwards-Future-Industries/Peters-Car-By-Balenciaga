@@ -83,13 +83,14 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create(GameData gameData) {
-        Entity newMap;
+    public Entity create(GameData gameData){
+        Entity newMap = null;
         try {
             newMap = new Map();
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         return newMap;
     }
 
