@@ -125,6 +125,17 @@ public class GameEngine{
         return SPIlocator.locateAll(IDrawable.class);
     }
 
+    private void addDraw(){
+        for (IDrawable iDrawable : getIdrawable()){
+            gameData.addDrawables(iDrawable);
+        }
+
+    }
+
+    private Collection<IDrawable> getIdrawable(){
+        return SPIlocator.locateAll(IDrawable.class);
+    }
+
     private Collection<IPlugin> getPlugin(){
         return SPIlocator.locateAll(IPlugin.class);
     }

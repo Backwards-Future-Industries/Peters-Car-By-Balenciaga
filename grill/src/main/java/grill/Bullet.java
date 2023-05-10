@@ -28,7 +28,17 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     }
 
     @Override
-    public Entity create(GameData gameData) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
+        int[] position = getPosition();
+        g.drawImage(getSprite().getImage(), position[0], position[1], panel);
+    }
+
+    private Collection<IMovement> getPlugin(){
+        return SPIlocator.locateAll(IMovement.class);
+    }
+
+    @Override
+    public Entity create(GameData gameEngine) {
         Entity newBullet;
         newBullet = new Bullet(getPosition(), getDirection());
         return newBullet;
@@ -38,13 +48,6 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     public Entity delete(GameData gameData) {
         return null;
     }
-
-    @Override
-    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        int[] position = getPosition();
-        g.drawImage(getSprite().getImage(), position[0], position[1], panel);
-    }
-
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
