@@ -19,6 +19,7 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
 
     public Bullet(){
         this(new int[]{0,0},new Vector2D(1.0,1.0));
+
     }
 
     public Bullet(int[] position, Vector2D direction){
