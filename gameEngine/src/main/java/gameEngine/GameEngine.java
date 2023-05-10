@@ -1,5 +1,6 @@
 package gameEngine;
 
+import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IMovement;
 import interfaces.IPlugin;
@@ -90,8 +91,10 @@ public class GameEngine{
 
     public void addEntities(){
         for(IPlugin iPlugin : getPlugin()) {
-            gameData.addNewEntities(iPlugin);
+            Entity entity = iPlugin.create(gameData);
+            gameData.addNewEntities(entity);
         }
+        System.out.println(gameData.getNewEntities().size());
     }
 
     public JFrame getWindow() {

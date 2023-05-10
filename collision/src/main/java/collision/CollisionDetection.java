@@ -10,7 +10,7 @@ public class CollisionDetection implements IProcessing {
     //Need a way to access all existing enteties in case of a ittertion approach to
     //collision detection, alternatives are greatly appreciated.
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, Entity entity) {
 
     }
 

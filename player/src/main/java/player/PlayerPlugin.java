@@ -3,37 +3,36 @@ package player;
 import interfaces.*;
 import abstractClasses.Entity;
 import utilities.GameData;
+import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.IOException;
 import java.net.URL;
 
 
 
-public class PlayerPlugin extends Entity implements IPlugin, IDrawable {
+public class PlayerPlugin implements IPlugin, IDrawable {
+
+    private Entity newPlayer;
 
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
 
-    public PlayerPlugin() throws IOException {
-        super(5, sprite, new double[]{0.5,0.5},1,10);
-        setPosition(new int[]{700,500});
-        setRadians(0);
+    public PlayerPlugin(){
     }
 
 
     @Override
     public Entity create(GameData gamedata) {
-        Entity newPlayer;
-        try {
-            newPlayer = new PlayerPlugin();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        gamedata.addDrawables((IDrawable) newPlayer);
-        gamedata.addProcesses((IProcessing) newPlayer);
-        return newPlayer;
+        this.newPlayer = new Player();
+        this.newPlayer.setHealth(5);
+        this.newPlayer.setSprite(sprite,new double[]{0.5,0.5});
+        this.newPlayer.setAcceleration(1);
+        this.newPlayer.setMaxSpeed(10);
+        this.newPlayer.setTypes(Types.PLAYER);
+
+
+        return this.newPlayer;
     }
 
     @Override
@@ -43,10 +42,10 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
-        int[] position = getPosition();
+        int[] position = newPlayer.getPosition();
 
-        AffineTransform transform = getSprite().getTransform();
+        AffineTransform transform = newPlayer.getSprite().getTransform();
         g.setTransform(transform);
-        g.drawImage(getSprite().getImage(),position[0],position[1],panel);
+        g.drawImage(newPlayer.getSprite().getImage(),position[0],position[1],panel);
     }
 }

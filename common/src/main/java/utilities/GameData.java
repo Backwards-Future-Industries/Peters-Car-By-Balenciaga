@@ -1,5 +1,6 @@
 package utilities;
 
+import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
@@ -9,7 +10,7 @@ import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData implements IGameEngine {
-    private LinkedList<IPlugin> newEntities;
+    private LinkedList<Entity> newEntities;
     private LinkedList<IProcessing> processes;
     private LinkedList<IDrawable> foreground;
     private LinkedList<IDrawable> middleground;
@@ -19,7 +20,7 @@ public class GameData implements IGameEngine {
     private ReentrantLock drawLock;
 
     public GameData(){
-        this.newEntities = new LinkedList<IPlugin>();
+        this.newEntities = new LinkedList<Entity>();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
         this.middleground = new LinkedList<IDrawable>();
@@ -51,7 +52,7 @@ public class GameData implements IGameEngine {
      * @return List of all entities that's inbound for the game.
      */
     @Override
-    public LinkedList<IPlugin> getNewEntities() {
+    public LinkedList<Entity> getNewEntities() {
         newLock.lock();
         try{
             return newEntities;
@@ -117,7 +118,7 @@ public class GameData implements IGameEngine {
      * @return returns true if successful.
      */
     @Override
-    public boolean addNewEntities(IPlugin newEntity) {
+    public boolean addNewEntities(Entity newEntity) {
         newLock.lock();
         try {
             if (this.newEntities.add(newEntity)){
