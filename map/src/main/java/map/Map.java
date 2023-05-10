@@ -4,6 +4,7 @@ import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
+import utilities.GameData;
 import utilities.Shapes;
 import utilities.Types;
 import javax.swing.*;
@@ -74,7 +75,14 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create(IGameEngine gameEngine) {
+    public void draw(Graphics2D g, JPanel panel) {
+
+        g.drawImage(getSprite().getImage(),0,0,panel);
+
+    }
+
+    @Override
+    public Entity create(GameData gameEngine) {
         Entity newMap;
         try {
             newMap = new Map();
@@ -85,14 +93,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameEngine) {
         return null;
-    }
-
-    @Override
-    public void draw(Graphics2D g, JPanel panel) {
-
-        g.drawImage(getSprite().getImage(),0,0,panel);
-
     }
 }
