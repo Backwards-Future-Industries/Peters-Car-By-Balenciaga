@@ -3,5 +3,4 @@ module gameEngine {
 
     requires common;
     requires java.desktop;
-    requires player;
 }

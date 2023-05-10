@@ -1,18 +1,6 @@
 package main;
 
-import abstractClasses.Entity;
 import gameEngine.GameEngine;
-import interfaces.IDrawable;
-import interfaces.IPlugin;
-import interfaces.IProcessing;
-import player.PlayerPlugin;
-import utilities.SPIlocator;
-import map.Map;
-
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.ServiceLoader;
 
 
 
