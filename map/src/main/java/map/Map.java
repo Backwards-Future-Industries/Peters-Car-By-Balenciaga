@@ -6,8 +6,6 @@ import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import utilities.Shapes;
 import utilities.Types;
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,7 +19,6 @@ public class Map extends Entity implements IDrawable, IPlugin {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
-
     private ArrayList <Shapes> shapesArray;
 
     // combinedTiles:
