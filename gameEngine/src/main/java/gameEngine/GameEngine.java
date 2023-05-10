@@ -38,6 +38,7 @@ public class GameEngine{
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         addEntities();
+        addDraw();
         openWindow();
         start();
     }
@@ -52,7 +53,7 @@ public class GameEngine{
               AffineTransform backup = g2d.getTransform();
 
               for (IDrawable entity : gameData.getDrawables()) {
-                  entity.draw(g2d,panel);
+                  entity.draw(g2d,panel,gameData);
                   g2d.setTransform(backup);
               }
           }
@@ -94,7 +95,6 @@ public class GameEngine{
             Entity entity = iPlugin.create(gameData);
             gameData.addNewEntities(entity);
         }
-        System.out.println(gameData.getNewEntities().size());
     }
 
     public JFrame getWindow() {
@@ -108,6 +108,17 @@ public class GameEngine{
 
     public GameData getGameData(){
         return this.gameData;
+    }
+
+    private void addDraw(){
+        for (IDrawable iDrawable : getIdrawable()){
+            gameData.addDrawables(iDrawable);
+        }
+
+    }
+
+    private Collection<IDrawable> getIdrawable(){
+        return SPIlocator.locateAll(IDrawable.class);
     }
 
     private Collection<IPlugin> getPlugin(){

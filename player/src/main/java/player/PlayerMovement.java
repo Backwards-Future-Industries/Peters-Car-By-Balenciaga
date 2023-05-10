@@ -3,6 +3,7 @@ package player;
 import abstractClasses.Entity;
 import interfaces.IMovement;
 import interfaces.IProcessing;
+import utilities.GameData;
 import utilities.Inputs;
 import utilities.SPIlocator;
 import utilities.Types;
@@ -15,15 +16,20 @@ public class PlayerMovement implements IProcessing {
     private Types type;
 
         @Override
-        public void process(ArrayList<Inputs> inputs, Entity entity) {
-            for (IMovement iMovement : getPlugin()){
-                entity.setPosition(iMovement.defaultMove(inputs,entity));
-            }
-            entity.getSprite().freshRotate(entity.getRadians(),entity.getPosition());
+        public void process(ArrayList<Inputs> inputs, GameData gameData) {
+           for (Entity player : gameData.getNewEntities()){
+               if (player.getTypes() == Types.PLAYER){
+                   for (IMovement iMovement : getPlugin()){
+                       player.setPosition(iMovement.defaultMove(inputs,player));
+                   }
+                   player.getSprite().freshRotate(player.getRadians(),player.getPosition());
+               }
+           }
+
+
         }
 
         private Collection<IMovement> getPlugin(){
-            System.out.println(SPIlocator.locateAll(IMovement.class));
             return SPIlocator.locateAll(IMovement.class);
         }
     }
