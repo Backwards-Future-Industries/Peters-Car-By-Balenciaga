@@ -51,6 +51,8 @@ public class GameEngine implements IGameEngine {
         this.newLock = new ReentrantLock(true);
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
+        addEntities();
+        addDraw();
         openWindow();
         start();
     }
@@ -64,8 +66,8 @@ public class GameEngine implements IGameEngine {
               Graphics2D g2d = (Graphics2D) g;
               AffineTransform backup = g2d.getTransform();
 
-              for (IDrawable entity : getDrawables()) {
-                  entity.draw(g2d,panel);
+              for (IDrawable entity : gameData.getDrawables()) {
+                  entity.draw(g2d,panel,gameData);
                   g2d.setTransform(backup);
               }
           }
@@ -107,7 +109,6 @@ public class GameEngine implements IGameEngine {
             Entity entity = iPlugin.create(gameData);
             gameData.addNewEntities(entity);
         }
-        System.out.println(gameData.getNewEntities().size());
     }
 
     public JFrame getWindow() {
@@ -136,17 +137,19 @@ public class GameEngine implements IGameEngine {
         }
     }
 
-    /**
-     * @return List of all entities that's inbound for the game.
-     */
-    @Override
-    public LinkedList<IPlugin> getNewEntities() {
-        newLock.lock();
-        try{
-            return newEntities;
-        } finally {
-            newLock.unlock();
+    private void addDraw(){
+        for (IDrawable iDrawable : getIdrawable()){
+            gameData.addDrawables(iDrawable);
         }
+
+    }
+
+    private Collection<IDrawable> getIdrawable(){
+        return SPIlocator.locateAll(IDrawable.class);
+    }
+
+    private Collection<IPlugin> getPlugin(){
+        return SPIlocator.locateAll(IPlugin.class);
     }
 
     /**

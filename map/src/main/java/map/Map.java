@@ -77,18 +77,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create(IGameEngine gameEngine) {
-        return null;
-    }
-
-    @Override
-    public Entity delete(IGameEngine gameEngine) {
-        return null;
-    }
-
-
-    @Override
-    public void draw(Graphics2D g, JPanel panel) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
 
         g.drawImage(getSprite().getImage(),0,0,panel);
 

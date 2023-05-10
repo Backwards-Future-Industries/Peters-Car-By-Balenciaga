@@ -28,7 +28,7 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         int [] position = getPosition();
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
@@ -52,7 +52,7 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs, Entity entity) {
+    public void process(ArrayList<Inputs> inputs, GameData gameData) {
         if(inputs.contains(Inputs.KEY_SPACE)) {
             this.shoot();
         }

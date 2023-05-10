@@ -43,7 +43,7 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         int[] position = getPosition();
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
@@ -61,7 +61,7 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs, Entity entity) {
+    public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (IMovement iMovement : getPlugin()){
             setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this));
         }
