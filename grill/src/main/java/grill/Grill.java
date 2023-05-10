@@ -52,7 +52,7 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs, Entity entity) {
         if(inputs.contains(Inputs.KEY_SPACE)) {
             this.shoot();
         }

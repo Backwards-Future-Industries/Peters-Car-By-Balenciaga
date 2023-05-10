@@ -1,20 +1,25 @@
 package player;
 
+import abstractClasses.Entity;
 import interfaces.IMovement;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.SPIlocator;
+import utilities.Types;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class PlayerMovement implements IProcessing {
+
+    private Types type;
+
         @Override
-        public void process(ArrayList<Inputs> inputs) {
+        public void process(ArrayList<Inputs> inputs, Entity entity) {
             for (IMovement iMovement : getPlugin()){
-                setPosition(iMovement.defaultMove(inputs,this));
+                entity.setPosition(iMovement.defaultMove(inputs,entity));
             }
-            this.getSprite().freshRotate(this.getRadians(),this.getPosition());
+            entity.getSprite().freshRotate(entity.getRadians(),entity.getPosition());
         }
 
         private Collection<IMovement> getPlugin(){

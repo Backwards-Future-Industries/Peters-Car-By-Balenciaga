@@ -23,6 +23,8 @@ public abstract class Entity {
     private double radians = 0;
     private Vector2D direction;
     private Shapes[] shape;
+
+    private Types types;
     
     public Entity(){
         this(-1);
@@ -145,5 +147,17 @@ public abstract class Entity {
 
     public Shapes[] getShape() {
         return shape;
+    }
+
+    public void setScale(double[] scale) {
+        this.scale = scale;
+    }
+
+    public void setTypes(Types types) {
+        this.types = types;
+    }
+
+    public Types getTypes() {
+        return types;
     }
 }
