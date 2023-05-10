@@ -1,6 +1,7 @@
 package abstractClasses;
 
 import utilities.Shapes;
+import utilities.Types;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
@@ -12,6 +13,7 @@ import java.net.URL;
 public abstract class Entity {
     private int health;
     private Image sprite;
+    private Types types;
     private int[] position;
     private double[] scale;
     private double radius;
@@ -34,10 +36,10 @@ public abstract class Entity {
 
     }
     public Entity(int health, URL sprite, double[] scale){
-        this(health,sprite,scale,1,10);
+        this(health,sprite,scale,1,10,Types.UNDEFINED);
     }
     
-    public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed){
+    public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed,Types types){
         this.health = health;
         this.scale = scale;
         this.acceleration = acceleration;
@@ -52,6 +54,7 @@ public abstract class Entity {
         this.shape = new Shapes[]{
                 new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
         };
+        this.types = types;
 
         radius = 20; //placeholder default value
     }
@@ -143,5 +146,9 @@ public abstract class Entity {
 
     public Shapes[] getShape() {
         return shape;
+    }
+
+    public Types getType() {
+        return types;
     }
 }

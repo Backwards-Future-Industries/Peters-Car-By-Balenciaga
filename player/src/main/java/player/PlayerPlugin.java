@@ -5,6 +5,8 @@ import abstractClasses.Entity;
 import utilities.GameData;
 import utilities.Inputs;
 import utilities.SPIlocator;
+import utilities.Types;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -19,7 +21,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, sprite, new double[]{0.5,0.5},1,10);
+        super(5, sprite, new double[]{0.5,0.5},1,10, Types.PLAYER);
         setPosition(new int[]{700,500});
         setRadians(0);
     }
@@ -61,7 +63,6 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     }
 
     private Collection<IMovement> getPlugin(){
-        System.out.println(SPIlocator.locateAll(IMovement.class));
         return SPIlocator.locateAll(IMovement.class);
     }
 }
