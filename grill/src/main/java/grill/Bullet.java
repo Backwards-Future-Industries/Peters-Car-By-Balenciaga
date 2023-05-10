@@ -2,10 +2,7 @@ package grill;
 
 import abstractClasses.Entity;
 import interfaces.*;
-import utilities.Inputs;
-import utilities.SPIlocator;
-import utilities.Types;
-import utilities.Vector2D;
+import utilities.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,14 +28,14 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     }
 
     @Override
-    public Entity create(IGameEngine gm) {
+    public Entity create(GameData gameData) {
         Entity newBullet;
         newBullet = new Bullet(getPosition(), getDirection());
         return newBullet;
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameData) {
         return null;
     }
 
@@ -48,17 +45,6 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
 
-    @Override
-    public Entity create(GameData gameEngine) {
-        Entity newBullet;
-        newBullet = new Bullet(getPosition(), getDirection());
-        return newBullet;
-    }
-
-    @Override
-    public Entity delete(GameData gameEngine) {
-        return null;
-    }
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
