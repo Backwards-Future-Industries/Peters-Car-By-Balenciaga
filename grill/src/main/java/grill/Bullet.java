@@ -33,9 +33,6 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
 
-    private Collection<IMovement> getPlugin(){
-        return SPIlocator.locateAll(IMovement.class);
-    }
 
     @Override
     public Entity create(GameData gameEngine) {

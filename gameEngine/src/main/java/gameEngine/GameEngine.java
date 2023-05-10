@@ -121,16 +121,7 @@ public class GameEngine{
 
     }
 
-    private Collection<IDrawable> getIdrawable(){
-        return SPIlocator.locateAll(IDrawable.class);
-    }
 
-    private void addDraw(){
-        for (IDrawable iDrawable : getIdrawable()){
-            gameData.addDrawables(iDrawable);
-        }
-
-    }
 
     private Collection<IDrawable> getIdrawable(){
         return SPIlocator.locateAll(IDrawable.class);
