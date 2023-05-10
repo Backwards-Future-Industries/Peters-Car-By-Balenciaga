@@ -2,7 +2,6 @@ package player;
 
 import interfaces.*;
 import abstractClasses.Entity;
-import utilities.GameData;
 import utilities.Inputs;
 import utilities.SPIlocator;
 import javax.swing.*;
@@ -26,20 +25,19 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
 
 
     @Override
-    public Entity create(GameData gamedata) {
+    public Entity create(IGameEngine gameEngine) {
         Entity newPlayer;
         try {
             newPlayer = new PlayerPlugin();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        gamedata.addDrawables((IDrawable) newPlayer);
-        gamedata.addProcesses((IProcessing) newPlayer);
         return newPlayer;
     }
 
+
     @Override
-    public Entity delete(GameData gameEngine) {
+    public Entity delete(IGameEngine gameEngine) {
         return null;
     }
 
@@ -50,10 +48,11 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
         AffineTransform transform = getSprite().getTransform();
         g.setTransform(transform);
         g.drawImage(getSprite().getImage(),position[0],position[1],panel);
+
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         for (IMovement iMovement : getPlugin()){
             setPosition(iMovement.defaultMove(inputs,this));
         }

@@ -1,6 +1,7 @@
 package collision;
 
 import abstractClasses.Entity;
+import interfaces.IGameEngine;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import java.util.ArrayList;
@@ -10,10 +11,9 @@ public class CollisionDetection implements IProcessing {
     //Need a way to access all existing enteties in case of a ittertion approach to
     //collision detection, alternatives are greatly appreciated.
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
 
     }
-
 
     //Everything is a circle (for now?)
     public boolean isColliding(Entity entity1, Entity entity2) {
@@ -30,11 +30,5 @@ public class CollisionDetection implements IProcessing {
         //Checks if the radius of the two points collide (collision)
         return distance < (entity1.getRadius() + entity2.getRadius());
     }
-
-
 }
-
-
-
-
 
