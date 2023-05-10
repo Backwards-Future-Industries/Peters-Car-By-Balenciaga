@@ -42,6 +42,7 @@ public class Image {
     }
     public void freshRotate(double radians, int[] position){
         rotation = radians;
+        System.out.println(radians);
         transform = AffineTransform.getRotateInstance(rotation, position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
     }
 

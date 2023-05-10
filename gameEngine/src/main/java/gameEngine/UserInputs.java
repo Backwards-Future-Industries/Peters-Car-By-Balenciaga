@@ -21,6 +21,8 @@ public class UserInputs extends KeyAdapter {
 
         int keyCode = e.getKeyCode();
 
+        System.out.println(keyCode);
+
         if(keyCode == KeyEvent.VK_W && !inputs.contains(Inputs.KEY_W)){
             inputs.add(Inputs.KEY_W);
         }

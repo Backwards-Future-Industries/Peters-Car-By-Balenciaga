@@ -8,5 +8,4 @@ public enum Types {
     BULLET,
     OBSTACLE,
     UNDEFINED;
-
 }

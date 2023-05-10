@@ -27,13 +27,13 @@ public class GameLoop implements Runnable {
             return;
         }
 
-        for(IPlugin newEntity : gameEngine.getNewEntities()){
-            newEntity.create(gameEngine);
+        for(IPlugin newEntity : gameEngine.getGameData().getNewEntities()){
+            newEntity.create(gameEngine.getGameData());
         }
-        gameEngine.clearNewEntities();
-        for(IProcessing entity : gameEngine.getProcesses()){
-            entity.process(inputs, gameEngine);
-        }
+        gameEngine.getGameData().clearNewEntities();
 
+        for(IProcessing entity : gameEngine.getGameData().getProcesses()){
+            entity.process(inputs);
     }
+}
 }
