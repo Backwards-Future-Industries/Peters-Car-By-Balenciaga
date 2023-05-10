@@ -13,7 +13,7 @@ public class PlayerPluginTest {
     @BeforeEach
     void setPlayerPlugin(){
         try {
-            this.playerPlugin = new PlayerPlugin();
+            this.playerPlugin = new PlayerPlugin().create(null);
             this.playerPlugin.setPosition(new int[]{700, 500});
         } catch (IOException e) {
             e.printStackTrace();

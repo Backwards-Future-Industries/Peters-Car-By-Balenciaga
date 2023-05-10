@@ -10,8 +10,6 @@ public enum TileType {
 
 
 
-
-
     private Color color;
 
     public Color getColor(){

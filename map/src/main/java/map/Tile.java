@@ -14,7 +14,6 @@ public class Tile extends Entity {
         if (tileType == tileType.OBSTACLE){
             setSprite(Tile.class.getResource("/mapImages/wallTest.png"),new double[]{1,1});
         }
-
     }
 
 

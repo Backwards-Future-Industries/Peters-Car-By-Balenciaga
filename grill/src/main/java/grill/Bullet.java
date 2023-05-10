@@ -2,7 +2,6 @@ package grill;
 
 import abstractClasses.Entity;
 import interfaces.*;
-import utilities.GameData;
 import utilities.Inputs;
 import utilities.SPIlocator;
 import utilities.Vector2D;
@@ -29,6 +28,17 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
         setAcceleration(1);
     }
 
+    @Override
+    public Entity create(IGameEngine gm) {
+        Entity newBullet;
+        newBullet = new Bullet(getPosition(), getDirection());
+        return newBullet;
+    }
+
+    @Override
+    public Entity delete(IGameEngine gameEngine) {
+        return null;
+    }
 
     @Override
     public void draw(Graphics2D g, JPanel panel) {
@@ -36,26 +46,13 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
 
-    private Collection<IMovement> getPlugin(){
-        return SPIlocator.locateAll(IMovement.class);
-    }
-
     @Override
-    public Entity create(GameData gameEngine) {
-        Entity newBullet;
-        newBullet = new Bullet(getPosition(), getDirection());
-        return newBullet;
-    }
-
-    @Override
-    public Entity delete(GameData gameEngine) {
-        return null;
-    }
-
-    @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
         for (IMovement iMovement : getPlugin()){
             setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this));
         }
+    }
+    private Collection<IMovement> getPlugin(){
+        return SPIlocator.locateAll(IMovement.class);
     }
 }
