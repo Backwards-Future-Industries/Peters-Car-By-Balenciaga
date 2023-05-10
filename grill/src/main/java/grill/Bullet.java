@@ -4,6 +4,7 @@ import abstractClasses.Entity;
 import interfaces.*;
 import utilities.Inputs;
 import utilities.SPIlocator;
+import utilities.Types;
 import utilities.Vector2D;
 
 import javax.swing.*;
@@ -18,10 +19,11 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
 
     public Bullet(){
         this(new int[]{0,0},new Vector2D(1.0,1.0));
+
     }
 
     public Bullet(int[] position, Vector2D direction){
-        super(1, sprite, new double[]{0.01, 0.01});
+        super(1, sprite, Types.BULLET, new double[]{0.01, 0.01});
         setPosition(position);
         setDirection(direction);
         setMaxSpeed(3);

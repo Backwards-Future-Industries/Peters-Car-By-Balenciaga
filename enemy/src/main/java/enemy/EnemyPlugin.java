@@ -3,6 +3,7 @@ package enemy;
 import abstractClasses.Entity;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
+import utilities.Types;
 
 import java.io.IOException;
 import java.net.URL;
@@ -12,7 +13,7 @@ public class EnemyPlugin extends Entity implements IPlugin {
     private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/ltg.png");
 
     public EnemyPlugin() throws IOException {
-        super(10,defaultImage,new double[]{1,1},1,10);
+        super(10,defaultImage, Types.ENEMY,new double[]{1,1},1,10);
         setPosition(new int[]{10,10});
     }
 

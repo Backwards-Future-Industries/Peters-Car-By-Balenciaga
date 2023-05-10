@@ -4,6 +4,8 @@ import interfaces.*;
 import abstractClasses.Entity;
 import utilities.Inputs;
 import utilities.SPIlocator;
+import utilities.Types;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -18,7 +20,7 @@ public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcess
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
 
     public PlayerPlugin() throws IOException {
-        super(5, sprite, new double[]{0.5,0.5},1,10);
+        super(5, sprite, Types.PLAYER, new double[]{0.5,0.5},1,10);
         setPosition(new int[]{700,500});
         setRadians(0);
     }

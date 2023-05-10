@@ -1,6 +1,7 @@
 package abstractClasses;
 
 import utilities.Shapes;
+import utilities.Types;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
@@ -12,6 +13,7 @@ import java.net.URL;
 public abstract class Entity {
     private int health;
     private Image sprite;
+    private Types type;
     private int[] position;
     private double[] scale;
     private double radius;
@@ -20,30 +22,30 @@ public abstract class Entity {
     // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
     private double radians = 0;
     private Vector2D direction;
-
     private Shapes[] shape;
     
     public Entity(){
         this(-1);
     }
     public Entity(int health){
-        this(health, null);
+        this(health, null, Types.UNDEFINED);
     }
-    public Entity(int health, URL sprite){
-        this(health,sprite,new double[]{1,1});
+    public Entity(int health, URL sprite, Types type){
+        this(health,sprite,type,new double[]{1,1});
 
     }
-    public Entity(int health, URL sprite, double[] scale){
-        this(health,sprite,scale,1,10);
+    public Entity(int health, URL sprite, Types type, double[] scale){
+        this(health,sprite,type,scale,1,10);
     }
     
-    public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed){
+    public Entity(int health, URL sprite, Types type, double[] scale, int acceleration, int maxSpeed){
         this.health = health;
         this.scale = scale;
         this.acceleration = acceleration;
         this.maxSpeed   = maxSpeed;
         this.direction = new Vector2D(0,0);
         this.position = new int[]{0,0};
+        this.type = type;
         if(sprite == null){
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
