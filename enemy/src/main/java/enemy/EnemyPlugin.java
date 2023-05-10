@@ -55,9 +55,9 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable, IProcessi
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs,GameData gameData) {
+    public void process(ArrayList<Inputs> inputs) {
         for (IMovement iMovement : getPlugin()){
-            setPosition(iMovement.defaultMove((aiMovement = new AIMovement(gameData,this)).getInputs(),this));
+            setPosition(iMovement.defaultMove(inputs,this));
         }
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
 
