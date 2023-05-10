@@ -1,10 +1,13 @@
 package interfaces;
 
 import abstractClasses.Entity;
+import utilities.GameData;
+
+import java.io.IOException;
 
 public interface IPlugin {
 
-    Entity create(IGameEngine gameEngine);
-    Entity delete(IGameEngine gameEngine);
+    Entity create(GameData gameData);
+    Entity delete(GameData gameData);
 
 }

@@ -6,6 +6,7 @@ import interfaces.IDrawable;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
+import utilities.GameData;
 import utilities.Inputs;
 
 import javax.swing.*;
@@ -28,7 +29,7 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         int [] position = getPosition();
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
@@ -40,19 +41,19 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     }
 
     @Override
-    public Entity create(IGameEngine gameEngine) {
+    public Entity create(GameData gameData) {
         Entity newGrill;
         newGrill = new Grill(1);
         return newGrill;
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameData) {
         return null;
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs, GameData gameData) {
         if(inputs.contains(Inputs.KEY_SPACE)) {
             this.shoot();
         }
