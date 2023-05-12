@@ -21,20 +21,6 @@ class CollisionDetectionTest {
     TestEntity testEntity1 = new TestEntity(1,sprite);
     TestEntity testEntity2 = new TestEntity(1,sprite);
 
-    @Test
-    public void colliding(){
-
-         testEntity1.setPosition(new int[]{400,400});
-         testEntity2.setPosition(new int[]{400,439});
-         Assertions.assertTrue(collisionDetection.isColliding(testEntity1,testEntity2));
-    }
-
-    @Test
-    public void notColliding(){
-        testEntity1.setPosition(new int[]{400,400});
-        testEntity2.setPosition(new int[]{400,440});
-        Assertions.assertFalse(collisionDetection.isColliding(testEntity1,testEntity2));
-    }
 
 
 

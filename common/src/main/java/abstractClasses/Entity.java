@@ -16,7 +16,6 @@ public abstract class Entity {
     private Type type;
     private int[] position;
     private double[] scale;
-    private double radius;
     private double acceleration;
     private double maxSpeed;
     // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
@@ -55,8 +54,6 @@ public abstract class Entity {
         this.shape = new Shapes[]{
                 new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
         };
-
-        radius = 20; //placeholder default value
     }
 
     public int getHealth() {
@@ -100,14 +97,6 @@ public abstract class Entity {
 
     public int[] getPosition() {
         return position;
-    }
-
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-
-    public double getRadius() {
-        return radius;
     }
 
     public double getAcceleration() {
