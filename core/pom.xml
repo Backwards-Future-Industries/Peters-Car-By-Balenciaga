@@ -41,6 +41,8 @@
             <artifactId>enemy</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
+            <artifactId>grillBullet</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
