@@ -22,7 +22,6 @@ public class AIMovement {
         this.enemyPosition = enemyPlugin.getPosition();
         this.enemyDirection = enemyPlugin.getDirection();
         generateInputs(gameData);
-        System.out.println(inputs);
         return inputs;
     }
 
