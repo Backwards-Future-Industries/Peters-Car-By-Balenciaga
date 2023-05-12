@@ -40,6 +40,10 @@ public class PlayerMovement implements IProcessing {
             }
             player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
+
+        private Collection<IBulletService> getBullet(){
+            return SPIlocator.locateAll(IBulletService.class);
+        }
     }
 
 

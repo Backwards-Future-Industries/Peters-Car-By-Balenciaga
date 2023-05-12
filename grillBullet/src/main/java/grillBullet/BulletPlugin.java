@@ -20,12 +20,12 @@ public class BulletPlugin implements IBulletService, IDrawable {
     @Override
     public Entity create(Entity entity) {
         this.bullet = new Bullet();
-        this.bullet.setSprite(sprite,new double[]{0.1,0.1});
-        this.bullet.setPosition(entity.getPosition());
-        this.bullet.setRadians(entity.getRadians());
-        //this.bullet
-        this.bullet.setMaxSpeed(10);
-        this.bullet.setAcceleration(10);
+        this.bullet.setSprite(sprite,new double[]{0.5,0.5});
+        bullet.setPosition(entity.getPosition());
+        bullet.setRadians(entity.getRadians());
+        bullet.setDirection(entity.getDirection());
+        bullet.setMaxSpeed(3);
+        bullet.setAcceleration(1);
         this.bullet.setTypes(Types.BULLET);
 
         return this.bullet;
