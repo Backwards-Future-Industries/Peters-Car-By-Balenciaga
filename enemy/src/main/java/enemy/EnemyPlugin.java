@@ -14,7 +14,7 @@ import java.net.URL;
 
 public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     private Entity lowTierGod;
-    private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/ltg.png");
+    private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/enemyCar.png");
 
     public EnemyPlugin() {
     }
@@ -23,7 +23,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     public Entity create(GameData gameData) {
         this.lowTierGod = new Enemy();
         this.lowTierGod.setHealth(10);
-        this.lowTierGod.setSprite(defaultImage,new double[]{0.1,0.1});
+        this.lowTierGod.setSprite(defaultImage,new double[]{0.5,0.5});
         this.lowTierGod.setAcceleration(0.15);
         this.lowTierGod.setMaxSpeed(2);
         this.lowTierGod.setType(Types.ENEMY);
