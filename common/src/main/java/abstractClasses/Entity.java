@@ -1,5 +1,7 @@
 package abstractClasses;
 
+import utilities.Shapes;
+import utilities.Types;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
@@ -10,41 +12,50 @@ import java.net.URL;
 
 public abstract class Entity {
     private int health;
-
     private Image sprite;
+    private Types type;
     private int[] position;
     private double[] scale;
     private double radius;
     private double acceleration;
     private double maxSpeed;
+    // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
     private double radians = 0;
     private Vector2D direction;
+    private Shapes[] shape;
 
+    private Types types;
+    
     public Entity(){
         this(-1);
     }
     public Entity(int health){
-        this(health, null);
+        this(health, null, Types.UNDEFINED);
     }
-    public Entity(int health, URL sprite){
-        this(health,sprite,new double[]{1,1});
+    public Entity(int health, URL sprite, Types type){
+        this(health,sprite,type,new double[]{1,1});
 
     }
-    public Entity(int health, URL sprite, double[] scale){
-        this(health,sprite,scale,1,10);
+    public Entity(int health, URL sprite, Types type, double[] scale){
+        this(health,sprite,type,scale,1,10);
     }
     
-    public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed){
+    public Entity(int health, URL sprite, Types type, double[] scale, int acceleration, int maxSpeed){
         this.health = health;
         this.scale = scale;
         this.acceleration = acceleration;
         this.maxSpeed   = maxSpeed;
         this.direction = new Vector2D(0,0);
         this.position = new int[]{0,0};
+        this.type = type;
         if(sprite == null){
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
+        // the shapes-array fetches the sprite, that relates to the image and gets the values of the width && height
         this.sprite = ImageLoader.loadImage(sprite,scale);
+        this.shape = new Shapes[]{
+                new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
+        };
 
         radius = 20; //placeholder default value
     }
@@ -68,8 +79,21 @@ public abstract class Entity {
         this.sprite = ImageLoader.loadImage(sprite, this.scale);
     }
 
+    public void setSprite(BufferedImage bufferedImage, double[] scale) {
+        this.scale = scale;
+        this.sprite = ImageLoader.loadImage(bufferedImage, this.scale);
+    }
+
     public void setPosition(int[] position) {
         this.position = position;
+        // Checks if there are only 1 object in the array
+        // This way we can make sure that the thing is a shape and not a map since a map contains multiple collidable
+        // types
+        // The object will be added to the shape-array
+        if (this.shape.length == 1) {
+            this.shape[0].setPosition(position);
+        }
+
     }
 
     public int[] getPosition() {
@@ -114,5 +138,26 @@ public abstract class Entity {
 
     public void setDirection(Vector2D direction) {
         this.direction = direction;
+    }
+
+
+    public void setShape(Shapes[] shape) {
+        this.shape = shape;
+    }
+
+    public Shapes[] getShape() {
+        return shape;
+    }
+
+    public void setScale(double[] scale) {
+        this.scale = scale;
+    }
+
+    public void setTypes(Types types) {
+        this.types = types;
+    }
+
+    public Types getTypes() {
+        return types;
     }
 }

@@ -2,9 +2,7 @@ package grillBullet;
 
 import abstractClasses.Entity;
 import interfaces.*;
-import utilities.Inputs;
-import utilities.SPIlocator;
-import utilities.Vector2D;
+import utilities.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,10 +16,11 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
 
     public Bullet(){
         this(new int[]{0,0},new Vector2D(1.0,1.0));
+
     }
 
     public Bullet(int[] position, Vector2D direction){
-        super(1, sprite, new double[]{0.01, 0.01});
+        super(1, sprite, Types.BULLET, new double[]{0.01, 0.01});
         setPosition(position);
         setDirection(direction);
         setMaxSpeed(3);
@@ -29,25 +28,26 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     }
 
     @Override
-    public Entity create(IGameEngine gm) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
+        int[] position = getPosition();
+        g.drawImage(getSprite().getImage(), position[0], position[1], panel);
+    }
+
+
+    @Override
+    public Entity create(GameData gameEngine) {
         Entity newBullet;
         newBullet = new Bullet(getPosition(), getDirection());
         return newBullet;
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameData) {
         return null;
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
-        int[] position = getPosition();
-        g.drawImage(getSprite().getImage(), position[0], position[1], panel);
-    }
-
-    @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
+    public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (IMovement iMovement : getPlugin()){
             setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this));
         }

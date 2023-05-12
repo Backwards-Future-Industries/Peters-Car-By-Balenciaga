@@ -6,6 +6,7 @@ import interfaces.IDrawable;
 import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
+import utilities.GameData;
 import utilities.Inputs;
 
 import javax.swing.*;
