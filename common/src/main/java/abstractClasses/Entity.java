@@ -38,7 +38,7 @@ public abstract class Entity {
         this(health,sprite,type,scale,1,10);
     }
     
-    public Entity(int health, URL sprite, Types type, double[] scale, int acceleration, int maxSpeed){
+    public Entity(int health, URL sprite, Types type, double[] scale, double acceleration, double maxSpeed){
         this.health = health;
         this.scale = scale;
         this.acceleration = acceleration;
@@ -108,7 +108,7 @@ public abstract class Entity {
         return acceleration;
     }
 
-    public void setAcceleration(int acceleration) {
+    public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
 
@@ -116,7 +116,7 @@ public abstract class Entity {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(int maxSpeed) {
+    public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
