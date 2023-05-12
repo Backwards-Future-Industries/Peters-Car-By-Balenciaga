@@ -8,6 +8,7 @@ import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;
+import utilities.Layers;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,11 @@ public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         int [] position = getPosition();
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
+    }
+
+    @Override
+    public Layers getLayer() {
+        return Layers.MIDDLEGROUND;
     }
 
     @Override
