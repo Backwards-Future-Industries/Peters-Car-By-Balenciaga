@@ -153,11 +153,11 @@ public abstract class Entity {
         this.scale = scale;
     }
 
-    public void setTypes(Types types) {
+    public void setType(Types types) {
         this.types = types;
     }
 
-    public Types getTypes() {
+    public Types getType() {
         return types;
     }
 }

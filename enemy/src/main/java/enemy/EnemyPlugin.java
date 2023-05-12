@@ -1,7 +1,6 @@
 package enemy;
 
 import abstractClasses.Entity;
-import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Types;

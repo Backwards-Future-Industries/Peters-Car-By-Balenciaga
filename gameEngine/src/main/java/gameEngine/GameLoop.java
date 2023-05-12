@@ -1,7 +1,5 @@
 package gameEngine;
 
-import gameEngine.GameEngine;
-import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.SPIlocator;
