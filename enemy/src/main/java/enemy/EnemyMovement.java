@@ -19,9 +19,9 @@ public class EnemyMovement implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity enemy : gameData.getNewEntities()) {
-            if (enemy.getTypes() == Types.ENEMY) {
+            if (enemy.getType() == Types.ENEMY) {
                 for (IMovement iMovement : getPlugin()) {
-                    enemy.setPosition(iMovement.defaultMove(aiMovement.getInputs(gameData, enemy), enemy));
+                    enemy.setPosition(iMovement.defaultMove(aiMovement.getInputs(gameData, enemy), enemy,gameData));
                 }
                 enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
             }

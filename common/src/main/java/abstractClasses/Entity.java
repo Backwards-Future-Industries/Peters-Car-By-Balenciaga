@@ -148,12 +148,11 @@ public abstract class Entity {
     public void setScale(double[] scale) {
         this.scale = scale;
     }
-
-    public void setTypes(Types type) {
-        this.type = type;
+    public void setType(Types types) {
+        this.type = types;
     }
 
-    public Types getTypes() {
+    public Types getType() {
         return type;
     }
 }

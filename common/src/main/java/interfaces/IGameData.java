@@ -5,7 +5,7 @@ import utilities.Layers;
 
 import java.util.LinkedList;
 
-public interface IGameEngine {
+public interface IGameData {
 
     LinkedList<IDrawable> getDrawables();
     LinkedList<Entity> getNewEntities();

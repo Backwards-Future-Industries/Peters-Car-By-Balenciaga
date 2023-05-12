@@ -16,9 +16,9 @@ public class PlayerMovement implements IProcessing {
         @Override
         public void process(ArrayList<Inputs> inputs, GameData gameData) {
            for (Entity player : gameData.getNewEntities()){
-               if (player.getTypes() == Types.PLAYER){
+               if (player.getType() == Types.PLAYER){
                    for (IMovement iMovement : getPlugin()){
-                       player.setPosition(iMovement.defaultMove(inputs,player));
+                       player.setPosition(iMovement.defaultMove(inputs,player,gameData));
                    }
                    player.getSprite().freshRotate(player.getRadians(),player.getPosition());
                }

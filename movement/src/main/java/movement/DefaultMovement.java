@@ -2,13 +2,14 @@ package movement;
 
 import abstractClasses.Entity;
 import interfaces.IMovement;
+import utilities.GameData;
 import utilities.Inputs;
 import utilities.Vector2D;
 
 import java.util.ArrayList;
 
 public class DefaultMovement implements IMovement {
-    public int[] defaultMove(ArrayList<Inputs> inputs, Entity entity) {
+    public int[] defaultMove(ArrayList<Inputs> inputs, Entity entity, GameData gameData) {
         Vector2D direction = entity.getDirection();
         double acceleration = entity.getAcceleration();
         double radians = entity.getRadians();
@@ -43,6 +44,11 @@ public class DefaultMovement implements IMovement {
 
         newPosition[0] = (int) (entity.getPosition()[0] + Math.round(direction.getX()));
         newPosition[1] = (int) (entity.getPosition()[1] + Math.round(direction.getY()));
+
+        if (newPosition[0] > gameData.getScreenSize().height) newPosition[0] = gameData.getScreenSize().height;
+        if (newPosition[0] < 0) newPosition[0] = 0;
+        if (newPosition[1] > gameData.getScreenSize().width) newPosition[1] = gameData.getScreenSize().width;
+        if (newPosition[1] < 0) newPosition[1] = 0;
 
         entity.setPosition(newPosition);
 

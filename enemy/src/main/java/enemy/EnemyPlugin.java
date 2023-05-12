@@ -1,7 +1,8 @@
 package enemy;
 
 import abstractClasses.Entity;
-import interfaces.*;
+import interfaces.IDrawable;
+import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Types;
@@ -25,7 +26,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
         this.lowTierGod.setSprite(defaultImage,new double[]{0.1,0.1});
         this.lowTierGod.setAcceleration(1);
         this.lowTierGod.setMaxSpeed(5);
-        this.lowTierGod.setTypes(Types.ENEMY);
+        this.lowTierGod.setType(Types.ENEMY);
         this.lowTierGod.setPosition(new int[]{100,100});
 
         return this.lowTierGod;
@@ -39,7 +40,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for (Entity enemy : gameData.getNewEntities()){
-            if (enemy.getTypes() == Types.ENEMY){
+            if (enemy.getType() == Types.ENEMY){
                 int[] position = enemy.getPosition();
 
                 AffineTransform transform = enemy.getSprite().getTransform();

@@ -1,7 +1,6 @@
 package collision;
 
 import abstractClasses.Entity;
-import interfaces.IGameEngine;
 import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;

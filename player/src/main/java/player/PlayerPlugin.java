@@ -31,7 +31,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
         this.newPlayer.setSprite(sprite, new double[]{0.1, 0.1});
         this.newPlayer.setAcceleration(1);
         this.newPlayer.setMaxSpeed(10);
-        this.newPlayer.setTypes(Types.PLAYER);
+        this.newPlayer.setType(Types.PLAYER);
         this.newPlayer.setPosition(new int[]{1,1});
 
 
@@ -47,7 +47,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for (Entity player : gameData.getNewEntities()) {
-            if (player.getTypes() == Types.PLAYER) {
+            if (player.getType() == Types.PLAYER) {
                 int[] position = player.getPosition();
 
                 AffineTransform transform = player.getSprite().getTransform();
