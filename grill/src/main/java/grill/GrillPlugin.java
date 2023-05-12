@@ -6,6 +6,7 @@ import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import utilities.Inputs;
 import utilities.GameData;
+import utilities.Layers;
 import utilities.Types;
 
 import javax.swing.*;
@@ -41,4 +42,9 @@ public class GrillPlugin implements IPlugin, IDrawable {
             }
         }
     }
+
+    @Override
+    public Layers getLayer() {
+        return null;
     }
+}
