@@ -26,14 +26,6 @@ class CollisionDetectionTest {
         testEntity2.setSprite(sprite, new double[]{1,1},true);
     }
 
-    @Disabled
-    @Test
-    public void colliding(){
-
-         testEntity1.setPosition(new int[]{400,400});
-         testEntity2.setPosition(new int[]{400,439});
-         Assertions.assertTrue(collisionDetection.isColliding(testEntity1,testEntity2));
-    }
 
     @Test
     public void notColliding(){
@@ -42,6 +34,11 @@ class CollisionDetectionTest {
         Assertions.assertFalse(collisionDetection.isColliding(testEntity1,testEntity2));
     }
 
-
+    @Test
+    void testNoCollision() {
+        testEntity1.setPosition(new int[]{0, 0});
+        testEntity2.setPosition(new int[]{960, 0});
+        Assertions.assertFalse(collisionDetection.isColliding(testEntity1, testEntity2));
+    }
 
 }
