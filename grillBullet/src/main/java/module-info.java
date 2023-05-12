@@ -3,6 +3,7 @@ module grillBullet {
     requires common;
     requires java.desktop;
 
-    provides interfaces.IPlugin with grillBullet.Bullet;
-    provides interfaces.IDrawable with grillBullet.Bullet;
+    provides interfaces.IBulletService with grillBullet.BulletPlugin;
+    provides interfaces.IProcessing with grillBullet.BulletControlSystem;
+    provides interfaces.IDrawable with grillBullet.BulletPlugin;
 }

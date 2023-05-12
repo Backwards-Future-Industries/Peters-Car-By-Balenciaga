@@ -1,5 +1,6 @@
 import abstractClasses.Entity;
 import grillBullet.Bullet;
+import interfaces.IPlugin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Vector2D;
@@ -15,7 +16,7 @@ class BulletTest {
     private final Vector2D direction = new Vector2D(2,4);
     @BeforeEach
     void setUp() {
-        this.bullet = new Bullet(position, direction);
+        this.bullet = new Bullet();
     }
 
     @Test

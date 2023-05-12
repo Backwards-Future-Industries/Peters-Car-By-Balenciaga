@@ -1,14 +1,10 @@
 package interfaces;
 
 import abstractClasses.Entity;
-
-import javax.swing.*;
-import java.awt.*;
+import utilities.GameData;
 
 public interface IBulletService {
     Entity create(Entity entity);
 
-    IDrawable draw (Graphics2D g, JPanel panel);
-
-    void Process(Entity entity);
+    void delete(GameData gameData);
 }
