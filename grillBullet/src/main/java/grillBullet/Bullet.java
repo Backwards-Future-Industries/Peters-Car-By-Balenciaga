@@ -1,4 +1,4 @@
-package grill;
+package grillBullet;
 
 import abstractClasses.Entity;
 import interfaces.*;
@@ -31,6 +31,11 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         int[] position = getPosition();
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
+    }
+
+    @Override
+    public Layers getLayer() {
+        return Layers.MIDDLEGROUND;
     }
 
 

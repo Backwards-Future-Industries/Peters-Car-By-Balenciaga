@@ -114,7 +114,7 @@ public class GameEngine{
 
     private void addDraw(){
         for (IDrawable iDrawable : getIdrawable()){
-            gameData.addDrawables(iDrawable);
+            gameData.addDrawables(iDrawable, iDrawable.getLayer());
         }
 
     }

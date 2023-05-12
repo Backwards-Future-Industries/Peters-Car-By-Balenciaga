@@ -4,6 +4,7 @@ import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 import utilities.GameData;
+import utilities.Layers;
 import utilities.Shapes;
 import utilities.Types;
 
@@ -80,6 +81,11 @@ public class Map extends Entity implements IDrawable, IPlugin {
 
         g.drawImage(getSprite().getImage(),0,0,panel);
 
+    }
+
+    @Override
+    public Layers getLayer() {
+        return Layers.BACKGROUND;
     }
 
     @Override

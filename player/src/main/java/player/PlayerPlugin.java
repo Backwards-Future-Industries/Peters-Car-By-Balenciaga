@@ -3,6 +3,7 @@ package player;
 import interfaces.*;
 import abstractClasses.Entity;
 import utilities.GameData;
+import utilities.Layers;
 import utilities.Types;
 
 import javax.swing.*;
@@ -54,5 +55,10 @@ public class PlayerPlugin implements IPlugin, IDrawable {
                 g.drawImage(player.getSprite().getImage(), position[0], position[1], panel);
             }
         }
+    }
+
+    @Override
+    public Layers getLayer() {
+        return Layers.MIDDLEGROUND;
     }
 }
