@@ -2,14 +2,14 @@ package utilities;
 
 import abstractClasses.Entity;
 import interfaces.IDrawable;
-import interfaces.IGameEngine;
+import interfaces.IGameData;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameData implements IGameEngine {
+public class GameData implements IGameData {
     private LinkedList<Entity> newEntities;
     private LinkedList<IProcessing> processes;
     private LinkedList<IDrawable> foreground;

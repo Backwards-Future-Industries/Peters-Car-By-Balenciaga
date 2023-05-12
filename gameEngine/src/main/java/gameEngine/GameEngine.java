@@ -3,25 +3,20 @@ package gameEngine;
 import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
-import interfaces.IProcessing;
 
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.Layers;
 import utilities.SPIlocator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class GameEngine{
 
@@ -60,10 +55,11 @@ public class GameEngine{
               }
           }
         };
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = new Dimension(1280,960);
         panel.setSize(screenSize.width,screenSize.height);
         window.setSize(screenSize.width,screenSize.height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
         window.setTitle("Peter's car");
         window.add(panel);
         window.addKeyListener(userInputs);
@@ -120,8 +116,6 @@ public class GameEngine{
         }
 
     }
-
-
 
     private Collection<IDrawable> getIdrawable(){
         return SPIlocator.locateAll(IDrawable.class);
