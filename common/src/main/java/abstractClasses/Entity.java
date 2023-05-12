@@ -13,7 +13,6 @@ import java.net.URL;
 public abstract class Entity extends Progenitor{
     private int health;
     private Type type;
-    private double radius;
     private double acceleration;
     private double maxSpeed;
     // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
@@ -23,7 +22,6 @@ public abstract class Entity extends Progenitor{
     public Entity(){
         this.health = 1;
         this.type = Type.UNDEFINED;
-        this.radius = 1.;
         this.acceleration = 1.;
         this.maxSpeed = 1.;
         this.direction = new Vector2D(0.,0.);
@@ -35,14 +33,6 @@ public abstract class Entity extends Progenitor{
     }
     public void setHealth(int health) {
         this.health = health;
-    }
-
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-
-    public double getRadius() {
-        return radius;
     }
 
     public double getAcceleration() {
