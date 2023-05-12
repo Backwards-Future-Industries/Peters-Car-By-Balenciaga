@@ -20,7 +20,7 @@ public class AIMovement {
 
     public AIMovement(GameData gameData, Entity enemyPlugin) {
         for (Entity entity : gameData.getNewEntities()) {
-            if (entity.getType() == Types.PLAYER) {
+            if (entity.getTypes() == Types.PLAYER) {
                 playerPosition = entity.getPosition();
             }
         }

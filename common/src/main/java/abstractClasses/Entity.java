@@ -13,7 +13,7 @@ import java.net.URL;
 public abstract class Entity {
     private int health;
     private Image sprite;
-    private Types types;
+    private Types type;
     private int[] position;
     private double[] scale;
     private double radius;
@@ -22,30 +22,31 @@ public abstract class Entity {
     // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
     private double radians = 0;
     private Vector2D direction;
-
     private Shapes[] shape;
     
     public Entity(){
         this(-1);
     }
     public Entity(int health){
-        this(health, null);
+        this(health, Entity.class.getResource("commonImages/placeholder.png"), Types.UNDEFINED);
     }
-    public Entity(int health, URL sprite){
-        this(health,sprite,new double[]{1,1});
+    public Entity(int health, URL sprite, Types type){
+        this(health,sprite,type,new double[]{1,1});
 
     }
-    public Entity(int health, URL sprite, double[] scale){
-        this(health,sprite,scale,1,10,Types.UNDEFINED);
+    public Entity(int health, URL sprite, Types type, double[] scale){
+        this(health,sprite,type,scale,1,10);
     }
     
-    public Entity(int health, URL sprite, double[] scale, int acceleration, int maxSpeed,Types types){
+    public Entity(int health, URL sprite, Types type, double[] scale, int acceleration, int maxSpeed){
         this.health = health;
         this.scale = scale;
         this.acceleration = acceleration;
         this.maxSpeed   = maxSpeed;
         this.direction = new Vector2D(0,0);
         this.position = new int[]{0,0};
+        this.type = type;
+
         if(sprite == null){
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
@@ -54,13 +55,9 @@ public abstract class Entity {
         this.shape = new Shapes[]{
                 new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
         };
-        this.types = types;
 
         radius = 20; //placeholder default value
     }
-
-
-
 
     public int getHealth() {
         return health;
@@ -148,7 +145,15 @@ public abstract class Entity {
         return shape;
     }
 
-    public Types getType() {
-        return types;
+    public void setScale(double[] scale) {
+        this.scale = scale;
+    }
+
+    public void setTypes(Types type) {
+        this.type = type;
+    }
+
+    public Types getTypes() {
+        return type;
     }
 }

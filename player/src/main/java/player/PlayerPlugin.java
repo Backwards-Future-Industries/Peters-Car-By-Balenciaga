@@ -3,66 +3,55 @@ package player;
 import interfaces.*;
 import abstractClasses.Entity;
 import utilities.GameData;
-import utilities.Inputs;
-import utilities.SPIlocator;
 import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 
 
-public class PlayerPlugin extends Entity implements IPlugin, IDrawable, IProcessing {
+
+public class PlayerPlugin implements IPlugin, IDrawable {
+
+    private Entity newPlayer;
 
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
 
-    public PlayerPlugin() throws IOException {
-        super(5, sprite, new double[]{0.5,0.5},1,10, Types.PLAYER);
-        setPosition(new int[]{700,500});
-        setRadians(0);
+
+    public PlayerPlugin() {
     }
 
 
     @Override
     public Entity create(GameData gamedata) {
-        Entity newPlayer;
-        try {
-            newPlayer = new PlayerPlugin();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        gamedata.addDrawables((IDrawable) newPlayer);
-        gamedata.addProcesses((IProcessing) newPlayer);
-        return newPlayer;
+        this.newPlayer = new Player();
+        this.newPlayer.setHealth(5);
+        this.newPlayer.setSprite(sprite, new double[]{0.5, 0.5});
+        this.newPlayer.setAcceleration(1);
+        this.newPlayer.setMaxSpeed(10);
+        this.newPlayer.setTypes(Types.PLAYER);
+
+
+        return this.newPlayer;
     }
 
+
     @Override
-    public Entity delete(GameData gameEngine) {
+    public Entity delete(GameData gameData) {
         return null;
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
-        int[] position = getPosition();
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
+        for (Entity player : gameData.getNewEntities()) {
+            if (player.getTypes() == Types.PLAYER) {
+                int[] position = player.getPosition();
 
-        AffineTransform transform = getSprite().getTransform();
-        g.setTransform(transform);
-        g.drawImage(getSprite().getImage(),position[0],position[1],panel);
-    }
-
-    @Override
-    public void process(ArrayList<Inputs> inputs) {
-        for (IMovement iMovement : getPlugin()){
-            setPosition(iMovement.defaultMove(inputs,this));
+                AffineTransform transform = player.getSprite().getTransform();
+                g.setTransform(transform);
+                g.drawImage(player.getSprite().getImage(), position[0], position[1], panel);
+            }
         }
-        this.getSprite().freshRotate(this.getRadians(),this.getPosition());
-    }
-
-    private Collection<IMovement> getPlugin(){
-        return SPIlocator.locateAll(IMovement.class);
     }
 }

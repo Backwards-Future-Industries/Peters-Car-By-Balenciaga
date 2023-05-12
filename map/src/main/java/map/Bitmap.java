@@ -51,15 +51,12 @@ public class Bitmap {
             color = Color.red;
         }
 
-
         if(TileType.GRASS.getColor() == color){
             return TileType.GRASS;
         }
-
         if(TileType.EARTH.getColor() == color){
             return TileType.EARTH;
         }
-
         if (TileType.OBSTACLE.getColor() == color){
             return TileType.OBSTACLE;
         }

@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 
+import java.io.IOException;
+
 class GameEngineTest {
 
     private GameEngine gameEngine;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         this.gameEngine = new GameEngine(60);
     }
 

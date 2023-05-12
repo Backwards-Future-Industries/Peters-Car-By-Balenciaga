@@ -21,10 +21,11 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable, IProcessi
     private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/ltg.png");
 
     public EnemyPlugin() throws IOException {
-        super(10,defaultImage,new double[]{0.5,0.5},1,10, Types.ENEMY);
+        super(10,defaultImage, Types.ENEMY,new double[]{1,1},1,10);
         setPosition(new int[]{10,10});
         setRadians(0);
     }
+
     @Override
     public Entity create(GameData gameData) {
         try {
@@ -45,7 +46,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable, IProcessi
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         int[] position = getPosition();
 
         AffineTransform transform = getSprite().getTransform();
@@ -55,9 +56,9 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable, IProcessi
     }
 
     @Override
-    public void process(ArrayList<Inputs> inputs) {
+    public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (IMovement iMovement : getPlugin()){
-            enemy.setPosition(iMovement.defaultMove(aiMovement = new AIMovement(new GameData(),enemy).getInputs(),enemy))
+            lowTierGod.setPosition(iMovement.defaultMove(aiMovement.getInputs(),lowTierGod));
         }
         this.getSprite().freshRotate(this.getRadians(),this.getPosition());
 

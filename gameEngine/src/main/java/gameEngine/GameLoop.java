@@ -4,8 +4,10 @@ import gameEngine.GameEngine;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.Inputs;
+import utilities.SPIlocator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class GameLoop implements Runnable {
 
@@ -27,13 +29,20 @@ public class GameLoop implements Runnable {
             return;
         }
 
-        for(IPlugin newEntity : gameEngine.getGameData().getNewEntities()){
-            newEntity.create(gameEngine.getGameData());
-        }
-        gameEngine.getGameData().clearNewEntities();
-
-        for(IProcessing entity : gameEngine.getGameData().getProcesses()){
-            entity.process(inputs);
+        updateProcess(inputs);
     }
-}
+
+
+
+
+    private void updateProcess(ArrayList<Inputs> inputs){
+            for (IProcessing iProcessing : getIprocessing()){
+                iProcessing.process(inputs,gameEngine.getGameData());
+            }
+
+    }
+
+    private Collection<IProcessing> getIprocessing(){
+        return SPIlocator.locateAll(IProcessing.class);
+    }
 }

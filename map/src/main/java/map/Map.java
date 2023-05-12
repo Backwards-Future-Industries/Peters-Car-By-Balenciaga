@@ -2,11 +2,11 @@ package map;
 
 import abstractClasses.Entity;
 import interfaces.IDrawable;
-import interfaces.IGameEngine;
 import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Shapes;
 import utilities.Types;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,6 +20,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
+
     private ArrayList <Shapes> shapesArray;
 
     // combinedTiles:
@@ -75,25 +76,26 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
 
         g.drawImage(getSprite().getImage(),0,0,panel);
 
     }
 
     @Override
-    public Entity create(GameData gameEngine) {
-        Entity newMap;
+    public Entity create(GameData gameData){
+        Entity newMap = null;
         try {
             newMap = new Map();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
         return newMap;
     }
 
     @Override
-    public Entity delete(GameData gameEngine) {
+    public Entity delete(GameData gameData) {
         return null;
     }
 }
