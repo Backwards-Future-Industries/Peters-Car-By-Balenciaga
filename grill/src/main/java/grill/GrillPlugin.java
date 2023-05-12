@@ -33,7 +33,7 @@ public class GrillPlugin implements IPlugin, IDrawable {
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for (Entity Grill : gameData.getNewEntities()) {
-            if (Grill.getTypes() == Types.WEAPON) {
+            if (Grill.getType() == Types.WEAPON) {
                 int [] position = newGrill.getPosition();
                 g.drawImage(newGrill.getSprite().getImage(), position[0], position[1], panel);
             }
