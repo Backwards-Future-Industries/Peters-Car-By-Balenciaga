@@ -1,6 +1,7 @@
 package player;
 
 import abstractClasses.Entity;
+import interfaces.IBulletService;
 import interfaces.IMovement;
 import interfaces.IProcessing;
 import utilities.GameData;
@@ -19,7 +20,14 @@ public class PlayerMovement implements IProcessing {
         public void process(ArrayList<Inputs> inputs, GameData gameData) {
            for (Entity player : gameData.getNewEntities()){
                if (player.getTypes() == Types.PLAYER){
-                   for (IMovement iMovement : getPlugin()){
+                   if(inputs.contains(Inputs.KEY_SPACE)) {
+                       for (IBulletService bullet : getBullet()) {
+                           gameData.addNewEntities(bullet.create(player));
+                       }
+
+                   }
+
+                   for (IMovement iMovement : getMovement()){
                        player.setPosition(iMovement.defaultMove(inputs,player));
                    }
                    player.getSprite().freshRotate(player.getRadians(),player.getPosition());
@@ -27,8 +35,12 @@ public class PlayerMovement implements IProcessing {
            }
         }
 
-        private Collection<IMovement> getPlugin(){
+        private Collection<IMovement> getMovement(){
             return SPIlocator.locateAll(IMovement.class);
+        }
+
+        private Collection<IBulletService> getBullet(){
+            return SPIlocator.locateAll(IBulletService.class);
         }
     }
 
