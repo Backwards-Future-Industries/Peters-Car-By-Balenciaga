@@ -21,7 +21,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     public Entity create(GameData gameData) {
         this.lowTierGod = new Enemy();
         this.lowTierGod.setHealth(10);
-        this.lowTierGod.setSprite(defaultImage,new double[]{1,1});
+        this.lowTierGod.setSprite(defaultImage,new double[]{0.1,0.1});
         this.lowTierGod.setAcceleration(1);
         this.lowTierGod.setMaxSpeed(5);
         this.lowTierGod.setTypes(Types.ENEMY);
@@ -41,7 +41,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
             if (enemy.getTypes() == Types.ENEMY){
                 int[] position = enemy.getPosition();
 
-                AffineTransform transform = getSprite().getTransform();
+                AffineTransform transform = enemy.getSprite().getTransform();
                 g.setTransform(transform);
                 g.drawImage(enemy.getSprite().getImage(),position[0],position[1],panel);
 

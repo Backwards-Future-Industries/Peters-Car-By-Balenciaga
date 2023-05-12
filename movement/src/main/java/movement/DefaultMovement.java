@@ -12,12 +12,13 @@ public class DefaultMovement implements IMovement {
         Vector2D direction = entity.getDirection();
         double acceleration = entity.getAcceleration();
         double radians = entity.getRadians();
+        double maxSpeed = entity.getMaxSpeed();
         int[] newPosition = new int[2];
 
         if (inputs.contains(Inputs.KEY_W)) accelerate(acceleration, direction, radians);
         if (inputs.contains(Inputs.KEY_S)) deAccelerate(acceleration, direction, radians);
-        if (inputs.contains(Inputs.KEY_A)) radians = rotate(direction, radians, -1);
-        if (inputs.contains(Inputs.KEY_D)) radians = rotate(direction, radians, 1);
+        if (inputs.contains(Inputs.KEY_A)) radians = rotate(direction, radians, -1,maxSpeed);
+        if (inputs.contains(Inputs.KEY_D)) radians = rotate(direction, radians, 1,maxSpeed);
 
         //Prevents radians from being negative (Completely unnecessary but looks nice :))
         if (radians < 0) {
@@ -59,8 +60,8 @@ public class DefaultMovement implements IMovement {
     }
 
     //Using the rotation matrix to rotate the direction vector and updating its radians
-    private double rotate(Vector2D direction, double radians, int rotationDirection) {
-        double rotationSpeed = Math.PI * ((double) 1 / 32);
+    private double rotate(Vector2D direction, double radians, int rotationDirection,double maxSpeed) {
+        double rotationSpeed = (Math.PI * ((double) 1 / 32))*(direction.getLength()/maxSpeed);
         double sin = Math.sin(rotationDirection * rotationSpeed);
         double cos = Math.cos(rotationDirection * rotationSpeed);
         direction.setX(direction.getX() * cos - direction.getY() * sin);

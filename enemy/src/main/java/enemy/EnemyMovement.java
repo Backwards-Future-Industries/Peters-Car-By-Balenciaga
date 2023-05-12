@@ -13,7 +13,7 @@ import java.util.Collection;
 
 public class EnemyMovement implements IProcessing {
 
-    private AIMovement aiMovement;
+    private AIMovement aiMovement = new AIMovement();
 
 
     @Override
@@ -21,8 +21,7 @@ public class EnemyMovement implements IProcessing {
         for (Entity enemy : gameData.getNewEntities()) {
             if (enemy.getTypes() == Types.ENEMY) {
                 for (IMovement iMovement : getPlugin()) {
-                    aiMovement = new AIMovement(enemy);
-                    enemy.setPosition(iMovement.defaultMove(aiMovement.getInputs(gameData),enemy));
+                    enemy.setPosition(iMovement.defaultMove(aiMovement.getInputs(gameData, enemy), enemy));
                 }
                 enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
             }

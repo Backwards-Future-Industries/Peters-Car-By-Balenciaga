@@ -66,7 +66,7 @@ public abstract class Entity {
         this.health = health;
     }
 
-    public synchronized Image getSprite() {
+    public Image getSprite() {
         return sprite;
     }
 

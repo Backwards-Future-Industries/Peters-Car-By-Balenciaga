@@ -13,8 +13,6 @@ import java.util.Collection;
 
 public class PlayerMovement implements IProcessing {
 
-    private Types type;
-
         @Override
         public void process(ArrayList<Inputs> inputs, GameData gameData) {
            for (Entity player : gameData.getNewEntities()){
