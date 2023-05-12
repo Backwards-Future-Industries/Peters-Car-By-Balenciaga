@@ -5,10 +5,7 @@ import interfaces.IDrawable;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 
-import utilities.GameData;
-import utilities.Inputs;
-import utilities.Layers;
-import utilities.SPIlocator;
+import utilities.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,9 +92,11 @@ public class GameEngine{
     public void addEntities() {
         for(IPlugin iPlugin : getPlugin()) {
             Entity entity = iPlugin.create(gameData);
-            gameData.addNewEntities(entity);
+            if(entity.getTypes() != Types.BULLET){
+                gameData.addNewEntities(entity);
+            }
+
         }
-        System.out.println(gameData.getNewEntities().size());
 
     }
 
@@ -116,6 +115,9 @@ public class GameEngine{
 
     private void addDraw(){
         for (IDrawable iDrawable : getIdrawable()){
+            if (iDrawable.toString() == Types.BULLET.toString()) {
+                continue;
+            }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
         }
 

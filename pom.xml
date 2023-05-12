@@ -24,7 +24,6 @@
         <module>map</module>
         <module>player</module>
         <module>movement</module>
-        <module>grill</module>
         <module>grillBullet</module>
     </modules>
 
