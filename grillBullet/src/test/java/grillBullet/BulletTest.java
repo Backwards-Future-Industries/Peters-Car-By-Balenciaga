@@ -1,13 +1,14 @@
-
 package grillBullet;
 
 import abstractClasses.Entity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Vector2D;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class grillBulletTest {
+class BulletTest {
+
     private Entity bullet;
 
     private final int[] position = {20, 50};
