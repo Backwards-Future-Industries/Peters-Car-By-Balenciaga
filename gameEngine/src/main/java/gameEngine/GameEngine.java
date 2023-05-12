@@ -24,7 +24,7 @@ public class GameEngine{
     private UserInputs userInputs;
     private JFrame window;
     private JPanel panel;
-    private GameData gameData
+    private GameData gameData;
 
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
