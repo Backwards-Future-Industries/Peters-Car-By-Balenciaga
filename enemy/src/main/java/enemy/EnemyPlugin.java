@@ -3,6 +3,7 @@ package enemy;
 import abstractClasses.Entity;
 import interfaces.*;
 import utilities.GameData;
+import utilities.Layers;
 import utilities.Types;
 
 import javax.swing.*;
@@ -47,5 +48,10 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
 
             }
         }
+    }
+
+    @Override
+    public Layers getLayer() {
+        return Layers.MIDDLEGROUND;
     }
 }

@@ -24,6 +24,8 @@ class DefaultMovementTest {
     void setup(){
         URL sprite = DefaultMovement.class.getClassLoader().getResource("images/placeholder.png");
         testEntity = new concreteEntity(5, sprite);
+        testEntity.setMaxSpeed(10);
+        testEntity.setAcceleration(1);
         expectedPosition = new int[]{1,0};
         expectedDirection = new Vector2D(0,0);
         this.inputs = new ArrayList<>();
@@ -57,9 +59,10 @@ class DefaultMovementTest {
 
     @Test
     void defaultMoveA(){
+        inputs.add(Inputs.KEY_W);
         inputs.add(Inputs.KEY_A);
-        expectedPosition = new int[]{0, 0};
-        radians = 6.1850105367549055;
+        expectedPosition = new int[]{1, 0};
+        radians = 6.2733678301371185;
         position = movement.defaultMove(inputs,testEntity);
         assertArrayEquals(position,expectedPosition);
         assertEquals(radians,testEntity.getRadians());
@@ -67,9 +70,10 @@ class DefaultMovementTest {
 
     @Test
     void defaultMoveD(){
+        inputs.add(Inputs.KEY_W);
         inputs.add(Inputs.KEY_D);
-        expectedPosition = new int[]{0, 0};
-        radians = 0.09817477042468103;
+        expectedPosition = new int[]{1, 0};
+        radians = 0.009817477042468103;
         position = movement.defaultMove(inputs,testEntity);
         assertArrayEquals(position,expectedPosition);
         assertEquals(radians,testEntity.getRadians());
