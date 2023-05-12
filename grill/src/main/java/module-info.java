@@ -3,5 +3,5 @@ module grill {
     requires common;
     requires java.desktop;
 
-    provides interfaces.IPlugin with grill.Bullet, grill.Grill;
+    provides interfaces.IPlugin with grill.Grill;
 }

@@ -1,4 +1,5 @@
-package grill;
+
+package grillBullet;
 
 import abstractClasses.Entity;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import utilities.Vector2D;
 import static org.junit.jupiter.api.Assertions.*;
 
-class BulletTest {
-
+class grillBulletTest {
     private Entity bullet;
 
     private final int[] position = {20, 50};
@@ -26,4 +26,5 @@ class BulletTest {
         assertEquals(bullet.getAcceleration(), 1);
         assertEquals(bullet.getMaxSpeed(), 3);
     }
+
 }

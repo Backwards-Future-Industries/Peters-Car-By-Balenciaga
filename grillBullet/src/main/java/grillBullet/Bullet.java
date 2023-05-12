@@ -1,4 +1,4 @@
-package grill;
+package grillBullet;
 
 import abstractClasses.Entity;
 import interfaces.*;

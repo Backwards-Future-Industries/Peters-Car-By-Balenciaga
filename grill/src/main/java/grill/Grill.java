@@ -13,48 +13,9 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Grill extends Weapon implements IDrawable, IProcessing, IPlugin{
-
-    private static URL sprite = Entity.class.getResource("grillImages/placeholder.png");
-
-    public Grill(){
-        super(1,sprite);
-        setPosition(new int[]{50, 50});
-    }
-
-    public Grill(int health) {
-        super(health, sprite);
-        setPosition(new int[]{50, 50});
-    }
-
+public class Grill extends Weapon {
     @Override
-    public void draw(Graphics2D g, JPanel panel) {
-        int [] position = getPosition();
-        g.drawImage(getSprite().getImage(), position[0], position[1], panel);
-    }
+    public void shoot() {
 
-    @Override
-    public void shoot(){
-        //Bullet bullet = new Bullet();
-        //bullet.create();
-    }
-
-    @Override
-    public Entity create(IGameEngine gameEngine) {
-        Entity newGrill;
-        newGrill = new Grill(1);
-        return newGrill;
-    }
-
-    @Override
-    public Entity delete(IGameEngine gameEngine) {
-        return null;
-    }
-
-    @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
-        if(inputs.contains(Inputs.KEY_SPACE)) {
-            this.shoot();
-        }
     }
 }
