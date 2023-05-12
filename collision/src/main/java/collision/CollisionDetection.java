@@ -58,24 +58,26 @@ public class CollisionDetection implements IProcessing {
 
     public boolean isColliding(Entity entity1, Entity entity2) {
 
+        if (entity1.getType() == Types.UNDEFINED || entity2.getType() == Types.UNDEFINED){
+            return false;
+        }
+
         int[] e1Pos = entity1.getPosition();
         int[] e2Pos = entity2.getPosition();
 
+
+        //Checks if entities are colliding with box collision
         Shapes[] e1Shape = entity1.getShape();
-        Shapes[] e2Shape = entity2.getShape();
-
-        double dx = e1Pos[0] - e2Pos[0];
-        double dy = e1Pos[1] - e2Pos[1];
-
-        //Pythagoras to check distance between center points of enteties
-        double distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-
-        //Checks if x axi overlap
-        if (distance < e1Shape[0].getWidth() + e2Shape[0].getWidth()){
-            return true;
+        for (Shapes e2Shape: entity2.getShape()){
+            if (e1Pos[0] < e2Pos[0] + e2Shape.getWidth() &&
+                    e1Pos[0] + e1Shape[0].getWidth() > e2Pos[0] &&
+                    e1Pos[1] < e2Pos[1] + e2Shape.getHeight() &&
+                    e1Pos[1] + e1Shape[0].getHeight() > e2Pos[1]) {
+                return true;
+            }
         }
-        //Checks if y axi overlap
-        return distance < e1Shape[0].getHeight() + e2Shape[0].getHeight();
+
+        return false;
     }
 
     /**
