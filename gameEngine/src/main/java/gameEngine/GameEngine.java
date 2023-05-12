@@ -24,7 +24,7 @@ public class GameEngine{
     private UserInputs userInputs;
     private JFrame window;
     private JPanel panel;
-    private GameData gameData = new GameData();
+    private GameData gameData
 
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
@@ -34,6 +34,7 @@ public class GameEngine{
         this.userInputs = new UserInputs();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
+        this.gameData = new GameData();
         addEntities();
         addDraw();
         openWindow();
@@ -56,6 +57,7 @@ public class GameEngine{
           }
         };
         Dimension screenSize = new Dimension(1280,960);
+        gameData.setScreenSize(screenSize);
         panel.setSize(screenSize.width,screenSize.height);
         window.setSize(screenSize.width,screenSize.height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

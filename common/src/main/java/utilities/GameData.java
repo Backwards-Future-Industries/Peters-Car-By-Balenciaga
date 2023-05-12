@@ -6,6 +6,7 @@ import interfaces.IGameData;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -18,6 +19,8 @@ public class GameData implements IGameData {
     private ReentrantLock newLock;
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
+
+    private Dimension screenSize;
 
     public GameData(){
         this.newEntities = new LinkedList<Entity>();
@@ -206,16 +209,11 @@ public class GameData implements IGameData {
         }
     }
 
+    public Dimension getScreenSize() {
+        return screenSize;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    public void setScreenSize(Dimension screenSize) {
+        this.screenSize = screenSize;
+    }
 }
