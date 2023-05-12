@@ -126,6 +126,7 @@ public class GameEngine{
                 continue;
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
+            System.out.println(iDrawable);
         }
 
 

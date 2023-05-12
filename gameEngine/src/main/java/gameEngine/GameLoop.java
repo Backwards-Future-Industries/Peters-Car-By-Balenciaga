@@ -35,6 +35,7 @@ public class GameLoop implements Runnable {
     private void updateProcess(ArrayList<Inputs> inputs){
             for (IProcessing iProcessing : getIprocessing()){
                 iProcessing.process(inputs,gameEngine.getGameData());
+                System.out.println(iProcessing);
             }
 
     }

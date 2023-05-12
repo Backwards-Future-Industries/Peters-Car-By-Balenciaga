@@ -41,11 +41,21 @@ public class PlayerMovement implements IProcessing {
             player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
 
-        private Collection<IBulletService> getBullet(){
-            return SPIlocator.locateAll(IBulletService.class);
+                    for (IDrawable iDrawable : getBulletDraw()) {
+                        if (iDrawable.toString() == Types.BULLET.toString()) {
+                            gameData.addDrawables(iDrawable);
+                        }
+                    }
+
+                }
+
+                for (IMovement iMovement : getMovement()) {
+                    player.setPosition(iMovement.defaultMove(inputs, player));
+                }
+                player.getSprite().freshRotate(player.getRadians(), player.getPosition());
+            }
         }
     }
-
 
     private Collection<IMovement> getMovement() {
         return SPIlocator.locateAll(IMovement.class);

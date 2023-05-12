@@ -48,7 +48,6 @@ public class BulletPlugin implements IBulletService, IDrawable {
             }
         }
 
-
     @Override
     public String toString(){
         return Types.BULLET.toString();
