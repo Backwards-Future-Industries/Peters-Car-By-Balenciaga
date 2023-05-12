@@ -33,6 +33,11 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
         g.drawImage(getSprite().getImage(), position[0], position[1], panel);
     }
 
+    @Override
+    public Layers getLayer() {
+        return Layers.MIDDLEGROUND;
+    }
+
 
     @Override
     public Entity create(GameData gameEngine) {
