@@ -22,13 +22,13 @@ public class GrillPlugin implements IPlugin, IDrawable {
     }
 
     @Override
-    public Entity create(IGameEngine gameEngine) {
+    public Entity create(GameData gameData) {
         this.newGrill = new Grill();
         return this.newGrill;
     }
 
     @Override
-    public Entity delete(IGameEngine gameEngine) {
+    public Entity delete(GameData gameData) {
         return null;
     }
 
@@ -41,11 +41,4 @@ public class GrillPlugin implements IPlugin, IDrawable {
             }
         }
     }
-
-    @Override
-    public void process(ArrayList<Inputs> inputs, IGameEngine gameEngine) {
-        if(inputs.contains(Inputs.KEY_SPACE)) {
-            this.shoot();
-        }
     }
-}
