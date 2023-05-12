@@ -97,6 +97,7 @@ public class GameEngine{
             Entity entity = iPlugin.create(gameData);
             if(entity.getTypes() != Types.BULLET){
                 gameData.addNewEntities(entity);
+                System.out.println(entity);
             }
 
         }
@@ -121,7 +122,9 @@ public class GameEngine{
                 continue;
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
+            System.out.println(iDrawable);
         }
+
 
     }
 

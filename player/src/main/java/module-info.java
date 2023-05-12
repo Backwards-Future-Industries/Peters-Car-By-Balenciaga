@@ -4,6 +4,9 @@ module player {
     requires java.desktop;
 
     uses interfaces.IMovement;
+    uses interfaces.IDrawable;
+    uses interfaces.IBulletService;
+    uses interfaces.IProcessing;
 
     provides interfaces.IPlugin with player.PlayerPlugin;
     provides interfaces.IDrawable with player.PlayerPlugin;

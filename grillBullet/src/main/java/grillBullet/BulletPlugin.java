@@ -9,12 +9,13 @@ import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class BulletPlugin implements IBulletService, IDrawable {
     Entity bullet;
 
-    private static final URL sprite = Bullet.class.getResource("images/bullet.png");
+    private static final URL sprite = Bullet.class.getResource("/grillBuletImages/bullet.png");
 
     @Override
     public Entity create(Entity entity) {
@@ -37,8 +38,20 @@ public class BulletPlugin implements IBulletService, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        int[] position = bullet.getPosition();
-        g.drawImage(bullet.getSprite().getImage(), position[0], position[1], panel);
+        for(Entity bullet : gameData.getNewEntities()){
+            if(bullet.getTypes() == Types.BULLET){
+                int [] position = bullet.getPosition();
+
+                AffineTransform transform = bullet.getSprite().getTransform();
+                g.setTransform(transform);
+                g.drawImage(bullet.getSprite().getImage(),position[0],position[1],panel);
+            }
+        }
+    }
+
+    @Override
+    public String toString(){
+        return Types.BULLET.toString();
     }
 
     @Override
