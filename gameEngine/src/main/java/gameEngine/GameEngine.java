@@ -3,22 +3,20 @@ package gameEngine;
 import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
-import interfaces.IProcessing;
-
-import utilities.*;
+import utilities.GameData;
+import utilities.Inputs;
+import utilities.SPIlocator;
+import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class GameEngine{
 
@@ -94,7 +92,6 @@ public class GameEngine{
             Entity entity = iPlugin.create(gameData);
             if(entity.getTypes() != Types.BULLET){
                 gameData.addNewEntities(entity);
-                System.out.println(entity);
             }
 
         }
@@ -120,7 +117,6 @@ public class GameEngine{
                 continue;
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
-            System.out.println(iDrawable);
         }
 
 

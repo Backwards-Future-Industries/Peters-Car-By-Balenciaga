@@ -46,6 +46,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for (Entity player : gameData.getNewEntities()) {
             if (player.getTypes() == Types.PLAYER) {
+
                 int[] position = player.getPosition();
 
                 AffineTransform transform = player.getSprite().getTransform();

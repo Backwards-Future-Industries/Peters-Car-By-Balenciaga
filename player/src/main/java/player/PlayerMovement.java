@@ -23,15 +23,18 @@ public class PlayerMovement implements IProcessing {
                     for (IBulletService bullet : getBullet()) {
                         gameData.addNewEntities(bullet.create(player));
                     }
-
-
+                    /*
                     for (IDrawable iDrawable : getBulletDraw()) {
-                        if (iDrawable.toString() == Types.BULLET.toString()) {
+                        if (iDrawable.toString().equals(Types.BULLET.toString())) {
                             gameData.addDrawables(iDrawable);
                         }
                     }
+                    */
+
+
 
                 }
+
 
                 for (IMovement iMovement : getMovement()) {
                     player.setPosition(iMovement.defaultMove(inputs, player));
