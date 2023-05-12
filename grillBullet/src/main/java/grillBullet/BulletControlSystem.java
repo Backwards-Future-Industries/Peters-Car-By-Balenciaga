@@ -10,6 +10,9 @@ import utilities.Types;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import static utilities.Inputs.KEY_W;
 
 public class BulletControlSystem implements IProcessing {
     @Override
@@ -17,7 +20,7 @@ public class BulletControlSystem implements IProcessing {
         for (Entity bullet : gameData.getNewEntities()) {
             if (bullet.getTypes() == Types.BULLET) {
                 for (IMovement iMovement : getPlugin()) {
-                    bullet.setPosition(iMovement.defaultMove(new ArrayList<Inputs>(Inputs.KEY_W.ordinal()), bullet));
+                    bullet.setPosition(iMovement.defaultMove(new ArrayList<>(List.of(KEY_W)), bullet));
                 }
             }
         }

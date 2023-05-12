@@ -8,6 +8,10 @@ import utilities.GameData;
 import utilities.Inputs;
 import utilities.SPIlocator;
 import utilities.*;
+import utilities.GameData;
+import utilities.Inputs;
+import utilities.SPIlocator;
+import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,7 +101,6 @@ public class GameEngine{
             Entity entity = iPlugin.create(gameData);
             if(entity.getTypes() != Types.BULLET){
                 gameData.addNewEntities(entity);
-                System.out.println(entity);
             }
 
         }
@@ -122,7 +125,6 @@ public class GameEngine{
                 continue;
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
-            System.out.println(iDrawable);
         }
 
 
