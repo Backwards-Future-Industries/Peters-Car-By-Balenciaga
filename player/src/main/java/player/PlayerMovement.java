@@ -32,22 +32,18 @@ public class PlayerMovement implements IProcessing {
                             gameData.addDrawables(iDrawable);
                         }
                     }
-            }
-
-
-            for (IMovement iMovement : getMovement()) {
-                player.setPosition(iMovement.defaultMove(inputs, player));
-            }
-            player.getSprite().freshRotate(player.getRadians(), player.getPosition());
-        }
-
+                    /*
                     for (IDrawable iDrawable : getBulletDraw()) {
-                        if (iDrawable.toString() == Types.BULLET.toString()) {
+                        if (iDrawable.toString().equals(Types.BULLET.toString())) {
                             gameData.addDrawables(iDrawable);
                         }
                     }
+                    */
+
+
 
                 }
+
 
                 for (IMovement iMovement : getMovement()) {
                     player.setPosition(iMovement.defaultMove(inputs, player));
