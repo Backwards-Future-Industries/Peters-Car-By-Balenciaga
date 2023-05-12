@@ -1,6 +1,5 @@
-package grillBullet;
-
 import abstractClasses.Entity;
+import grillBullet.Bullet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Vector2D;
