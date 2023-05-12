@@ -31,6 +31,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
         this.newPlayer.setAcceleration(1);
         this.newPlayer.setMaxSpeed(10);
         this.newPlayer.setTypes(Types.PLAYER);
+        this.newPlayer.setPosition(new int[]{1,1});
 
 
         return this.newPlayer;

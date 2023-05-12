@@ -3,41 +3,31 @@ package enemy;
 import abstractClasses.Entity;
 import interfaces.*;
 import utilities.GameData;
-import utilities.Inputs;
-import utilities.SPIlocator;
 import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 
-public class EnemyPlugin extends Entity implements IPlugin, IDrawable, IProcessing {
+public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     private Entity lowTierGod;
-    private AIMovement aiMovement;
     private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/ltg.png");
 
-    public EnemyPlugin() throws IOException {
-        super(10,defaultImage, Types.ENEMY,new double[]{1,1},1,10);
-        setPosition(new int[]{10,10});
-        setRadians(0);
+    public EnemyPlugin() {
     }
 
     @Override
     public Entity create(GameData gameData) {
-        try {
-            lowTierGod = new EnemyPlugin();
-            aiMovement = new AIMovement(gameData,lowTierGod);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        gameData.addDrawables((IDrawable) lowTierGod);
-        gameData.addProcesses((IProcessing) lowTierGod);
+        this.lowTierGod = new Enemy();
+        this.lowTierGod.setHealth(10);
+        this.lowTierGod.setSprite(defaultImage,new double[]{1,1});
+        this.lowTierGod.setAcceleration(1);
+        this.lowTierGod.setMaxSpeed(5);
+        this.lowTierGod.setTypes(Types.ENEMY);
+        this.lowTierGod.setPosition(new int[]{100,100});
 
-        return lowTierGod;
+        return this.lowTierGod;
     }
 
     @Override
@@ -47,23 +37,15 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable, IProcessi
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        int[] position = getPosition();
+        for (Entity enemy : gameData.getNewEntities()){
+            if (enemy.getTypes() == Types.ENEMY){
+                int[] position = enemy.getPosition();
 
-        AffineTransform transform = getSprite().getTransform();
-        g.setTransform(transform);
-        g.drawImage(getSprite().getImage(),position[0],position[1],panel);
+                AffineTransform transform = getSprite().getTransform();
+                g.setTransform(transform);
+                g.drawImage(enemy.getSprite().getImage(),position[0],position[1],panel);
 
-    }
-
-    @Override
-    public void process(ArrayList<Inputs> inputs, GameData gameData) {
-        for (IMovement iMovement : getPlugin()){
-            lowTierGod.setPosition(iMovement.defaultMove(aiMovement.getInputs(),lowTierGod));
+            }
         }
-        this.getSprite().freshRotate(this.getRadians(),this.getPosition());
-
-    }
-    private Collection<IMovement> getPlugin(){
-        return SPIlocator.locateAll(IMovement.class);
     }
 }

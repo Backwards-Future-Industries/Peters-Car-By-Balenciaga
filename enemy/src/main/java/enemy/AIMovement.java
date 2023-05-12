@@ -18,28 +18,29 @@ public class AIMovement {
 
     private Vector2D direction;
 
-    public AIMovement(GameData gameData, Entity enemyPlugin) {
-        for (Entity entity : gameData.getNewEntities()) {
-            if (entity.getTypes() == Types.PLAYER) {
-                playerPosition = entity.getPosition();
-            }
-        }
+    public AIMovement(Entity enemyPlugin) {
         this.enemyPosition = enemyPlugin.getPosition();
         this.enemyDirection = enemyPlugin.getDirection();
-        assert playerPosition != null;
-        direction = new Vector2D((playerPosition[0] - enemyPosition[0]), (playerPosition[1] - enemyPosition[1]));
+        inputs = new ArrayList<>();
     }
 
-    public ArrayList<Inputs> getInputs() {
-        generateInputs();
+    public ArrayList<Inputs> getInputs(GameData gameData) {
+        generateInputs(gameData);
         return inputs;
     }
 
-    private void generateInputs() {
+    private void generateInputs(GameData gameData) {
+        for (Entity entity : gameData.getNewEntities()) {
+            if (entity.getTypes() == Types.PLAYER) {
+                playerPosition = entity.getPosition();
+                direction = new Vector2D((playerPosition[0] - enemyPosition[0]), (playerPosition[1] - enemyPosition[1]));
+            }
+        }
+
         double angle = 0;
         double dotP;
         double crossP;
-        if (enemyDirection.getLength() != 0) {
+        if (enemyDirection.getLength() != 0 && direction != null) {
             dotP = direction.getX() * enemyDirection.getX() + direction.getY() * enemyDirection.getY();
             crossP = direction.getX() * enemyDirection.getY() - direction.getY() * enemyDirection.getX();
             angle = Math.atan2(crossP, dotP);
