@@ -14,7 +14,9 @@ public class CollisionDetection implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
-        for (Entity entity1 : gameData.getNewEntities()){
+        //Processing collision in CollisionDetection, instead of on the individual components
+        //Will try interface implementation instead for now to get high cohesion and low coupling
+        /*for (Entity entity1 : gameData.getNewEntities()){
             for (Entity entity2: gameData.getNewEntities()){
 
                 //check to see if they are the same entity
@@ -51,9 +53,8 @@ public class CollisionDetection implements IProcessing {
                         entity1.setHealth(entity1.getHealth()-1);
                     }
                 }
-
             }
-        }
+        }*/
     }
 
     public boolean isColliding(Entity entity1, Entity entity2) {
