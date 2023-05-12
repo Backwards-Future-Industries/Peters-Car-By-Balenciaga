@@ -28,7 +28,7 @@ public abstract class Entity {
         this(-1);
     }
     public Entity(int health){
-        this(health, Entity.class.getResource("commonImages/placeholder.png"), Types.UNDEFINED);
+        this(health, null, Types.UNDEFINED);
     }
     public Entity(int health, URL sprite, Types type){
         this(health,sprite,type,new double[]{1,1});
