@@ -57,6 +57,11 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
             setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this,gameData));
         }
     }
+
+    @Override
+    public String toString(){
+        return Types.BULLET.toString();
+    }
     private Collection<IMovement> getPlugin(){
         return SPIlocator.locateAll(IMovement.class);
     }
