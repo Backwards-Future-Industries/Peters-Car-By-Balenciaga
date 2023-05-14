@@ -33,13 +33,10 @@ public class GameLoop implements Runnable {
 
 
     private void updateProcess(ArrayList<Inputs> inputs){
-            for (IProcessing iProcessing : getIprocessing()){
+            for (IProcessing iProcessing : gameEngine.getGameData().getProcesses()){
                 iProcessing.process(inputs,gameEngine.getGameData());
             }
 
     }
 
-    private Collection<IProcessing> getIprocessing(){
-        return SPIlocator.locateAll(IProcessing.class);
-    }
 }

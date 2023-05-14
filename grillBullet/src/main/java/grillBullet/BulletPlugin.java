@@ -53,7 +53,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for(Entity bullet : gameData.getEntityMap()){
+        for(Entity bullet : gameData.getEntityList(Types.BULLET)){
             if(bullet.getTypes() == Types.BULLET){
                 int [] position = bullet.getPosition();
 
