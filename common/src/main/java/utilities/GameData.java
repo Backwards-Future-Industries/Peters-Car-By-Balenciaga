@@ -2,20 +2,21 @@ package utilities;
 
 import abstractClasses.Entity;
 import interfaces.IDrawable;
-import interfaces.IGameData;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 
-import java.awt.*;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class GameData implements IGameData {
-    private LinkedList<Entity> newEntities;
-    private LinkedList<IProcessing> processes;
-    private LinkedList<IDrawable> foreground;
-    private LinkedList<IDrawable> middleground;
-    private LinkedList<IDrawable> background;
+public class GameData {
+    private Map<Types,LinkedList<Entity>> entityMap;
+    private List<IProcessing> processes;
+    private List<IDrawable> foreground;
+    private List<IDrawable> middleground;
+    private List<IDrawable> background;
     private ReentrantLock newLock;
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
@@ -23,7 +24,8 @@ public class GameData implements IGameData {
     private Dimension screenSize;
 
     public GameData(){
-        this.newEntities = new LinkedList<Entity>();
+        this.entityMap = new HashMap<Types,LinkedList<Entity>>();
+        createMap();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
         this.middleground = new LinkedList<IDrawable>();
@@ -33,11 +35,16 @@ public class GameData implements IGameData {
         this.newLock = new ReentrantLock(true);
     }
 
+    private void createMap(){
+        for (Types type : Types.values()){
+            this.entityMap.put(type,new LinkedList<Entity>());
+        }
+    }
+
 
     /**
      * @return List of all entities that gets drawn.
      */
-    @Override
     public LinkedList<IDrawable> getDrawables() {
         drawLock.lock();
         try {
@@ -54,11 +61,10 @@ public class GameData implements IGameData {
     /**
      * @return List of all entities that's inbound for the game.
      */
-    @Override
-    public LinkedList<Entity> getNewEntities() {
+    public LinkedList<Entity> getEntityMap(Types types) {
         newLock.lock();
         try{
-            return newEntities;
+            return this.entityMap.get(types);
         } finally {
             newLock.unlock();
         }
@@ -67,8 +73,7 @@ public class GameData implements IGameData {
     /**
      * @return List of all entities that has a process to run.
      */
-    @Override
-    public LinkedList<IProcessing> getProcesses() {
+    public List<IProcessing> getProcesses() {
         processLock.lock();
         try {
             return processes;
@@ -81,7 +86,6 @@ public class GameData implements IGameData {
      * Works just like {@link GameData#addDrawables(IDrawable, Layers)}. Layers is presumed to be Middleground.
      * @see GameData#addDrawables(IDrawable, Layers)
      */
-    @Override
     public boolean addDrawables(IDrawable draw) {
         return addDrawables(draw,Layers.MIDDLEGROUND);
     }
@@ -91,7 +95,6 @@ public class GameData implements IGameData {
      * @param layer which layer it should be drawn on.
      * @return returns true if successful.
      */
-    @Override
     public boolean addDrawables(IDrawable draw, Layers layer) {
         drawLock.lock();
         try {
@@ -120,11 +123,10 @@ public class GameData implements IGameData {
      * @param newEntity new implementation of {@link IPlugin} that has to be processed by the GameEngine to become part of the game.
      * @return returns true if successful.
      */
-    @Override
-    public boolean addNewEntities(Entity newEntity) {
+    public boolean addNewEntity(Entity newEntity) {
         newLock.lock();
         try {
-            if (this.newEntities.add(newEntity)){
+            if (this.entityMap.get(newEntity.getTypes()).add(newEntity)){
                 return true;
             }else{
                 return false;
@@ -134,20 +136,10 @@ public class GameData implements IGameData {
         }
     }
 
-    public void clearNewEntities(){
-        newLock.lock();
-        try {
-            newEntities.clear();
-        }finally {
-            newLock.unlock();
-        }
-    }
-
     /**
      * @param process implementation of {@link IProcessing} that's ready to join the gameLoop.
      * @return returns true if successful.
      */
-    @Override
     public boolean addProcesses(IProcessing process) {
         processLock.lock();
         try {
@@ -166,7 +158,6 @@ public class GameData implements IGameData {
      * @param layer which layer it resides on.
      * @return returns true if successful.
      */
-    @Override
     public boolean removeDrawables(IDrawable drawable, Layers layer) {
         drawLock.lock();
         try{
@@ -195,7 +186,6 @@ public class GameData implements IGameData {
      * @param process implementation of {@link IProcessing} that has to be removed.
      * @return returns true if successful.
      */
-    @Override
     public boolean removeProcesses(IProcessing process) {
         processLock.lock();
         try {
