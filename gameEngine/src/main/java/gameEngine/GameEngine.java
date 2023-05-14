@@ -35,6 +35,7 @@ public class GameEngine{
     private ScheduledExecutorService drawLoopExecutor;
 
     public GameEngine(int framerate) {
+        this.gameData = new GameData();
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -100,9 +101,8 @@ public class GameEngine{
         for(IPlugin iPlugin : getPlugin()) {
             Entity entity = iPlugin.create(gameData);
             if(entity.getTypes() != Types.BULLET){
-                gameData.addNewEntities(entity);
+                gameData.addNewEntity(entity);
             }
-
         }
     }
 

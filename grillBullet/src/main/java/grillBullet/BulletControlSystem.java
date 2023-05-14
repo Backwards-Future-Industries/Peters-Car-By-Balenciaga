@@ -14,22 +14,21 @@ import java.util.List;
 
 import static utilities.Inputs.KEY_W;
 
-public class BulletControlSystem{ /*implements IProcessing {
+public class BulletControlSystem implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
-        for (Entity bullet : gameData.getNewEntities()) {
+        for (Entity bullet : gameData.getEntityMap(Types.BULLET)) {
             if (bullet.getTypes() == Types.BULLET) {
-                for (IMovement iMovement : getPlugin()) {
+                for (IMovement iMovement : getIPlugin()) {
                     bullet.setPosition(iMovement.defaultMove(new ArrayList<>(List.of(KEY_W)), bullet));
                 }
             }
         }
     }
 
-    private Collection<IMovement> getPlugin() {
+    private Collection<IMovement> getIPlugin() {
         return SPIlocator.locateAll(IMovement.class);
     }
-    */
 
 }
