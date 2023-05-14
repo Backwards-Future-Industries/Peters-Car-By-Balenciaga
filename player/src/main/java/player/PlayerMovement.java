@@ -19,7 +19,7 @@ public class PlayerMovement implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
-        for (Entity player : gameData.getNewEntities()) {
+        for (Entity player : gameData.getEntityMap()) {
             if (player.getTypes() == Types.PLAYER) {
                 if (inputs.contains(Inputs.KEY_SPACE)) {
 
