@@ -24,12 +24,13 @@ public class GameEngine{
     private UserInputs userInputs;
     private JFrame window;
     private JPanel panel;
-    private GameData gameData = new GameData();
+    private GameData gameData;
 
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
     public GameEngine(int framerate) {
+        this.gameData = new GameData();
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
@@ -91,11 +92,9 @@ public class GameEngine{
         for(IPlugin iPlugin : getPlugin()) {
             Entity entity = iPlugin.create(gameData);
             if(entity.getTypes() != Types.BULLET){
-                gameData.addNewEntities(entity);
+                gameData.addNewEntity(entity);
             }
-
         }
-
     }
 
     public JFrame getWindow() {

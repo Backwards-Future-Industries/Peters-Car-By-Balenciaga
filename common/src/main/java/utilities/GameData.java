@@ -123,6 +123,7 @@ public class GameData {
      */
     public boolean addNewEntity(Entity newEntity) {
         newLock.lock();
+
         try {
             if (this.entityMap.get(newEntity.getTypes()).add(newEntity)){
                 return true;

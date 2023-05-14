@@ -53,8 +53,8 @@ public class BulletPlugin implements IBulletService, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for(Entity bullet : gameData.getEntityMap()){
-            if(bullet.getTypes() == Types.BULLET){
+        for(Entity bullet : gameData.getEntityMap(Types.BULLET)){
+
                 int [] position = bullet.getPosition();
 
                 AffineTransform transform = bullet.getSprite().getTransform();
@@ -62,7 +62,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
                 g.drawImage(bullet.getSprite().getImage(),position[0],position[1],panel);
             }
         }
-    }
+
 
     @Override
     public String toString(){
