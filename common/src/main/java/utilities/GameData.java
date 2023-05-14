@@ -131,7 +131,7 @@ public class GameData {
         newLock.lock();
 
         try {
-            if (this.entityMap.get(newEntity.getTypes()).add(newEntity)){
+            if (this.entityMap.get(newEntity.getType()).add(newEntity)){
                 return true;
             }else{
                 return false;

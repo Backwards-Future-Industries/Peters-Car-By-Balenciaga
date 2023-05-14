@@ -19,7 +19,7 @@ public class PlayerMovement implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity player : gameData.getEntityList(Types.PLAYER)) {
-            if (player.getTypes() == Types.PLAYER) {
+            if (player.getType() == Types.PLAYER) {
                 if (inputs.contains(Inputs.KEY_SPACE)) {
 
                     for (IBulletService bullet : getBullet()) {

@@ -28,7 +28,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
         this.bullet.setRadians(2);
         this.bullet.setMaxSpeed(3);
         this.bullet.setAcceleration(1);
-        this.bullet.setTypes(Types.BULLET);
+        this.bullet.setType(Types.BULLET);
 
         return this.bullet;
     }
@@ -53,8 +53,8 @@ public class BulletPlugin implements IBulletService, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for(Entity bullet : gameData.getEntityMap(Types.BULLET)){
-
+        for(Entity bullet : gameData.getEntityList(Types.BULLET)){
+            if(bullet.getType() == Types.BULLET){
                 int [] position = bullet.getPosition();
 
                 AffineTransform transform = bullet.getSprite().getTransform();
