@@ -65,7 +65,7 @@ public class GameData {
     /**
      * @return List of all entities that's inbound for the game.
      */
-    public LinkedList<Entity> getEntityMap(Types types) {
+    public LinkedList<Entity> getEntityList(Types types) {
         newLock.lock();
         try{
             return this.entityMap.get(types);

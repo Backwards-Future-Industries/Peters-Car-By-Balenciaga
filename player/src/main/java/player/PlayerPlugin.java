@@ -46,7 +46,8 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for (Entity player : gameData.getEntityMap(Types.PLAYER)) {
+        for (Entity player : gameData.getEntityList(Types.PLAYER)) {
+            if (player.getTypes() == Types.PLAYER) {
 
                 int[] position = player.getPosition();
 

@@ -41,8 +41,6 @@ public class GameEngine{
         this.userInputs = new UserInputs();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
-        this.gameData = new GameData();
-        addEntities();
         addDraw();
         openWindow();
         start();
@@ -98,15 +96,6 @@ public class GameEngine{
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void addEntities() {
-        for(IPlugin iPlugin : getPlugin()) {
-            Entity entity = iPlugin.create(gameData);
-            if(entity.getTypes() != Types.BULLET){
-                gameData.addNewEntity(entity);
-            }
-        }
-    }
-
     public JFrame getWindow() {
         return window;
     }
@@ -133,9 +122,5 @@ public class GameEngine{
 
     private Collection<IDrawable> getIdrawable(){
         return SPIlocator.locateAll(IDrawable.class);
-    }
-
-    private Collection<IPlugin> getPlugin(){
-        return SPIlocator.locateAll(IPlugin.class);
     }
 }
