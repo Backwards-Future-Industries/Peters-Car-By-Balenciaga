@@ -13,11 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-import static utilities.Inputs.KEY_W;
 
 public class BulletPlugin implements IBulletService, IDrawable {
     Entity bullet;

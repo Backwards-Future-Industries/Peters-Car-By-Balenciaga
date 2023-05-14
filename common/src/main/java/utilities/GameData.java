@@ -2,7 +2,6 @@ package utilities;
 
 import abstractClasses.Entity;
 import interfaces.IDrawable;
-import interfaces.IGameData;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 
