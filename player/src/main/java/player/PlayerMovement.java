@@ -9,10 +9,13 @@ import utilities.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class PlayerMovement implements IProcessing {
 
-    private Types type;
+    private LinkedList<IBulletService> bullets;
+
+
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
@@ -22,14 +25,21 @@ public class PlayerMovement implements IProcessing {
 
                     for (IBulletService bullet : getBullet()) {
                         gameData.addNewEntities(bullet.create(player));
+                        //bullet.process(gameData);
                     }
+
+
                     /*
                     for (IDrawable iDrawable : getBulletDraw()) {
                         if (iDrawable.toString().equals(Types.BULLET.toString())) {
                             gameData.addDrawables(iDrawable);
                         }
                     }
-                    */
+
+                     */
+
+
+
 
 
 
