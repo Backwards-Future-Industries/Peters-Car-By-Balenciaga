@@ -32,13 +32,19 @@ public class PlayerMovement implements IProcessing {
                             gameData.addDrawables(iDrawable);
                         }
                     }
+
+
                     /*
                     for (IDrawable iDrawable : getBulletDraw()) {
                         if (iDrawable.toString().equals(Types.BULLET.toString())) {
                             gameData.addDrawables(iDrawable);
                         }
                     }
-                    */
+
+                     */
+
+
+
 
 
 

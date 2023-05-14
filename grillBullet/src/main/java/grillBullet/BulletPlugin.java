@@ -3,14 +3,21 @@ package grillBullet;
 import abstractClasses.Entity;
 import interfaces.IBulletService;
 import interfaces.IDrawable;
+import interfaces.IMovement;
 import utilities.GameData;
 import utilities.Layers;
+import utilities.SPIlocator;
 import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static utilities.Inputs.KEY_W;
 
 public class BulletPlugin implements IBulletService, IDrawable {
     Entity bullet;
@@ -36,6 +43,19 @@ public class BulletPlugin implements IBulletService, IDrawable {
     }
 
     @Override
+    public void process(GameData gameData) {
+        /*for (Entity bullet : gameData.getNewEntities()) {
+            if (bullet.getTypes() == Types.BULLET) {
+                for (IMovement iMovement : getPlugin()) {
+                    bullet.setPosition(iMovement.defaultMove(new ArrayList<>(List.of(KEY_W)), bullet));
+                }
+            }
+        }
+
+         */
+    }
+
+    @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for(Entity bullet : gameData.getEntityMap(Types.BULLET)){
 
@@ -55,5 +75,9 @@ public class BulletPlugin implements IBulletService, IDrawable {
     @Override
     public Layers getLayer() {
         return Layers.MIDDLEGROUND;
+    }
+
+    private Collection<IMovement> getPlugin() {
+        return SPIlocator.locateAll(IMovement.class);
     }
 }
