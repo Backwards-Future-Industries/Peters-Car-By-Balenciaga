@@ -17,38 +17,27 @@ public class PlayerMovement implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
-        for (Entity player : gameData.getEntityList(Types.PLAYER)) {
-            if (player.getType() == Types.PLAYER) {
-                if (inputs.contains(Inputs.KEY_SPACE)) {
+        for (Entity player : gameData.getEntityMap(Types.PLAYER)) {
+            if (inputs.contains(Inputs.KEY_SPACE)) {
 
-                    for (IBulletService bullet : getBullet()) {
-                        gameData.addNewEntity(bullet.create(player));
-                        //bullet.process(gameData);
-                    }
+                for (IBulletService bullet : getBullet()) {
+                    gameData.addNewEntity(bullet.create(player));
+                }
 
 
-                    /*
+
                     for (IDrawable iDrawable : getBulletDraw()) {
                         if (iDrawable.toString().equals(Types.BULLET.toString())) {
                             gameData.addDrawables(iDrawable);
                         }
                     }
-
-                     */
-
-
-
-
-
-
-                }
-
-
-                for (IMovement iMovement : getMovement()) {
-                    player.setPosition(iMovement.defaultMove(inputs, player,gameData));
-                }
-                player.getSprite().freshRotate(player.getRadians(), player.getPosition());
             }
+
+
+            for (IMovement iMovement : getMovement()) {
+                player.setPosition(iMovement.defaultMove(inputs, player));
+            }
+            player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
     }
 

@@ -54,7 +54,6 @@ public class PlayerPlugin implements IPlugin, IDrawable {
                 AffineTransform transform = player.getSprite().getTransform();
                 g.setTransform(transform);
                 g.drawImage(player.getSprite().getImage(), position[0], position[1], panel);
-            }
         }
     }
 

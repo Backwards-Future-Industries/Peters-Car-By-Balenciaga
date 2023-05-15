@@ -3,9 +3,7 @@ package gameEngine;
 import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
-
 import utilities.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -28,6 +26,7 @@ public class GameEngine{
     private ScheduledExecutorService drawLoopExecutor;
 
     public GameEngine(int framerate) {
+        this.gameData = new GameData();
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.gameData = new GameData();
@@ -107,8 +106,6 @@ public class GameEngine{
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
         }
-
-
     }
 
     private Collection<IDrawable> getIdrawable(){

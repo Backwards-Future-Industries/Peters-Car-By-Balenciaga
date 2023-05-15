@@ -68,6 +68,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
 
 
     public Map() throws IOException {
+        setTypes(Types.UNDEFINED);
         this.bitmap = new Bitmap();
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);

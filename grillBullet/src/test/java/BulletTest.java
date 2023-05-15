@@ -17,19 +17,23 @@ class BulletTest {
     @BeforeEach
     void setUp() {
         this.bullet = new Bullet();
+
+        this.bullet.setDirection(new Vector2D(2,4));
+        this.bullet.setPosition(new int[]{20,50});
+        this.bullet.setHealth(1);
+        this.bullet.setAcceleration(1);
+        this.bullet.setMaxSpeed(3);
+
     }
 
     @Test
     void testVariables() {
-        bullet.setPosition(new int[]{20,50});
         assertArrayEquals(this.position, bullet.getPosition());
-        this.bullet.setDirection(new Vector2D(2,4));
         assertArrayEquals(this.direction.getComponents(), bullet.getDirection().getComponents());
-        bullet.setHealth(1);
+        assertArrayEquals(this.position, bullet.getPosition());
+        assertArrayEquals(this.direction.getComponents(), bullet.getDirection().getComponents());
         assertEquals(bullet.getHealth(), 1);
-        bullet.setAcceleration(1);
         assertEquals(bullet.getAcceleration(), 1);
-        bullet.setMaxSpeed(3);
         assertEquals(bullet.getMaxSpeed(), 3);
     }
 

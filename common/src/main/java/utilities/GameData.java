@@ -4,8 +4,8 @@ import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
-
 import java.awt.*;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -62,6 +62,7 @@ public class GameData {
     /**
      * @return List of all entities that's inbound for the game.
      */
+
     public LinkedList<Entity> getEntityList(Types types) {
         newLock.lock();
         try{
@@ -126,6 +127,7 @@ public class GameData {
      */
     public boolean addNewEntity(Entity newEntity) {
         newLock.lock();
+
         try {
             if (this.entityMap.get(newEntity.getType()).add(newEntity)){
                 return true;
