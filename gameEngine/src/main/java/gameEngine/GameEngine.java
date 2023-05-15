@@ -58,13 +58,14 @@ public class GameEngine{
         };
         Dimension screenSize = new Dimension(1280,960);
         gameData.setScreenSize(screenSize);
-        panel.setSize(screenSize.width,screenSize.height);
-        window.setSize(screenSize.width,screenSize.height);
+        panel.setPreferredSize(screenSize);
+        panel.setSize(screenSize);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.setTitle("Peter's car");
         window.add(panel);
         window.addKeyListener(userInputs);
+        window.pack();
         window.setVisible(true);
     }
 
