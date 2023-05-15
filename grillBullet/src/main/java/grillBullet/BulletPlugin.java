@@ -3,8 +3,10 @@ package grillBullet;
 import abstractClasses.Entity;
 import interfaces.IBulletService;
 import interfaces.IDrawable;
+import interfaces.IMovement;
 import utilities.GameData;
 import utilities.Layers;
+import utilities.SPIlocator;
 import utilities.Types;
 
 import javax.swing.*;
@@ -28,6 +30,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
         this.bullet.setAcceleration(10);
         this.bullet.setTypes(Types.BULLET);
 
+
         return this.bullet;
     }
 
@@ -37,6 +40,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
     }
 
     @Override
+
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for(Entity bullet : gameData.getEntityMap(Types.BULLET)){
 
@@ -47,7 +51,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
                 g.drawImage(bullet.getSprite().getImage(),position[0],position[1],panel);
             }
         }
-
+    }
 
     @Override
     public String toString(){

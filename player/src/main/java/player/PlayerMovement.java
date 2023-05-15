@@ -15,7 +15,6 @@ public class PlayerMovement implements IProcessing {
 
     private LinkedList<IBulletService> bullets;
 
-
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity player : gameData.getEntityMap(Types.PLAYER)) {
@@ -41,7 +40,6 @@ public class PlayerMovement implements IProcessing {
             player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
     }
-
 
     private Collection<IMovement> getMovement() {
         return SPIlocator.locateAll(IMovement.class);

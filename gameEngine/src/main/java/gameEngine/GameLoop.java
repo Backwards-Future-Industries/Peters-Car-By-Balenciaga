@@ -1,7 +1,5 @@
 package gameEngine;
 
-import gameEngine.GameEngine;
-import interfaces.IPlugin;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.SPIlocator;
@@ -35,13 +33,10 @@ public class GameLoop implements Runnable {
 
 
     private void updateProcess(ArrayList<Inputs> inputs){
-            for (IProcessing iProcessing : getIprocessing()){
+            for (IProcessing iProcessing : gameEngine.getGameData().getProcesses()){
                 iProcessing.process(inputs,gameEngine.getGameData());
             }
 
     }
 
-    private Collection<IProcessing> getIprocessing(){
-        return SPIlocator.locateAll(IProcessing.class);
-    }
 }

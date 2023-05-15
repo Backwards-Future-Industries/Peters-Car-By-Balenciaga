@@ -3,11 +3,7 @@ package gameEngine;
 import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
-import utilities.GameData;
-import utilities.Inputs;
-import utilities.SPIlocator;
-import utilities.Types;
-
+import utilities.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
@@ -33,9 +29,9 @@ public class GameEngine{
         this.gameData = new GameData();
         this.framerate = framerate;
         this.userInputs = new UserInputs();
+        this.gameData = new GameData();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
-        addEntities();
         addDraw();
         openWindow();
         start();
@@ -56,10 +52,12 @@ public class GameEngine{
               }
           }
         };
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = new Dimension(1280,960);
+        gameData.setScreenSize(screenSize);
         panel.setSize(screenSize.width,screenSize.height);
         window.setSize(screenSize.width,screenSize.height);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
         window.setTitle("Peter's car");
         window.add(panel);
         window.addKeyListener(userInputs);
@@ -88,15 +86,6 @@ public class GameEngine{
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void addEntities() {
-        for(IPlugin iPlugin : getPlugin()) {
-            Entity entity = iPlugin.create(gameData);
-            if(entity.getTypes() != Types.BULLET){
-                gameData.addNewEntity(entity);
-            }
-        }
-    }
-
     public JFrame getWindow() {
         return window;
     }
@@ -117,17 +106,9 @@ public class GameEngine{
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());
         }
-
-
     }
-
-
 
     private Collection<IDrawable> getIdrawable(){
         return SPIlocator.locateAll(IDrawable.class);
-    }
-
-    private Collection<IPlugin> getPlugin(){
-        return SPIlocator.locateAll(IPlugin.class);
     }
 }

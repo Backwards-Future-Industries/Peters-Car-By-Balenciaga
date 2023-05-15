@@ -23,8 +23,6 @@ public abstract class Entity {
     private double radians = 0;
     private Vector2D direction;
     private Shapes[] shape;
-
-    private Types types;
     
     public Entity(){
         this(-1);
@@ -40,7 +38,7 @@ public abstract class Entity {
         this(health,sprite,type,scale,1,10);
     }
     
-    public Entity(int health, URL sprite, Types type, double[] scale, int acceleration, int maxSpeed){
+    public Entity(int health, URL sprite, Types type, double[] scale, double acceleration, double maxSpeed){
         this.health = health;
         this.scale = scale;
         this.acceleration = acceleration;
@@ -48,6 +46,7 @@ public abstract class Entity {
         this.direction = new Vector2D(0,0);
         this.position = new int[]{0,0};
         this.type = type;
+
         if(sprite == null){
             sprite = Entity.class.getResource("/commonImages/placeholder.png");
         }
@@ -60,9 +59,6 @@ public abstract class Entity {
         radius = 20; //placeholder default value
     }
 
-
-
-
     public int getHealth() {
         return health;
     }
@@ -70,7 +66,7 @@ public abstract class Entity {
         this.health = health;
     }
 
-    public synchronized Image getSprite() {
+    public Image getSprite() {
         return sprite;
     }
 
@@ -112,7 +108,7 @@ public abstract class Entity {
         return acceleration;
     }
 
-    public void setAcceleration(int acceleration) {
+    public void setAcceleration(double acceleration) {
         this.acceleration = acceleration;
     }
 
@@ -120,7 +116,7 @@ public abstract class Entity {
         return maxSpeed;
     }
 
-    public void setMaxSpeed(int maxSpeed) {
+    public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
     }
 
@@ -152,12 +148,11 @@ public abstract class Entity {
     public void setScale(double[] scale) {
         this.scale = scale;
     }
-
-    public void setTypes(Types types) {
-        this.types = types;
+    public void setType(Types types) {
+        this.type = types;
     }
 
-    public Types getTypes() {
-        return types;
+    public Types getType() {
+        return type;
     }
 }

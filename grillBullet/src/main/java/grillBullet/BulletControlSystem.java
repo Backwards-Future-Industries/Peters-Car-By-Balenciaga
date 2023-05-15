@@ -20,15 +20,6 @@ public class BulletControlSystem implements IProcessing {
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity bullet : gameData.getEntityMap(Types.BULLET)) {
             if (bullet.getTypes() == Types.BULLET) {
-                for (IMovement iMovement : getIPlugin()) {
-                    bullet.setPosition(iMovement.defaultMove(new ArrayList<>(List.of(KEY_W)), bullet));
-                }
-            }
-        }
-    }
-
-    private Collection<IMovement> getIPlugin() {
-        return SPIlocator.locateAll(IMovement.class);
-    }
+                for (IMovement iMovement : getIPlugin()) {}}}
 
 }

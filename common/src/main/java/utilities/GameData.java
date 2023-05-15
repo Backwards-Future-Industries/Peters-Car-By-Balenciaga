@@ -4,6 +4,7 @@ import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
+import java.awt.*;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -20,6 +21,8 @@ public class GameData {
     private ReentrantLock newLock;
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
+
+    private Dimension screenSize;
 
     public GameData(){
         this.entityMap = new HashMap<Types,LinkedList<Entity>>();
@@ -59,7 +62,8 @@ public class GameData {
     /**
      * @return List of all entities that's inbound for the game.
      */
-    public LinkedList<Entity> getEntityMap(Types types) {
+
+    public LinkedList<Entity> getEntityList(Types types) {
         newLock.lock();
         try{
             return this.entityMap.get(types);
@@ -125,7 +129,7 @@ public class GameData {
         newLock.lock();
 
         try {
-            if (this.entityMap.get(newEntity.getTypes()).add(newEntity)){
+            if (this.entityMap.get(newEntity.getType()).add(newEntity)){
                 return true;
             }else{
                 return false;
@@ -198,16 +202,11 @@ public class GameData {
         }
     }
 
+    public Dimension getScreenSize() {
+        return screenSize;
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    public void setScreenSize(Dimension screenSize) {
+        this.screenSize = screenSize;
+    }
 }
