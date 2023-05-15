@@ -96,4 +96,8 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     public String toString(){
         return Type.MAP.toString();
     }
+    
+    public void onCollision(Entity collidingEntity) {
+
+    }
 }

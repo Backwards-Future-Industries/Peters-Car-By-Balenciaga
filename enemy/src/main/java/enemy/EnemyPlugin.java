@@ -62,4 +62,18 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     public String toString(){
         return Type.ENEMY.toString();
     }
+
+    public void onCollision(Entity collidingEntity) {
+        if (collidingEntity.getType() == Types.BULLET) {
+            this.setHealth(this.getHealth() - 1);
+        }
+
+        if (collidingEntity.getType() == Types.PLAYER) {
+            this.setHealth(this.getHealth() - 5);
+        }
+
+        if (collidingEntity.getType() == Types.OBSTACLE) {
+            this.setHealth(this.getHealth() - 1);
+        }
+    }
 }
