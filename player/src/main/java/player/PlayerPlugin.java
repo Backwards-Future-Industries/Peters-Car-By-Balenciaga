@@ -17,7 +17,8 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
     private Entity newPlayer;
 
-    private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/blueCar.png");
+    private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/petersCar.png");
+
 
     public PlayerPlugin() {
     }
@@ -28,9 +29,10 @@ public class PlayerPlugin implements IPlugin, IDrawable {
         this.newPlayer = new Player();
         this.newPlayer.setHealth(5);
         this.newPlayer.setSprite(sprite, new double[]{0.5, 0.5});
-        this.newPlayer.setAcceleration(1);
-        this.newPlayer.setMaxSpeed(10);
+        this.newPlayer.setAcceleration(0.2);
+        this.newPlayer.setMaxSpeed(3);
         this.newPlayer.setType(Types.PLAYER);
+        this.newPlayer.setPosition(new int[]{1,1});
 
 
         return this.newPlayer;

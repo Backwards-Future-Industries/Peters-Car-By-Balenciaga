@@ -1,36 +1,58 @@
 package enemy;
 
 import abstractClasses.Entity;
+import interfaces.IDrawable;
 import interfaces.IPlugin;
 import utilities.GameData;
+import utilities.Layers;
 import utilities.Types;
 
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class EnemyPlugin extends Entity implements IPlugin {
+public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     private Entity lowTierGod;
-    private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/ltg.png");
+    private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/enemyCar.png");
 
-    public EnemyPlugin() throws IOException {
-        super(10,defaultImage, Types.ENEMY,new double[]{1,1},1,10);
-        setPosition(new int[]{10,10});
+    public EnemyPlugin() {
     }
 
     @Override
     public Entity create(GameData gameData) {
-        try {
-            lowTierGod = new EnemyPlugin();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        this.lowTierGod = new Enemy();
+        this.lowTierGod.setHealth(10);
+        this.lowTierGod.setSprite(defaultImage,new double[]{0.5,0.5});
+        this.lowTierGod.setAcceleration(0.15);
+        this.lowTierGod.setMaxSpeed(2);
+        this.lowTierGod.setType(Types.ENEMY);
+        this.lowTierGod.setPosition(new int[]{100,100});
 
-        return lowTierGod;
+        return this.lowTierGod;
     }
 
     @Override
-    public Entity delete(GameData gameData) {
-        this.setHealth(0);
-        return this;
+    public Entity delete(GameData gameEngine) {
+        return null;
+    }
+
+    @Override
+    public void draw(Graphics2D g, JPanel panel, GameData gameData) {
+        for (Entity enemy : gameData.getNewEntities()){
+            if (enemy.getType() == Types.ENEMY){
+                int[] position = enemy.getPosition();
+
+                AffineTransform transform = enemy.getSprite().getTransform();
+                g.setTransform(transform);
+                g.drawImage(enemy.getSprite().getImage(),position[0],position[1],panel);
+
+            }
+        }
+    }
+
+    @Override
+    public Layers getLayer() {
+        return Layers.MIDDLEGROUND;
     }
 }

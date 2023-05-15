@@ -54,7 +54,7 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (IMovement iMovement : getPlugin()){
-            setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this));
+            setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this,gameData));
         }
     }
     private Collection<IMovement> getPlugin(){

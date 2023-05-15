@@ -95,8 +95,6 @@ public class GameEngine{
             Entity entity = iPlugin.create(gameData);
             gameData.addNewEntities(entity);
         }
-        System.out.println(gameData.getNewEntities().size());
-
     }
 
     public JFrame getWindow() {
