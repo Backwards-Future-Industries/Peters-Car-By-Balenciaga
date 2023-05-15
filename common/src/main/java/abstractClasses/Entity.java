@@ -1,5 +1,6 @@
 package abstractClasses;
 
+import interfaces.ICollision;
 import utilities.Shapes;
 import utilities.Type;
 import utilities.image.Image;
@@ -10,7 +11,7 @@ import utilities.Vector2D;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
-public abstract class Entity {
+public abstract class Entity implements ICollision {
     private int health;
     private Image sprite;
     private Type type;

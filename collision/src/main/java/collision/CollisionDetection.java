@@ -16,7 +16,7 @@ public class CollisionDetection implements IProcessing {
 
         //Processing collision in CollisionDetection, instead of on the individual components
         //Will try interface implementation instead for now to get high cohesion and low coupling
-        /*for (Entity entity1 : gameData.getNewEntities()){
+        for (Entity entity1 : gameData.getNewEntities()){
             for (Entity entity2: gameData.getNewEntities()){
 
                 //check to see if they are the same entity
@@ -26,10 +26,19 @@ public class CollisionDetection implements IProcessing {
 
                 //Checks if entities are colliding
                 if (this.isColliding(entity1,entity2)){
+                    entity1.onCollision(entity2);
+                    entity2.onCollision(entity1);
+
+                    if (entity1.getType() == Types.OBSTACLE || entity2.getType() == Types.OBSTACLE) {
+                        if (entity1.getType() == Types.OBSTACLE && entity2.getType() == Types.OBSTACLE) {
+                            continue;
+                        }
+                        entity1.setPosition(obstacleCollision(entity1, entity2));
+                    }
 
                     //Checks if player collides with bullet
                     //Bullet gets deleted and player loses health
-                    if (entity1.getType() == Types.PLAYER && entity2.getType() == Types.BULLET) {
+                    /*if (entity1.getType() == Types.PLAYER && entity2.getType() == Types.BULLET) {
                         entity1.setHealth(entity1.getHealth()-1);
                         entity2.setHealth(entity2.getHealth()-1);
                     }
@@ -51,10 +60,10 @@ public class CollisionDetection implements IProcessing {
                     //Kills bullet if it hits an obstacle
                     if (entity1.getType() == Types.BULLET && entity2.getType() == Types.OBSTACLE) {
                         entity1.setHealth(entity1.getHealth()-1);
-                    }
+                    }*/
                 }
             }
-        }*/
+        }
     }
 
     public boolean isColliding(Entity entity1, Entity entity2) {
