@@ -18,7 +18,4 @@ public class BulletControlSystem implements IProcessing {
                 }   
         }
     }
-     private Collection<IMovement> getIPlugin() {
-        return SPIlocator.locateAll(IMovement.class);
-    }
 }
