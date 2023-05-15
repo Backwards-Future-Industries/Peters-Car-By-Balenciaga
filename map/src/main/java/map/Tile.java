@@ -20,9 +20,4 @@ public class Tile extends Entity {
 
     }
 
-    @Override
-    public void onCollision(Entity collidingEntity) {
-
-    }
-
 }

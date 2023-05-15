@@ -11,7 +11,7 @@ import utilities.Vector2D;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 
-public abstract class Entity implements ICollision {
+public abstract class Entity {
     private int health;
     private Image sprite;
     private Type type;

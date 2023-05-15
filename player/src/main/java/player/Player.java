@@ -1,9 +1,10 @@
 package player;
 
 import abstractClasses.Entity;
+import interfaces.ICollision;
 import utilities.Types;
 
-public class Player extends Entity {
+public class Player extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity collidingEntity) {
