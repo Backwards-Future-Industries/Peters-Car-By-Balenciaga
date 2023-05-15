@@ -20,9 +20,7 @@ public class CollisionDetection implements IProcessing {
             for (Entity entity2: gameData.getNewEntities()){
 
                 //check to see if they are the same entity
-                if (entity1.equals(entity2)){
-                    continue;
-                }
+                if (entity1.equals(entity2)) continue;
 
                 //Checks if entities are colliding
                 if (this.isColliding(entity1,entity2)){
