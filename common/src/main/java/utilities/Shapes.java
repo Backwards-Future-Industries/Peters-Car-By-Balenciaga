@@ -1,20 +1,18 @@
 package utilities;
 
-import abstractClasses.Entity;
-
 public class Shapes {
 
     int[] position;
     int height;
     int width;
 
-    Types type;
+    Type type;
 
     public Shapes(int width, int height) {
-        this(width,height,new int[]{0,0},Types.UNDEFINED);
+        this(width,height,new int[]{0,0}, Type.UNDEFINED);
     }
 
-    public Shapes(int width, int height, int[] position, Types type) {
+    public Shapes(int width, int height, int[] position, Type type) {
         this.width = width;
         this.height = height;
         this.position = position;

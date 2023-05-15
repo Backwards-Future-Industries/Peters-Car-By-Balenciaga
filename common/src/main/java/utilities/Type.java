@@ -1,6 +1,6 @@
 package utilities;
 
-public enum Types {
+public enum Type {
 
     ENEMY,
     PLAYER,

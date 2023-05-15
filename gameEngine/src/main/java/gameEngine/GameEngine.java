@@ -1,6 +1,5 @@
 package gameEngine;
 
-import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 
@@ -112,7 +111,7 @@ public class GameEngine{
 
     private void addDraw(){
         for (IDrawable iDrawable : getIdrawable()){
-            if (iDrawable.toString() == Types.BULLET.toString()) {
+            if (iDrawable.toString() == Type.BULLET.toString()) {
                 continue;
             }
             gameData.addDrawables(iDrawable, iDrawable.getLayer());

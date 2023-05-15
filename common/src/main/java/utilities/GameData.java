@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData {
-    private Map<Types,LinkedList<Entity>> entityMap;
+    private Map<Type,LinkedList<Entity>> entityMap;
     private List<IProcessing> processes;
     private List<IDrawable> foreground;
     private List<IDrawable> middleground;
@@ -28,7 +28,7 @@ public class GameData {
     private Dimension screenSize;
 
     public GameData(){
-        this.entityMap = new HashMap<Types,LinkedList<Entity>>();
+        this.entityMap = new HashMap<Type,LinkedList<Entity>>();
         createMap();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
@@ -40,7 +40,7 @@ public class GameData {
     }
 
     private void createMap(){
-        for (Types type : Types.values()){
+        for (Type type : Type.values()){
             this.entityMap.put(type,new LinkedList<Entity>());
         }
     }
@@ -65,10 +65,11 @@ public class GameData {
     /**
      * @return List of all entities that's inbound for the game.
      */
-    public LinkedList<Entity> getEntityList(Types types) {
+
+    public LinkedList<Entity> getEntityList(Type type) {
         newLock.lock();
         try{
-            return this.entityMap.get(types);
+            return this.entityMap.get(type);
         } finally {
             newLock.unlock();
         }

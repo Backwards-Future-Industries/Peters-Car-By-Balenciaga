@@ -6,7 +6,7 @@ import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Shapes;
-import utilities.Types;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,7 +67,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
 
 
     public Map() throws IOException {
-        setTypes(Types.UNDEFINED);
+        setType(Type.UNDEFINED);
         this.bitmap = new Bitmap();
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);
