@@ -34,11 +34,6 @@ public class BulletPlugin implements IBulletService, IDrawable {
 
 
     @Override
-    public Entity create(GameData gameData) {
-        return null;
-    }
-
-    @Override
     public void delete(GameData gameData) {
 
     }

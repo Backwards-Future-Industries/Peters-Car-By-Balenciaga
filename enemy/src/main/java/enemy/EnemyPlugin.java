@@ -37,6 +37,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
         return null;
     }
 
+
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for (Entity enemy : gameData.getEntityList(Type.ENEMY)){

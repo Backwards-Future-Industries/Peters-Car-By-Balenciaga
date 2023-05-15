@@ -20,16 +20,10 @@ public class EnemyMovement implements IProcessing {
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity enemy : gameData.getEntityList(Type.ENEMY)) {
             if (enemy.getType() == Type.ENEMY) {
-                for (IMovement iMovement : getPlugin()) {
-                    enemy.setPosition(iMovement.defaultMove(aiMovement.getInputs(gameData, enemy), enemy,gameData));
-                }
+                SPIlocator.getSpIlocator().getMovement().defaultMove(aiMovement.getInputs(gameData, enemy), enemy, gameData);
                 enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
             }
         }
-    }
-
-    private Collection<IMovement> getPlugin() {
-        return SPIlocator.locateAll(IMovement.class);
     }
 
     @Override
