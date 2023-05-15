@@ -100,4 +100,8 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     public void onCollision(Entity collidingEntity) {
 
     }
+    
+    public void onCollision(Entity collidingEntity) {
+
+    }
 }
