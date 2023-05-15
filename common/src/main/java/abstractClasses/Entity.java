@@ -70,14 +70,20 @@ public abstract class Entity {
         return sprite;
     }
 
-    public void setSprite(URL sprite, double[] scale) {
+    public void setSprite(URL sprite, double[] scale, boolean updateShape) {
         this.scale = scale;
         this.sprite = ImageLoader.loadImage(sprite, this.scale);
+        if (updateShape){
+            setShape(new Shapes[]{new Shapes(getSprite().getImage().getWidth(),getSprite().getImage().getHeight(),getPosition(), getType())});
+        }
     }
 
-    public void setSprite(BufferedImage bufferedImage, double[] scale) {
+    public void setSprite(BufferedImage bufferedImage, double[] scale, boolean updateShape) {
         this.scale = scale;
         this.sprite = ImageLoader.loadImage(bufferedImage, this.scale);
+        if (updateShape){
+            setShape(new Shapes[]{new Shapes(getSprite().getImage().getWidth(),getSprite().getImage().getHeight(),getPosition(), getType())});
+        }
     }
 
     public void setPosition(int[] position) {

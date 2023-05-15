@@ -60,7 +60,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
             }
             position = new int[]{position[0] + 16, 0};
         }
-        this.setSprite(bufferedImage, new double[]{1, 1});
+        this.setSprite(bufferedImage, new double[]{1, 1},false);
         this.setShape((shapesArray.toArray(this.getShape())));
     }
 

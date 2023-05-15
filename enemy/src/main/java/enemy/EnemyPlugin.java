@@ -23,7 +23,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     public Entity create(GameData gameData) {
         this.lowTierGod = new Enemy();
         this.lowTierGod.setHealth(10);
-        this.lowTierGod.setSprite(defaultImage,new double[]{0.5,0.5});
+        this.lowTierGod.setSprite(defaultImage,new double[]{0.5,0.5},true);
         this.lowTierGod.setAcceleration(0.15);
         this.lowTierGod.setMaxSpeed(2);
         this.lowTierGod.setType(Types.ENEMY);
