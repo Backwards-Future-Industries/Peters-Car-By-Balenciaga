@@ -114,4 +114,8 @@ public class Map extends Entity implements IDrawable, IPlugin {
     public String toString(){
         return Type.UNDEFINED.toString();
     }
+    
+    public void onCollision(Entity collidingEntity) {
+
+    }
 }
