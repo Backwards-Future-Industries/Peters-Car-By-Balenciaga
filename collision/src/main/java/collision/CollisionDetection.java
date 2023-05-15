@@ -14,8 +14,7 @@ public class CollisionDetection implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
-        //Processing collision in CollisionDetection, instead of on the individual components
-        //Will try interface implementation instead for now to get high cohesion and low coupling
+
         for (Entity entity1 : gameData.getNewEntities()){
             for (Entity entity2: gameData.getNewEntities()){
 
@@ -34,6 +33,8 @@ public class CollisionDetection implements IProcessing {
                         entity1.setPosition(obstacleCollision(entity1, entity2));
                     }
 
+                    //Processing collision in CollisionDetection, instead of on the individual components
+                    //Will try interface implementation instead for now to get high cohesion and low coupling
                     //Checks if player collides with bullet
                     //Bullet gets deleted and player loses health
                     /*if (entity1.getType() == Types.PLAYER && entity2.getType() == Types.BULLET) {
