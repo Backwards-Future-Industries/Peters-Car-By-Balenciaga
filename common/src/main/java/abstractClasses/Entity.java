@@ -141,6 +141,12 @@ public abstract class Entity {
         this.shape = shape;
     }
 
+    public void setShape(){
+        this.shape = new Shapes[]{
+                new Shapes(this.sprite.getImage().getWidth(),this.sprite.getImage().getHeight())
+        };
+    }
+
     public Shapes[] getShape() {
         return shape;
     }
