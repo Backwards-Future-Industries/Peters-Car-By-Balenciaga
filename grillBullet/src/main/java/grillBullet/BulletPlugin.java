@@ -3,17 +3,14 @@ package grillBullet;
 import abstractClasses.Entity;
 import interfaces.IBulletService;
 import interfaces.IDrawable;
-import interfaces.IMovement;
 import utilities.GameData;
 import utilities.Layers;
-import utilities.SPIlocator;
 import utilities.Types;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
-import java.util.Collection;
 
 public class BulletPlugin implements IBulletService, IDrawable {
     Entity bullet;
@@ -23,11 +20,12 @@ public class BulletPlugin implements IBulletService, IDrawable {
     @Override
     public Entity create(Entity entity) {
         this.bullet = new Bullet();
-        this.bullet.setSprite(sprite,new double[]{0.5,0.5});
-        this.bullet.setPosition(new int[]{1,1});
-        this.bullet.setRadians(2);
-        this.bullet.setMaxSpeed(3);
-        this.bullet.setAcceleration(1);
+        this.bullet.setSprite(sprite,new double[]{0.1,0.1});
+        this.bullet.setPosition(entity.getPosition());
+        this.bullet.setRadians(entity.getRadians());
+        //this.bullet
+        this.bullet.setMaxSpeed(10);
+        this.bullet.setAcceleration(10);
         this.bullet.setTypes(Types.BULLET);
 
         return this.bullet;
@@ -36,19 +34,6 @@ public class BulletPlugin implements IBulletService, IDrawable {
     @Override
     public void delete(GameData gameData) {
 
-    }
-
-    @Override
-    public void process(GameData gameData) {
-        /*for (Entity bullet : gameData.getNewEntities()) {
-            if (bullet.getTypes() == Types.BULLET) {
-                for (IMovement iMovement : getPlugin()) {
-                    bullet.setPosition(iMovement.defaultMove(new ArrayList<>(List.of(KEY_W)), bullet));
-                }
-            }
-        }
-
-         */
     }
 
     @Override
@@ -72,9 +57,5 @@ public class BulletPlugin implements IBulletService, IDrawable {
     @Override
     public Layers getLayer() {
         return Layers.MIDDLEGROUND;
-    }
-
-    private Collection<IMovement> getPlugin() {
-        return SPIlocator.locateAll(IMovement.class);
     }
 }
