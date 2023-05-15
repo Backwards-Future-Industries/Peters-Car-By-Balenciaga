@@ -32,4 +32,8 @@ public class EnemyMovement implements IProcessing {
         return SPIlocator.locateAll(IMovement.class);
     }
 
+    @Override
+    public String toString(){
+        return Type.ENEMY.toString();
+    }
 }

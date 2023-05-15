@@ -18,4 +18,9 @@ public class BulletControlSystem implements IProcessing {
                 }   
         }
     }
+
+    @Override
+    public String toString() {
+        return Type.BULLET.toString();
+    }
 }
