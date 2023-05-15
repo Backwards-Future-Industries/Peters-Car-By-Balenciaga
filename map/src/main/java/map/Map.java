@@ -56,7 +56,6 @@ public class Map extends Entity implements IDrawable, IPlugin {
                 } else {
                     shapesArray.add(new Shapes(16, 16, position, Types.UNDEFINED));
                 }
-                System.out.println("[ "+y +","+ x+" ]");
                 position = new int[]{position[0], position[1] + 16};
             }
             position = new int[]{position[0] + 16, 0};
