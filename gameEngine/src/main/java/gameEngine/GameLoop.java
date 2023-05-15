@@ -34,13 +34,13 @@ public class GameLoop implements Runnable {
 
 
     private void updateProcess(ArrayList<Inputs> inputs){
-            for (IProcessing iProcessing : getIprocessing()){
+            for (IProcessing iProcessing : getProcessing()){
                 iProcessing.process(inputs,gameEngine.getGameData());
             }
 
     }
 
-    private Collection<IProcessing> getIprocessing(){
+    private Collection<IProcessing> getProcessing(){
         return SPIlocator.locateAll(IProcessing.class);
     }
 }
