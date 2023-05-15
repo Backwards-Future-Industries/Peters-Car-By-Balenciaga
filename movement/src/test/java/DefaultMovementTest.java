@@ -27,7 +27,7 @@ class DefaultMovementTest {
     @BeforeEach
     void setup(){
         URL sprite = DefaultMovement.class.getClassLoader().getResource("images/placeholder.png");
-        testEntity = new concreteEntity(5, sprite);
+        testEntity = new ConcreteEntity(5, sprite);
         testEntity.setMaxSpeed(10);
         testEntity.setAcceleration(1);
         expectedPosition = new int[]{1,0};

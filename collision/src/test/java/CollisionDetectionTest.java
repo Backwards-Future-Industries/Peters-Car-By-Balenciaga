@@ -11,17 +11,10 @@ class CollisionDetectionTest {
     CollisionDetection collisionDetection = new CollisionDetection();
 
     //This placeholder sprite is 480x288
-    private static URL sprite = TestEntity.class.getClassLoader().getResource("images/placeholder.png");
-    private class TestEntity extends Entity {
+    private static URL sprite = ConcreteEntity.class.getClassLoader().getResource("images/placeholder.png");
 
-        public TestEntity(int health, URL sprite) {
-            super(health, sprite, Types.WEAPON);
-        }
-
-    }
-
-    TestEntity testEntity1 = new TestEntity(1,sprite);
-    TestEntity testEntity2 = new TestEntity(1,sprite);
+    ConcreteEntity testEntity1 = new ConcreteEntity(1,sprite);
+    ConcreteEntity testEntity2 = new ConcreteEntity(1,sprite);
 
     @Test
     void testCollisionDetection() {
