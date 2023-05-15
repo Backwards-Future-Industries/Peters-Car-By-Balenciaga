@@ -1,15 +1,19 @@
 package grillBullet;
 
 import abstractClasses.Entity;
+import interfaces.IDrawable;
+import interfaces.IMovement;
+import interfaces.IPlugin;
+import interfaces.IProcessing;
+import utilities.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
-public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
+public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing {
     private static final URL sprite = Bullet.class.getResource("images/bullet.png");
 
     public Bullet(){
@@ -52,7 +56,9 @@ public class Bullet extends Entity implements IDrawable, IPlugin, IProcessing{
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (IMovement iMovement : getPlugin()){
-            setPosition(iMovement.defaultMove(new ArrayList<>(List.of(Inputs.KEY_W)), this,gameData));
+            ArrayList arrayList = new ArrayList();
+            arrayList.add(Inputs.KEY_W);
+            setPosition(iMovement.defaultMove(arrayList, this,gameData));
         }
     }
 

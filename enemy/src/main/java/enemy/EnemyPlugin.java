@@ -39,7 +39,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for (Entity enemy : gameData.getNewEntities()){
+        for (Entity enemy : gameData.getEntityList(Types.ENEMY)){
             if (enemy.getType() == Types.ENEMY){
                 int[] position = enemy.getPosition();
 

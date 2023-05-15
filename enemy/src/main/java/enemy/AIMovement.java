@@ -45,11 +45,9 @@ public class AIMovement {
     }
 
     private void getDirection(GameData gameData) {
-        for (Entity entity : gameData.getNewEntities()) {
-            if (entity.getType() == Types.PLAYER) {
-                int[] playerPosition = entity.getPosition();
-                this.direction = new Vector2D((playerPosition[0] - this.enemyPosition[0]), (playerPosition[1] - this.enemyPosition[1]));
-            }
+        for (Entity entity : gameData.getEntityList(Types.PLAYER)) {
+            int[] playerPosition = entity.getPosition();
+            this.direction = new Vector2D((playerPosition[0] - this.enemyPosition[0]), (playerPosition[1] - this.enemyPosition[1]));
         }
     }
 }
