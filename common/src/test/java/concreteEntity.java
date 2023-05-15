@@ -9,8 +9,4 @@ public class concreteEntity extends Entity {
         super(health, sprite, Type.UNDEFINED);
     }
 
-    @Override
-    public void onCollision(Entity collidingEntity) {
-
-    }
 }

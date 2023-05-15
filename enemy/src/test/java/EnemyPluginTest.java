@@ -1,14 +1,9 @@
 import abstractClasses.Entity;
 import enemy.Enemy;
-import enemy.EnemyPlugin;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.image.Image;
-import utilities.image.ImageLoader;
 
-import java.io.IOException;
-import java.net.URL;
 
 class EnemyPluginTest {
     private int[] positions;

@@ -1,6 +1,7 @@
 package collision;
 
 import abstractClasses.Entity;
+import interfaces.ICollision;
 import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;
@@ -22,16 +23,18 @@ public class CollisionDetection implements IProcessing {
                 if (entity1.equals(entity2)) continue;
 
                 //Checks if entities are colliding
-                if (this.isColliding(entity1,entity2)){
-                    entity1.onCollision(entity2);
-                    entity2.onCollision(entity1);
+                if (entity1 instanceof ICollision && entity2 instanceof ICollision){
+                    if (this.isColliding(entity1,entity2)){
+                        ((ICollision) entity1).onCollision(entity2);
+                        ((ICollision) entity2).onCollision(entity1);
 
-                    if (entity1.getType() == Types.OBSTACLE || entity2.getType() == Types.OBSTACLE) {
-                        if (entity1.getType() == Types.OBSTACLE && entity2.getType() == Types.OBSTACLE) {
-                            continue;
+                        if (entity1.getType() == Types.OBSTACLE || entity2.getType() == Types.OBSTACLE) {
+                            if (entity1.getType() == Types.OBSTACLE && entity2.getType() == Types.OBSTACLE) {
+                                continue;
+                            }
+                            entity1.setPosition(obstacleCollision(entity1, entity2));
                         }
-                        entity1.setPosition(obstacleCollision(entity1, entity2));
-                    }
+                }
 
                     //Processing collision in CollisionDetection, instead of on the individual components
                     //Will try interface implementation instead for now to get high cohesion and low coupling
