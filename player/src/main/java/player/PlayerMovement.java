@@ -19,51 +19,18 @@ public class PlayerMovement implements IProcessing {
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity player : gameData.getEntityList(Type.PLAYER)) {
             if (inputs.contains(Inputs.KEY_SPACE)) {
-
-                for (IBulletService bullet : getBullet()) {
-                    gameData.addNewEntity(bullet.create(player.getPosition(),player.getRadians()));
-                }
-
-                    for (IBulletService bullet : getBullet()) {
-                        gameData.addNewEntity(bullet.create(player));
-                        //bullet.process(gameData);
-                    }
-
-
-                    /*
-                    for (IDrawable iDrawable : getBulletDraw()) {
-                        if (iDrawable.toString().equals(Type.BULLET.toString())) {
-                            gameData.addDrawables(iDrawable);
-                        }
-                    }
-
-                     */
-
-                }
-
-                for (IMovement iMovement : getMovement()) {
-                    player.setPosition(iMovement.defaultMove(inputs, player,gameData));
-                }
-                player.getSprite().freshRotate(player.getRadians(), player.getPosition());
+                gameData.addNewEntity(SPIlocator.getSpIlocator().getBullet().create(player.getPosition(), player.getRadians()));
+                gameData.addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(Type.BULLET));
             }
+
+            player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
+            player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
-    }
-
-    private Collection<IMovement> getMovement() {
-        return SPIlocator.locateAll(IMovement.class);
-    }
-
-    private Collection<IBulletService> getBullet() {
-        return SPIlocator.locateAll(IBulletService.class);
-    }
-
-    private Collection<IDrawable> getBulletDraw() {
-        return SPIlocator.locateAll(IDrawable.class);
     }
 
 
     @Override
-    public String toString(){
+    public String toString() {
         return Type.PLAYER.toString();
     }
 }
