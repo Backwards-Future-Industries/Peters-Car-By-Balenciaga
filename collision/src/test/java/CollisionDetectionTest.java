@@ -2,7 +2,7 @@ import abstractClasses.Entity;
 import collision.CollisionDetection;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import utilities.Types;
+import utilities.Type;
 
 import java.net.URL;
 
@@ -13,7 +13,7 @@ class CollisionDetectionTest {
     private class TestEntity extends Entity {
 
         public TestEntity(int health, URL sprite) {
-            super(health, sprite, Types.UNDEFINED);
+            super(health, sprite, Type.UNDEFINED);
         }
 
     }

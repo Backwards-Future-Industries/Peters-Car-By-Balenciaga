@@ -6,7 +6,7 @@ import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Shapes;
-import utilities.Types;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,10 +53,10 @@ public class Map extends Entity implements IDrawable, IPlugin {
                 }
                 position = new int[]{position[0]+16,position[1]};
                 if (tileType == TileType.OBSTACLE) {
-                    shapesArray.add(new Shapes(16,16,position, Types.OBSTACLE));
+                    shapesArray.add(new Shapes(16,16,position, Type.OBSTACLE));
                 }
                 else {
-                    shapesArray.add(new Shapes(16,16,position, Types.UNDEFINED));
+                    shapesArray.add(new Shapes(16,16,position, Type.UNDEFINED));
                 }
             }
             position = new int[]{0,position[1]+16};
@@ -68,7 +68,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
 
 
     public Map() throws IOException {
-        setTypes(Types.UNDEFINED);
+        setType(Type.UNDEFINED);
         this.bitmap = new Bitmap();
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);

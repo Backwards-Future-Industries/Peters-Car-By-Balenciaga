@@ -6,7 +6,7 @@ import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;
 import utilities.SPIlocator;
-import utilities.Types;
+import utilities.Type;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,8 +18,8 @@ public class EnemyMovement implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
-        for (Entity enemy : gameData.getEntityList(Types.ENEMY)) {
-            if (enemy.getType() == Types.ENEMY) {
+        for (Entity enemy : gameData.getEntityList(Type.ENEMY)) {
+            if (enemy.getType() == Type.ENEMY) {
                 for (IMovement iMovement : getPlugin()) {
                     enemy.setPosition(iMovement.defaultMove(aiMovement.getInputs(gameData, enemy), enemy,gameData));
                 }

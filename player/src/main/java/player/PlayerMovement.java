@@ -17,7 +17,7 @@ public class PlayerMovement implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
-        for (Entity player : gameData.getEntityMap(Types.PLAYER)) {
+        for (Entity player : gameData.getEntityList(Type.PLAYER)) {
             if (inputs.contains(Inputs.KEY_SPACE)) {
 
                 for (IBulletService bullet : getBullet()) {
@@ -27,7 +27,7 @@ public class PlayerMovement implements IProcessing {
 
 
                     for (IDrawable iDrawable : getBulletDraw()) {
-                        if (iDrawable.toString().equals(Types.BULLET.toString())) {
+                        if (iDrawable.toString().equals(Type.BULLET.toString())) {
                             gameData.addDrawables(iDrawable);
                         }
                     }
@@ -35,7 +35,7 @@ public class PlayerMovement implements IProcessing {
 
 
             for (IMovement iMovement : getMovement()) {
-                player.setPosition(iMovement.defaultMove(inputs, player));
+                player.setPosition(iMovement.defaultMove(inputs, player, gameData));
             }
             player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
