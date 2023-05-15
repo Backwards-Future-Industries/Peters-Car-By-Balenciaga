@@ -104,4 +104,9 @@ public class Map extends Entity implements IDrawable, IPlugin {
     public Entity delete(GameData gameData) {
         return null;
     }
+
+    @Override
+    public String toString(){
+        return Type.UNDEFINED.toString();
+    }
 }

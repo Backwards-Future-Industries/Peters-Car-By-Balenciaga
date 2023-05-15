@@ -62,4 +62,9 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     public Layers getLayer() {
         return Layers.MIDDLEGROUND;
     }
+
+    @Override
+    public String toString(){
+        return Type.PLAYER.toString();
+    }
 }

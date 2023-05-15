@@ -21,7 +21,7 @@ public class PlayerMovement implements IProcessing {
             if (inputs.contains(Inputs.KEY_SPACE)) {
 
                 for (IBulletService bullet : getBullet()) {
-                    gameData.addNewEntity(bullet.create(player));
+                    gameData.addNewEntity(bullet.create(player.getPosition(),player.getRadians()));
                 }
 
                     for (IBulletService bullet : getBullet()) {
@@ -59,6 +59,12 @@ public class PlayerMovement implements IProcessing {
 
     private Collection<IDrawable> getBulletDraw() {
         return SPIlocator.locateAll(IDrawable.class);
+    }
+
+
+    @Override
+    public String toString(){
+        return Type.PLAYER.toString();
     }
 }
 

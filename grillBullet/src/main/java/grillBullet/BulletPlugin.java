@@ -19,7 +19,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
     private static final URL sprite = Bullet.class.getResource("/grillBuletImages/bullet.png");
 
     @Override
-    public Entity create(Entity entity) {
+    public Entity create(int[] position, double radians) {
         this.bullet = new Bullet();
         this.bullet.setSprite(sprite,new double[]{0.5,0.5});
         this.bullet.setPosition(new int[]{1,1});
@@ -31,13 +31,14 @@ public class BulletPlugin implements IBulletService, IDrawable {
         return this.bullet;
     }
 
-    @Override
-    public void delete(GameData gameData) {
 
+    @Override
+    public Entity create(GameData gameData) {
+        return null;
     }
 
     @Override
-    public void process(GameData gameData) {
+    public void delete(GameData gameData) {
 
     }
 
