@@ -7,4 +7,9 @@ public class concreteEntity extends Entity {
 
     public concreteEntity() {
     }
+
+    @Override
+    public void onCollision(Entity collidingEntity) {
+
+    }
 }
