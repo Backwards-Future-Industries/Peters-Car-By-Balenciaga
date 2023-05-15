@@ -30,6 +30,7 @@ public class GameEngine{
     public GameEngine(int framerate) {
         this.framerate = framerate;
         this.userInputs = new UserInputs();
+        this.gameData = new GameData();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         addDraw();

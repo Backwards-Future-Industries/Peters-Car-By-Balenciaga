@@ -21,10 +21,15 @@ class BulletTest {
 
     @Test
     void testVariables() {
-        assertEquals(this.position, bullet.getPosition());
-        assertEquals(this.direction, bullet.getDirection());
+        bullet.setPosition(new int[]{20,50});
+        assertArrayEquals(this.position, bullet.getPosition());
+        this.bullet.setDirection(new Vector2D(2,4));
+        assertArrayEquals(this.direction.getComponents(), bullet.getDirection().getComponents());
+        bullet.setHealth(1);
         assertEquals(bullet.getHealth(), 1);
+        bullet.setAcceleration(1);
         assertEquals(bullet.getAcceleration(), 1);
+        bullet.setMaxSpeed(3);
         assertEquals(bullet.getMaxSpeed(), 3);
     }
 
