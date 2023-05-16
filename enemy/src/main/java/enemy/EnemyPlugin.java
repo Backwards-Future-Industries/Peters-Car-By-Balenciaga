@@ -20,7 +20,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     }
 
     @Override
-    public Entity create(GameData gameData) {
+    public Entity create() {
         this.lowTierGod = new Enemy();
         this.lowTierGod.setHealth(10);
         this.lowTierGod.setSprite(defaultImage,new double[]{0.5,0.5});

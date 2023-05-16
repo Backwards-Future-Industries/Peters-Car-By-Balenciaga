@@ -59,6 +59,22 @@ public class GameData {
         }
     }
 
+    public void AddComponent(Type type){
+
+        Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+        addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
+
+        Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
+        entityMap.get(type).add(entity);
+
+        IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
+        if(iProcessing != null) {
+            processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
+        }
+
+
+    }
+
     /**
      * @return List of all entities that's inbound for the game.
      */

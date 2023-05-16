@@ -90,7 +90,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create(GameData gameData){
+    public Entity create(){
         Entity newMap = null;
         try {
             newMap = new Map();

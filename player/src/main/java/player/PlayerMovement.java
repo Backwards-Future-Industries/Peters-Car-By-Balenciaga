@@ -19,8 +19,7 @@ public class PlayerMovement implements IProcessing {
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity player : gameData.getEntityList(Type.PLAYER)) {
             if (inputs.contains(Inputs.KEY_SPACE)) {
-                gameData.addNewEntity(SPIlocator.getSpIlocator().getBullet().create(player.getPosition(), player.getRadians()));
-                gameData.addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(Type.BULLET));
+              gameData.AddComponent(Type.BULLET);
             }
 
             player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
