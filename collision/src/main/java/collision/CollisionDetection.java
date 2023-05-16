@@ -34,35 +34,7 @@ public class CollisionDetection implements IProcessing {
                             }
                             entity1.setPosition(obstacleCollision(entity1, entity2));
                         }
-                }
-
-                    //Processing collision in CollisionDetection, instead of on the individual components
-                    //Will try interface implementation instead for now to get high cohesion and low coupling
-                    //Checks if player collides with bullet
-                    //Bullet gets deleted and player loses health
-                    /*if (entity1.getType() == Types.PLAYER && entity2.getType() == Types.BULLET) {
-                        entity1.setHealth(entity1.getHealth()-1);
-                        entity2.setHealth(entity2.getHealth()-1);
                     }
-
-                    //Checks if player collides with enemy
-                    //Both entities lose health (enemy loses more)
-                    if (entity1.getType() == Types.PLAYER && entity2.getType() == Types.ENEMY) {
-                        entity1.setHealth(entity1.getHealth()-5);
-                        entity2.setHealth(entity2.getHealth()-8);
-                    }
-
-                    //Checks if player collides with an obstacle
-                    //Player cant move past and loses health if moving too fast
-                    if (entity1.getType() == Types.PLAYER && entity2.getType() == Types.OBSTACLE) {
-                        entity1.setHealth(entity1.getHealth()-1);
-                        entity1.setPosition(obstacleCollision(entity1,entity2));
-                    }
-
-                    //Kills bullet if it hits an obstacle
-                    if (entity1.getType() == Types.BULLET && entity2.getType() == Types.OBSTACLE) {
-                        entity1.setHealth(entity1.getHealth()-1);
-                    }*/
                 }
             }
         }
@@ -78,23 +50,31 @@ public class CollisionDetection implements IProcessing {
         int[] e2Pos = entity2.getPosition();
 
 
-        //Checks if entities are colliding with box collision
-        Shapes[] e1Shape = entity1.getShape();
-        for (Shapes e2Shape: entity2.getShape()){
-            if (e1Pos[0] < e2Pos[0] + e2Shape.getWidth() &&
-                    e1Pos[0] + e1Shape[0].getWidth() > e2Pos[0] &&
-                    e1Pos[1] < e2Pos[1] + e2Shape.getHeight() &&
-                    e1Pos[1] + e1Shape[0].getHeight() > e2Pos[1]) {
+        //Checks if entities are colliding with box collision on Entity1
+        Shapes[] e1Shapes = entity1.getShape();
+        Shapes[] e2Shapes = entity2.getShape();
+        //Checks through all entity1 shapes
+        if (isBoxCollision(e1Pos, e2Pos, e1Shapes, e2Shapes)) return true;
+        //Checks through all entity2 shapes to ensure that all shapes are checked
+        return (isBoxCollision(e2Pos, e1Pos, e2Shapes, e1Shapes));
+    }
+
+    
+    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shapes[] e1Shapes, Shapes[] e2Shapes) {
+        for (Shapes e1Shape: e1Shapes){
+            if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
+                    e2Pos[0] + e2Shapes[0].getWidth() > e1Pos[0] &&
+                    e2Pos[1] < e1Pos[1] + e1Shape.getHeight() &&
+                    e2Pos[1] + e2Shapes[0].getHeight() > e1Pos[1]) {
                 return true;
             }
         }
-
         return false;
     }
 
     /**
-     * Places Entity1 at the edge of the obstacle, in the direction that
-     * Entity1 hit the obstacle from.
+     * Places entity at the edge of the obstacle, in the direction that
+     * entity hit the obstacle from.
      * @param entity Entity of Type PLAYER or ENEMY
      * @param obstacle Entity of Type OBSTACLE
      * @return A new position for Entity1
