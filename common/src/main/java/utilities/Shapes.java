@@ -8,11 +8,9 @@ public class Shapes {
     Point[] rectangle;
     int height;
     int width;
-
     Type type;
     int[] center;
 
-    int[] center;
 
     public Shapes(int width, int height) {
         this(width,height,new int[]{0,0}, Type.UNDEFINED);
