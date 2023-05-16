@@ -1,6 +1,5 @@
 package abstractClasses;
 
-import interfaces.ICollision;
 import utilities.Shapes;
 import utilities.Type;
 import utilities.image.Image;
