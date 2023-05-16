@@ -15,15 +15,14 @@ import java.net.URL;
 public class BulletPlugin implements IBulletService, IDrawable {
     Entity bullet;
 
-    private static final URL sprite = Bullet.class.getResource("/grillBuletImages/bullet.png");
+    private static final URL sprite = Bullet.class.getResource("/grillBuletImages/Beef.png");
 
     @Override
     public Entity create(int[] position, double radians) {
         this.bullet = new Bullet();
-        this.bullet.setSprite(sprite,new double[]{0.1,0.1});
+        this.bullet.setSprite(sprite,new double[]{1,1 });
         this.bullet.setPosition(position);
         this.bullet.setRadians(radians);
-        //this.bullet
         this.bullet.setMaxSpeed(10);
         this.bullet.setAcceleration(10);
         this.bullet.setType(Type.BULLET);

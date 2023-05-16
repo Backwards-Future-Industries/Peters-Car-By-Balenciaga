@@ -37,6 +37,7 @@ public class GameData {
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
         this.addComponentLock = new ReentrantLock(true);
+        addAllprocess();
     }
 
     private void createMap(){
@@ -62,6 +63,15 @@ public class GameData {
         }
     }
 
+    public void addAllprocess(){
+        for(Type type : Type.values()){
+            IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
+            if(iProcessing != null) {
+                processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
+            }
+        }
+    }
+
     public void  AddComponent(Type type){
         addComponentLock.lock();
         try {
@@ -71,11 +81,20 @@ public class GameData {
             Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
             entityMap.get(type).add(entity);
 
-            IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
-            if(iProcessing != null) {
-                processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
-            }
         }finally {
+            addComponentLock.unlock();
+        }
+    }
+
+    public void addBullet(Type type, Entity entity){
+        addComponentLock.lock();
+        try {
+            Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity.getPosition(),entity.getRadians());
+            entityMap.get(type).add(bullet);
+
+            Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+            addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
+        } finally {
             addComponentLock.unlock();
         }
     }
