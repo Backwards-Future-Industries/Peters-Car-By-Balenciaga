@@ -60,5 +60,9 @@ public class BulletPlugin implements IBulletService, IDrawable {
         return Layers.MIDDLEGROUND;
     }
 
+    private int[] setPosition(int[] position){
+        return null;
+    }
+
 
 }

@@ -42,8 +42,10 @@ public class UserInputs extends KeyAdapter {
         if(keyCode == KeyEvent.VK_ESCAPE && !inputs.contains(Inputs.KEY_ESC)){
             inputs.add(Inputs.KEY_ESC);
         }
-
     }
+
+
+
     @Override
     public void keyReleased(KeyEvent e) {
 
