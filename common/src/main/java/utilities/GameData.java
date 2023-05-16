@@ -22,6 +22,8 @@ public class GameData {
     private ReentrantLock processLock;
     private ReentrantLock drawLock;
 
+    private ReentrantLock addComponentLock;
+
     private Dimension screenSize;
 
     public GameData(){
@@ -34,6 +36,7 @@ public class GameData {
         this.drawLock = new ReentrantLock(true);
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
+        this.addComponentLock = new ReentrantLock(true);
     }
 
     private void createMap(){
@@ -59,20 +62,22 @@ public class GameData {
         }
     }
 
-    public void AddComponent(Type type){
+    public void  AddComponent(Type type){
+        addComponentLock.lock();
+        try {
+            Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+            addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
 
-        Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
-        addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
+            Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
+            entityMap.get(type).add(entity);
 
-        Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
-        entityMap.get(type).add(entity);
-
-        IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
-        if(iProcessing != null) {
-            processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
+            IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
+            if(iProcessing != null) {
+                processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
+            }
+        }finally {
+            addComponentLock.unlock();
         }
-
-
     }
 
     /**
