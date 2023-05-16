@@ -16,7 +16,7 @@ import java.util.Collection;
 public class BulletPlugin implements IBulletService, IDrawable {
     Entity bullet;
 
-    private static final URL sprite = Bullet.class.getResource("/grillBuletImages/bullet.png");
+    private static final URL sprite = Bullet.class.getResource("/grillBuletImages/Beef.png");
 
     @Override
     public Entity create(int[] position, double radians) {
