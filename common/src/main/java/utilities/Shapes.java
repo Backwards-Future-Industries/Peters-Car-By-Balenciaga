@@ -3,7 +3,6 @@ package utilities;
 public class Shapes {
 
     int[] position;
-
     Point[] rectangle;
     int height;
     int width;
@@ -40,13 +39,13 @@ public class Shapes {
             int newY = (int) Math.round(doubleNewY);
             rectangle[i].setLocation(new Point(newX,newY));
             }
-
         return rectangle;
     }
 
 
     public void setPosition(int[] position) {
         this.position = position;
+        rectangle[0] = new Point(position[0],position[1]);
     }
 
 
