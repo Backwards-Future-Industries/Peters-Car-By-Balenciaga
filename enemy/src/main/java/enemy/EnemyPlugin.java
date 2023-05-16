@@ -13,7 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
-    private Entity lowTierGod;
+    private Entity enemy;
     private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/enemyCar.png");
 
     public EnemyPlugin() {
@@ -30,7 +30,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
         this.lowTierGod.setPosition(new int[]{100,100});
         this.lowTierGod.setShape();
 
-        return this.lowTierGod;
+        return this.enemy;
     }
 
     @Override

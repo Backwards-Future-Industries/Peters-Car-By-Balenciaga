@@ -1,6 +1,7 @@
 package enemy;
 
 import abstractClasses.Entity;
+import enemy.aiMovement.AIMovement;
 import interfaces.IMovement;
 import interfaces.IProcessing;
 import utilities.GameData;
@@ -13,7 +14,7 @@ import java.util.Collection;
 
 public class EnemyMovement implements IProcessing {
 
-    private AIMovement aiMovement = new AIMovement();
+    private AIMovement aiMovement;
 
 
     @Override

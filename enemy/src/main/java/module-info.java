@@ -1,5 +1,6 @@
 module enemy {
     exports enemy;
+    exports enemy.aiMovement;
     requires common;
     requires java.desktop;
 
