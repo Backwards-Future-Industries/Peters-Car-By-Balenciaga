@@ -95,6 +95,7 @@ public class GameData {
             Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity.getPosition(),entity.getRadians());
             entityMap.get(type).add(bullet);
 
+
             Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
             addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
         } finally {
