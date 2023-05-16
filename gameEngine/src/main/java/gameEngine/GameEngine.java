@@ -41,7 +41,7 @@ public class GameEngine{
         this.gameData = new GameData();
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
         this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
-        addDraw();
+        createInitialComponents();
         openWindow();
         start();
     }
@@ -109,18 +109,9 @@ public class GameEngine{
         return gameData;
     }
 
-    private void addDraw(){
-        for (IDrawable iDrawable : getIdrawable()){
-            if (iDrawable.toString() == Type.BULLET.toString()) {
-                continue;
-            }
-            gameData.addDrawables(iDrawable, iDrawable.getLayer());
-        }
-
-
-    }
-
-    private Collection<IDrawable> getIdrawable(){
-        return SPIlocator.locateAll(IDrawable.class);
+    public void createInitialComponents(){
+        gameData.AddComponent(Type.PLAYER);
+        gameData.AddComponent(Type.ENEMY);
+        gameData.AddComponent(Type.UNDEFINED);
     }
 }

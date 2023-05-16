@@ -24,6 +24,9 @@ public class SPIlocator {
 
 
     private SPIlocator(){
+        this.pluginMap = new HashMap<>();
+        this.iDrawableMap = new HashMap<>();
+        this.processingMap = new HashMap<>();
         makeList();
     }
 

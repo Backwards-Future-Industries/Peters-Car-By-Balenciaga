@@ -25,7 +25,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
 
     @Override
-    public Entity create(GameData gamedata) {
+    public Entity create() {
         this.newPlayer = new Player();
         this.newPlayer.setHealth(5);
         this.newPlayer.setSprite(sprite, new double[]{0.5, 0.5},true);
