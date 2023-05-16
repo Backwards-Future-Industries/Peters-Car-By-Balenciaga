@@ -7,9 +7,9 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class GameEngine{
@@ -28,8 +28,10 @@ public class GameEngine{
         this.framerate = framerate;
         this.userInputs = new UserInputs();
         this.gameData = new GameData();
-        this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
-        this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
+        ThreadFactory gameLoopThreadFactory = new OurThreadFactory("GameLoop");
+        ThreadFactory drawLoopThreadFactory = new OurThreadFactory("DrawLoop");
+        this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor(gameLoopThreadFactory);
+        this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor(drawLoopThreadFactory);
         createInitialComponents();
         openWindow();
         start();
