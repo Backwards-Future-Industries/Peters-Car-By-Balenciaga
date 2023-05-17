@@ -37,39 +37,41 @@ public class CollisionDetection implements IProcessing {
         }
     }
 
+    /**
+     * Checks if the two entities are colliding using Separating Axis Theorem collision detection
+     * Credit to GamesWithGabe for the tutorial on SAT collision detection
+     * Link to repo: https://github.com/codingminecraft/MarioYoutube/
+     * @param entity1 first shape
+     * @param entity2 second shape
+     * @return true if colliding, false if not
+     */
     public boolean isColliding(Entity entity1, Entity entity2) {
-
-        int[] e1Pos = entity1.getPosition();
-        int[] e2Pos = entity2.getPosition();
-
-        //Checks if entities are colliding with box collision on Entity1
-        Shapes[] e1Shapes = entity1.getShape();
-        Shapes[] e2Shapes = entity2.getShape();
-        //Checks through all entity1 shapes
-        if (isBoxCollision(e1Pos, e2Pos, e1Shapes, e2Shapes)) return true;
-        //Checks through all entity2 shapes to ensure that all shapes are checked
-        return (isBoxCollision(e2Pos, e1Pos, e2Shapes, e1Shapes));
-    }
-
-    
-    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shapes[] e1Shapes, Shapes[] e2Shapes) {
-        for (Shapes e1Shape: e1Shapes){
-            if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
-                    e2Pos[0] + e2Shapes[0].getWidth() > e1Pos[0] &&
-                    e2Pos[1] < e1Pos[1] + e1Shape.getHeight() &&
-                    e2Pos[1] + e2Shapes[0].getHeight() > e1Pos[1]) {
-                return true;
+        Vector2D[] axesToCheck = {
+                new Vector2D(1,0), new Vector2D(0,1),
+                new Vector2D(1,0), new Vector2D(0,1)
+        };
+        axesToCheck[0].rotateVector(entity1.getSprite().getRotation(), new Vector2D());
+        axesToCheck[1].rotateVector(entity1.getSprite().getRotation(), new Vector2D());
+        axesToCheck[2].rotateVector(entity2.getSprite().getRotation(), new Vector2D());
+        axesToCheck[3].rotateVector(entity2.getSprite().getRotation(), new Vector2D());
+        for(Vector2D axis : axesToCheck) {
+            if(!overlapOnAxis(entity1, entity2, axis)) {
+                return false;
             }
         }
-        return false;
+
+        return true;
     }
 
-    private boolean isSATCollision(Shapes[] e1Shapes, Shapes[] e2Shapes) {
+    //SAT helper method
+    private static boolean overlapOnAxis(Entity entity1, Entity entity2, Vector2D axis) {
+        Vector2D interval1 = getInterval(entity1, axis);
+        Vector2D interval2 = getInterval(entity2, axis);
 
-
-        return false;
+        return ((interval2.getX() <= interval1.getY()) && (interval1.getX() <= interval2.getY()));
     }
 
+    //SAT helper method
     private static Vector2D getInterval(Entity entity, Vector2D axis) {
         Vector2D result = new Vector2D(0,0);
 
@@ -107,7 +109,7 @@ public class CollisionDetection implements IProcessing {
         Shapes[] eShape = entity.getShape();
         Shapes[] oShape = obstacle.getShape();
 
-        //Entity is above obstacle
+        /*//Entity is above obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = ePos[0];
             newPos[1] = oPos[1] - eShape[0].getHeight() - oShape[0].getHeight();
@@ -129,12 +131,12 @@ public class CollisionDetection implements IProcessing {
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = oPos[0] + eShape[0].getWidth() + oShape[0].getWidth();
             newPos[1] = ePos[1];
-        }
+        }*/
 
         return newPos;
     }
 
-    private LinkedList<Entity> collidableEntities(GameData gameData){
+    private static LinkedList<Entity> collidableEntities(GameData gameData){
         LinkedList<Entity> allEntities = new LinkedList<>();
         allEntities.addAll(gameData.getEntityList(Type.ENEMY));
         allEntities.addAll(gameData.getEntityList(Type.PLAYER));
@@ -142,5 +144,18 @@ public class CollisionDetection implements IProcessing {
         allEntities.addAll(gameData.getEntityList(Type.OBSTACLE));
         return allEntities;
     }
+
+    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shapes[] e1Shapes, Shapes[] e2Shapes) {
+        /*for (Shapes e1Shape: e1Shapes){
+            if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
+                    e2Pos[0] + e2Shapes[0].getWidth() > e1Pos[0] &&
+                    e2Pos[1] < e1Pos[1] + e1Shape.getHeight() &&
+                    e2Pos[1] + e2Shapes[0].getHeight() > e1Pos[1]) {
+                return true;
+            }
+        }*/
+        return false;
+    }
+
 }
 
