@@ -21,7 +21,6 @@ public class PlayerMovement implements IProcessing {
             if (inputs.contains(Inputs.KEY_SPACE)) {
                 if(gameData.getEntityList(Type.BULLET).size() != 3){
                     gameData.addBullet(Type.BULLET, player);
-                    System.out.println(inputs.toString());
                 }
 
             }

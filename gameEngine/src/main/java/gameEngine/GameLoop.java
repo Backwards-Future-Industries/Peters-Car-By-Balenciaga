@@ -1,8 +1,10 @@
 package gameEngine;
 
+import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.SPIlocator;
+import utilities.Type;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +29,7 @@ public class GameLoop implements Runnable {
             return;
         }
         updateProcess(inputs);
+
     }
 
 

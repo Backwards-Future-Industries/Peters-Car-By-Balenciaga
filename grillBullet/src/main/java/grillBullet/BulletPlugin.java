@@ -20,7 +20,7 @@ public class BulletPlugin implements IBulletService, IDrawable {
     @Override
     public Entity create(int[] position, double radians) {
         this.bullet = new Bullet();
-        this.bullet.setSprite(sprite,new double[]{1,1 });
+        this.bullet.setSprite(sprite,new double[]{0.5,0.5});
         this.bullet.setPosition(position);
         this.bullet.setRadians(radians);
         this.bullet.setMaxSpeed(10);
@@ -59,10 +59,5 @@ public class BulletPlugin implements IBulletService, IDrawable {
     public Layers getLayer() {
         return Layers.MIDDLEGROUND;
     }
-
-    private int[] setPosition(int[] position){
-        return null;
-    }
-
 
 }

@@ -3,12 +3,14 @@ package utilities.image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
 
 public class Image {
 
     private BufferedImage sourceImage;
     private BufferedImage image;
     private AffineTransform transform;
+    private AffineTransform scaleTransform;
 
     private double rotation;
 
@@ -30,8 +32,8 @@ public class Image {
         return image;
     }
     public void scale(double sx, double sy){
-        transform = AffineTransform.getScaleInstance(sx,sy);
-        AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
+        scaleTransform = AffineTransform.getScaleInstance(sx,sy);
+        AffineTransformOp op = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
         image = op.filter(sourceImage,image);
 
     }
