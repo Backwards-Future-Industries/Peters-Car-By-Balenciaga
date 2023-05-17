@@ -1,5 +1,7 @@
 package utilities;
 
+import java.awt.*;
+
 public class Shapes {
 
     int[] position;
@@ -46,7 +48,7 @@ public class Shapes {
     }
 
 
-    public void getType(Types type){
+    public void getType(Type type){
         this.type = type;
     }
 
