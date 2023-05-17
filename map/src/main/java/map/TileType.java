@@ -3,8 +3,8 @@ package map;
 import java.awt.*;
 
 public enum TileType {
-    GRASS(Color.black),
-    EARTH(Color.yellow),
+    GRASS(Color.white),
+    EARTH(Color.white),
     OBSTACLE(Color.red),
     ROAD(Color.gray),
     BLANK(Color.cyan);

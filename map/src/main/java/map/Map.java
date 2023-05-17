@@ -55,7 +55,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
                 if (tileType == TileType.ROAD) {
                     g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
                 }
-                
+
                 if (tileType == TileType.OBSTACLE) {
                     shapesArray.add(new Shapes(16, 16, position, Type.OBSTACLE));
                 } else {
@@ -76,6 +76,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);
         this.obstacle = new Tile(TileType.OBSTACLE);
+        this.road = new Tile(TileType.ROAD);
         this.shapesArray = new ArrayList<Shapes>();
         combinedTiles();
     }
