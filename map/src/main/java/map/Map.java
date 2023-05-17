@@ -1,29 +1,49 @@
 package map;
 
-import abstractClasses.Entity;
+import abstractClasses.CommonMap;
 import interfaces.IDrawable;
-import interfaces.IPlugin;
-import utilities.GameData;
-import utilities.Layers;
-import utilities.Shapes;
-import utilities.Type;
+import interfaces.IMapService;
+import utilities.*;
+import utilities.image.Image;
+import utilities.image.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class Map extends Entity implements IDrawable, IPlugin {
+public class Map extends CommonMap implements IDrawable, IMapService {
 
     private Bitmap bitmap;
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
-    private Tile road;
+    private  BufferedImage bufferedImage;
 
     private ArrayList<Shapes> shapesArray;
+
+    public Map() {
+        this.bitmap = new Bitmap();
+        this.grass = new Tile(TileType.GRASS);
+        this.earth = new Tile(TileType.EARTH);
+        this.obstacle = new Tile(TileType.OBSTACLE);
+        this.shapesArray = new ArrayList<Shapes>();
+        combinedTiles();
+    }
+
+    @Override
+    public CommonMap create() {
+        Map map = new Map();
+        map.setSprite(bufferedImage,new double[]{1,1});
+        map.setPosition(new int[]{1,1});
+        return map;
+    }
+
+    @Override
+    public void delete() {
+
+    }
 
     // combinedTiles:
     // Combines the buffered images into one image, which is then drawn in the draw-method
@@ -32,7 +52,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     // so the tiles/shapes can be defined as obstacles, roads ect. and collision control can be performed on the map.
     private void combinedTiles() {
 
-        BufferedImage bufferedImage = new BufferedImage(bitmap.getMap().length * 16,
+        bufferedImage = new BufferedImage(bitmap.getMap().length * 16,
                 bitmap.getMap()[0].length * 16,
                 BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g = bufferedImage.createGraphics();
@@ -65,27 +85,12 @@ public class Map extends Entity implements IDrawable, IPlugin {
             }
             position = new int[]{position[0] + 16,0};
         }
-        this.setSprite(bufferedImage, new double[]{1, 1},false);
-        this.setShape((shapesArray.toArray(this.getShape())));
-    }
-
-
-    public Map() throws IOException {
-        setType(Type.UNDEFINED);
-        this.bitmap = new Bitmap();
-        this.grass = new Tile(TileType.GRASS);
-        this.earth = new Tile(TileType.EARTH);
-        this.obstacle = new Tile(TileType.OBSTACLE);
-        this.road = new Tile(TileType.ROAD);
-        this.shapesArray = new ArrayList<Shapes>();
-        combinedTiles();
     }
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-
-        g.drawImage(getSprite().getImage(), 0, 0, panel);
-
+        CommonMap map = gameData.getMap();
+        g.drawImage(map.getSprite().getImage(), 0, 0, panel);
     }
 
     @Override
@@ -94,24 +99,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create() {
-        Entity newMap = null;
-        try {
-            newMap = new Map();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return newMap;
-    }
-
-    @Override
-    public Entity delete(GameData gameData) {
-        return null;
-    }
-
-    @Override
     public String toString(){
-        return Type.UNDEFINED.toString();
+        return Type.MAP.toString();
     }
 }

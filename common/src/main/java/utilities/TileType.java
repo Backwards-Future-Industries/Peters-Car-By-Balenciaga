@@ -1,4 +1,4 @@
-package map;
+package utilities;
 
 import java.awt.*;
 
