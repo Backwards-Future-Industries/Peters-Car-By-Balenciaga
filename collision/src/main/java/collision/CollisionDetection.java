@@ -3,11 +3,9 @@ package collision;
 import abstractClasses.Entity;
 import interfaces.ICollision;
 import interfaces.IProcessing;
-import utilities.GameData;
-import utilities.Inputs;
-import utilities.Shapes;
-import utilities.Types;
+import utilities.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class CollisionDetection implements IProcessing {
@@ -70,6 +68,32 @@ public class CollisionDetection implements IProcessing {
         }
         return false;
     }
+
+    private boolean isSATCollision(Shapes[] e1Shapes, Shapes[] e2Shapes) {
+
+
+        return false;
+    }
+
+    private static Vector2D getInterval(Entity entity, Vector2D axis) {
+        Vector2D result = new Vector2D(0,0);
+
+        result.setX(axis.dot(Vector2D.pointToVector(entity.getShape()[0].getPositions(entity.getSprite().getRotation())[0])));
+        result.setY(result.getX());
+        for (int i = 1; i < 4; i++){
+            double projection = axis.dot(Vector2D.pointToVector(entity.getShape()[0].getPositions(entity.getSprite().getRotation())[i]));
+            if (projection < result.getX()){
+                result.setX(projection);
+            }
+            if (projection > result.getY()){
+                result.setY(projection);
+            }
+        }
+
+        return result;
+    }
+
+
 
     /**
      * Places entity at the edge of the obstacle, in the direction that

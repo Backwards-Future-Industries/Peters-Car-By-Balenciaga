@@ -47,4 +47,7 @@ public class Image {
         transform = AffineTransform.getRotateInstance(rotation, position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
     }
 
+    public double getRotation() {
+        return rotation;
+    }
 }
