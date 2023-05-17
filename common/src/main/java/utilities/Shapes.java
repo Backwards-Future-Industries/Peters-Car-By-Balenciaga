@@ -28,7 +28,7 @@ public class Shapes {
     }
 
 
-    public Point[] getPositions(float rotation) {
+    public Point[] getPositions(double rotation) {
         for(int i = 1; i<rectangle.length; i++){
             double doubleNewX = rectangle[i].x + Math.cos(rotation) * (rectangle[i].x-rectangle[0].x) - Math.sin(rotation) * (rectangle[i].y-rectangle[0].y);
             double doubleNewY = rectangle[i].y + Math.sin(rotation) * (rectangle[i].x-rectangle[0].x) - Math.cos(rotation) * (rectangle[i].y-rectangle[0].y);
@@ -43,6 +43,11 @@ public class Shapes {
     public void setPosition(int[] position) {
         this.position = position;
         rectangle[0] = new Point(position[0],position[1]);
+    }
+
+
+    public void getType(Types type){
+        this.type = type;
     }
 
 

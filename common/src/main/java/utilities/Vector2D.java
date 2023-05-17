@@ -1,5 +1,7 @@
 package utilities;
 
+import java.awt.*;
+
 public class Vector2D {
     //to make this class we have drawn inspiration from this repository
     //https://gist.github.com/gunvirranu/6816d65c0231981787ebefd3bdb61f98
@@ -22,6 +24,14 @@ public class Vector2D {
     }
     public double getLength(){
         return Math.sqrt(x * x + y * y);
+    }
+
+    public double dot(Vector2D otherVector){
+        return this.x * otherVector.x + this.y * otherVector.y;
+    }
+
+    public static Vector2D pointToVector(Point point){
+        return new Vector2D(point.getX(),point.getY());
     }
 
     @Override
