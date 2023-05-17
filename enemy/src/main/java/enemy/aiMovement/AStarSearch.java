@@ -50,9 +50,6 @@ public class AStarSearch {
                     }
                 }
             }
-            System.out.println("Open set:" + openSet.size());
-            System.out.println("Closed set:" + closedSet.size());
-
         }
         return Collections.emptyList();
     }

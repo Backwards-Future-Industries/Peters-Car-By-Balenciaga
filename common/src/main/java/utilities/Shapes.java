@@ -51,6 +51,11 @@ public class Shapes {
         this.width = width;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Shapes{" +
+                "height=" + height +
+                ", width=" + width +
+                '}';
+    }
 }
