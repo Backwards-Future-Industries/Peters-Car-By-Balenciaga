@@ -3,8 +3,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+import utilities.GameData;
 
 import java.io.IOException;
+import static org.mockito.Mockito.mock;
 
 class GameEngineTest {
 
@@ -12,7 +14,8 @@ class GameEngineTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        this.gameEngine = new GameEngine(60);
+        GameData gameData = mock(GameData.class);
+        this.gameEngine = new GameEngine(60, gameData);
     }
 
     @Test
@@ -25,5 +28,7 @@ class GameEngineTest {
         Assertions.assertEquals(1,gameEngine.getWindow().getKeyListeners().length);
         Assertions.assertTrue(gameEngine.getWindow().isVisible());
     }
+
+
 
 }
