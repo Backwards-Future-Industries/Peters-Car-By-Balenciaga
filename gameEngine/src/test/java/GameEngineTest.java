@@ -1,20 +1,26 @@
 import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import utilities.GameData;
 
-import java.io.IOException;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class GameEngineTest {
 
     private GameEngine gameEngine;
 
+    @Mock
+    GameData gameData;
+
+
     @BeforeEach
-    void setUp() throws IOException {
-        GameData gameData = mock(GameData.class);
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+        //when(gameData.getMap()).then(new MockMap());
         this.gameEngine = new GameEngine(60, gameData);
     }
 
