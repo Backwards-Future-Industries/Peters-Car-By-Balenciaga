@@ -34,11 +34,11 @@ public class GameEngine{
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
-    public GameEngine(int framerate) {
+    public GameEngine(int framerate, GameData gameData) {
         this.gameData = new GameData();
         this.framerate = framerate;
         this.userInputs = new UserInputs();
-        this.gameData = new GameData();
+        this.gameData = gameData;
         ThreadFactory gameLoopThreadFactory = new OurThreadFactory("GameLoop");
         ThreadFactory drawLoopThreadFactory = new OurThreadFactory("DrawLoop");
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor(gameLoopThreadFactory);
@@ -100,11 +100,6 @@ public class GameEngine{
 
     public JFrame getWindow() {
         return window;
-    }
-
-    public int[] getWindowSize(){
-        Dimension d =  window.getSize();
-        return new int[]{d.width,d.height};
     }
 
     public GameData getGameData() {
