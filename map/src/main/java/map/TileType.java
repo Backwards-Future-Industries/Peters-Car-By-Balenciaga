@@ -4,11 +4,10 @@ import java.awt.*;
 
 public enum TileType {
     GRASS(Color.black),
-    EARTH(Color.white),
+    EARTH(Color.yellow),
     OBSTACLE(Color.red),
-    BLANK(Color.GRAY);
-
-
+    ROAD(Color.gray),
+    BLANK(Color.cyan);
 
     private Color color;
 

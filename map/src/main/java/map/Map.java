@@ -21,6 +21,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
+    private Tile road;
 
     private ArrayList<Shapes> shapesArray;
 
@@ -51,6 +52,10 @@ public class Map extends Entity implements IDrawable, IPlugin {
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
                 }
+                if (tileType == TileType.ROAD) {
+                    g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
+                }
+                
                 if (tileType == TileType.OBSTACLE) {
                     shapesArray.add(new Shapes(16, 16, position, Type.OBSTACLE));
                 } else {
