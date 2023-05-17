@@ -52,7 +52,13 @@ public class Shapes {
         this.type = type;
     }
 
+    public int getWidth() {
+        return width;
+    }
 
+    public int getHeight() {
+        return height;
+    }
 
     @Override
     public String toString() {

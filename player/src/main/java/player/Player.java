@@ -2,22 +2,22 @@ package player;
 
 import abstractClasses.Entity;
 import interfaces.ICollision;
-import utilities.Types;
+import utilities.Type;
 
 public class Player extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity collidingEntity) {
 
-        if (collidingEntity.getType() == Types.BULLET) {
+        if (collidingEntity.getType() == Type.BULLET) {
             this.setHealth(this.getHealth() - 1);
         }
 
-        if (collidingEntity.getType() == Types.ENEMY) {
+        if (collidingEntity.getType() == Type.ENEMY) {
             this.setHealth(this.getHealth() - 5);
         }
 
-        if (collidingEntity.getType() == Types.OBSTACLE) {
+        if (collidingEntity.getType() == Type.OBSTACLE) {
             this.setHealth(this.getHealth() - 1);
         }
 
