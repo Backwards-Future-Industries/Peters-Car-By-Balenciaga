@@ -1,13 +1,13 @@
 import abstractClasses.Entity;
 import interfaces.ICollision;
-import utilities.Types;
+import utilities.Type;
 
 import java.net.URL;
 
 public class ConcreteEntity extends Entity implements ICollision {
 
     public ConcreteEntity(int health, URL sprite) {
-        super(health, sprite, Types.ENEMY);
+        super(health, sprite, Type.ENEMY);
     }
 
     @Override
