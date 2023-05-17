@@ -54,7 +54,7 @@ public class Vector2D {
      * @param origin the origin of the rotation
      * @return the rotated vector
      */
-    public Vector2D rotateVector(double radian, Vector2D origin){
+    public void rotateVector(double radian, Vector2D origin){
         this.x -= origin.getX();
         this.y -= origin.getY();
 
@@ -67,7 +67,8 @@ public class Vector2D {
         xprime += origin.getX();
         yprime += origin.getY();
 
-        return new Vector2D(xprime,yprime);
+        this.x = xprime;
+        this.y = yprime;
     }
 
     @Override
