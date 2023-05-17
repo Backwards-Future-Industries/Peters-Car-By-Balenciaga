@@ -1,6 +1,7 @@
 package map;
 
 import abstractClasses.Entity;
+import utilities.TileType;
 
 public class Tile extends Entity {
 

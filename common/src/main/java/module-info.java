@@ -10,4 +10,5 @@ module common {
     uses interfaces.IProcessing;
     uses interfaces.IMovement;
     uses interfaces.IBulletService;
+    uses interfaces.IMapService;
 }

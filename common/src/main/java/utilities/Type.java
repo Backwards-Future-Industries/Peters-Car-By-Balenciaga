@@ -7,6 +7,7 @@ public enum Type {
     WEAPON,
     BULLET,
     OBSTACLE,
-    UNDEFINED;
+    UNDEFINED,
+    MAP
 
 }
