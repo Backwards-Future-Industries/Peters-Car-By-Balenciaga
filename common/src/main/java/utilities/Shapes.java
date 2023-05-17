@@ -10,6 +10,7 @@ public class Shapes {
     int width;
 
     Type type;
+    int[] center;
 
     int[] center;
 

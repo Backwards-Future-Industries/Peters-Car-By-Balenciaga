@@ -10,6 +10,9 @@ import java.util.LinkedList;
 
 public class CollisionDetection implements IProcessing {
 
+    public CollisionDetection() {
+    }
+
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
@@ -109,7 +112,7 @@ public class CollisionDetection implements IProcessing {
         Shapes[] eShape = entity.getShape();
         Shapes[] oShape = obstacle.getShape();
 
-        /*//Entity is above obstacle
+        //Entity is above obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = ePos[0];
             newPos[1] = oPos[1] - eShape[0].getHeight() - oShape[0].getHeight();
@@ -131,7 +134,7 @@ public class CollisionDetection implements IProcessing {
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = oPos[0] + eShape[0].getWidth() + oShape[0].getWidth();
             newPos[1] = ePos[1];
-        }*/
+        }
 
         return newPos;
     }
@@ -146,14 +149,14 @@ public class CollisionDetection implements IProcessing {
     }
 
     private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shapes[] e1Shapes, Shapes[] e2Shapes) {
-        /*for (Shapes e1Shape: e1Shapes){
+        for (Shapes e1Shape: e1Shapes){
             if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
                     e2Pos[0] + e2Shapes[0].getWidth() > e1Pos[0] &&
                     e2Pos[1] < e1Pos[1] + e1Shape.getHeight() &&
                     e2Pos[1] + e2Shapes[0].getHeight() > e1Pos[1]) {
                 return true;
             }
-        }*/
+        }
         return false;
     }
 
