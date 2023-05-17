@@ -12,7 +12,7 @@ public class Bitmap {
     private BufferedImage bitmap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMapMaze.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMapMaze2.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
