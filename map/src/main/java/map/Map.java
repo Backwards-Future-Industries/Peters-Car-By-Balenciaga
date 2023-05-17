@@ -58,7 +58,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
                 }
                 position = new int[]{position[0], position[1] + 16};
             }
-            position = new int[]{position[0] + 16, 0};
+            position = new int[]{position[0] + 16,0};
         }
         this.setSprite(bufferedImage, new double[]{1, 1},false);
         this.setShape((shapesArray.toArray(this.getShape())));

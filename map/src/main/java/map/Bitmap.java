@@ -5,20 +5,23 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 
 public class Bitmap {
 
     private TileType[][] map;
     private BufferedImage bitmap;
+    private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMapWallTest.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMapMaze.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         this.map = new TileType[bitmap.getWidth()][bitmap.getHeight()];
+        this.aiMap = new int[bitmap.getHeight()][bitmap.getWidth()];
         loadMap();
     }
 
@@ -32,6 +35,7 @@ public class Bitmap {
                 int red = (color & 0xff0000) >> 16;
                 TileType TileType = findTile(blue,green,red);
                 map[x][y] = TileType;
+                aiMap[y][x] = findTileInt(blue,green,red);
             }
         }
 
@@ -61,6 +65,32 @@ public class Bitmap {
             return TileType.OBSTACLE;
         }
         return TileType.BLANK;
+    }
+
+    private int findTileInt(int blue, int green, int red){
+        Color color = Color.cyan;
+        if(blue > 250 && green > 250 && red > 250){
+            color = Color.black;
+        }
+
+        if(blue < 5 && green < 5 && red < 5){
+            color = Color.white;
+        }
+
+        if (blue < 5 && green < 5 && red > 250){
+            color = Color.red;
+        }
+
+        if(TileType.GRASS.getColor() == color){
+            return 0;
+        }
+        if(TileType.EARTH.getColor() == color){
+            return 1;
+        }
+        if (TileType.OBSTACLE.getColor() == color){
+            return 2;
+        }
+        return -1;
     }
 
     public TileType[][] getMap() {
