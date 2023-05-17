@@ -86,6 +86,7 @@ public class Node implements Comparable<Node> {
     public String toString() {
         return "Node{" +
                 "x=" + x +
-                ", y=" + y + '}';
+                ", y=" + y +
+                "}";
     }
 }
