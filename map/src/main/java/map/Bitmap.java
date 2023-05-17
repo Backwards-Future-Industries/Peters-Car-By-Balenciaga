@@ -14,7 +14,7 @@ public class Bitmap {
     private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/P2.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap1.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -42,22 +42,22 @@ public class Bitmap {
     }
 
     private TileType findTile(int blue, int green, int red){
-        Color color = Color.cyan;
+        Color color = Color.CYAN;
 
-        if(blue == 0 && green == 0 && red == 0){
-            color = Color.black;
+        if(blue == 0 && green == 255 && red == 0){
+            color = Color.GREEN;
         }
 
-        if(blue < 5 && green < 5 && red < 5){
-            color = Color.white;
+        if(blue == 255 && green == 255 && red == 255){
+            color = Color.WHITE;
         }
 
-        if (blue < 5 && green < 5 && red > 250){
-            color = Color.red;
+        if (blue == 0 && green == 0 && red == 255){
+            color = Color.RED;
         }
 
-        if (blue <= 128 && green < 128 && red < 128){
-            color = Color.gray;
+        if (blue == 128 && green == 128 && red == 128){
+            color = Color.GRAY;
         }
 
         if(TileType.GRASS.getColor() == color){
@@ -78,22 +78,22 @@ public class Bitmap {
     }
 
     private int findTileInt(int blue, int green, int red){
-        Color color = Color.cyan;
+        Color color = Color.CYAN;
 
         if(blue == 0 && green == 0 && red == 0){
-            color = Color.black;
+            color = Color.BLACK;
         }
 
         if(blue < 5 && green < 5 && red < 5){
-            color = Color.white;
+            color = Color.WHITE;
         }
 
         if (blue < 5 && green < 5 && red > 250){
-            color = Color.red;
+            color = Color.RED;
         }
 
         if (blue < 128 && green < 128 && red < 128){
-            color = Color.gray;
+            color = Color.GRAY;
         }
 
         if(TileType.GRASS.getColor() == color){
