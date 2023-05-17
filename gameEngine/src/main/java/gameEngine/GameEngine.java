@@ -1,17 +1,9 @@
 package gameEngine;
 
 import interfaces.IDrawable;
-import interfaces.IPlugin;
-
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.SPIlocator;
-import utilities.*;
-import utilities.GameData;
-import utilities.Inputs;
-import utilities.SPIlocator;
-import utilities.Types;
-import utilities.*;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;

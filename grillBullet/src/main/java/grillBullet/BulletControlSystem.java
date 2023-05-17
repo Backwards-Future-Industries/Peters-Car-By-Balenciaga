@@ -12,7 +12,7 @@ import java.util.List;
 
 import static utilities.Inputs.KEY_W;
 
-public class BulletControlSystemimplements IProcessing {
+public class BulletControlSystem implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
