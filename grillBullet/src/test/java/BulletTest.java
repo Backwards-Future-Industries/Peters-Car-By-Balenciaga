@@ -1,11 +1,11 @@
 import abstractClasses.Entity;
 import grillBullet.Bullet;
-import interfaces.IPlugin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.Vector2D;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BulletTest {
 

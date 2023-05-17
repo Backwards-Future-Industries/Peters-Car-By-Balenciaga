@@ -3,9 +3,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.Player;
-import player.PlayerPlugin;
-
-import java.io.IOException;
 
 public class PlayerPluginTest {
     private int[] position;

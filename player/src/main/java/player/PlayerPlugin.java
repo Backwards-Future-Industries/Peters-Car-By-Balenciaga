@@ -13,7 +13,6 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 
 
-
 public class PlayerPlugin implements IPlugin, IDrawable {
 
     private Entity newPlayer;
@@ -34,6 +33,8 @@ public class PlayerPlugin implements IPlugin, IDrawable {
         this.newPlayer.setAcceleration(0.2);
         this.newPlayer.setMaxSpeed(1.8);
         this.newPlayer.setType(Type.PLAYER);
+        this.newPlayer.setPosition(new int[]{1280, 960});
+        this.newPlayer.setShape();
 
         return this.newPlayer;
     }
@@ -41,6 +42,11 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
     @Override
     public Entity delete(GameData gameData) {
+        for (Entity entity : gameData.getEntityList(this.newPlayer.getType())) {
+            if (entity.equals(this.newPlayer)) {
+                gameData.getEntityList(this.newPlayer.getType()).remove(this.newPlayer);
+            }
+        }
         return null;
     }
 
@@ -64,7 +70,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Type.PLAYER.toString();
     }
 }
