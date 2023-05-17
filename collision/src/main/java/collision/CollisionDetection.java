@@ -15,7 +15,6 @@ public class CollisionDetection implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
-
         for (Entity entity1 : gameData.getNewEntities()){
             for (Entity entity2: gameData.getNewEntities()){
 
@@ -79,7 +78,7 @@ public class CollisionDetection implements IProcessing {
      * @param obstacle Entity of Type OBSTACLE
      * @return A new position for Entity1
      */
-    public int[] obstacleCollision(Entity entity, Entity obstacle){
+    private int[] obstacleCollision(Entity entity, Entity obstacle){
 
         int[] newPos = new int[]{0,0};
 
