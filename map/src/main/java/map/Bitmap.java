@@ -33,61 +33,43 @@ public class Bitmap {
                 int blue = color & 0xff;
                 int green = (color & 0xff00) >> 8;
                 int red = (color & 0xff0000) >> 16;
-                TileType TileType = findTile(blue,green,red);
-                map[x][y] = TileType;
-                aiMap[y][x] = findTileInt(blue,green,red);
+                TileType tileType = findTile(blue,green,red);
+                map[x][y] = tileType;
+                aiMap[y][x] = tileTypeToInt(tileType);
             }
         }
 
     }
 
-    private TileType findTile(int blue, int green, int red){
+    private TileType findTile(int blue, int green, int red) {
         Color color = Color.cyan;
-        if(blue > 250 && green > 250 && red > 250){
+        if (blue > 250 && green > 250 && red > 250) {
             color = Color.black;
-        }
-
-        if(blue < 5 && green < 5 && red < 5){
+        } else if (blue < 5 && green < 5 && red < 5) {
             color = Color.white;
-        }
-
-        if (blue < 5 && green < 5 && red > 250){
+        } else if (blue < 5 && green < 5 && red > 250) {
             color = Color.red;
         }
+        return getColorTileType(color);
+    }
 
-        if(TileType.GRASS.getColor() == color){
+    private TileType getColorTileType(Color color) {
+        if (TileType.GRASS.getColor() == color) {
             return TileType.GRASS;
-        }
-        if(TileType.EARTH.getColor() == color){
+        } else if (TileType.EARTH.getColor() == color) {
             return TileType.EARTH;
-        }
-        if (TileType.OBSTACLE.getColor() == color){
+        } else if (TileType.OBSTACLE.getColor() == color) {
             return TileType.OBSTACLE;
         }
         return TileType.BLANK;
     }
 
-    private int findTileInt(int blue, int green, int red){
-        Color color = Color.cyan;
-        if(blue > 250 && green > 250 && red > 250){
-            color = Color.black;
-        }
-
-        if(blue < 5 && green < 5 && red < 5){
-            color = Color.white;
-        }
-
-        if (blue < 5 && green < 5 && red > 250){
-            color = Color.red;
-        }
-
-        if(TileType.GRASS.getColor() == color){
+    private int tileTypeToInt(TileType tileType) {
+        if (tileType == TileType.GRASS) {
             return 0;
-        }
-        if(TileType.EARTH.getColor() == color){
+        } else if (tileType == TileType.EARTH) {
             return 1;
-        }
-        if (TileType.OBSTACLE.getColor() == color){
+        } else if (tileType == TileType.OBSTACLE) {
             return 2;
         }
         return -1;
