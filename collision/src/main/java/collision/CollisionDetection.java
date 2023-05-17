@@ -112,7 +112,7 @@ public class CollisionDetection implements IProcessing {
         Shapes[] eShape = entity.getShape();
         Shapes[] oShape = obstacle.getShape();
 
-        /*//Entity is above obstacle
+        //Entity is above obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = ePos[0];
             newPos[1] = oPos[1] - eShape[0].getHeight() - oShape[0].getHeight();
@@ -134,7 +134,7 @@ public class CollisionDetection implements IProcessing {
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = oPos[0] + eShape[0].getWidth() + oShape[0].getWidth();
             newPos[1] = ePos[1];
-        }*/
+        }
 
         return newPos;
     }
