@@ -18,9 +18,9 @@ public class AStarSearch {
         Set<Node> closedSet = new HashSet<>();
 
         start.setC(0);
+
         start.setH(manhattanDistance(start, goal));
         start.setF(start.getH());
-
         openSet.add(start);
 
         while (!openSet.isEmpty()) {
@@ -60,19 +60,19 @@ public class AStarSearch {
         int x = node.getX();
         int y = node.getY();
 
-        if (x > 0 && (this.map[x - 1][y] == 0 || this.map[x - 1][y] == 1)) {
+        if (y > 0 && (this.map[y - 1][x] == 0 || this.map[y - 1][x] == 1)) {
             neighbors.add(new Node(x - 1, y));
         }
 
-        if (x < this.width - 1 && (this.map[x + 1][y] == 0 || this.map[x + 1][y] == 1)) {
+        if (y < this.width - 1 && (this.map[y + 1][x] == 0 || this.map[y + 1][x] == 1)) {
             neighbors.add(new Node(x + 1, y));
         }
 
-        if (y > 0 && (this.map[x][y - 1] == 0 || this.map[x][y - 1] == 1)) {
+        if (x > 0 && (this.map[y][x - 1] == 0 || this.map[y][x - 1] == 1)) {
             neighbors.add(new Node(x, y - 1));
         }
 
-        if (y < this.height - 1 && (this.map[x][y + 1] == 0 || this.map[x][y + 1] == 1)) {
+        if (x < this.height - 1 && (this.map[y][x + 1] == 0 || this.map[y][x + 1] == 1)) {
             neighbors.add(new Node(x, y + 1));
         }
 
@@ -97,7 +97,7 @@ public class AStarSearch {
 
         // Higher cost for optional paths
         int optionalPathCost = 0;
-        if (this.map[goal.getX()][goal.getY()] == 1)optionalPathCost = 1;
+        if (this.map[goal.getX()][goal.getY()] == 1) optionalPathCost = 1;
 
         return dx + dy + optionalPathCost;
     }

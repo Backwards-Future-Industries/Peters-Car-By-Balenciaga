@@ -1,6 +1,6 @@
 package enemy.aiMovement;
 
-public class Node {
+public class Node implements Comparable<Node> {
     private final int x;
     private final int y;
     private int c; //Cost
@@ -52,11 +52,11 @@ public class Node {
     public void setParent(Node parent) {
         this.parent = parent;
     }
-//
-//    @Override
-//    public int compareTo(Node o) {
-//        return Integer.compare(f, o.getF());
-//    }
+
+    @Override
+    public int compareTo(Node o) {
+        return Integer.compare(f, o.getF());
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -69,10 +69,10 @@ public class Node {
         return x == other.getX() && y == other.getY();
     }
 
-//    @Override
-//    public int hashCode() {
-//        return 31 * x + y;
-//    }
+    @Override
+    public int hashCode() {
+        return 31 * x + y;
+    }
 
     @Override
     public String toString() {
