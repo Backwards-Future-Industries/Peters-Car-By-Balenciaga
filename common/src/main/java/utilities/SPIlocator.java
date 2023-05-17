@@ -75,7 +75,6 @@ public class SPIlocator {
         for (IPlugin instance : serviceLoader){
             list.add(instance);
         }
-
         return list;
     }
 

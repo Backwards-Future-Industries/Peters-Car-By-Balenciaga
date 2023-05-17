@@ -28,7 +28,6 @@ public class BulletPlugin extends Entity implements IBulletService, IDrawable {
         this.bullet.setAcceleration(10);
         this.bullet.setType(Type.BULLET);
 
-
         return this.bullet;
     }
 
