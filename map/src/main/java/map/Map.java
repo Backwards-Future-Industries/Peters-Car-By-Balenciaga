@@ -6,7 +6,7 @@ import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Shapes;
-import utilities.Types;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,11 +52,10 @@ public class Map extends Entity implements IDrawable, IPlugin {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
                 }
                 if (tileType == TileType.OBSTACLE) {
-                    shapesArray.add(new Shapes(16, 16, position, Types.OBSTACLE));
+                    shapesArray.add(new Shapes(16, 16, position, Type.OBSTACLE));
                 } else {
-                    shapesArray.add(new Shapes(16, 16, position, Types.UNDEFINED));
+                    shapesArray.add(new Shapes(16, 16, position, Type.UNDEFINED));
                 }
-                System.out.println("[ "+y +","+ x+" ]");
                 position = new int[]{position[0], position[1] + 16};
             }
             position = new int[]{position[0] + 16, 0};
@@ -67,6 +66,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
 
 
     public Map() throws IOException {
+        setType(Type.UNDEFINED);
         this.bitmap = new Bitmap();
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);
@@ -88,7 +88,7 @@ public class Map extends Entity implements IDrawable, IPlugin {
     }
 
     @Override
-    public Entity create(GameData gameData) {
+    public Entity create() {
         Entity newMap = null;
         try {
             newMap = new Map();
@@ -102,5 +102,10 @@ public class Map extends Entity implements IDrawable, IPlugin {
     @Override
     public Entity delete(GameData gameData) {
         return null;
+    }
+
+    @Override
+    public String toString(){
+        return Type.UNDEFINED.toString();
     }
 }

@@ -1,8 +1,10 @@
 package gameEngine;
 
+import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.Inputs;
 import utilities.SPIlocator;
+import utilities.Type;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,21 +28,18 @@ public class GameLoop implements Runnable {
             gameEngine.stop();
             return;
         }
-
         updateProcess(inputs);
+
     }
 
 
 
 
     private void updateProcess(ArrayList<Inputs> inputs){
-            for (IProcessing iProcessing : getIprocessing()){
+            for (IProcessing iProcessing : gameEngine.getGameData().getProcesses()){
                 iProcessing.process(inputs,gameEngine.getGameData());
             }
 
     }
 
-    private Collection<IProcessing> getIprocessing(){
-        return SPIlocator.locateAll(IProcessing.class);
-    }
 }

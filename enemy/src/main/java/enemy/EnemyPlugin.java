@@ -5,7 +5,7 @@ import interfaces.IDrawable;
 import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
-import utilities.Types;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +20,13 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     }
 
     @Override
-    public Entity create(GameData gameData) {
+    public Entity create() {
         this.lowTierGod = new Enemy();
         this.lowTierGod.setHealth(10);
         this.lowTierGod.setSprite(defaultImage,new double[]{0.5,0.5},true);
         this.lowTierGod.setAcceleration(0.15);
         this.lowTierGod.setMaxSpeed(2);
-        this.lowTierGod.setType(Types.ENEMY);
+        this.lowTierGod.setType(Type.ENEMY);
         this.lowTierGod.setPosition(new int[]{100,100});
 
         return this.lowTierGod;
@@ -37,10 +37,11 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
         return null;
     }
 
+
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for (Entity enemy : gameData.getNewEntities()){
-            if (enemy.getType() == Types.ENEMY){
+        for (Entity enemy : gameData.getEntityList(Type.ENEMY)){
+            if (enemy.getType() == Type.ENEMY){
                 int[] position = enemy.getPosition();
 
                 AffineTransform transform = enemy.getSprite().getTransform();
@@ -54,5 +55,10 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     @Override
     public Layers getLayer() {
         return Layers.MIDDLEGROUND;
+    }
+
+    @Override
+    public String toString(){
+        return Type.ENEMY.toString();
     }
 }

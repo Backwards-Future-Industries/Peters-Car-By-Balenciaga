@@ -1,21 +1,18 @@
 package gameEngine;
 
-import abstractClasses.Entity;
 import interfaces.IDrawable;
-import interfaces.IPlugin;
-
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.SPIlocator;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 public class GameEngine{
@@ -29,14 +26,16 @@ public class GameEngine{
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
-    public GameEngine(int framerate) {
+    public GameEngine(int framerate, GameData gameData) {
+        this.gameData = new GameData();
         this.framerate = framerate;
         this.userInputs = new UserInputs();
-        this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor();
-        this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor();
-        this.gameData = new GameData();
-        addEntities();
-        addDraw();
+        this.gameData = gameData;
+        ThreadFactory gameLoopThreadFactory = new OurThreadFactory("GameLoop");
+        ThreadFactory drawLoopThreadFactory = new OurThreadFactory("DrawLoop");
+        this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor(gameLoopThreadFactory);
+        this.drawLoopExecutor = Executors.newSingleThreadScheduledExecutor(drawLoopThreadFactory);
+        createInitialComponents();
         openWindow();
         start();
     }
@@ -91,38 +90,17 @@ public class GameEngine{
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void addEntities() {
-        for(IPlugin iPlugin : getPlugin()) {
-            Entity entity = iPlugin.create(gameData);
-            gameData.addNewEntities(entity);
-        }
-    }
-
     public JFrame getWindow() {
         return window;
-    }
-
-    public int[] getWindowSize(){
-        Dimension d =  window.getSize();
-        return new int[]{d.width,d.height};
     }
 
     public GameData getGameData() {
         return gameData;
     }
 
-    private void addDraw(){
-        for (IDrawable iDrawable : getIdrawable()){
-            gameData.addDrawables(iDrawable, iDrawable.getLayer());
-        }
-
-    }
-
-    private Collection<IDrawable> getIdrawable(){
-        return SPIlocator.locateAll(IDrawable.class);
-    }
-
-    private Collection<IPlugin> getPlugin(){
-        return SPIlocator.locateAll(IPlugin.class);
+    public void createInitialComponents(){
+        gameData.AddComponent(Type.PLAYER);
+        gameData.AddComponent(Type.ENEMY);
+        gameData.AddComponent(Type.UNDEFINED);
     }
 }

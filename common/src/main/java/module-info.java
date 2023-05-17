@@ -9,4 +9,5 @@ module common {
     uses interfaces.IDrawable;
     uses interfaces.IProcessing;
     uses interfaces.IMovement;
+    uses interfaces.IBulletService;
 }

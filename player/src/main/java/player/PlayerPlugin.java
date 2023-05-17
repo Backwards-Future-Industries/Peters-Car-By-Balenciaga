@@ -4,7 +4,7 @@ import interfaces.*;
 import abstractClasses.Entity;
 import utilities.GameData;
 import utilities.Layers;
-import utilities.Types;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,13 +25,13 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
 
     @Override
-    public Entity create(GameData gamedata) {
+    public Entity create() {
         this.newPlayer = new Player();
         this.newPlayer.setHealth(5);
         this.newPlayer.setSprite(sprite, new double[]{0.5, 0.5},true);
         this.newPlayer.setAcceleration(0.2);
         this.newPlayer.setMaxSpeed(3);
-        this.newPlayer.setType(Types.PLAYER);
+        this.newPlayer.setType(Type.PLAYER);
         this.newPlayer.setPosition(new int[]{1,1});
 
 
@@ -46,8 +46,9 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
-        for (Entity player : gameData.getNewEntities()) {
-            if (player.getType() == Types.PLAYER) {
+        for (Entity player : gameData.getEntityList(Type.PLAYER)) {
+            if (player.getType() == Type.PLAYER) {
+
                 int[] position = player.getPosition();
 
                 AffineTransform transform = player.getSprite().getTransform();
@@ -60,5 +61,10 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     @Override
     public Layers getLayer() {
         return Layers.MIDDLEGROUND;
+    }
+
+    @Override
+    public String toString(){
+        return Type.PLAYER.toString();
     }
 }

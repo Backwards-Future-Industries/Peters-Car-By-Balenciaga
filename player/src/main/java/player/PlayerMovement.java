@@ -1,34 +1,39 @@
 package player;
 
 import abstractClasses.Entity;
+import interfaces.IBulletService;
+import interfaces.IDrawable;
 import interfaces.IMovement;
 import interfaces.IProcessing;
-import utilities.GameData;
-import utilities.Inputs;
-import utilities.SPIlocator;
-import utilities.Types;
+import utilities.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public class PlayerMovement implements IProcessing {
 
-        @Override
-        public void process(ArrayList<Inputs> inputs, GameData gameData) {
-           for (Entity player : gameData.getNewEntities()){
-               if (player.getType() == Types.PLAYER){
-                   for (IMovement iMovement : getPlugin()){
-                       player.setPosition(iMovement.defaultMove(inputs,player,gameData));
-                   }
-                   player.getSprite().freshRotate(player.getRadians(),player.getPosition());
-               }
-           }
+    private LinkedList<IBulletService> bullets;
 
+    @Override
+    public void process(ArrayList<Inputs> inputs, GameData gameData) {
+        for (Entity player : gameData.getEntityList(Type.PLAYER)) {
+            if (inputs.contains(Inputs.KEY_SPACE)) {
+                if(gameData.getEntityList(Type.BULLET).size() != 3){
+                    gameData.addBullet(Type.BULLET, player);
+                }
 
-        }
+            }
 
-        private Collection<IMovement> getPlugin(){
-            return SPIlocator.locateAll(IMovement.class);
+            player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
+            player.getSprite().freshRotate(player.getRadians(), player.getPosition());
         }
     }
+
+
+    @Override
+    public String toString() {
+        return Type.PLAYER.toString();
+    }
+}
 

@@ -3,7 +3,7 @@ package enemy;
 import abstractClasses.Entity;
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.Types;
+import utilities.Type;
 import utilities.Vector2D;
 import java.util.ArrayList;
 
@@ -45,11 +45,9 @@ public class AIMovement {
     }
 
     private void getDirection(GameData gameData) {
-        for (Entity entity : gameData.getNewEntities()) {
-            if (entity.getType() == Types.PLAYER) {
-                int[] playerPosition = entity.getPosition();
-                this.direction = new Vector2D((playerPosition[0] - this.enemyPosition[0]), (playerPosition[1] - this.enemyPosition[1]));
-            }
+        for (Entity entity : gameData.getEntityList(Type.PLAYER)) {
+            int[] playerPosition = entity.getPosition();
+            this.direction = new Vector2D((playerPosition[0] - this.enemyPosition[0]), (playerPosition[1] - this.enemyPosition[1]));
         }
     }
 }
