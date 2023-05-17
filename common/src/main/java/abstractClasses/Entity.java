@@ -21,6 +21,13 @@ public abstract class Entity extends Progenitor{
     private Shapes shape;
     
     public Entity(){
+        this.health = 1;
+        this.type = Type.UNDEFINED;
+        this.radius = 1.;
+        this.acceleration = 1.;
+        this.maxSpeed = 1.;
+        this.direction = new Vector2D(0.,0.);
+        this.shape = new Shapes(1,1);
     }
 
     public int getHealth() {

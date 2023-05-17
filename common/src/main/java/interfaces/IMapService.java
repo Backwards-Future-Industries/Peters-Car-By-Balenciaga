@@ -5,6 +5,6 @@ import abstractClasses.Entity;
 import utilities.GameData;
 
 public interface IMapService {
-    CommonMap create();
+    CommonMap create(GameData gameData);
     void delete();
 }

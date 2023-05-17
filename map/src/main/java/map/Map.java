@@ -21,21 +21,21 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     private Tile obstacle;
     private  BufferedImage bufferedImage;
 
-    private ArrayList<Shapes> shapesArray;
+    public Map(){
+    }
 
-    public Map() {
+    public Map(GameData gameData) {
         this.bitmap = new Bitmap();
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);
         this.obstacle = new Tile(TileType.OBSTACLE);
-        this.shapesArray = new ArrayList<Shapes>();
-        combinedTiles();
+        combinedTiles(gameData);
     }
 
     @Override
-    public CommonMap create() {
-        Map map = new Map();
-        map.setSprite(bufferedImage,new double[]{1,1});
+    public CommonMap create(GameData gameData) {
+        Map map = new Map(gameData);
+        map.setSprite(map.bufferedImage,new double[]{1,1});
         map.setPosition(new int[]{1,1});
         return map;
     }
@@ -50,7 +50,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     // This makes the draw method draw the map once instead of 60 times as it otherwise would do.
     // It also adds the mapImages (the graphic for the tiles) as Shapes to an arraylist -
     // so the tiles/shapes can be defined as obstacles, roads ect. and collision control can be performed on the map.
-    private void combinedTiles() {
+    private void combinedTiles(GameData gameData) {
 
         bufferedImage = new BufferedImage(bitmap.getMap().length * 16,
                 bitmap.getMap()[0].length * 16,
@@ -71,15 +71,9 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                 }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
-                }
-                if (tileType == TileType.ROAD) {
-                    g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
-                }
-
-                if (tileType == TileType.OBSTACLE) {
-                    shapesArray.add(new Shapes(16, 16, position, Type.OBSTACLE));
-                } else {
-                    shapesArray.add(new Shapes(16, 16, position, Type.UNDEFINED));
+                    Tile tile = new Tile(TileType.OBSTACLE);
+                    tile.setPosition(position);
+                    gameData.addNewEntity(tile);
                 }
                 position = new int[]{position[0], position[1] + 16};
             }

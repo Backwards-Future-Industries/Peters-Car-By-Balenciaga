@@ -13,7 +13,12 @@ public abstract class Progenitor {
     private int[] position;
     private double radians;
 
-
+    public Progenitor(){
+        this.position = new int[]{0,0};
+        this.scale = new double[]{1,1};
+        this.radians = 0.;
+        this.sprite = ImageLoader.loadImage(Entity.class.getResource("/commonImages/placeholder.png"),scale);
+    }
 
     public Image getSprite() {
         return sprite;

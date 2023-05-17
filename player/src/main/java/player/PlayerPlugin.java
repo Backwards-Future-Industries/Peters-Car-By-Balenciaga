@@ -28,12 +28,11 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     public Entity create() {
         this.newPlayer = new Player();
         this.newPlayer.setHealth(5);
+        this.newPlayer.setPosition(new int[]{1,1});
         this.newPlayer.setSprite(sprite, new double[]{0.5, 0.5},true);
         this.newPlayer.setAcceleration(0.2);
         this.newPlayer.setMaxSpeed(3);
         this.newPlayer.setType(Type.PLAYER);
-        this.newPlayer.setPosition(new int[]{1280,960});
-        this.newPlayer.setShape();
 
         return this.newPlayer;
     }
