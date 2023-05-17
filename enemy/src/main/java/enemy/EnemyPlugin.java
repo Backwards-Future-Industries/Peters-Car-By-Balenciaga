@@ -27,7 +27,7 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
         this.enemy.setAcceleration(0.15);
         this.enemy.setMaxSpeed(2);
         this.enemy.setType(Types.ENEMY);
-        this.enemy.setPosition(new int[]{1000,900});
+        this.enemy.setPosition(new int[]{0,0});
         this.enemy.setShape();
 
         return this.enemy;

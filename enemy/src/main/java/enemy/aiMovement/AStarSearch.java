@@ -9,8 +9,8 @@ public class AStarSearch {
 
     public AStarSearch(int[][] map) {
         this.map = map;
-        this.width = map.length;
-        this.height = map[0].length;
+        this.height = map.length;
+        this.width = map[0].length;
     }
 
     public List<Node> findPath(Node start, Node goal) {
@@ -50,6 +50,9 @@ public class AStarSearch {
                     }
                 }
             }
+            System.out.println("Open set:" + openSet.size());
+            System.out.println("Closed set:" + closedSet.size());
+
         }
         return Collections.emptyList();
     }
@@ -61,19 +64,19 @@ public class AStarSearch {
         int y = node.getY();
 
         if (y > 0 && (this.map[y - 1][x] == 0 || this.map[y - 1][x] == 1)) {
-            neighbors.add(new Node(x - 1, y));
-        }
-
-        if (y < this.width - 1 && (this.map[y + 1][x] == 0 || this.map[y + 1][x] == 1)) {
-            neighbors.add(new Node(x + 1, y));
-        }
-
-        if (x > 0 && (this.map[y][x - 1] == 0 || this.map[y][x - 1] == 1)) {
             neighbors.add(new Node(x, y - 1));
         }
 
-        if (x < this.height - 1 && (this.map[y][x + 1] == 0 || this.map[y][x + 1] == 1)) {
+        if (y < this.height - 1 && (this.map[y + 1][x] == 0 || this.map[y + 1][x] == 1)) {
             neighbors.add(new Node(x, y + 1));
+        }
+
+        if (x > 0 && (this.map[y][x - 1] == 0 || this.map[y][x - 1] == 1)) {
+            neighbors.add(new Node(x - 1, y));
+        }
+
+        if (x < this.width - 1 && (this.map[y][x + 1] == 0 || this.map[y][x + 1] == 1)) {
+            neighbors.add(new Node(x + 1, y));
         }
 
         return neighbors;
@@ -97,7 +100,7 @@ public class AStarSearch {
 
         // Higher cost for optional paths
         int optionalPathCost = 0;
-        if (this.map[goal.getX()][goal.getY()] == 1) optionalPathCost = 1;
+        if (this.map[goal.getY()][goal.getX()] == 0) optionalPathCost = 1;
 
         return dx + dy + optionalPathCost;
     }

@@ -1,8 +1,8 @@
 package enemy.aiMovement;
 
 public class Node implements Comparable<Node> {
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
     private int c; //Cost
     private int h; //Heuristic
     private int f; //Cost+Heuristics
@@ -19,6 +19,14 @@ public class Node implements Comparable<Node> {
 
     public int getY() {
         return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getC() {
@@ -78,11 +86,6 @@ public class Node implements Comparable<Node> {
     public String toString() {
         return "Node{" +
                 "x=" + x +
-                ", y=" + y +
-                ", c=" + c +
-                ", h=" + h +
-                ", f=" + f +
-                ", parent=" + parent +
-                '}';
+                ", y=" + y + '}';
     }
 }
