@@ -5,16 +5,16 @@ import interfaces.ICollision;
 import interfaces.IProcessing;
 import utilities.*;
 
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class CollisionDetection implements IProcessing {
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
-        for (Entity entity1 : gameData.getNewEntities()){
-            for (Entity entity2: gameData.getNewEntities()){
+        for (Entity entity1 : collidableEntities(gameData)){
+            for (Entity entity2: collidableEntities(gameData)){
 
                 //check to see if they are the same entity
                 if (entity1.equals(entity2)) continue;
@@ -25,8 +25,8 @@ public class CollisionDetection implements IProcessing {
                         ((ICollision) entity1).onCollision(entity2);
                         ((ICollision) entity2).onCollision(entity1);
 
-                        if (entity1.getType() == Types.OBSTACLE || entity2.getType() == Types.OBSTACLE) {
-                            if (entity1.getType() == Types.OBSTACLE && entity2.getType() == Types.OBSTACLE) {
+                        if (entity1.getType() == Type.OBSTACLE || entity2.getType() == Type.OBSTACLE) {
+                            if (entity1.getType() == Type.OBSTACLE && entity2.getType() == Type.OBSTACLE) {
                                 continue;
                             }
                             entity1.setPosition(obstacleCollision(entity1, entity2));
@@ -39,13 +39,8 @@ public class CollisionDetection implements IProcessing {
 
     public boolean isColliding(Entity entity1, Entity entity2) {
 
-        if (entity1.getType() == Types.UNDEFINED || entity2.getType() == Types.UNDEFINED){
-            return false;
-        }
-
         int[] e1Pos = entity1.getPosition();
         int[] e2Pos = entity2.getPosition();
-
 
         //Checks if entities are colliding with box collision on Entity1
         Shapes[] e1Shapes = entity1.getShape();
@@ -137,6 +132,15 @@ public class CollisionDetection implements IProcessing {
         }
 
         return newPos;
+    }
+
+    private LinkedList<Entity> collidableEntities(GameData gameData){
+        LinkedList<Entity> allEntities = new LinkedList<>();
+        allEntities.addAll(gameData.getEntityList(Type.ENEMY));
+        allEntities.addAll(gameData.getEntityList(Type.PLAYER));
+        allEntities.addAll(gameData.getEntityList(Type.BULLET));
+        allEntities.addAll(gameData.getEntityList(Type.OBSTACLE));
+        return allEntities;
     }
 }
 
