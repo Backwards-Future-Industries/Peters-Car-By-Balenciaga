@@ -86,6 +86,7 @@ public class GameData {
 
         }finally {
             addComponentLock.unlock();
+            printStatus();
         }
     }
 
@@ -100,6 +101,7 @@ public class GameData {
             addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
         } finally {
             addComponentLock.unlock();
+            printStatus();
         }
     }
 
@@ -252,5 +254,15 @@ public class GameData {
 
     public void setScreenSize(Dimension screenSize) {
         this.screenSize = screenSize;
+    }
+
+    private void printStatus(){
+        System.out.println("--------------------------");
+        for (LinkedList<Entity> linkedList : entityMap.values()){
+            for(Entity entity : linkedList){
+                System.out.println(entity.getType() +": " + entity.getPosition()[0]+","+entity.getPosition()[1]);
+            }
+        }
+        System.out.println("--------------------------");
     }
 }

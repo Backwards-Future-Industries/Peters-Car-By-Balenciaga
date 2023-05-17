@@ -22,11 +22,12 @@ public class BulletPlugin implements IBulletService, IDrawable {
     public Entity create(int[] position, double radians) {
         this.bullet = new Bullet();
         this.bullet.setSprite(sprite,new double[]{0.5,0.5});
-        this.bullet.setPosition(new int[]{1,1});
-        this.bullet.setRadians(2);
-        this.bullet.setMaxSpeed(3);
-        this.bullet.setAcceleration(1);
-        this.bullet.setType(Types.BULLET);
+        this.bullet.setPosition(position);
+        this.bullet.setRadians(radians);
+        this.bullet.setMaxSpeed(10);
+        this.bullet.setAcceleration(10);
+        this.bullet.setType(Type.BULLET);
+
 
         return this.bullet;
     }
@@ -63,7 +64,4 @@ public class BulletPlugin implements IBulletService, IDrawable {
         return Layers.MIDDLEGROUND;
     }
 
-    private Collection<IMovement> getPlugin() {
-        return SPIlocator.locateAll(IMovement.class);
-    }
 }
