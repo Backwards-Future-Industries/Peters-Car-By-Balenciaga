@@ -19,6 +19,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
+    private Tile roadLine;
 
     private Tile road;
     private BufferedImage bufferedImage;
@@ -32,6 +33,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         this.earth = new Tile(TileType.EARTH);
         this.obstacle = new Tile(TileType.OBSTACLE);
         this.road = new Tile(TileType.ROAD);
+        this.roadLine = new Tile(TileType.ROADLINEUP);
         combinedTiles(gameData);
         this.setAiMap(bitmap.getAiMap());
     }
@@ -73,6 +75,9 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                 }
                 if (tileType == TileType.ROAD) {
                     g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
+                }
+                if (tileType == TileType.ROADLINEUP) {
+                    g.drawImage(roadLine.getSprite().getImage(), position[0], position[1], null);
                 }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
