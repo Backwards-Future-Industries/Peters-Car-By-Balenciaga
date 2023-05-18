@@ -20,8 +20,6 @@ public class Tile extends Entity {
         if (tileType == tileType.ROAD){
             setSprite(Tile.class.getResource("/mapImages/road.png"),new double[]{1,1},true);
         }
-
     }
-
 
 }

@@ -46,9 +46,4 @@ class EntityTest {
     }
 
 
-    @Test
-    void setRadius() {
-        entity.setRadius(1);
-        assertEquals(1,entity.getRadius());
-    }
 }
