@@ -3,7 +3,10 @@ package map;
 import abstractClasses.CommonMap;
 import interfaces.IDrawable;
 import interfaces.IMapService;
-import utilities.*;
+import utilities.GameData;
+import utilities.Layers;
+import utilities.TileType;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
@@ -70,22 +73,30 @@ public class Map extends CommonMap implements IDrawable, IMapService {
             for (int x = 0; x < map[y].length; x++) {
                 TileType tileType = map[y][x];
                 switch (tileType) {
-                    case EARTH ->
+                    case EARTH -> {
                         g.drawImage(earth.getSprite().getImage(), position[0], position[1], null);
-                    case GRASS ->
+                    }
+                    case GRASS -> {
                         g.drawImage(grass.getSprite().getImage(), position[0], position[1], null);
-                    case OBSTACLE ->
+                    }
+                    case OBSTACLE -> {
                         g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
-                    case ROAD ->
+                    }
+                    case ROAD -> {
                         g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
-                    case ROADLINEUP ->
+                    }
+                    case ROADLINEUP -> {
                         g.drawImage(roadLineUp.getSprite().getImage(), position[0], position[1], null);
-                    case ROADLINESIDE ->
+                    }
+                    case ROADLINESIDE -> {
                         g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
-                    case STLEFT ->
+                    }
+                    case STLEFT -> {
                         g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
-                    case STRIGHT ->
+                    }
+                    case STRIGHT -> {
                         g.drawImage(stRight.getSprite().getImage(), position[0], position[1], null);
+                    }
                 }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
