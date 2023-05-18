@@ -25,6 +25,7 @@ public class GameData {
     private ReentrantLock drawLock;
 
     private ReentrantLock addComponentLock;
+    private ReentrantLock mapLock;
 
     private Dimension screenSize;
     private CommonMap map;
@@ -41,6 +42,7 @@ public class GameData {
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
         this.addComponentLock = new ReentrantLock(true);
+        this.mapLock = new ReentrantLock(true);
         this.spiLocator = SPIlocator.getSpIlocator();
         addAllProcess();
     }
@@ -108,9 +110,14 @@ public class GameData {
     }
 
     public void addMap(){
-        this.map =  spiLocator.getMap().create(this);
-        Layers layer = spiLocator.getiDrawableMap().get(Type.MAP).getLayer();
-        addDrawables(spiLocator.getiDrawableMap().get(Type.MAP),layer);
+        mapLock.lock();
+        try {
+            this.map =  spiLocator.getMap().create(this);
+            Layers layer = spiLocator.getiDrawableMap().get(Type.MAP).getLayer();
+            addDrawables(spiLocator.getiDrawableMap().get(Type.MAP),layer);
+        }finally {
+            mapLock.unlock();
+        }
     }
 
     /**
@@ -265,7 +272,12 @@ public class GameData {
     }
 
     public CommonMap getMap() {
-        return map;
+        mapLock.lock();
+        try {
+            return map;
+        }finally {
+            mapLock.unlock();
+        }
     }
 
     private void printStatus(){

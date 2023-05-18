@@ -7,4 +7,5 @@ public class concreteEntity extends Entity {
 
     public concreteEntity() {
     }
+
 }

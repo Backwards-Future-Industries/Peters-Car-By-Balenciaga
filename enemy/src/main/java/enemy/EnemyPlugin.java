@@ -62,4 +62,5 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     public String toString(){
         return Type.ENEMY.toString();
     }
+
 }
