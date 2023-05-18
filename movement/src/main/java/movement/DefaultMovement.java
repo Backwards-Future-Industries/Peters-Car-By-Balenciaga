@@ -45,9 +45,9 @@ public class DefaultMovement implements IMovement {
         newPosition[0] = (int) (entity.getPosition()[0] + Math.round(direction.getX()));
         newPosition[1] = (int) (entity.getPosition()[1] + Math.round(direction.getY()));
 
-        if (newPosition[0] > gameData.getScreenSize().width-entity.getShape()[0].getWidth()) newPosition[0] = gameData.getScreenSize().width-entity.getShape()[0].getWidth();
+        if (newPosition[0] > gameData.getScreenSize().width-entity.getShape().getWidth()) newPosition[0] = gameData.getScreenSize().width-entity.getShape().getWidth();
         if (newPosition[0] < 0) newPosition[0] = 0;
-        if (newPosition[1] > gameData.getScreenSize().height-entity.getShape()[0].getHeight()) newPosition[1] = gameData.getScreenSize().height-entity.getShape()[0].getHeight();
+        if (newPosition[1] > gameData.getScreenSize().height-entity.getShape().getHeight()) newPosition[1] = gameData.getScreenSize().height-entity.getShape().getHeight();
         if (newPosition[1] < 0) newPosition[1] = 0;
 
         entity.setPosition(newPosition);

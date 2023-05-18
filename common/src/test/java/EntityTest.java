@@ -17,7 +17,9 @@ class EntityTest {
     @BeforeEach
     void setUp() {
         this.sprite = EntityTest.class.getClassLoader().getResource("images/placeholder.png");
-        this.entity = new concreteEntity(10,sprite);
+        this.entity = new concreteEntity();
+        this.entity.setHealth(10);
+        this.entity.setSprite(sprite,new double[]{1,1});
 
     }
 
