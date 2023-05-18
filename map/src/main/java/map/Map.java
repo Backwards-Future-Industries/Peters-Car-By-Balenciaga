@@ -19,9 +19,11 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
-    private Tile roadLine;
-
     private Tile road;
+    private Tile roadLineUp;
+    private Tile roadLineSide;
+    private Tile stLeft;
+    private Tile stRight;
     private BufferedImage bufferedImage;
 
     public Map() {
@@ -33,7 +35,10 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         this.earth = new Tile(TileType.EARTH);
         this.obstacle = new Tile(TileType.OBSTACLE);
         this.road = new Tile(TileType.ROAD);
-        this.roadLine = new Tile(TileType.ROADLINEUP);
+        this.roadLineUp = new Tile(TileType.ROADLINEUP);
+        this.roadLineSide = new Tile(TileType.ROADLINESIDE);
+        this.stLeft = new Tile(TileType.STLEFT);
+        this.stRight = new Tile(TileType.STRIGHT);
         combinedTiles(gameData);
         this.setAiMap(bitmap.getAiMap());
     }
@@ -77,7 +82,16 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                     g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
                 }
                 if (tileType == TileType.ROADLINEUP) {
-                    g.drawImage(roadLine.getSprite().getImage(), position[0], position[1], null);
+                    g.drawImage(roadLineUp.getSprite().getImage(), position[0], position[1], null);
+                }
+                if (tileType == TileType.ROADLINESIDE) {
+                    g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
+                }
+                if (tileType == TileType.STLEFT) {
+                    g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
+                }
+                if (tileType == TileType.STRIGHT) {
+                    g.drawImage(stRight.getSprite().getImage(), position[0], position[1], null);
                 }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);

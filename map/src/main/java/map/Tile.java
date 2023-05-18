@@ -18,11 +18,22 @@ public class Tile extends Entity {
             setType(Type.OBSTACLE);
         }
         if (tileType == tileType.ROAD){
-            setSprite(Tile.class.getResource("/mapImages/road2.png"),new double[]{1,1},true);
+            setSprite(Tile.class.getResource("/mapImages/road2.png"),new double[]{1,1});
         }
         if (tileType == tileType.ROADLINEUP) {
-            setSprite(Tile.class.getResource("/mapImages/roadLine.png"), new double[]{1,1}, true);
+            setSprite(Tile.class.getResource("/mapImages/roadLine.png"), new double[]{1,1});
         }
+        if (tileType == tileType.ROADLINESIDE) {
+            setSprite(Tile.class.getResource("/mapImages/roadLine.png"), new double[]{1,1});
+        }
+        if (tileType == tileType.STLEFT) {
+            setSprite(Tile.class.getResource("/mapImages/STleft.png"), new double[]{1,1});
+        }
+        if (tileType == tileType.STRIGHT) {
+            setSprite(Tile.class.getResource("/mapImages/STright.png"), new double[]{1,1});
+        }
+
+
 
     }
 
