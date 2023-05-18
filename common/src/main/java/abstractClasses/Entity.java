@@ -53,11 +53,6 @@ public abstract class Entity extends Progenitor{
         this.direction = direction;
     }
 
-
-    public void setSprite(URL sprite, double[] scale, boolean updateShape) {
-        super.setSprite(sprite,scale);
-    }
-
     public void setType(Type type) {
         this.type = type;
     }
