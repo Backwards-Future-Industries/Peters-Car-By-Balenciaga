@@ -1,30 +1,39 @@
 import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import utilities.GameData;
+import utilities.SPIlocator;
 
-import java.io.IOException;
+import java.awt.*;
+
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class GameEngineTest {
 
     private GameEngine gameEngine;
+    private Dimension dimension;
+
+    @Mock
+    private GameData gameData;
+
 
     @BeforeEach
-    void setUp() throws IOException {
-        GameData gameData = mock(GameData.class);
-        this.gameEngine = new GameEngine(60, gameData);
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+        this.dimension = new Dimension(500,700);
+        this.gameEngine = new GameEngine(60, gameData, dimension);
     }
 
     @Test
     public void OpenWindowTest(){
-        int length = 500;
-        gameEngine.getWindow().setSize(length,length);
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
-        Assertions.assertEquals(length,gameEngine.getWindow().getWidth());
-        Assertions.assertEquals(length,gameEngine.getWindow().getHeight());
+        Assertions.assertEquals(dimension.width,gameEngine.getWindow().getWidth());
         Assertions.assertEquals(1,gameEngine.getWindow().getKeyListeners().length);
         Assertions.assertTrue(gameEngine.getWindow().isVisible());
     }

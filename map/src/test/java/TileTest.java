@@ -1,16 +1,22 @@
+
 import map.Tile;
-import map.TileType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import utilities.TileType;
 
-import java.awt.Color;
+import java.awt.*;
 
 class TileTest {
 
     TileType tileType;
     Tile tile;
     Color expectedColor;
+
+    @BeforeEach
+    public void setup(){
+
+    }
 
     @Test
     public void testTileGrass() {

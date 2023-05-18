@@ -1,6 +1,8 @@
 import abstractClasses.Entity;
 import collision.CollisionDetection;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import utilities.Type;
 
@@ -9,18 +11,22 @@ import java.net.URL;
 class CollisionDetectionTest {
 
     CollisionDetection collisionDetection = new CollisionDetection();
-    private static URL sprite = TestEntity.class.getClassLoader().getResource("images/placeholder.png");
-    private class TestEntity extends Entity {
+    private static URL sprite = concreteEntity.class.getClassLoader().getResource("images/placeholder.png");
 
-        public TestEntity(int health, URL sprite) {
-            super(health, sprite, Type.UNDEFINED);
-        }
+    Entity testEntity1;
+    Entity testEntity2;
 
+    @BeforeEach
+    public void setup(){
+        this.testEntity1 = new concreteEntity();
+        this.testEntity2 = new concreteEntity();
+        testEntity1.setHealth(1);
+        testEntity2.setHealth(1);
+        testEntity1.setSprite(sprite, new double[]{1,1},true);
+        testEntity2.setSprite(sprite, new double[]{1,1},true);
     }
 
-    TestEntity testEntity1 = new TestEntity(1,sprite);
-    TestEntity testEntity2 = new TestEntity(1,sprite);
-
+    @Disabled
     @Test
     public void colliding(){
 

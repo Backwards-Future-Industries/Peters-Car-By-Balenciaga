@@ -1,13 +1,12 @@
 package utilities;
 
+import abstractClasses.CommonMap;
 import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 import interfaces.IProcessing;
 
 import java.awt.*;
-import interfaces.IPlugin;
-import interfaces.IProcessing;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,6 +27,8 @@ public class GameData {
     private ReentrantLock addComponentLock;
 
     private Dimension screenSize;
+    private CommonMap map;
+    private SPIlocator spiLocator;
 
     public GameData(){
         this.entityMap = new HashMap<Type,LinkedList<Entity>>();
@@ -40,7 +41,8 @@ public class GameData {
         this.processLock = new ReentrantLock(true);
         this.newLock = new ReentrantLock(true);
         this.addComponentLock = new ReentrantLock(true);
-        addAllprocess();
+        this.spiLocator = SPIlocator.getSpIlocator();
+        addAllProcess();
     }
 
     private void createMap(){
@@ -66,11 +68,11 @@ public class GameData {
         }
     }
 
-    public void addAllprocess(){
+    public void addAllProcess(){
         for(Type type : Type.values()){
-            IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
+            IProcessing iProcessing = spiLocator.getProcessingMap().get(type);
             if(iProcessing != null) {
-                processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
+                processes.add(spiLocator.getProcessingMap().get(type));
             }
         }
     }
@@ -78,10 +80,10 @@ public class GameData {
     public void  AddComponent(Type type){
         addComponentLock.lock();
         try {
-            Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
-            addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
+            Layers layer = spiLocator.getiDrawableMap().get(type).getLayer();
+            addDrawables(spiLocator.getiDrawableMap().get(type),layer);
 
-            Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
+            Entity entity = spiLocator.getPluginMap().get(type).create();
             entityMap.get(type).add(entity);
 
         }finally {
@@ -93,16 +95,22 @@ public class GameData {
     public void addBullet(Type type, Entity entity){
         addComponentLock.lock();
         try {
-            Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity.getPosition(),entity.getRadians());
+            Entity bullet = spiLocator.getBullet().create(entity.getPosition(),entity.getRadians());
             entityMap.get(type).add(bullet);
 
 
-            Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
-            addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type),layer);
+            Layers layer = spiLocator.getiDrawableMap().get(type).getLayer();
+            addDrawables(spiLocator.getiDrawableMap().get(type),layer);
         } finally {
             addComponentLock.unlock();
             printStatus();
         }
+    }
+
+    public void addMap(){
+        this.map =  spiLocator.getMap().create(this);
+        Layers layer = spiLocator.getiDrawableMap().get(Type.MAP).getLayer();
+        addDrawables(spiLocator.getiDrawableMap().get(Type.MAP),layer);
     }
 
     /**
@@ -254,6 +262,10 @@ public class GameData {
 
     public void setScreenSize(Dimension screenSize) {
         this.screenSize = screenSize;
+    }
+
+    public CommonMap getMap() {
+        return map;
     }
 
     private void printStatus(){

@@ -21,6 +21,7 @@ public class SPIlocator {
     private IMovement movement;
 
     private IBulletService bullet;
+    private IMapService map;
 
 
     private SPIlocator(){
@@ -63,8 +64,8 @@ public class SPIlocator {
         }
 
         loadMovement();
-
         loadBullet();
+        loadMap();
     }
 
     private Collection<IPlugin> loadPlugins(){
@@ -118,6 +119,13 @@ public class SPIlocator {
         }
     }
 
+    private void loadMap(){
+        ServiceLoader<IMapService> serviceLoader = ServiceLoader.load(IMapService.class);
+
+        for(IMapService instance : serviceLoader){
+            map = instance;
+        }
+    }
 
     public HashMap<Type, IDrawable> getiDrawableMap() {
         return iDrawableMap;
@@ -138,5 +146,7 @@ public class SPIlocator {
     public IMovement getMovement() {
         return movement;
     }
+
+    public IMapService getMap(){return map;}
 }
 
