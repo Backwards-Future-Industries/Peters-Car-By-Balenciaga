@@ -66,4 +66,17 @@ public class Image {
     public Point[] getPoints() {
         return (Point[]) transformedRectangle;
     }
+
+    /**
+     * Redo the source rectangle to the given x and y in point [0]
+     */
+    public void redoSourceRectangle(int x, int y){
+
+        sourceRectangle[0] = new Point(x,y);
+        sourceRectangle[1] = new Point(x+image.getWidth(),y );
+        sourceRectangle[2] = new Point(x+image.getWidth(),y+image.getHeight());
+        sourceRectangle[3] = new Point(x,y+image.getHeight());
+
+        this.transformedRectangle = sourceRectangle.clone();
+    }
 }

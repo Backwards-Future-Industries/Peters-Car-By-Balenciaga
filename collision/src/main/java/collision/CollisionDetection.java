@@ -17,7 +17,7 @@ public class CollisionDetection implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
-        for (Entity entity1 : collidableEntities(gameData)){
+        for (Entity entity1: collidableEntities(gameData)){
 
             if(bulletKiller(entity1,gameData)) continue;
 
@@ -31,6 +31,10 @@ public class CollisionDetection implements IProcessing {
                     if (this.isColliding(entity1,entity2)){
                         ((ICollision) entity1).onCollision(entity2);
                         ((ICollision) entity2).onCollision(entity1);
+                        if (entity1.getType() != Type.OBSTACLE || entity2.getType() != Type.OBSTACLE){
+                            entity1.setPosition(obstacleCollision(entity1,entity2));
+                            entity2.setPosition(obstacleCollision(entity2,entity1));
+                        }
 
                         if (entity1.getType() == Type.OBSTACLE || entity2.getType() == Type.OBSTACLE) {
                             if (entity1.getType() == Type.OBSTACLE && entity2.getType() == Type.OBSTACLE) {
@@ -67,7 +71,8 @@ public class CollisionDetection implements IProcessing {
             }
         }
 
-        return true;
+        //in case SAT check somehow fails
+        return isBoxCollision(entity1.getPosition(), entity2.getPosition(), new int[]{entity1.getSprite().getImage().getWidth(), entity1.getSprite().getImage().getHeight()}, new int[]{entity2.getSprite().getImage().getWidth(), entity2.getSprite().getImage().getHeight()});
     }
 
     //SAT helper method
@@ -112,8 +117,10 @@ public class CollisionDetection implements IProcessing {
         int[] oPos = obstacle.getPosition();
 
         //Getting the dimensions of both entities
-        int[] entityDimensions = new int[]{entity.getSprite().getImage().getWidth(), entity.getSprite().getImage().getHeight()}; 
-        int[] obstacleDimensions = new int[]{obstacle.getSprite().getImage().getWidth(), obstacle.getSprite().getImage().getHeight()};
+        int[] entityDimensions = new int[]{entity.getSprite().getImage().getWidth(),
+                entity.getSprite().getImage().getHeight()};
+        int[] obstacleDimensions = new int[]{obstacle.getSprite().getImage().getWidth(),
+                obstacle.getSprite().getImage().getHeight()};
 
         //Entity is above obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
@@ -156,9 +163,9 @@ public class CollisionDetection implements IProcessing {
         int min_y = 0;
 
         if (entity.getType()==Type.BULLET){
-            if (entity.getPosition()[0] > max_x
+            if (entity.getPosition()[0] > max_x - entity.getSprite().getImage().getWidth()
                     || entity.getPosition()[0] < min_x
-                    || entity.getPosition()[1] > max_y
+                    || entity.getPosition()[1] > max_y - entity.getSprite().getImage().getHeight()
                     || entity.getPosition()[1] < min_y){
                 ((ICollision) entity).onCollision(entity);
                 return true;
@@ -193,5 +200,9 @@ public class CollisionDetection implements IProcessing {
         return false;
     }
 
+    @Override
+    public String toString(){
+        return Type.COLLISION.toString();
+    }
 }
 
