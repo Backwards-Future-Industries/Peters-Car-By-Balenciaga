@@ -33,8 +33,8 @@ public class BulletPlugin extends Entity implements IBulletService, IDrawable {
 
 
     @Override
-    public void delete(GameData gameData) {
-
+    public void delete(GameData gameData, Entity entity) {
+        gameData.getEntityList(this.bullet.getType()).remove(entity);
     }
 
     @Override
