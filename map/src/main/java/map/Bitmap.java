@@ -40,7 +40,6 @@ public class Bitmap {
                 aiMap[y][x] = findTileInt(blue,green,red);
             }
         }
-
     }
 
     private TileType findTile(int blue, int green, int red){

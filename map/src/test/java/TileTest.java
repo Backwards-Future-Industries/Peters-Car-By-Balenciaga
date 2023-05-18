@@ -55,4 +55,6 @@ class TileTest {
         expectedColor = Color.GRAY; // Assuming you want the color from the bitmap
         Assertions.assertEquals(expectedColor, tileType.getColor());
     }
+
+
 }

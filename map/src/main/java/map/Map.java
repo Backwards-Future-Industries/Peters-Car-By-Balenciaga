@@ -19,6 +19,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
+
     private  BufferedImage bufferedImage;
 
     public Map(){

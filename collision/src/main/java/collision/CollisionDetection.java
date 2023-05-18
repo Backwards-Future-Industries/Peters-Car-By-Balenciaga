@@ -6,7 +6,8 @@ import utilities.GameData;
 import utilities.Inputs;
 import java.util.ArrayList;
 
-public class CollisionDetection implements IProcessing {
+public class
+CollisionDetection implements IProcessing {
 
     //Need a way to access all existing enteties in case of a ittertion approach to
     //collision detection, alternatives are greatly appreciated.
