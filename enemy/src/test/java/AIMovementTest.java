@@ -1,38 +1,56 @@
+import abstractClasses.CommonMap;
 import abstractClasses.Entity;
 import enemy.EnemyPlugin;
 import enemy.aiMovement.AIMovement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import utilities.GameData;
 import utilities.Inputs;
+import utilities.Type;
 
-import java.net.URL;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class AIMovementTest {
 
     private AIMovement aIMovement;
-    private GameData gameData;
     private Entity enemyPlugin;
     private Entity playerPlugin;
+    @Mock
+    private GameData gameData;
+    @Mock
+    private CommonMap map;
 
     @BeforeEach
     void setUp() {
-        URL sprite = AIMovementTest.class.getClassLoader().getResource("images/placeholder.png");
-        playerPlugin = new concreteEntity(1, sprite);
+        MockitoAnnotations.initMocks(this);
+        playerPlugin = new concreteEntity();
         enemyPlugin = new EnemyPlugin();
-        enemyPlugin.setMaxSpeed(10);
-        enemyPlugin.setPosition(new int[]{100, 200});
+        enemyPlugin.setPosition(new int[]{1, 1});
         gameData = new GameData();
         aIMovement = new AIMovement();
+        map = new CommonMap();
+        map.setAiMap(new int[][]{
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1},
+        });
+        gameData.setMap(map);
     }
 
     @Test
     void getInputsBasedOnAStar() {
-        playerPlugin.setPosition(new int[]{500, 200});
+        playerPlugin.setPosition(new int[]{65, 1});
+        playerPlugin.setType(Type.PLAYER);
         gameData.addNewEntity(playerPlugin);
         aIMovement.updateData(gameData, enemyPlugin);
-        assertTrue(aIMovement.getInputsBasedOnAStar().contains(Inputs.KEY_W));
+        ArrayList<Inputs> inputs = aIMovement.getInputsBasedOnAStar();
+        assertTrue(inputs.contains(Inputs.KEY_W));
     }
 }

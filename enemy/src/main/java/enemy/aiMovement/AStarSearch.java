@@ -102,4 +102,8 @@ public class AStarSearch {
 
         return dx + dy + optionalPathCost;
     }
+
+    public int[][] getMap() {
+        return map;
+    }
 }
