@@ -25,13 +25,14 @@ class AIMovementTest {
         enemyPlugin.setMaxSpeed(10);
         enemyPlugin.setPosition(new int[]{100, 200});
         gameData = new GameData();
+        aIMovement = new AIMovement();
     }
 
     @Test
     void getInputsBasedOnAStar() {
         playerPlugin.setPosition(new int[]{500, 200});
         gameData.addNewEntity(playerPlugin);
-        aIMovement = new AIMovement(gameData, enemyPlugin);
+        aIMovement.updateData(gameData, enemyPlugin);
         assertTrue(aIMovement.getInputsBasedOnAStar().contains(Inputs.KEY_W));
     }
 }

@@ -13,6 +13,7 @@ public class Bitmap {
 
     private TileType[][] map;
     private BufferedImage bitmap;
+
     private int[][] aiMap;
 
     public Bitmap(){
@@ -91,5 +92,9 @@ public class Bitmap {
 
     public TileType[][] getMap() {
         return map;
+    }
+
+    public int[][] getAiMap() {
+        return aiMap;
     }
 }

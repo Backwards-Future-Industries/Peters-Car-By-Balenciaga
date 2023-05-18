@@ -33,6 +33,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         this.obstacle = new Tile(TileType.OBSTACLE);
         this.road = new Tile(TileType.ROAD);
         combinedTiles(gameData);
+        this.setAiMap(bitmap.getAiMap());
     }
 
     @Override

@@ -5,6 +5,7 @@ import abstractClasses.Entity;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Type;
+import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,10 +29,10 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     public Entity create() {
         this.newPlayer = new Player();
         this.newPlayer.setHealth(5);
-        this.newPlayer.setPosition(new int[]{1,1});
-        this.newPlayer.setSprite(sprite, new double[]{0.5, 0.5},true);
+        this.newPlayer.setPosition(new int[]{1280,900});
+        this.newPlayer.setSprite(sprite, new double[]{0.1, 0.1},true);
         this.newPlayer.setAcceleration(0.2);
-        this.newPlayer.setMaxSpeed(3);
+        this.newPlayer.setMaxSpeed(1.5);
         this.newPlayer.setType(Type.PLAYER);
 
         return this.newPlayer;

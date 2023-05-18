@@ -60,19 +60,19 @@ public class AStarSearch {
         int x = node.getX();
         int y = node.getY();
 
-        if (y > 0 && (this.map[y - 1][x] == 0 || this.map[y - 1][x] == 1)) {
+        if (y > 0 && (this.map[y - 1][x] == 0 || this.map[y - 1][x] == 1 || this.map[y - 1][x] == 2)) {
             neighbors.add(new Node(x, y - 1));
         }
 
-        if (y < this.height - 1 && (this.map[y + 1][x] == 0 || this.map[y + 1][x] == 1)) {
+        if (y < this.height - 1 && (this.map[y + 1][x] == 0 || this.map[y + 1][x] == 1 || this.map[y + 1][x] == 2)) {
             neighbors.add(new Node(x, y + 1));
         }
 
-        if (x > 0 && (this.map[y][x - 1] == 0 || this.map[y][x - 1] == 1)) {
+        if (x > 0 && (this.map[y][x - 1] == 0 || this.map[y][x - 1] == 1 || this.map[y][x - 1] == 2)) {
             neighbors.add(new Node(x - 1, y));
         }
 
-        if (x < this.width - 1 && (this.map[y][x + 1] == 0 || this.map[y][x + 1] == 1)) {
+        if (x < this.width - 1 && (this.map[y][x + 1] == 0 || this.map[y][x + 1] == 1 || this.map[y][x + 1] == 2)) {
             neighbors.add(new Node(x + 1, y));
         }
 
@@ -97,8 +97,8 @@ public class AStarSearch {
 
         // Higher cost for optional paths
         int optionalPathCost = 0;
-        if (this.map[goal.getY()][goal.getX()] == 1) optionalPathCost = 2;
-        if (this.map[goal.getY()][goal.getX()] == 2) optionalPathCost = 4;
+        if (this.map[goal.getY()][goal.getX()] == 1) optionalPathCost = 4;
+        if (this.map[goal.getY()][goal.getX()] == 2) optionalPathCost = 8;
 
         return dx + dy + optionalPathCost;
     }

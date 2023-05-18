@@ -13,8 +13,6 @@ import java.util.LinkedList;
 
 public class PlayerMovement implements IProcessing {
 
-    private LinkedList<IBulletService> bullets;
-
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity player : gameData.getEntityList(Type.PLAYER)) {
