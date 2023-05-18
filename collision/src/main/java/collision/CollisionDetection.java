@@ -160,7 +160,7 @@ public class CollisionDetection implements IProcessing {
                     || entity.getPosition()[0] < min_x
                     || entity.getPosition()[1] > max_y
                     || entity.getPosition()[1] < min_y){
-                entity.setHealth(0);
+                ((ICollision) entity).onCollision(entity);
                 return true;
             }
         }
