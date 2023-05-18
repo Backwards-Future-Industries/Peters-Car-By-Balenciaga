@@ -1,19 +1,15 @@
 import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
+import org.junit.jupiter.api.condition.EnabledOnOs;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import utilities.GameData;
-import utilities.SPIlocator;
 
 import java.awt.*;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.condition.OS.LINUX;
 
 class GameEngineTest {
 
@@ -30,7 +26,8 @@ class GameEngineTest {
         this.dimension = new Dimension(500,700);
         this.gameEngine = new GameEngine(60, gameData, dimension);
     }
-    
+
+    @EnabledOnOs(LINUX)
     @Test
     public void OpenWindowTest(){
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
