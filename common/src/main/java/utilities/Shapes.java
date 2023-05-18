@@ -50,8 +50,12 @@ public class Shapes {
     }
 
 
-    public void getType(Type type){
+    public void setType(Type type){
         this.type = type;
+    }
+
+    public Type getType(){
+        return type;
     }
 
     public int getWidth() {

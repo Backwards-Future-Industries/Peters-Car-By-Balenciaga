@@ -6,8 +6,7 @@ import java.net.URL;
 
 public class ConcreteEntity extends Entity implements ICollision {
 
-    public ConcreteEntity(int health, URL sprite) {
-        super(health, sprite, Type.ENEMY);
+    public ConcreteEntity() {
     }
 
     @Override
