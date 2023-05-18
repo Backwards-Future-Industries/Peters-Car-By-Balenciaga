@@ -98,8 +98,7 @@ public class CollisionDetection implements IProcessing {
     /**
      * Places entity at the edge of the obstacle, in the direction that
      * entity hit the obstacle from.
-     * @param entity Entity of Type PLAYER or ENEMY
-     * @param obstacle Entity of Type OBSTACLE
+     * @param entity Entity of Type PLAYER or ENEMY, obstacle is of Type OBSTACLE
      * @return A new position for Entity1
      */
     private int[] obstacleCollision(Entity entity, Entity obstacle){
