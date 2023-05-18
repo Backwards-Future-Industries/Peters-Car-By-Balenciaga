@@ -1,6 +1,5 @@
 package abstractClasses;
 
-import utilities.Shape;
 import utilities.Type;
 
 import utilities.Vector2D;
@@ -54,25 +53,11 @@ public abstract class Entity extends Progenitor{
         this.direction = direction;
     }
 
-
-    public void setSprite(URL sprite, double[] scale, boolean updateShape) {
-        super.setSprite(sprite,scale);
-        if (updateShape){
-            setShape(new Shape(getSprite().getImage().getWidth(),getSprite().getImage().getHeight(),getPosition(), getType()));
-        }
-    }
-
     public void setType(Type type) {
         this.type = type;
     }
 
     public Type getType() {
         return type;
-    }
-
-    @Override
-    public void setPosition(int[] position) {
-        super.setPosition(position);
-        super.getShape().setPosition(position);
     }
 }

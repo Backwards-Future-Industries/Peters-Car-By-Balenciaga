@@ -5,6 +5,7 @@ import interfaces.ICollision;
 import interfaces.IProcessing;
 import utilities.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -78,10 +79,10 @@ public class CollisionDetection implements IProcessing {
     private static Vector2D getInterval(Entity entity, Vector2D axis) {
         Vector2D result = new Vector2D(0,0);
 
-        result.setX(axis.dot(Vector2D.pointToVector(entity.getShape().getPositions(entity.getSprite().getRotation())[0])));
+        result.setX(axis.dot(Vector2D.pointToVector(entity.getSprite().getPoints()[0])));
         result.setY(result.getX());
         for (int i = 1; i < 4; i++){
-            double projection = axis.dot(Vector2D.pointToVector(entity.getShape().getPositions(entity.getSprite().getRotation())[i]));
+            double projection = axis.dot(Vector2D.pointToVector(entity.getSprite().getPoints()[i]));
             if (projection < result.getX()){
                 result.setX(projection);
             }
@@ -108,30 +109,31 @@ public class CollisionDetection implements IProcessing {
         int[] ePos = entity.getPosition();
         int[] oPos = obstacle.getPosition();
 
-        Shape eShape = entity.getShape();
-        Shape oShape = obstacle.getShape();
+        //Getting the dimensions of both entities
+        int[] entityDimensions = new int[]{entity.getSprite().getImage().getWidth(), entity.getSprite().getImage().getHeight()}; 
+        int[] obstacleDimensions = new int[]{obstacle.getSprite().getImage().getWidth(), obstacle.getSprite().getImage().getHeight()};
 
         //Entity is above obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
             newPos[0] = ePos[0];
-            newPos[1] = oPos[1] - eShape.getHeight() - oShape.getHeight();
+            newPos[1] = oPos[1] - entityDimensions[1] - obstacleDimensions[1];
         }
 
         //Entity is below obstacle
         if (ePos[0] < oPos[0] && ePos[1] > oPos[1]){
             newPos[0] = ePos[0];
-            newPos[1] = oPos[1] + eShape.getHeight() + oShape.getHeight();
+            newPos[1] = oPos[1] + entityDimensions[1] + obstacleDimensions[1];
         }
 
         //Entity is to the left of obstacle
         if (ePos[0] > oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = oPos[0] - eShape.getWidth() - oShape.getWidth();
+            newPos[0] = oPos[0] - entityDimensions[0] - obstacleDimensions[0];
             newPos[1] = ePos[1];
         }
 
         //Entity is to the right of obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = oPos[0] + eShape.getWidth() + oShape.getWidth();
+            newPos[0] = oPos[0] + entityDimensions[0] + obstacleDimensions[0];
             newPos[1] = ePos[1];
         }
 
@@ -152,11 +154,11 @@ public class CollisionDetection implements IProcessing {
      * deprecated as ideally we want to use SAT collision detection
      */
     @Deprecated
-    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shape e1Shape, Shape e2Shape) {
-        if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
-                e2Pos[0] + e2Shape.getWidth() > e1Pos[0] &&
-                e2Pos[1] < e1Pos[1] + e1Shape.getHeight() &&
-                e2Pos[1] + e2Shape.getHeight() > e1Pos[1]) {
+    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, int[] e1Dimmensions, int[] e2Dimensions) {
+        if (e2Pos[0] < e1Pos[0] + e1Dimmensions[0] &&
+                e2Pos[0] + e2Dimensions[0] > e1Pos[0] &&
+                e2Pos[1] < e1Pos[1] + e1Dimmensions[1] &&
+                e2Pos[1] + e2Dimensions[1] > e1Pos[1]) {
             return true;
         }
 

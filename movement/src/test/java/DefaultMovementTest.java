@@ -29,7 +29,7 @@ class DefaultMovementTest {
         URL sprite = DefaultMovement.class.getClassLoader().getResource("images/placeholder.png");
         testEntity = new ConcreteEntity();
         testEntity.setHealth(5);
-        testEntity.setSprite(sprite,new double[]{1,1},true);
+        testEntity.setSprite(sprite,new double[]{1,1});
         testEntity.setMaxSpeed(10);
         testEntity.setAcceleration(1);
         expectedPosition = new int[]{1,0};
