@@ -1,5 +1,5 @@
-package map;
-
+import map.Tile;
+import map.TileType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,9 +18,8 @@ class TileTest {
         tileType = TileType.GRASS;
         tileType.getColor();
         tile = new Tile(tileType);
-        expectedColor = Color.black; // Assuming you want the color from the bitmap
+        expectedColor = Color.GREEN; // Assuming you want the color from the bitmap
         Assertions.assertEquals(expectedColor, tileType.getColor());
-        System.out.println(tileType.getColor());
     }
 
     @Test
@@ -29,9 +28,8 @@ class TileTest {
         tileType = TileType.EARTH;
         tileType.getColor();
         tile = new Tile(tileType);
-        expectedColor = Color.white; // Assuming you want the color from the bitmap
+        expectedColor = Color.WHITE; // Assuming you want the color from the bitmap
         Assertions.assertEquals(expectedColor, tileType.getColor());
-        System.out.println(tileType.getColor());
     }
     @Test
     public void testTileObstacle() {
@@ -39,9 +37,16 @@ class TileTest {
         tileType = TileType.OBSTACLE;
         tileType.getColor();
         tile = new Tile(tileType);
-        expectedColor = Color.red; // Assuming you want the color from the bitmap
+        expectedColor = Color.RED; // Assuming you want the color from the bitmap
         Assertions.assertEquals(expectedColor, tileType.getColor());
-        System.out.println(tileType.getColor());
     }
-
+    @Test
+    public void testTileRoad() {
+        // Checks the color of the bitmap underneath the visual tiles
+        tileType = TileType.ROAD;
+        tileType.getColor();
+        tile = new Tile(tileType);
+        expectedColor = Color.GRAY; // Assuming you want the color from the bitmap
+        Assertions.assertEquals(expectedColor, tileType.getColor());
+    }
 }
