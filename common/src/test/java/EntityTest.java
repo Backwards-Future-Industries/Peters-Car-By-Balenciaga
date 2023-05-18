@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.Image;
-import utilities.ImageLoader;
+import utilities.image.Image;
+import utilities.image.ImageLoader;
 
 import java.net.URL;
 

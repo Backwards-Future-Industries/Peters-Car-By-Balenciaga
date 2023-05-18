@@ -1,7 +1,7 @@
 package abstractClasses;
 
-import utilities.Image;
-import utilities.ImageLoader;
+import utilities.image.Image;
+import utilities.image.ImageLoader;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;

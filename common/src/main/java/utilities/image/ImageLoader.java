@@ -1,6 +1,6 @@
-package utilities;
+package utilities.image;
 
-import utilities.Image;
+import utilities.image.Image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
