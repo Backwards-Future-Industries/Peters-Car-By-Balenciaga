@@ -109,8 +109,8 @@ public class CollisionDetection implements IProcessing {
         int[] ePos = entity.getPosition();
         int[] oPos = obstacle.getPosition();
 
-        Shapes eShape = entity.getShape();
-        Shapes oShape = obstacle.getShape();
+        Shape eShape = entity.getShape();
+        Shape oShape = obstacle.getShape();
 
         //Entity is above obstacle
         if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
@@ -153,7 +153,7 @@ public class CollisionDetection implements IProcessing {
      * deprecated as ideally we want to use SAT collision detection
      */
     @Deprecated
-    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shapes e1Shape, Shapes e2Shape) {
+    private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shape e1Shape, Shape e2Shape) {
         if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
                 e2Pos[0] + e2Shape.getWidth() > e1Pos[0] &&
                 e2Pos[1] < e1Pos[1] + e1Shape.getHeight() &&
