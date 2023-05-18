@@ -26,8 +26,8 @@
         <module>map</module>
         <module>player</module>
         <module>movement</module>
-        <module>grillBullet</module>
         <module>coverage</module>
+        <module>bullet</module>
     </modules>
 
     <dependencies>

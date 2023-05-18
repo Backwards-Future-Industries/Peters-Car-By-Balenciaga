@@ -1,4 +1,4 @@
-package grillBullet;
+package bullet;
 
 import abstractClasses.Entity;
 import interfaces.IProcessing;

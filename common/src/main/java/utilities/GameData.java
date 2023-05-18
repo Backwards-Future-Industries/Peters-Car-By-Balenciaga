@@ -8,6 +8,9 @@ import interfaces.IProcessing;
 
 import java.awt.*;
 
+import interfaces.IPlugin;
+import interfaces.IProcessing;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.Map;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData {
-    private Map<Type,LinkedList<Entity>> entityMap;
+    private Map<Type, LinkedList<Entity>> entityMap;
     private List<IProcessing> processes;
     private List<IDrawable> foreground;
     private List<IDrawable> middleground;
@@ -31,8 +34,8 @@ public class GameData {
     private CommonMap map;
     private SPIlocator spiLocator;
 
-    public GameData(){
-        this.entityMap = new HashMap<Type,LinkedList<Entity>>();
+    public GameData() {
+        this.entityMap = new HashMap<Type, LinkedList<Entity>>();
         createMap();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
@@ -47,9 +50,9 @@ public class GameData {
         addAllProcess();
     }
 
-    private void createMap(){
-        for (Type type : Type.values()){
-            this.entityMap.put(type,new LinkedList<Entity>());
+    private void createMap() {
+        for (Type type : Type.values()) {
+            this.entityMap.put(type, new LinkedList<Entity>());
         }
     }
 
@@ -65,16 +68,16 @@ public class GameData {
             combined.addAll(middleground);
             combined.addAll(foreground);
             return combined;
-        }finally {
+        } finally {
             drawLock.unlock();
         }
     }
 
-    public void addAllProcess(){
-        for(Type type : Type.values()){
-            IProcessing iProcessing = spiLocator.getProcessingMap().get(type);
-            if(iProcessing != null) {
-                processes.add(spiLocator.getProcessingMap().get(type));
+    public void addAllprocess() {
+        for (Type type : Type.values()) {
+            IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
+            if (iProcessing != null) {
+                processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
             }
         }
     }
@@ -82,27 +85,33 @@ public class GameData {
     public void addComponent(Type type){
         addComponentLock.lock();
         try {
-            Layers layer = spiLocator.getiDrawableMap().get(type).getLayer();
-            addDrawables(spiLocator.getiDrawableMap().get(type),layer);
 
-            Entity entity = spiLocator.getPluginMap().get(type).create();
-            entityMap.get(type).add(entity);
+            if (SPIlocator.getSpIlocator().getiDrawableMap().get(type) != null) {
+                Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+                addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type), layer);
 
-        }finally {
+                Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
+                entityMap.get(type).add(entity);
+            }
+
+        } finally {
             addComponentLock.unlock();
             printStatus();
         }
+
     }
 
-    public void addBullet(Type type, Entity entity){
+    public void addBullet(Type type, Entity entity) {
         addComponentLock.lock();
         try {
-            Entity bullet = spiLocator.getBullet().create(entity);
-            entityMap.get(type).add(bullet);
+            if (SPIlocator.getSpIlocator().getiDrawableMap().get(type) != null) {
+                Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity.getPosition(), entity.getRadians());
+                entityMap.get(type).add(bullet);
 
 
-            Layers layer = spiLocator.getiDrawableMap().get(type).getLayer();
-            addDrawables(spiLocator.getiDrawableMap().get(type),layer);
+                Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+                addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type), layer);
+            }
         } finally {
             addComponentLock.unlock();
             printStatus();
@@ -126,7 +135,7 @@ public class GameData {
 
     public LinkedList<Entity> getEntityList(Type type) {
         newLock.lock();
-        try{
+        try {
             return this.entityMap.get(type);
         } finally {
             newLock.unlock();
@@ -140,43 +149,44 @@ public class GameData {
         processLock.lock();
         try {
             return processes;
-        }finally {
+        } finally {
             processLock.unlock();
         }
     }
 
     /**
      * Works just like {@link GameData#addDrawables(IDrawable, Layers)}. Layers is presumed to be Middleground.
+     *
      * @see GameData#addDrawables(IDrawable, Layers)
      */
     public boolean addDrawables(IDrawable draw) {
-        return addDrawables(draw,Layers.MIDDLEGROUND);
+        return addDrawables(draw, Layers.MIDDLEGROUND);
     }
 
     /**
-     * @param draw implementation of {@link IDrawable} to be inserted in the draw cycle.
+     * @param draw  implementation of {@link IDrawable} to be inserted in the draw cycle.
      * @param layer which layer it should be drawn on.
      * @return returns true if successful.
      */
     public boolean addDrawables(IDrawable draw, Layers layer) {
         drawLock.lock();
         try {
-            if(layer == Layers.BACKGROUND){
-                if(this.background.add(draw)){
+            if (layer == Layers.BACKGROUND) {
+                if (this.background.add(draw)) {
                     return true;
                 }
             }
-            if(layer == Layers.MIDDLEGROUND){
-                if(this.middleground.add(draw)){
+            if (layer == Layers.MIDDLEGROUND) {
+                if (this.middleground.add(draw)) {
                     return true;
                 }
             }
-            if(layer == Layers.FOREGROUND){
-                if(this.foreground.add(draw)){
+            if (layer == Layers.FOREGROUND) {
+                if (this.foreground.add(draw)) {
                     return true;
                 }
             }
-        }finally {
+        } finally {
             drawLock.unlock();
         }
         return false;
@@ -190,12 +200,12 @@ public class GameData {
         newLock.lock();
 
         try {
-            if (this.entityMap.get(newEntity.getType()).add(newEntity)){
+            if (this.entityMap.get(newEntity.getType()).add(newEntity)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }finally {
+        } finally {
             newLock.unlock();
         }
     }
@@ -207,40 +217,40 @@ public class GameData {
     public boolean addProcesses(IProcessing process) {
         processLock.lock();
         try {
-            if (this.processes.add(process)){
+            if (this.processes.add(process)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
-        }finally {
+        } finally {
             processLock.unlock();
         }
     }
 
     /**
      * @param drawable implementation of {@link IDrawable} that has to be removed.
-     * @param layer which layer it resides on.
+     * @param layer    which layer it resides on.
      * @return returns true if successful.
      */
     public boolean removeDrawables(IDrawable drawable, Layers layer) {
         drawLock.lock();
-        try{
-            if(layer == Layers.BACKGROUND){
-                if(this.background.remove(drawable)){
+        try {
+            if (layer == Layers.BACKGROUND) {
+                if (this.background.remove(drawable)) {
                     return true;
                 }
             }
-            if(layer == Layers.MIDDLEGROUND){
-                if(this.middleground.remove(drawable)){
+            if (layer == Layers.MIDDLEGROUND) {
+                if (this.middleground.remove(drawable)) {
                     return true;
                 }
             }
-            if(layer == Layers.FOREGROUND){
-                if(this.foreground.remove(drawable)){
+            if (layer == Layers.FOREGROUND) {
+                if (this.foreground.remove(drawable)) {
                     return true;
                 }
             }
-        }finally {
+        } finally {
             drawLock.unlock();
         }
         return false;
@@ -253,12 +263,12 @@ public class GameData {
     public boolean removeProcesses(IProcessing process) {
         processLock.lock();
         try {
-            if (processes.remove(process)){
+            if (processes.remove(process)) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
-        }finally {
+        } finally {
             processLock.lock();
         }
     }
@@ -271,20 +281,11 @@ public class GameData {
         this.screenSize = screenSize;
     }
 
-    public CommonMap getMap() {
-        mapLock.lock();
-        try {
-            return map;
-        }finally {
-            mapLock.unlock();
-        }
-    }
-
-    private void printStatus(){
+    private void printStatus() {
         System.out.println("--------------------------");
-        for (LinkedList<Entity> linkedList : entityMap.values()){
-            for(Entity entity : linkedList){
-                System.out.println(entity.getType() +": " + entity.getPosition()[0]+","+entity.getPosition()[1]);
+        for (LinkedList<Entity> linkedList : entityMap.values()) {
+            for (Entity entity : linkedList) {
+                System.out.println(entity.getType() + ": " + entity.getPosition()[0] + "," + entity.getPosition()[1]);
             }
         }
         System.out.println("--------------------------");
