@@ -7,17 +7,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 
 public class Bitmap {
 
     private TileType[][] map;
     private BufferedImage bitmap;
-
     private int[][] aiMap;
+    private Color[] arrayOfColors = {Color.GREEN, Color.WHITE, Color.RED, Color.GRAY, Color.BLUE, Color.MAGENTA, Color.PINK, Color.YELLOW, Color.CYAN};
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap7.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -33,10 +32,7 @@ public class Bitmap {
             for (int x = 0; x < bitmap.getWidth(); x++) {
                 //bitmask magic by https://stackoverflow.com/questions/25761438/understanding-bufferedimage-getrgb-output-values
                 int color = bitmap.getRGB(x, y);
-                int blue = color & 0xff;
-                int green = (color & 0xff00) >> 8;
-                int red = (color & 0xff0000) >> 16;
-                TileType tileType = findTile(red, green, blue);
+                TileType tileType = findTile(color);
                 map[x][y] = tileType;
                 aiMap[y][x] = tileTypeToInt(tileType);
             }
@@ -44,33 +40,13 @@ public class Bitmap {
 
     }
 
-    private TileType findTile(int red, int green, int blue){
-        Color color = Color.CYAN;
-        if(blue == 0 && green == 255 && red == 0){
-            color = Color.GREEN;
+    private TileType findTile(int pixelColor){
+        for (Color color : arrayOfColors) {
+            if (pixelColor == color.getRGB()) {
+                return getColorTileType(color);
+            }
         }
-        if(red == 255 && green == 255 && blue == 255){
-            color = Color.WHITE;
-        }
-        if (red == 255 && green == 0 && blue == 0){
-            color = Color.RED;
-        }
-        if (red == 128 && green == 128 && blue == 128){
-            color = Color.GRAY;
-        }
-        if (red == 0 && green == 0 && blue == 255) {
-            color = Color.BLUE;
-        }
-        if (red == 255 && green == 0 && blue == 255) {
-            color = Color.MAGENTA;
-        }
-        if (red == 255 && green == 175 && blue == 175) {
-            color = Color.PINK;
-        }
-        if (red == 255 && green == 255 && blue == 0) {
-            color = Color.YELLOW;
-        }
-        return getColorTileType(color);
+        return TileType.BLANK;
     }
 
     private TileType getColorTileType(Color color) {
