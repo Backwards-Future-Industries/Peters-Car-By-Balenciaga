@@ -14,7 +14,7 @@ public class Bitmap {
     private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMapMaze.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap1.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -35,20 +35,31 @@ public class Bitmap {
                 int red = (color & 0xff0000) >> 16;
                 TileType tileType = findTile(blue,green,red);
                 map[x][y] = tileType;
-                aiMap[y][x] = tileTypeToInt(tileType);
+                //aiMap[y][x] = tileTypeToInt(tileType);
             }
         }
 
     }
 
-    private TileType findTile(int blue, int green, int red) {
-        Color color = Color.cyan;
-        if (blue > 250 && green > 250 && red > 250) {
-            color = Color.black;
-        } else if (blue < 5 && green < 5 && red < 5) {
-            color = Color.white;
-        } else if (blue < 5 && green < 5 && red > 250) {
-            color = Color.red;
+
+    private TileType findTile(int blue, int green, int red){
+        Color color = Color.CYAN;
+
+        if(blue == 0 && green == 255 && red == 0){
+            color = Color.GREEN;
+        }
+
+        if(blue == 255 && green == 255 && red == 255){
+            color = Color.WHITE;
+        }
+
+        if (blue == 0 && green == 0 && red == 255){
+            color = Color.RED;
+        }
+
+        if (blue == 128 && green == 128 && red == 128){
+            color = Color.GRAY;
+
         }
         return getColorTileType(color);
     }
@@ -61,18 +72,12 @@ public class Bitmap {
         } else if (TileType.OBSTACLE.getColor() == color) {
             return TileType.OBSTACLE;
         }
-        return TileType.BLANK;
-    }
 
-    private int tileTypeToInt(TileType tileType) {
-        if (tileType == TileType.GRASS) {
-            return 0;
-        } else if (tileType == TileType.EARTH) {
-            return 1;
-        } else if (tileType == TileType.OBSTACLE) {
-            return 2;
+        if (TileType.ROAD.getColor() == color) {
+            return TileType.ROAD;
         }
-        return -1;
+
+        return TileType.BLANK;
     }
 
     public TileType[][] getMap() {
