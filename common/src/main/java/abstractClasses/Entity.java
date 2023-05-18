@@ -14,15 +14,13 @@ public abstract class Entity extends Progenitor{
     private double maxSpeed;
     // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
     private Vector2D direction;
-    private Shape shape;
     
     public Entity(){
         this.health = 1;
         this.type = Type.UNDEFINED;
         this.acceleration = 1.;
         this.maxSpeed = 1.;
-        this.direction = new Vector2D(0.,0.);
-        this.shape = new Shape(1,1);
+        this.direction = new Vector2D(0.,0.);;
     }
 
     public int getHealth() {
@@ -56,9 +54,6 @@ public abstract class Entity extends Progenitor{
         this.direction = direction;
     }
 
-    public void setShape(Shape shape) {
-        this.shape = shape;
-    }
 
     public void setSprite(URL sprite, double[] scale, boolean updateShape) {
         super.setSprite(sprite,scale);
@@ -67,9 +62,6 @@ public abstract class Entity extends Progenitor{
         }
     }
 
-    public Shape getShape() {
-        return shape;
-    }
     public void setType(Type type) {
         this.type = type;
     }
@@ -81,6 +73,6 @@ public abstract class Entity extends Progenitor{
     @Override
     public void setPosition(int[] position) {
         super.setPosition(position);
-        this.shape.setPosition(position);
+        super.getShape().setPosition(position);
     }
 }

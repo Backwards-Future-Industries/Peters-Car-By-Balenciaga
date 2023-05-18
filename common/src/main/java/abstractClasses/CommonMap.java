@@ -1,4 +1,4 @@
 package abstractClasses;
 
-public class CommonMap extends Progenitor{
+public abstract class CommonMap extends Progenitor{
 }
