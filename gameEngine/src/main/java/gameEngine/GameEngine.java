@@ -23,14 +23,17 @@ public class GameEngine{
     private JPanel panel;
     private GameData gameData;
 
+    private Dimension screenSize;
+
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
-    public GameEngine(int framerate, GameData gameData) {
-        this.gameData = new GameData();
+    public GameEngine(int framerate, GameData gameData, Dimension dimension) {
         this.framerate = framerate;
-        this.userInputs = new UserInputs();
         this.gameData = gameData;
+        this.screenSize = dimension;
+        this.userInputs = new UserInputs();
+        this.gameData.getMap();
         ThreadFactory gameLoopThreadFactory = new OurThreadFactory("GameLoop");
         ThreadFactory drawLoopThreadFactory = new OurThreadFactory("DrawLoop");
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor(gameLoopThreadFactory);
@@ -55,7 +58,7 @@ public class GameEngine{
               }
           }
         };
-        Dimension screenSize = new Dimension(1280,960);
+
         gameData.setScreenSize(screenSize);
         panel.setPreferredSize(screenSize);
         panel.setSize(screenSize);
