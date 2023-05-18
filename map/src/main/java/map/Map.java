@@ -4,13 +4,10 @@ import abstractClasses.CommonMap;
 import interfaces.IDrawable;
 import interfaces.IMapService;
 import utilities.*;
-import utilities.image.Image;
-import utilities.image.ImageLoader;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 
 public class Map extends CommonMap implements IDrawable, IMapService {

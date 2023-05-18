@@ -1,10 +1,8 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.image.Image;
-import utilities.image.ImageLoader;
+import utilities.Image;
+import utilities.ImageLoader;
 
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;

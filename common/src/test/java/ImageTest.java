@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utilities.image.Image;
-import utilities.image.ImageLoader;
+import utilities.Image;
+import utilities.ImageLoader;
 
 import javax.imageio.ImageIO;
 import java.awt.geom.AffineTransform;

@@ -1,4 +1,4 @@
-package utilities.image;
+package utilities;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -12,6 +12,8 @@ public class Image {
     private AffineTransform transform;
     private AffineTransform scaleTransform;
 
+    private Shape shape;
+
     private double rotation;
 
     Image(BufferedImage sourceImage, double[] scale){
@@ -19,6 +21,7 @@ public class Image {
         this.transform = new AffineTransform();
         this.rotation = 0.;
         scale(scale[0],scale[1]);
+        this.shape = new Shape(image.getWidth(),image.getHeight());
     }
 
     public AffineTransform getTransform() {
@@ -40,14 +43,19 @@ public class Image {
     public void rotate(double addition, int[] position){
         rotation = rotation + addition;
         transform = AffineTransform.getRotateInstance(rotation,position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
-
+        shape.rotate(transform);
     }
     public void freshRotate(double radians, int[] position){
         rotation = radians;
         transform = AffineTransform.getRotateInstance(rotation, position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
+        shape.rotate(transform);
     }
 
     public double getRotation() {
         return rotation;
+    }
+
+    public Shape getShape() {
+        return shape;
     }
 }
