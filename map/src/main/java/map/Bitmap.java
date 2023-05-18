@@ -25,12 +25,6 @@ public class Bitmap {
         this.map = new TileType[bitmap.getWidth()][bitmap.getHeight()];
         this.aiMap = new int[bitmap.getHeight()][bitmap.getWidth()];
         loadMap();
-        for (int i = 0; i < aiMap.length; i++) {
-            for (int j = 0; j < aiMap[i].length; j++) {
-                System.out.print(aiMap[i][j] + " ");
-            }
-            System.out.println();
-        }
     }
 
     private void loadMap(){

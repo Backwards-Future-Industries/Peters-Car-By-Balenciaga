@@ -3,14 +3,14 @@ package map;
 import abstractClasses.CommonMap;
 import interfaces.IDrawable;
 import interfaces.IMapService;
-import utilities.*;
-import utilities.image.Image;
-import utilities.image.ImageLoader;
+import utilities.GameData;
+import utilities.Layers;
+import utilities.TileType;
+import utilities.Type;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 
 public class Map extends CommonMap implements IDrawable, IMapService {
@@ -19,9 +19,11 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     private Tile grass;
     private Tile earth;
     private Tile obstacle;
-    private  BufferedImage bufferedImage;
 
-    public Map(){
+    private Tile road;
+    private BufferedImage bufferedImage;
+
+    public Map() {
     }
 
     public Map(GameData gameData) {
@@ -29,14 +31,15 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         this.grass = new Tile(TileType.GRASS);
         this.earth = new Tile(TileType.EARTH);
         this.obstacle = new Tile(TileType.OBSTACLE);
+        this.road = new Tile(TileType.ROAD);
         combinedTiles(gameData);
     }
 
     @Override
     public CommonMap create(GameData gameData) {
         Map map = new Map(gameData);
-        map.setSprite(map.bufferedImage,new double[]{1,1});
-        map.setPosition(new int[]{1,1});
+        map.setSprite(map.bufferedImage, new double[]{1, 1});
+        map.setPosition(new int[]{1, 1});
         return map;
     }
 
@@ -52,9 +55,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     // so the tiles/shapes can be defined as obstacles, roads ect. and collision control can be performed on the map.
     private void combinedTiles(GameData gameData) {
 
-        bufferedImage = new BufferedImage(bitmap.getMap().length * 16,
-                bitmap.getMap()[0].length * 16,
-                BufferedImage.TYPE_3BYTE_BGR);
+        bufferedImage = new BufferedImage(bitmap.getMap().length * 16, bitmap.getMap()[0].length * 16, BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g = bufferedImage.createGraphics();
         TileType[][] map = bitmap.getMap();
 
@@ -69,6 +70,9 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                 if (tileType == TileType.GRASS) {
                     g.drawImage(grass.getSprite().getImage(), position[0], position[1], null);
                 }
+                if (tileType == TileType.ROAD) {
+                    g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
+                }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
                     Tile tile = new Tile(TileType.OBSTACLE);
@@ -77,7 +81,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                 }
                 position = new int[]{position[0], position[1] + 16};
             }
-            position = new int[]{position[0] + 16,0};
+            position = new int[]{position[0] + 16, 0};
         }
     }
 
@@ -93,7 +97,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Type.MAP.toString();
     }
 }
