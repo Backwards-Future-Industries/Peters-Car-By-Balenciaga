@@ -14,7 +14,7 @@ public class Bitmap {
     private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMapMaze.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap1.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -42,17 +42,22 @@ public class Bitmap {
     }
 
     private TileType findTile(int blue, int green, int red){
-        Color color = Color.cyan;
-        if(blue > 250 && green > 250 && red > 250){
-            color = Color.black;
+        Color color = Color.CYAN;
+
+        if(blue == 0 && green == 255 && red == 0){
+            color = Color.GREEN;
         }
 
-        if(blue < 5 && green < 5 && red < 5){
-            color = Color.white;
+        if(blue == 255 && green == 255 && red == 255){
+            color = Color.WHITE;
         }
 
-        if (blue < 5 && green < 5 && red > 250){
-            color = Color.red;
+        if (blue == 0 && green == 0 && red == 255){
+            color = Color.RED;
+        }
+
+        if (blue == 128 && green == 128 && red == 128){
+            color = Color.GRAY;
         }
 
         if(TileType.GRASS.getColor() == color){
@@ -64,21 +69,31 @@ public class Bitmap {
         if (TileType.OBSTACLE.getColor() == color){
             return TileType.OBSTACLE;
         }
+
+        if (TileType.ROAD.getColor() == color) {
+            return TileType.ROAD;
+        }
+
         return TileType.BLANK;
     }
 
     private int findTileInt(int blue, int green, int red){
-        Color color = Color.cyan;
-        if(blue > 250 && green > 250 && red > 250){
-            color = Color.black;
+        Color color = Color.CYAN;
+
+        if(blue == 0 && green == 0 && red == 0){
+            color = Color.BLACK;
         }
 
         if(blue < 5 && green < 5 && red < 5){
-            color = Color.white;
+            color = Color.WHITE;
         }
 
         if (blue < 5 && green < 5 && red > 250){
-            color = Color.red;
+            color = Color.RED;
+        }
+
+        if (blue < 128 && green < 128 && red < 128){
+            color = Color.GRAY;
         }
 
         if(TileType.GRASS.getColor() == color){
@@ -90,6 +105,10 @@ public class Bitmap {
         if (TileType.OBSTACLE.getColor() == color){
             return 2;
         }
+        if (TileType.ROAD.getColor() == color){
+            return 3;
+        }
+
         return -1;
     }
 
