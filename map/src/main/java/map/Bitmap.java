@@ -14,7 +14,7 @@ public class Bitmap {
     private BufferedImage bitmap;
     private int[][] aiMap;
     private Color[] arrayOfColors = {Color.GREEN, Color.WHITE, Color.RED, Color.GRAY, Color.BLUE, Color.MAGENTA, Color.PINK, Color.YELLOW, Color.CYAN};
-
+    private TileType[] arrayOfTileTypes = {TileType.GRASS, TileType.EARTH, TileType.OBSTACLE, TileType.ROAD, TileType.ROADLINEUP, TileType.ROADLINESIDE, TileType.STLEFT, TileType.STRIGHT, TileType.BLANK};
     public Bitmap(){
         URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
         try {
@@ -50,22 +50,10 @@ public class Bitmap {
     }
 
     private TileType getColorTileType(Color color) {
-        if (TileType.GRASS.getColor() == color) {
-            return TileType.GRASS;
-        }else if (TileType.EARTH.getColor() == color) {
-            return TileType.EARTH;
-        } else if (TileType.OBSTACLE.getColor() == color) {
-            return TileType.OBSTACLE;
-        } else if (TileType.ROAD.getColor() == color) {
-            return TileType.ROAD;
-        } else if (TileType.ROADLINEUP.getColor() == color) {
-            return TileType.ROADLINEUP;
-        } else if (TileType.ROADLINESIDE.getColor() == color) {
-            return TileType.ROADLINESIDE;
-        } else if (TileType.STLEFT.getColor() == color) {
-            return TileType.STLEFT;
-        } else if (TileType.STRIGHT.getColor() == color) {
-            return TileType.STRIGHT;
+        for (TileType tileType : arrayOfTileTypes) {
+            if (tileType.getColor() == color) {
+                return tileType;
+            }
         }
         return TileType.BLANK;
     }
