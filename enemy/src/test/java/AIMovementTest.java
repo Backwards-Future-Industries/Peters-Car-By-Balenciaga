@@ -13,8 +13,6 @@ import utilities.Type;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class AIMovementTest {
 
@@ -34,7 +32,7 @@ class AIMovementTest {
         enemyPlugin.setPosition(new int[]{1, 1});
         gameData = new GameData();
         aIMovement = new AIMovement();
-        map = new CommonMap();
+        map = new concreteMap();
         map.setAiMap(new int[][]{
                 {1, 1, 1, 1, 1},
                 {1, 1, 1, 1, 1},

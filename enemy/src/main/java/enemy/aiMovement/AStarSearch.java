@@ -23,6 +23,7 @@ public class AStarSearch {
         start.setF(start.getH());
         openSet.add(start);
 
+
         while (!openSet.isEmpty()) {
             Node current = openSet.poll();
 
@@ -97,8 +98,8 @@ public class AStarSearch {
 
         // Higher cost for optional paths
         int optionalPathCost = 0;
-        if (this.map[goal.getY()][goal.getX()] == 1) optionalPathCost = 4;
-        if (this.map[goal.getY()][goal.getX()] == 2) optionalPathCost = 8;
+        if (this.map[goal.getY()][goal.getX()] == 1) optionalPathCost = 15;
+        if (this.map[goal.getY()][goal.getX()] == 2) optionalPathCost = 30;
 
         return dx + dy + optionalPathCost;
     }

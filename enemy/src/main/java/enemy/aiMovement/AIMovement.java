@@ -42,6 +42,10 @@ public class AIMovement {
     }
 
     public ArrayList<Inputs> getInputsBasedOnAStar() {
+        if (path.size()==0) {
+            generateInputs(enemyPosition, playerPosition);
+            return inputs;
+        }
         aiShoot();
         int[] goal = new int[2];
         if (path.size() == 1) {
