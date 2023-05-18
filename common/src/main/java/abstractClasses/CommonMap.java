@@ -1,6 +1,6 @@
 package abstractClasses;
 
-public class CommonMap extends Progenitor{
+public abstract class CommonMap extends Progenitor{
     private int[][] aiMap;
 
     public int[][] getAiMap() {
