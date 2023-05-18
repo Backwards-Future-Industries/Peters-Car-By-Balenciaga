@@ -148,6 +148,11 @@ public class CollisionDetection implements IProcessing {
         return allEntities;
     }
 
+    /**
+     * Uses basic box collision to check if two entities collide,
+     * deprecated as ideally we want to use SAT collision detection
+     */
+    @Deprecated
     private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, Shapes[] e1Shapes, Shapes[] e2Shapes) {
         for (Shapes e1Shape: e1Shapes){
             if (e2Pos[0] < e1Pos[0] + e1Shape.getWidth() &&
