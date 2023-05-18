@@ -38,8 +38,8 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     }
 
     @Override
-    public Entity delete(GameData gameEngine) {
-        return null;
+    public void delete(GameData gameData, Entity entity) {
+        gameData.getEntityList(this.enemy.getType()).remove(entity);
     }
 
 

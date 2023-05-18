@@ -6,6 +6,6 @@ import utilities.GameData;
 public interface IPlugin {
 
     Entity create();
-    Entity delete(GameData gameData);
+    void delete(GameData gameData, Entity entity);
 
 }

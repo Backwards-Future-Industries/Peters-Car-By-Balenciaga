@@ -40,14 +40,10 @@ public class PlayerPlugin implements IPlugin, IDrawable {
 
 
     @Override
-    public Entity delete(GameData gameData) {
-        for (Entity entity : gameData.getEntityList(this.newPlayer.getType())) {
-            if (entity.equals(this.newPlayer)) {
-                gameData.getEntityList(this.newPlayer.getType()).remove(this.newPlayer);
-            }
-        }
-        return null;
+    public void delete(GameData gameData, Entity entity) {
+        gameData.getEntityList(this.newPlayer.getType()).remove(entity);
     }
+
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
