@@ -97,7 +97,8 @@ public class AStarSearch {
 
         // Higher cost for optional paths
         int optionalPathCost = 0;
-        if (this.map[goal.getY()][goal.getX()] == 0) optionalPathCost = 1;
+        if (this.map[goal.getY()][goal.getX()] == 1) optionalPathCost = 2;
+        if (this.map[goal.getY()][goal.getX()] == 2) optionalPathCost = 4;
 
         return dx + dy + optionalPathCost;
     }
