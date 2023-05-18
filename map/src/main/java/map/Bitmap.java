@@ -17,7 +17,7 @@ public class Bitmap {
     private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap3.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap7.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -61,13 +61,13 @@ public class Bitmap {
         if (red == 0 && green == 0 && blue == 255) {
             color = Color.BLUE;
         }
-        if (red == 0 && green == 0 && blue == 255) {
+        if (red == 255 && green == 0 && blue == 255) {
             color = Color.MAGENTA;
         }
-        if (red == 255 && green == 195 && blue == 14) {
-            color = Color.ORANGE;
+        if (red == 255 && green == 175 && blue == 175) {
+            color = Color.PINK;
         }
-        if (red == 255 && green == 242 && blue == 0) {
+        if (red == 255 && green == 255 && blue == 0) {
             color = Color.YELLOW;
         }
         return getColorTileType(color);

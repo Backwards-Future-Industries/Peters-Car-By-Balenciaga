@@ -24,7 +24,7 @@ public class Tile extends Entity {
             setSprite(Tile.class.getResource("/mapImages/roadLine.png"), new double[]{1,1});
         }
         if (tileType == tileType.ROADLINESIDE) {
-            setSprite(Tile.class.getResource("/mapImages/roadLine.png"), new double[]{1,1});
+            setSprite(Tile.class.getResource("/mapImages/roadLineSide.png"), new double[]{1,1});
         }
         if (tileType == tileType.STLEFT) {
             setSprite(Tile.class.getResource("/mapImages/STleft.png"), new double[]{1,1});
