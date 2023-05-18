@@ -33,7 +33,7 @@ public class GameEngine{
         this.gameData = gameData;
         this.screenSize = dimension;
         this.userInputs = new UserInputs();
-        this.gameData.getMap();
+        this.gameData.addMap();
         ThreadFactory gameLoopThreadFactory = new OurThreadFactory("GameLoop");
         ThreadFactory drawLoopThreadFactory = new OurThreadFactory("DrawLoop");
         this.gameLoopExecutor = Executors.newSingleThreadScheduledExecutor(gameLoopThreadFactory);

@@ -107,7 +107,7 @@ public class GameData {
         }
     }
 
-    private void addMap(){
+    public void addMap(){
         this.map =  spiLocator.getMap().create(this);
         Layers layer = spiLocator.getiDrawableMap().get(Type.MAP).getLayer();
         addDrawables(spiLocator.getiDrawableMap().get(Type.MAP),layer);
