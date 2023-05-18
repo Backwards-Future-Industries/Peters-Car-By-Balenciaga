@@ -13,6 +13,14 @@ jobs:
         with:
           java-version: '20'
           distribution: 'temurin'
+          
+      - name: Set up virtual X11
+        run: sudo apt-get install xvfb
+      - name: Start virtual frame buffer
+        run: Xvfb :19 -screen 0 1920x1080x16 &
+      - name: set display
+        run: export DISPLAY=:19
+        
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end
       - name: Publish Test Report
