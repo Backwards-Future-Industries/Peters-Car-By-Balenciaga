@@ -17,7 +17,7 @@ public class Bitmap {
     private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap2.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap3.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class Bitmap {
                 int blue = color & 0xff;
                 int green = (color & 0xff00) >> 8;
                 int red = (color & 0xff0000) >> 16;
-                TileType tileType = findTile(blue,green,red);
+                TileType tileType = findTile(red, green, blue);
                 map[x][y] = tileType;
                 aiMap[y][x] = tileTypeToInt(tileType);
             }
@@ -44,22 +44,31 @@ public class Bitmap {
 
     }
 
-    private TileType findTile(int blue, int green, int red){
+    private TileType findTile(int red, int green, int blue){
         Color color = Color.CYAN;
         if(blue == 0 && green == 255 && red == 0){
             color = Color.GREEN;
         }
-        if(blue == 255 && green == 255 && red == 255){
+        if(red == 255 && green == 255 && blue == 255){
             color = Color.WHITE;
         }
-        if (blue == 0 && green == 0 && red == 255){
+        if (red == 255 && green == 0 && blue == 0){
             color = Color.RED;
         }
-        if (blue == 128 && green == 128 && red == 128){
+        if (red == 128 && green == 128 && blue == 128){
             color = Color.GRAY;
         }
         if (red == 0 && green == 0 && blue == 255) {
             color = Color.BLUE;
+        }
+        if (red == 0 && green == 0 && blue == 255) {
+            color = Color.MAGENTA;
+        }
+        if (red == 255 && green == 195 && blue == 14) {
+            color = Color.ORANGE;
+        }
+        if (red == 255 && green == 242 && blue == 0) {
+            color = Color.YELLOW;
         }
         return getColorTileType(color);
     }
@@ -75,6 +84,12 @@ public class Bitmap {
             return TileType.ROAD;
         } else if (TileType.ROADLINEUP.getColor() == color) {
             return TileType.ROADLINEUP;
+        } else if (TileType.ROADLINESIDE.getColor() == color) {
+            return TileType.ROADLINESIDE;
+        } else if (TileType.STLEFT.getColor() == color) {
+            return TileType.STLEFT;
+        } else if (TileType.STRIGHT.getColor() == color) {
+            return TileType.STRIGHT;
         }
         return TileType.BLANK;
     }
