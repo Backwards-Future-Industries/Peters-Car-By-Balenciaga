@@ -37,5 +37,4 @@ public class Tile extends Entity {
 
     }
 
-
 }

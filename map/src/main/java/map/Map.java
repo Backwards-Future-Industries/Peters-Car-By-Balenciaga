@@ -3,10 +3,7 @@ package map;
 import abstractClasses.CommonMap;
 import interfaces.IDrawable;
 import interfaces.IMapService;
-import utilities.GameData;
-import utilities.Layers;
-import utilities.TileType;
-import utilities.Type;
+import utilities.*;
 
 import javax.swing.*;
 import java.awt.*;

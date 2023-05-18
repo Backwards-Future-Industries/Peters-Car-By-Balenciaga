@@ -22,9 +22,7 @@ public class EnemyMovement implements IProcessing {
             ArrayList<Inputs> generatedInputs = aiMovement.getInputsBasedOnAStar();
 
             if (generatedInputs.contains(Inputs.KEY_SPACE)) {
-                if (gameData.getEntityList(Type.BULLET).size() != 3000) {
-                    gameData.addBullet(Type.BULLET, enemy);
-                }
+                gameData.addBullet(Type.BULLET, enemy);
             }
 
             SPIlocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);

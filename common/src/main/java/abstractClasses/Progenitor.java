@@ -1,6 +1,5 @@
 package abstractClasses;
 
-import utilities.Shapes;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
