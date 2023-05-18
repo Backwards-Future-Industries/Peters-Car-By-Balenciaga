@@ -289,4 +289,13 @@ public class GameData {
         }
         System.out.println("--------------------------");
     }
+
+    public void setMap(CommonMap map) {
+        mapLock.lock();
+        try {
+            this.map = map;
+        }finally {
+            mapLock.unlock();
+        }
+    }
 }

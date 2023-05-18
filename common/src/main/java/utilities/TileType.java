@@ -7,6 +7,10 @@ public enum TileType {
     EARTH(Color.WHITE),
     OBSTACLE(Color.RED),
     ROAD(Color.GRAY),
+    ROADLINEUP(Color.BLUE),
+    ROADLINESIDE(Color.MAGENTA),
+    STLEFT(Color.PINK),
+    STRIGHT(Color.YELLOW),
     BLANK(Color.CYAN);
 
     private Color color;

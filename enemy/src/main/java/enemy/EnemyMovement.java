@@ -12,14 +12,20 @@ import java.util.ArrayList;
 
 public class EnemyMovement implements IProcessing {
 
-    private AIMovement aiMovement;
+    private AIMovement aiMovement = new AIMovement();
 
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity enemy : gameData.getEntityList(Type.ENEMY)) {
-            aiMovement = new AIMovement(gameData, enemy);
-            SPIlocator.getSpIlocator().getMovement().defaultMove(aiMovement.getInputsBasedOnAStar(), enemy, gameData);
+            aiMovement.updateData(gameData, enemy);
+            ArrayList<Inputs> generatedInputs = aiMovement.getInputsBasedOnAStar();
+
+            if (generatedInputs.contains(Inputs.KEY_SPACE)) {
+                gameData.addBullet(Type.BULLET, enemy);
+            }
+
+            SPIlocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);
             enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
         }
     }

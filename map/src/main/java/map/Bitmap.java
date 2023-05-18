@@ -7,16 +7,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
 
 public class Bitmap {
 
     private TileType[][] map;
     private BufferedImage bitmap;
     private int[][] aiMap;
-
+    private Color[] arrayOfColors = {Color.GREEN, Color.WHITE, Color.RED, Color.GRAY, Color.BLUE, Color.MAGENTA, Color.PINK, Color.YELLOW, Color.CYAN};
+    private TileType[] arrayOfTileTypes = {TileType.GRASS, TileType.EARTH, TileType.OBSTACLE, TileType.ROAD, TileType.ROADLINEUP, TileType.ROADLINESIDE, TileType.STLEFT, TileType.STRIGHT, TileType.BLANK};
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap1.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -32,89 +32,53 @@ public class Bitmap {
             for (int x = 0; x < bitmap.getWidth(); x++) {
                 //bitmask magic by https://stackoverflow.com/questions/25761438/understanding-bufferedimage-getrgb-output-values
                 int color = bitmap.getRGB(x, y);
-                int blue = color & 0xff;
-                int green = (color & 0xff00) >> 8;
-                int red = (color & 0xff0000) >> 16;
-                TileType TileType = findTile(blue,green,red);
-                map[x][y] = TileType;
-                aiMap[y][x] = findTileInt(blue,green,red);
+                TileType tileType = findTile(color);
+                map[x][y] = tileType;
+                aiMap[y][x] = tileTypeToInt(tileType);
             }
         }
 
     }
 
-    private TileType findTile(int blue, int green, int red){
-        Color color = Color.CYAN;
-
-        if(blue == 0 && green == 255 && red == 0){
-            color = Color.GREEN;
+    private TileType findTile(int pixelColor){
+        for (Color color : arrayOfColors) {
+            if (pixelColor == color.getRGB()) {
+                return getColorTileType(color);
+            }
         }
-
-        if(blue == 255 && green == 255 && red == 255){
-            color = Color.WHITE;
-        }
-
-        if (blue == 0 && green == 0 && red == 255){
-            color = Color.RED;
-        }
-
-        if (blue == 128 && green == 128 && red == 128){
-            color = Color.GRAY;
-        }
-
-        if(TileType.GRASS.getColor() == color){
-            return TileType.GRASS;
-        }
-        if(TileType.EARTH.getColor() == color){
-            return TileType.EARTH;
-        }
-        if (TileType.OBSTACLE.getColor() == color){
-            return TileType.OBSTACLE;
-        }
-
-        if (TileType.ROAD.getColor() == color) {
-            return TileType.ROAD;
-        }
-
         return TileType.BLANK;
     }
 
-    private int findTileInt(int blue, int green, int red){
-        Color color = Color.CYAN;
+    private TileType getColorTileType(Color color) {
+        for (TileType tileType : arrayOfTileTypes) {
+            if (tileType.getColor() == color) {
+                return tileType;
+            }
+        }
+        return TileType.BLANK;
+    }
 
-        if(blue == 0 && green == 0 && red == 0){
-            color = Color.BLACK;
-        }
-
-        if(blue < 5 && green < 5 && red < 5){
-            color = Color.WHITE;
-        }
-
-        if (blue < 5 && green < 5 && red > 250){
-            color = Color.RED;
-        }
-
-        if (blue < 128 && green < 128 && red < 128){
-            color = Color.GRAY;
-        }
-
-        if(TileType.GRASS.getColor() == color){
-            return 0;
-        }
-        if(TileType.EARTH.getColor() == color){
-            return 1;
-        }
-        if (TileType.OBSTACLE.getColor() == color){
+    private int tileTypeToInt(TileType tileType){
+        if(tileType == TileType.GRASS){
             return 2;
         }
-        if (TileType.ROAD.getColor() == color){
+        if(tileType == TileType.EARTH){
+            return 1;
+        }
+        if (tileType == TileType.OBSTACLE){
             return 3;
         }
-
-        return -1;
+        if (tileType == TileType.ROAD) {
+            return 0;
+        }
+        return 0;
     }
 
     public TileType[][] getMap() {
         return map;
+    }
+
+    public int[][] getAiMap() {
+        return aiMap;
     }
 }

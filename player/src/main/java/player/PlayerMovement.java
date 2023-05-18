@@ -1,33 +1,52 @@
 package player;
 
 import abstractClasses.Entity;
-import interfaces.IBulletService;
-import interfaces.IDrawable;
-import interfaces.IMovement;
 import interfaces.IProcessing;
-import utilities.*;
+import utilities.GameData;
+import utilities.Inputs;
+import utilities.SPIlocator;
+import utilities.Type;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
 
 public class PlayerMovement implements IProcessing {
+    private Entity player;
+    private long lastShot = 0;
 
-    private LinkedList<IBulletService> bullets;
+    private int processesPressed = 0;
+    private int bulletsShot = 0;
 
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity player : gameData.getEntityList(Type.PLAYER)) {
-            if (inputs.contains(Inputs.KEY_SPACE)) {
-                if(gameData.getEntityList(Type.BULLET).size() != 3){
-                    gameData.addBullet(Type.BULLET, player);
-                }
-
-            }
-
-            player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
-            player.getSprite().freshRotate(player.getRadians(), player.getPosition());
+            this.player = player;
         }
+        if (player.equals(null)) {
+            return;
+        }
+
+        if (inputs.contains(Inputs.KEY_C)) {
+            processesPressed++;
+            if (processesPressed > 180l) {
+                bulletsShot = 0;
+            }
+            player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(), player, gameData));
+            player.getSprite().freshRotate(player.getRadians(), player.getPosition());
+            return;
+        }
+
+        processesPressed = 0;
+        if (inputs.contains(Inputs.KEY_SPACE) && bulletsShot < 4) {
+            if (System.currentTimeMillis() - lastShot > 200) {
+                bulletsShot++;
+                lastShot = System.currentTimeMillis();
+                gameData.addBullet(Type.BULLET, player);
+            }
+        }
+        player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
+        player.getSprite().freshRotate(player.getRadians(), player.getPosition());
+
+
     }
 
 
