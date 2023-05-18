@@ -17,7 +17,7 @@ public class Bitmap {
     private int[][] aiMap;
 
     public Bitmap(){
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap1.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap2.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
@@ -58,6 +58,9 @@ public class Bitmap {
         if (blue == 128 && green == 128 && red == 128){
             color = Color.GRAY;
         }
+        if (red == 0 && green == 0 && blue == 255) {
+            color = Color.BLUE;
+        }
         return getColorTileType(color);
     }
 
@@ -70,6 +73,8 @@ public class Bitmap {
             return TileType.OBSTACLE;
         } else if (TileType.ROAD.getColor() == color) {
             return TileType.ROAD;
+        } else if (TileType.ROADLINEUP.getColor() == color) {
+            return TileType.ROADLINEUP;
         }
         return TileType.BLANK;
     }
@@ -87,7 +92,7 @@ public class Bitmap {
         if (tileType == TileType.ROAD) {
             return 0;
         }
-        return -1;
+        return 0;
     }
 
     public TileType[][] getMap() {
