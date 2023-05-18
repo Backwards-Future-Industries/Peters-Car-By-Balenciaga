@@ -1,10 +1,8 @@
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utilities.image.Image;
 import utilities.image.ImageLoader;
 
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,7 +32,7 @@ class EntityTest {
     @Test
     void setSprite() {
         URL url = EntityTest.class.getClassLoader().getResource("images/placeholder.png");
-        entity.setSprite(url, new double[]{1,1},true);
+        entity.setSprite(url, new double[]{1,1});
         Image image = ImageLoader.loadImage(url, new double[]{1,1});
         assertTrue(ImageLoader.Comparator(image.getSourceImage(),entity.getSprite().getSourceImage()));
     }
@@ -46,9 +44,4 @@ class EntityTest {
     }
 
 
-    @Test
-    void setRadius() {
-        entity.setRadius(1);
-        assertEquals(1,entity.getRadius());
-    }
 }

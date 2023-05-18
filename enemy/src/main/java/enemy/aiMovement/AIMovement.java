@@ -17,11 +17,12 @@ public class AIMovement {
     private Node enemyNode;
     private Node playerNode;
     private ArrayList<Inputs> inputs;
-
     private List<Node> path;
+    private long timeSinceLastShot;
 
     public AIMovement() {
         this.inputs = new ArrayList<>();
+        this.timeSinceLastShot = System.currentTimeMillis();
     }
 
     public void updateData(GameData gameData, Entity enemyPlugin) {
@@ -37,9 +38,11 @@ public class AIMovement {
         }
         this.aStarSearch = new AStarSearch(gameData.getMap().getAiMap());
         this.path = aStarSearch.findPath(enemyNode, playerNode);
+        this.inputs.clear();
     }
 
     public ArrayList<Inputs> getInputsBasedOnAStar() {
+        aiShoot();
         int[] goal = new int[2];
         if (path.size() == 1) {
             generateInputs(enemyPosition, playerPosition);
@@ -47,10 +50,6 @@ public class AIMovement {
             goal[0] = path.get(1).getX() * 16 + 8;
             goal[1] = path.get(1).getY() * 16 + 8;
             generateInputs(enemyPosition, goal);
-        }
-
-        if (path.size() > 3 && path.size() < 10) {
-            inputs.add(Inputs.KEY_SPACE);
         }
         return inputs;
     }
@@ -82,6 +81,13 @@ public class AIMovement {
             return entity.getPosition();
         }
         return enemyPosition;
+    }
+
+    private void aiShoot() {
+        if (System.currentTimeMillis() - this.timeSinceLastShot > 1000 && this.path.size() < 10) {
+            this.inputs.add(Inputs.KEY_SPACE);
+            this.timeSinceLastShot = System.currentTimeMillis();
+        }
     }
 }
 
