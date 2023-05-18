@@ -18,6 +18,9 @@ public class CollisionDetection implements IProcessing {
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
         for (Entity entity1 : collidableEntities(gameData)){
+
+            if(bulletKiller(entity1,gameData)) continue;
+
             for (Entity entity2: collidableEntities(gameData)){
 
                 //check to see if they are the same entity
@@ -95,7 +98,6 @@ public class CollisionDetection implements IProcessing {
     }
 
 
-
     /**
      * Places entity at the edge of the obstacle, in the direction that
      * entity hit the obstacle from.
@@ -138,6 +140,32 @@ public class CollisionDetection implements IProcessing {
         }
 
         return newPos;
+    }
+
+    /**
+     * A simple way for us to eliminate any bullets that get stuck at the edge of the screen
+     * @param entity any entity
+     * @param gameData the gameData
+     * @return true if entity is a bullet and is outside the screen, false otherwise
+     */
+    private boolean bulletKiller(Entity entity, GameData gameData) {
+
+        int max_x = (int) gameData.getScreenSize().getWidth();
+        int max_y = (int) gameData.getScreenSize().getHeight();
+        int min_x = 0;
+        int min_y = 0;
+
+        if (entity.getType()==Type.BULLET){
+            if (entity.getPosition()[0] > max_x
+                    || entity.getPosition()[0] < min_x
+                    || entity.getPosition()[1] > max_y
+                    || entity.getPosition()[1] < min_y){
+                entity.setHealth(0);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static LinkedList<Entity> collidableEntities(GameData gameData){
