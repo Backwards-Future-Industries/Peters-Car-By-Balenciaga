@@ -47,7 +47,6 @@ public class GameData {
         this.addComponentLock = new ReentrantLock(true);
         this.mapLock = new ReentrantLock(true);
         this.spiLocator = SPIlocator.getSpIlocator();
-        addAllProcess();
     }
 
     private void createMap() {
