@@ -45,6 +45,7 @@ public abstract class Progenitor {
     }
     public void setPosition(int[] position) {
         this.position = position;
+        this.shape.setPosition(position,this.radians);
     }
     public double getRadians() {
         return radians;
@@ -52,6 +53,8 @@ public abstract class Progenitor {
 
     public void setRadians(double radians) {
         this.radians = radians;
+        this.shape.rotate(radians);
+
     }
 
     public void setShape(Shape shape) {

@@ -78,10 +78,10 @@ public class CollisionDetection implements IProcessing {
     private static Vector2D getInterval(Entity entity, Vector2D axis) {
         Vector2D result = new Vector2D(0,0);
 
-        result.setX(axis.dot(Vector2D.pointToVector(entity.getShape().getPositions(entity.getSprite().getRotation())[0])));
+        result.setX(axis.dot(Vector2D.pointToVector(entity.getShape().getRectangle()[0])));
         result.setY(result.getX());
         for (int i = 1; i < 4; i++){
-            double projection = axis.dot(Vector2D.pointToVector(entity.getShape().getPositions(entity.getSprite().getRotation())[i]));
+            double projection = axis.dot(Vector2D.pointToVector(entity.getShape().getRectangle()[i]));
             if (projection < result.getX()){
                 result.setX(projection);
             }

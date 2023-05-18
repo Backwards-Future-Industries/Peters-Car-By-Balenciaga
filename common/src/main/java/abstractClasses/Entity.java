@@ -69,10 +69,4 @@ public abstract class Entity extends Progenitor{
     public Type getType() {
         return type;
     }
-
-    @Override
-    public void setPosition(int[] position) {
-        super.setPosition(position);
-        super.getShape().setPosition(position);
-    }
 }
