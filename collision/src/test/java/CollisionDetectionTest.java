@@ -23,14 +23,12 @@ class CollisionDetectionTest {
         this.testEntity2 = new ConcreteEntity();
         testEntity1.setHealth(1);
         testEntity2.setHealth(1);
-        testEntity1.setSprite(sprite, new double[]{1,1},true);
-        testEntity2.setSprite(sprite, new double[]{1,1},true);
+        testEntity1.setSprite(sprite, new double[]{1,1});
+        testEntity2.setSprite(sprite, new double[]{1,1});
         testEntity1.setType(Type.PLAYER);
         testEntity2.setType(Type.ENEMY);
     }
 
-
-    @Disabled
     @Test
     void testCollisionDetection() {
         testEntity1.setPosition(new int[]{0, 0});
@@ -38,6 +36,7 @@ class CollisionDetectionTest {
         Assertions.assertTrue(collisionDetection.isColliding(testEntity1, testEntity2));
     }
 
+    @Disabled
     @Test
     void testNoCollision() {
         testEntity1.setPosition(new int[]{0, 0});

@@ -32,7 +32,7 @@ class EntityTest {
     @Test
     void setSprite() {
         URL url = EntityTest.class.getClassLoader().getResource("images/placeholder.png");
-        entity.setSprite(url, new double[]{1,1},true);
+        entity.setSprite(url, new double[]{1,1});
         Image image = ImageLoader.loadImage(url, new double[]{1,1});
         assertTrue(ImageLoader.Comparator(image.getSourceImage(),entity.getSprite().getSourceImage()));
     }

@@ -1,6 +1,7 @@
 import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -29,7 +30,7 @@ class GameEngineTest {
         this.dimension = new Dimension(500,700);
         this.gameEngine = new GameEngine(60, gameData, dimension);
     }
-
+    
     @Test
     public void OpenWindowTest(){
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
