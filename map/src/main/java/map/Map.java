@@ -62,7 +62,8 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     // It also adds the mapImages (the graphic for the tiles) as Shapes to an arraylist -
     // so the tiles/shapes can be defined as obstacles, roads ect. and collision control can be performed on the map.
     private void combinedTiles(GameData gameData) {
-        bufferedImage = new BufferedImage(bitmap.getMap().length * 16, bitmap.getMap()[0].length * 16, BufferedImage.TYPE_3BYTE_BGR);
+        bufferedImage = new BufferedImage(bitmap.getMap().length * 16, bitmap.getMap()[0].length * 16,
+                BufferedImage.TYPE_3BYTE_BGR);
         Graphics2D g = bufferedImage.createGraphics();
         TileType[][] map = bitmap.getMap();
 
@@ -105,7 +106,6 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         CommonMap map = gameData.getMap();
         g.drawImage(map.getSprite().getImage(), 0, 0, panel);
     }
-
     @Override
     public Layers getLayer() {
         return Layers.BACKGROUND;
