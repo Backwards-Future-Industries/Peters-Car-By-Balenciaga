@@ -59,19 +59,13 @@ public class Bitmap {
     }
 
     private int tileTypeToInt(TileType tileType){
-        if(tileType == TileType.GRASS){
-            return 2;
-        }
-        if(tileType == TileType.EARTH){
-            return 1;
-        }
-        if (tileType == TileType.OBSTACLE){
-            return 3;
-        }
-        if (tileType == TileType.ROAD) {
-            return 0;
-        }
-        return 0;
+        return switch (tileType) {
+            case GRASS -> 2;
+            case EARTH -> 1;
+            case OBSTACLE -> 3;
+            case ROAD -> 0;
+            default -> 0;
+        };
     }
 
     public TileType[][] getMap() {
