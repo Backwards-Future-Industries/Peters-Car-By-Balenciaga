@@ -20,6 +20,17 @@ jobs:
         run: Xvfb :1 -screen 0 1920x1080x16 &
       - name: set display
         run: export DISPLAY=:1
+      - name: Run coverage test
+        run: mvn clean install
+        env: 
+          DISPLAY: :1
+      - name: Publish test coverage results
+        uses: PavanMudigonda/jacoco-reporter@v4.8
+        with:
+          coverage_results_path: 'coverage/target/site/jacoco-aggregate/jacoco.xml'
+          coverage_report_title: 'Test coverage results'
+          coverage_report_name: 'Test coverage results'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end
