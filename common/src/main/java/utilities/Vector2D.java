@@ -71,6 +71,13 @@ public class Vector2D {
         this.y = yprime;
     }
 
+    public static Vector2D reverseVector(Vector2D vector){
+        Vector2D reverse = new Vector2D();
+        reverse.setX(-vector.getX());
+        reverse.setY(-vector.getY());
+        return reverse;
+    }
+
     @Override
     public String toString() {
         return "Vector2D{" +
