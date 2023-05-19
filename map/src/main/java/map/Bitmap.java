@@ -78,7 +78,16 @@ public class Bitmap {
         return map;
     }
 
+    public void setBitmap(BufferedImage bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public BufferedImage getBitmap() {
+        return bitmap;
+    }
+
     public int[][] getAiMap() {
         return aiMap;
     }
+
 }
