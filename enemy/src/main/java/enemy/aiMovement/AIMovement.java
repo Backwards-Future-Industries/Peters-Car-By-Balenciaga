@@ -16,10 +16,7 @@ public class AIMovement {
     private int[] enemyPosition;
     private int[] playerPosition;
     private Vector2D enemyDirection;
-    private AStarSearch aStarSearch;
-    private Node enemyNode;
-    private Node playerNode;
-    private ArrayList<Inputs> inputs;
+    private final ArrayList<Inputs> inputs;
     private List<Node> path;
 
     public AIMovement() {
@@ -34,14 +31,14 @@ public class AIMovement {
         this.playerPosition = this.getPlayerPosition(gameData);
         this.enemyDirection = enemyPlugin.getDirection();
         this.distance = new Vector2D(playerPosition[0] - enemyPosition[0], playerPosition[1] - enemyPosition[1]).getLength();
-        this.enemyNode = new Node(this.enemyPosition[0] / 16, this.enemyPosition[1] / 16);
-        this.playerNode = new Node(this.playerPosition[0] / 16, this.playerPosition[1] / 16);
-        if (this.playerNode.getX() == 80) this.playerNode.setX(79);
-        if (this.playerNode.getY() == 60) this.playerNode.setY(59);
+        Node enemyNode = new Node(this.enemyPosition[0] / 16, this.enemyPosition[1] / 16);
+        Node playerNode = new Node(this.playerPosition[0] / 16, this.playerPosition[1] / 16);
+        if (playerNode.getX() == 80) playerNode.setX(79);
+        if (playerNode.getY() == 60) playerNode.setY(59);
         if (gameData.getMap().getAiMap() == null) {
             gameData.getMap().setAiMap(new int[80][60]);
         }
-        this.aStarSearch = new AStarSearch(gameData.getMap().getAiMap());
+        AStarSearch aStarSearch = new AStarSearch(gameData.getMap().getAiMap());
         if (aStarSearch.getMap()[playerNode.getY()][playerNode.getX()] > 2) {
             this.path = aStarSearch.findPath(enemyNode, enemyNode);
         } else {
