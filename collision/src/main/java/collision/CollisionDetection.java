@@ -37,7 +37,7 @@ public class CollisionDetection implements IProcessing {
         }
     }
 
-    private boolean isColliding(Entity entity1, Entity entity2) {
+    public boolean isColliding(Entity entity1, Entity entity2) {
         //return isSATCollision(entity1, entity2);
         //in case SAT check somehow fails
         return isBoxCollision(
