@@ -30,6 +30,7 @@ jobs:
           coverage_results_path: 'coverage/target/site/jacoco-aggregate/jacoco.xml'
           coverage_report_title: 'Test coverage results'
           coverage_report_name: 'Test coverage results'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end
