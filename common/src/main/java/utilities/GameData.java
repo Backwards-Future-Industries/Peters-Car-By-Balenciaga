@@ -282,7 +282,7 @@ public class GameData {
     }
 
     private void printStatus() {
-        /*System.out.println("--------------------------");
+        System.out.println("--------------------------");
         for (LinkedList<Entity> linkedList : entityMap.values()) {
             for (Entity entity : linkedList) {
                 System.out.println(entity.getType() + ": " + entity.getPosition()[0] + "," + entity.getPosition()[1]);
@@ -290,7 +290,7 @@ public class GameData {
         }
         System.out.println("--------------------------");
 
-         */
+
     }
 
     public void setMap(CommonMap map) {
