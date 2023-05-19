@@ -46,6 +46,12 @@ jobs:
           reporttypes: Html;MarkdownSummaryGithub
           title: summary
           
+      - name: Upload coverage report artifact
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: coverage # Artifact name        
+          path: coverage # Directory containing files to upload 
+          
       - name: Show Report
         uses: LouisBrunner/checks-action@v1.2.0
         with:
