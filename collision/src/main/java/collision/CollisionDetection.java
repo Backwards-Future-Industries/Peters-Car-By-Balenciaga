@@ -33,23 +33,22 @@ public class CollisionDetection implements IProcessing {
                         if (entity1.getType() != Type.OBSTACLE || entity2.getType() != Type.OBSTACLE){
                            resolveCollision(entity1,entity2);
                         }
-
-                        if (entity1.getType() == Type.OBSTACLE || entity2.getType() == Type.OBSTACLE) {
-                            if (entity1.getType() == Type.OBSTACLE && entity2.getType() == Type.OBSTACLE) {
-                                continue;
-                            }
-                            resolveCollision(entity1, entity2);
-                        }
                     }
                 }
             }
         }
     }
 
-    public boolean isColliding(Entity entity1, Entity entity2) {
+    private boolean isColliding(Entity entity1, Entity entity2) {
         //return isSATCollision(entity1, entity2);
         //in case SAT check somehow fails
-        return isBoxCollision(entity1.getPosition(), entity2.getPosition(), new int[]{entity1.getSprite().getImage().getWidth(), entity1.getSprite().getImage().getHeight()}, new int[]{entity2.getSprite().getImage().getWidth(), entity2.getSprite().getImage().getHeight()});
+        return isBoxCollision(
+                entity1.getPosition(),
+                entity2.getPosition(),
+                new int[]{entity1.getSprite().getImage().getWidth(),
+                        entity1.getSprite().getImage().getHeight()},
+                new int[]{entity2.getSprite().getImage().getWidth(),
+                        entity2.getSprite().getImage().getHeight()});
     }
 
     /**
@@ -60,7 +59,7 @@ public class CollisionDetection implements IProcessing {
      * @param entity2 second shape
      * @return true if colliding, false if not
      */
-    public boolean isSATCollision(Entity entity1, Entity entity2){
+    private boolean isSATCollision(Entity entity1, Entity entity2){
         Vector2D[] axesToCheck = {
                 new Vector2D(1,0), new Vector2D(0,1),
                 new Vector2D(1,0), new Vector2D(0,1)
@@ -106,9 +105,7 @@ public class CollisionDetection implements IProcessing {
 
 
     /**
-     * Resolves the collision between two entities
-     * @param entity1 Entity of Type PLAYER or ENEMY, obstacle is of Type OBSTACLE
-     * @return A new position for Entity1
+     * Resolves the collision between two entities ensuring that they do not overlap
      */
     private void resolveCollision(Entity entity1, Entity entity2){
 
@@ -122,6 +119,7 @@ public class CollisionDetection implements IProcessing {
                 entity1.getSprite().getImage().getHeight(),
                 entity2.getPosition()[1],
                 entity2.getSprite().getImage().getHeight());
+
 
 
         entity1.setPosition(new int[]{entity1.getPosition()[0] + dx, entity1.getPosition()[1] + dy});
