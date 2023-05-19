@@ -5,6 +5,16 @@ import interfaces.ICollision;
 import utilities.Type;
 
 public class Enemy extends Entity implements ICollision {
+    private long lastShot;
+
+    public long getLastShot() {
+        return lastShot;
+    }
+
+    public void setLastShot(long lastShot) {
+        this.lastShot = lastShot;
+    }
+
     @Override
     public void onCollision(Entity collidingEntity) {
         if (collidingEntity.getType() == Type.BULLET) {
