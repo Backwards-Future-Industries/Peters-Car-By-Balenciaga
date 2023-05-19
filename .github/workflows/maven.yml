@@ -44,7 +44,15 @@ jobs:
           reports: coverage/target/site/jacoco-aggregate/jacoco.xml
           targetdir: coverage
           reporttypes: Html;MarkdownSummaryGithub
-        
+          title: corverage
+          
+      - name: Show Report
+        uses: LouisBrunner/checks-action@v1.2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: Code Coverage
+          output_text_description_file: coverage/coverage.md
+          
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end
         env:
