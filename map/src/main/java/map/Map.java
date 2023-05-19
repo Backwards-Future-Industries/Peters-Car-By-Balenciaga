@@ -73,29 +73,22 @@ public class Map extends CommonMap implements IDrawable, IMapService {
             for (int x = 0; x < map[y].length; x++) {
                 TileType tileType = map[y][x];
                 switch (tileType) {
-                    case EARTH ->
-                        g.drawImage(earth.getSprite().getImage(), position[0], position[1], null);
+                    case EARTH -> g.drawImage(earth.getSprite().getImage(), position[0], position[1], null);
 
-                    case GRASS ->
-                        g.drawImage(grass.getSprite().getImage(), position[0], position[1], null);
+                    case GRASS -> g.drawImage(grass.getSprite().getImage(), position[0], position[1], null);
 
-                    case OBSTACLE ->
-                        g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
+                    case OBSTACLE -> g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
 
-                    case ROAD ->
-                        g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
+                    case ROAD -> g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
 
-                    case ROADLINEUP ->
-                        g.drawImage(roadLineUp.getSprite().getImage(), position[0], position[1], null);
+                    case ROADLINEUP -> g.drawImage(roadLineUp.getSprite().getImage(), position[0], position[1], null);
 
                     case ROADLINESIDE ->
-                        g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
+                            g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
 
-                    case STLEFT ->
-                        g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
+                    case STLEFT -> g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
 
-                    case STRIGHT ->
-                        g.drawImage(stRight.getSprite().getImage(), position[0], position[1], null);
+                    case STRIGHT -> g.drawImage(stRight.getSprite().getImage(), position[0], position[1], null);
                 }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
@@ -114,6 +107,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         CommonMap map = gameData.getMap();
         g.drawImage(map.getSprite().getImage(), 0, 0, panel);
     }
+
     @Override
     public Layers getLayer() {
         return Layers.BACKGROUND;
