@@ -172,8 +172,6 @@
                         <workingDirectory>.</workingDirectory>
                         <longModulepath>false</longModulepath>
                         <arguments>
-                            <argument>-Dorg.lwjgl.util.Debug=true</argument>
-                            <argument>-Djava.library.path=libs</argument>
                             <argument>--module-path=mods-mvn</argument>
                             <argument>--class-path=libs/*</argument>
                             <argument>--module=core/main.Main</argument>
@@ -201,9 +199,6 @@
                             <filesets>
                                 <fileset>
                                     <directory>mods-mvn</directory>
-                                </fileset>
-                                <fileset>
-                                    <directory>libs</directory>
                                 </fileset>
                             </filesets>
                         </configuration>
