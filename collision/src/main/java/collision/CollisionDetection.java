@@ -5,7 +5,6 @@ import interfaces.ICollision;
 import interfaces.IProcessing;
 import utilities.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -32,20 +31,25 @@ public class CollisionDetection implements IProcessing {
                         ((ICollision) entity1).onCollision(entity2);
                         ((ICollision) entity2).onCollision(entity1);
                         if (entity1.getType() != Type.OBSTACLE || entity2.getType() != Type.OBSTACLE){
-                            entity1.setPosition(obstacleCollision(entity1,entity2));
-                            entity2.setPosition(obstacleCollision(entity2,entity1));
+                           resolveCollision(entity1,entity2);
                         }
 
                         if (entity1.getType() == Type.OBSTACLE || entity2.getType() == Type.OBSTACLE) {
                             if (entity1.getType() == Type.OBSTACLE && entity2.getType() == Type.OBSTACLE) {
                                 continue;
                             }
-                            entity1.setPosition(obstacleCollision(entity1, entity2));
+                            resolveCollision(entity1, entity2);
                         }
                     }
                 }
             }
         }
+    }
+
+    public boolean isColliding(Entity entity1, Entity entity2) {
+        //return isSATCollision(entity1, entity2);
+        //in case SAT check somehow fails
+        return isBoxCollision(entity1.getPosition(), entity2.getPosition(), new int[]{entity1.getSprite().getImage().getWidth(), entity1.getSprite().getImage().getHeight()}, new int[]{entity2.getSprite().getImage().getWidth(), entity2.getSprite().getImage().getHeight()});
     }
 
     /**
@@ -56,7 +60,7 @@ public class CollisionDetection implements IProcessing {
      * @param entity2 second shape
      * @return true if colliding, false if not
      */
-    public boolean isColliding(Entity entity1, Entity entity2) {
+    public boolean isSATCollision(Entity entity1, Entity entity2){
         Vector2D[] axesToCheck = {
                 new Vector2D(1,0), new Vector2D(0,1),
                 new Vector2D(1,0), new Vector2D(0,1)
@@ -70,9 +74,7 @@ public class CollisionDetection implements IProcessing {
                 return false;
             }
         }
-
-        //in case SAT check somehow fails
-        return isBoxCollision(entity1.getPosition(), entity2.getPosition(), new int[]{entity1.getSprite().getImage().getWidth(), entity1.getSprite().getImage().getHeight()}, new int[]{entity2.getSprite().getImage().getWidth(), entity2.getSprite().getImage().getHeight()});
+        return true;
     }
 
     //SAT helper method
@@ -104,50 +106,52 @@ public class CollisionDetection implements IProcessing {
 
 
     /**
-     * Places entity at the edge of the obstacle, in the direction that
-     * entity hit the obstacle from.
-     * @param entity Entity of Type PLAYER or ENEMY, obstacle is of Type OBSTACLE
+     * Resolves the collision between two entities
+     * @param entity1 Entity of Type PLAYER or ENEMY, obstacle is of Type OBSTACLE
      * @return A new position for Entity1
      */
-    private int[] obstacleCollision(Entity entity, Entity obstacle){
+    private void resolveCollision(Entity entity1, Entity entity2){
 
-        int[] newPos = new int[]{0,0};
+        int dx =  calculateMTV(
+                entity1.getPosition()[0],
+                entity1.getSprite().getImage().getWidth(),
+                entity2.getPosition()[0],
+                entity2.getSprite().getImage().getWidth());
+        int dy =  calculateMTV(
+                entity1.getPosition()[1],
+                entity1.getSprite().getImage().getHeight(),
+                entity2.getPosition()[1],
+                entity2.getSprite().getImage().getHeight());
 
-        int[] ePos = entity.getPosition();
-        int[] oPos = obstacle.getPosition();
 
-        //Getting the dimensions of both entities
-        int[] entityDimensions = new int[]{entity.getSprite().getImage().getWidth(),
-                entity.getSprite().getImage().getHeight()};
-        int[] obstacleDimensions = new int[]{obstacle.getSprite().getImage().getWidth(),
-                obstacle.getSprite().getImage().getHeight()};
-
-        //Entity is above obstacle
-        if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = ePos[0];
-            newPos[1] = oPos[1] - entityDimensions[1] - obstacleDimensions[1];
-        }
-
-        //Entity is below obstacle
-        if (ePos[0] < oPos[0] && ePos[1] > oPos[1]){
-            newPos[0] = ePos[0];
-            newPos[1] = oPos[1] + entityDimensions[1] + obstacleDimensions[1];
-        }
-
-        //Entity is to the left of obstacle
-        if (ePos[0] > oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = oPos[0] - entityDimensions[0] - obstacleDimensions[0];
-            newPos[1] = ePos[1];
-        }
-
-        //Entity is to the right of obstacle
-        if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = oPos[0] + entityDimensions[0] + obstacleDimensions[0];
-            newPos[1] = ePos[1];
-        }
-
-        return newPos;
+        entity1.setPosition(new int[]{entity1.getPosition()[0] + dx, entity1.getPosition()[1] + dy});
     }
+
+    /**
+     * Helper method for
+     * Calculates the minimum translation vector for a collision between two entities
+     */
+    private int calculateMTV(int posA, int sizeA, int posB, int sizeB) {
+        int halfA = sizeA / 2;
+        int halfB = sizeB / 2;
+
+        int centerA = posA + halfA;
+        int centerB = posB + halfB;
+
+        int distance = Math.abs(centerA - centerB);
+        int overlap = halfA + halfB - distance;
+
+        if (overlap > 0) {
+            if (centerA < centerB) {
+                return -overlap;
+            } else {
+                return overlap;
+            }
+        }
+
+        return 0;
+    }
+
 
     /**
      * A simple way for us to eliminate any bullets that get stuck at the edge of the screen
