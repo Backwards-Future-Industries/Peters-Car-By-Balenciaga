@@ -44,7 +44,7 @@ jobs:
           reports: coverage/target/site/jacoco-aggregate/jacoco.xml
           targetdir: coverage
           reporttypes: Html;MarkdownSummaryGithub
-          title: corverage
+          title: summary
           
       - name: Show Report
         uses: LouisBrunner/checks-action@v1.2.0
@@ -52,7 +52,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Code Coverage
           conclusion: ${{ job.status }}
-          output_text_description_file: coverage/coverage.md
+          output: "{\"summary\":\"coverage\"}"
+          output_text_description_file: coverage/summary.md
           
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end
