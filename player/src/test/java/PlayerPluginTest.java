@@ -43,7 +43,7 @@ public class PlayerPluginTest {
         iPlugin.delete(gameData, gameData.getEntityList(Type.PLAYER).get(0));
 
         //Assert
-        Assertions.assertEquals(entityMap, gameData.getEntityList(Type.PLAYER));
+        Assertions.assertEquals(entityMap,gameData.getEntityList(Type.PLAYER));
     }
 }
 
