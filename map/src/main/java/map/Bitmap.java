@@ -35,7 +35,7 @@ public class Bitmap {
             TileType.BLANK};
 
     public Bitmap() {
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap12.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap13.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
