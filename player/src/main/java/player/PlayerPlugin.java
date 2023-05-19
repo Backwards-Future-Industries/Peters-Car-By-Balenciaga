@@ -1,17 +1,16 @@
 package player;
 
-import interfaces.*;
 import abstractClasses.Entity;
+import interfaces.IDrawable;
+import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Type;
-import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
-import java.util.UUID;
 
 public class PlayerPlugin implements IPlugin, IDrawable {
 

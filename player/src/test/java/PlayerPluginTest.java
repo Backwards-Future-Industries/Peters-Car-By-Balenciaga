@@ -1,9 +1,7 @@
 import abstractClasses.Entity;
 import interfaces.IPlugin;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import player.Player;
 import player.PlayerPlugin;
 import utilities.GameData;
 import utilities.Type;

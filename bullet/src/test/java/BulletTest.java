@@ -1,5 +1,5 @@
 import abstractClasses.Entity;
-import grillBullet.BulletPlugin;
+import bullet.BulletPlugin;
 import interfaces.IBulletService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
