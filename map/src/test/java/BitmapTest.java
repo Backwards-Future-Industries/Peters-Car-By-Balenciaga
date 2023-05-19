@@ -30,11 +30,8 @@ public class BitmapTest {
     @Test
     public void setBitmap() {
         BufferedImage testBitmap = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
-
         bitmap.setBitmap(testBitmap);
-
         Assertions.assertEquals(testBitmap, bitmap.getBitmap());
-
     }
 
     @Test
@@ -43,27 +40,41 @@ public class BitmapTest {
         // Perform assertions on the aiMap
         Assertions.assertNotNull(aiMap);
     }
+
     @Test
     public void loadMap() {
-        // Simulate a bitmap with known colors
+        // Simulate a bitmap with known colors in a 2x2 bitmap
         BufferedImage testBitmap = new BufferedImage(2, 2, BufferedImage.TYPE_3BYTE_BGR);
         testBitmap.setRGB(0, 0, Color.GREEN.getRGB());
         testBitmap.setRGB(0, 1, Color.RED.getRGB());
         testBitmap.setRGB(1, 0, Color.BLUE.getRGB());
         testBitmap.setRGB(1, 1, Color.YELLOW.getRGB());
-
-        // Replace the bitmap with the test bitmap
+        // The bitmap gets replaced with the test bitmap
         bitmap.setBitmap(testBitmap);
-
         // Call the loadMap method
         bitmap.loadMap();
-
         // Retrieve the map and perform assertions
         TileType[][] map = bitmap.getMap();
         Assertions.assertEquals(TileType.GRASS, map[0][0]);
         Assertions.assertEquals(TileType.OBSTACLE, map[0][1]);
         Assertions.assertEquals(TileType.ROADLINEUP, map[1][0]);
         Assertions.assertEquals(TileType.STRIGHT, map[1][1]);
+    }
+
+    @Test
+    public void testConstructor() {
+        // Arrange
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
+
+        // Act
+        Bitmap bitmap = new Bitmap();
+
+        // Assert
+        Assertions.assertNotNull(bitmap.getMap());
+        Assertions.assertNotNull(bitmap.getAiMap());
+        Assertions.assertTrue(bitmap.getMap().length > 0);
+        Assertions.assertTrue(bitmap.getAiMap().length > 0);
+        // Additional assertions based on your specific requirements
     }
 
 
