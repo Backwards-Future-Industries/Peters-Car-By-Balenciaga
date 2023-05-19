@@ -51,6 +51,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Code Coverage
+          conclusion: ${{ job.status }}
           output_text_description_file: coverage/coverage.md
           
       - name: Build and Run Tests
