@@ -1,4 +1,3 @@
-
 import map.Tile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,7 +6,7 @@ import utilities.TileType;
 
 import java.awt.*;
 
-class TileTest {
+public class TileTest {
 
     Tile tile;
     TileType tileType;
@@ -17,7 +16,7 @@ class TileTest {
     public void setup(){
 
     }
-
+    // Tests if the bitmaps color correlates to the visual tiles
     @Test
     public void TileGrass() {
         tileType = TileType.GRASS;
@@ -52,7 +51,7 @@ class TileTest {
         Assertions.assertEquals(expectedColor, tileType.getColor());
     }
     @Test
-    public void RoadLineUp() {
+    public void TileRoadLineUp() {
         tileType = TileType.ROADLINEUP;
         tileType.getColor();
         tile = new Tile(tileType);
@@ -60,7 +59,7 @@ class TileTest {
         Assertions.assertEquals(expectedColor, tileType.getColor());
     }
     @Test
-    public void RoadLineSide() {
+    public void TileRoadLineSide() {
 
         tileType = TileType.ROADLINESIDE;
         tileType.getColor();
@@ -69,7 +68,7 @@ class TileTest {
         Assertions.assertEquals(expectedColor, tileType.getColor());
     }
     @Test
-    public void STLEFT() {
+    public void TilestLeft() {
 
         tileType = TileType.STLEFT;
         tileType.getColor();
@@ -78,7 +77,7 @@ class TileTest {
         Assertions.assertEquals(expectedColor, tileType.getColor());
     }
     @Test
-    public void STRIGHT() {
+    public void TilestRight() {
         tileType = TileType.STRIGHT;
         tileType.getColor();
         tile = new Tile(tileType);
