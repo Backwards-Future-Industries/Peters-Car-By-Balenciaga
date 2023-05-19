@@ -14,43 +14,55 @@ import utilities.Vector2D;
 import java.util.LinkedList;
 
 public class PlayerPluginTest {
-    private int[] position;
-    private Entity playerPlugin;
-    private Entity entity;
-    private IPlugin iPlugin;
-    @Mock
     private GameData gameData;
-    private LinkedList<IPlugin> entityMap;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
         this.gameData = new GameData();
-        this.iPlugin = new PlayerPlugin();
-        this.entityMap = new LinkedList<>();
-        this.entity = iPlugin.create();
-        this.gameData.addNewEntity(entity);
-        this.playerPlugin = new Player();
-        this.playerPlugin.setPosition(new int[]{700, 500});
-        this.position = new int[]{700, 500};
+
+
     }
 
     @Test
     public void testPosition() {
-        Assertions.assertEquals(this.position[0], playerPlugin.getPosition()[0]);
-        Assertions.assertEquals(this.position[1], playerPlugin.getPosition()[1]);
+        //Arange
+        Entity playerPlugin = new Player();
+
+        //Act
+        playerPlugin.setPosition(new int[]{700, 500});
+        int[] position = new int[]{700, 500};
+
+        //Assert
+        Assertions.assertEquals(position[0], playerPlugin.getPosition()[0]);
+        Assertions.assertEquals(position[1], playerPlugin.getPosition()[1]);
     }
 
     @Test
     public void testCreation() {
-        Assertions.assertEquals(this.entity.getType(), Type.PLAYER);
-        Assertions.assertEquals(this.entity.getDirection().getClass(), Vector2D.class);
+        //Arange
+        IPlugin iPlugin = new PlayerPlugin();
+
+        //Act
+        Entity entity = iPlugin.create();
+
+        //Assert
+        Assertions.assertEquals(entity.getType(), Type.PLAYER);
+        Assertions.assertEquals(entity.getDirection().getClass(), Vector2D.class);
     }
 
     @Test
-    public void testDelete(){
-       Assertions.assertEquals(gameData.getEntityList(Type.PLAYER).get(0).getType(),Type.PLAYER);
-       this.iPlugin.delete(gameData,gameData.getEntityList(Type.PLAYER).get(0));
-        Assertions.assertEquals( this.entityMap,gameData.getEntityList(Type.PLAYER));
+    public void testDelete() {
+        //Arange
+        LinkedList<Entity> entityMap = new LinkedList<>();
+        IPlugin iPlugin = new PlayerPlugin()
+        ;
+
+        //Act
+        this.gameData.addNewEntity(iPlugin.create());
+        iPlugin.delete(gameData, gameData.getEntityList(Type.PLAYER).get(0));
+
+        //Asert
+        Assertions.assertEquals(entityMap, gameData.getEntityList(Type.PLAYER));
     }
 }
 
