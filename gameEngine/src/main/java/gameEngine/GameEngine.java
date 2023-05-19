@@ -15,7 +15,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
-public class GameEngine{
+public class GameEngine {
 
     private int framerate;
     private UserInputs userInputs;
@@ -43,20 +43,20 @@ public class GameEngine{
         start();
     }
 
-    private void openWindow(){
+    private void openWindow() {
         window = new JFrame();
-        this.panel = new JPanel(){
-          @Override
-          public void paintComponent(Graphics g) {
-              super.paintComponent(g);
-              Graphics2D g2d = (Graphics2D) g;
-              AffineTransform backup = g2d.getTransform();
+        this.panel = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                AffineTransform backup = g2d.getTransform();
 
-              for (IDrawable entity : gameData.getDrawables()) {
-                  entity.draw(g2d,panel,gameData);
-                  g2d.setTransform(backup);
-              }
-          }
+                for (IDrawable entity : gameData.getDrawables()) {
+                    entity.draw(g2d, panel, gameData);
+                    g2d.setTransform(backup);
+                }
+            }
         };
 
         gameData.setScreenSize(screenSize);
@@ -71,23 +71,23 @@ public class GameEngine{
         window.setVisible(true);
     }
 
-    private void start(){
+    private void start() {
         //https://stackoverflow.com/a/34179907
         drawLoopExecutor.scheduleAtFixedRate(new gameEngine.DrawLoop(this),
-                0,1000/framerate,TimeUnit.MILLISECONDS);
-        gameLoopExecutor.scheduleAtFixedRate(new gameEngine.GameLoop(new UserInputs().getInputs(),this),
-                0,1000/framerate, TimeUnit.MILLISECONDS);
+                0, 1000 / framerate, TimeUnit.MILLISECONDS);
+        gameLoopExecutor.scheduleAtFixedRate(new gameEngine.GameLoop(new UserInputs().getInputs(), this),
+                0, 1000 / framerate, TimeUnit.MILLISECONDS);
     }
 
-    protected ArrayList<Inputs> getInputs(){
+    protected ArrayList<Inputs> getInputs() {
         return userInputs.getInputs();
     }
 
-    protected void updateWindow(){
+    protected void updateWindow() {
         panel.repaint();
     }
 
-    protected void stop(){
+    protected void stop() {
         drawLoopExecutor.shutdown();
         gameLoopExecutor.shutdown();
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
@@ -101,8 +101,9 @@ public class GameEngine{
         return gameData;
     }
 
-    public void createInitialComponents(){
+    public void createInitialComponents() {
         gameData.AddComponent(Type.PLAYER);
         gameData.AddComponent(Type.ENEMY);
+
     }
 }

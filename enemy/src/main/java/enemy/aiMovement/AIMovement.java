@@ -1,6 +1,7 @@
 package enemy.aiMovement;
 
 import abstractClasses.Entity;
+import enemy.Enemy;
 import utilities.GameData;
 import utilities.Inputs;
 import utilities.Type;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AIMovement {
+    private Enemy enemyPlugin;
+    private double distance;
     private int[] enemyPosition;
     private int[] playerPosition;
     private Vector2D enemyDirection;
@@ -18,17 +21,19 @@ public class AIMovement {
     private Node playerNode;
     private ArrayList<Inputs> inputs;
     private List<Node> path;
-    private long timeSinceLastShot;
 
     public AIMovement() {
         this.inputs = new ArrayList<>();
-        this.timeSinceLastShot = System.currentTimeMillis();
     }
 
     public void updateData(GameData gameData, Entity enemyPlugin) {
+        if (enemyPlugin instanceof Enemy) {
+            this.enemyPlugin = ((Enemy) enemyPlugin);
+        }
         this.enemyPosition = enemyPlugin.getPosition();
         this.playerPosition = this.getPlayerPosition(gameData);
         this.enemyDirection = enemyPlugin.getDirection();
+        this.distance = new Vector2D(playerPosition[0] - enemyPosition[0], playerPosition[1] - enemyPosition[1]).getLength();
         this.enemyNode = new Node(this.enemyPosition[0] / 16, this.enemyPosition[1] / 16);
         this.playerNode = new Node(this.playerPosition[0] / 16, this.playerPosition[1] / 16);
         if (this.playerNode.getX() == 80) this.playerNode.setX(79);
@@ -37,12 +42,16 @@ public class AIMovement {
             gameData.getMap().setAiMap(new int[80][60]);
         }
         this.aStarSearch = new AStarSearch(gameData.getMap().getAiMap());
-        this.path = aStarSearch.findPath(enemyNode, playerNode);
+        if (aStarSearch.getMap()[playerNode.getY()][playerNode.getX()] > 2) {
+            this.path = aStarSearch.findPath(enemyNode, enemyNode);
+        } else {
+            this.path = aStarSearch.findPath(enemyNode, playerNode);
+        }
         this.inputs.clear();
     }
 
     public ArrayList<Inputs> getInputsBasedOnAStar() {
-        if (path.size()==0) {
+        if (path.size() == 0) {
             generateInputs(enemyPosition, playerPosition);
             return inputs;
         }
@@ -78,19 +87,17 @@ public class AIMovement {
 
     private int[] getPlayerPosition(GameData gameData) {
         for (Entity entity : gameData.getEntityList(Type.PLAYER)) {
-            for (Entity obstacle : gameData.getEntityList(Type.OBSTACLE))
-                if (entity.getPosition()[0] == obstacle.getPosition()[0] && entity.getPosition()[1] == obstacle.getPosition()[1]) {
-                    return enemyPosition;
-                }
             return entity.getPosition();
         }
         return enemyPosition;
     }
 
     private void aiShoot() {
-        if (System.currentTimeMillis() - this.timeSinceLastShot > 1000 && this.path.size() < 10) {
-            this.inputs.add(Inputs.KEY_SPACE);
-            this.timeSinceLastShot = System.currentTimeMillis();
+        if (enemyPlugin != null) {
+            if (System.currentTimeMillis() - this.enemyPlugin.getLastShot() > 2000 && this.distance < 150 && this.distance > 10) {
+                this.inputs.add(Inputs.KEY_SPACE);
+                this.enemyPlugin.setLastShot(System.currentTimeMillis());
+            }
         }
     }
 }
