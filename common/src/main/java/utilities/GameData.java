@@ -15,10 +15,11 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData {
-    private Map<Type, LinkedList<Entity>> entityMap;
+    private Map<Type,CopyOnWriteArrayList<Entity>> entityMap;
     private List<IProcessing> processes;
     private List<IDrawable> foreground;
     private List<IDrawable> middleground;
@@ -34,8 +35,9 @@ public class GameData {
     private CommonMap map;
     private SPIlocator spiLocator;
 
-    public GameData() {
-        this.entityMap = new HashMap<Type, LinkedList<Entity>>();
+
+    public GameData(){
+        this.entityMap = new HashMap<Type,CopyOnWriteArrayList<Entity>>();
         createMap();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
@@ -50,9 +52,10 @@ public class GameData {
         addAllProcess();
     }
 
-    private void createMap() {
-        for (Type type : Type.values()) {
-            this.entityMap.put(type, new LinkedList<Entity>());
+
+    private void createMap(){
+        for (Type type : Type.values()){
+            this.entityMap.put(type,new CopyOnWriteArrayList<Entity>());
         }
     }
 
@@ -133,7 +136,7 @@ public class GameData {
      * @return List of all entities that's inbound for the game.
      */
 
-    public LinkedList<Entity> getEntityList(Type type) {
+    public CopyOnWriteArrayList<Entity> getEntityList(Type type) {
         newLock.lock();
         try {
             return this.entityMap.get(type);
@@ -283,9 +286,9 @@ public class GameData {
 
     private void printStatus() {
         System.out.println("--------------------------");
-        for (LinkedList<Entity> linkedList : entityMap.values()) {
-            for (Entity entity : linkedList) {
-                System.out.println(entity.getType() + ": " + entity.getPosition()[0] + "," + entity.getPosition()[1]);
+        for (CopyOnWriteArrayList<Entity> linkedList : entityMap.values()){
+            for(Entity entity : linkedList){
+                System.out.println(entity.getType() +": " + entity.getPosition()[0]+","+entity.getPosition()[1]);
             }
         }
         System.out.println("--------------------------");
