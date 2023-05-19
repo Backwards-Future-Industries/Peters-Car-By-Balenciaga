@@ -15,11 +15,11 @@ public enum TileType {
 
     private Color color;
 
-    public Color getColor(){
+    public Color getColor() {
         return this.color;
     }
 
-    private TileType(Color color){
+    private TileType(Color color) {
         this.color = color;
     }
 
