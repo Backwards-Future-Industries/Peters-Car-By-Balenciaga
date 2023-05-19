@@ -27,7 +27,7 @@ public class PlayerMovement implements IProcessing {
 
         if (inputs.contains(Inputs.KEY_C)) {
             processesPressed++;
-            if (processesPressed > 180l) {
+            if (processesPressed > 120) {
                 bulletsShot = 0;
             }
             player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(), player, gameData));

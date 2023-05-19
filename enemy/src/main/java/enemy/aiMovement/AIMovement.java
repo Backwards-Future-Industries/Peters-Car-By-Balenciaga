@@ -11,12 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AIMovement {
+    private final ArrayList<Inputs> inputs;
     private Enemy enemyPlugin;
     private double distance;
     private int[] enemyPosition;
     private int[] playerPosition;
     private Vector2D enemyDirection;
-    private final ArrayList<Inputs> inputs;
     private List<Node> path;
 
     public AIMovement() {
@@ -33,8 +33,12 @@ public class AIMovement {
         this.distance = new Vector2D(playerPosition[0] - enemyPosition[0], playerPosition[1] - enemyPosition[1]).getLength();
         Node enemyNode = new Node(this.enemyPosition[0] / 16, this.enemyPosition[1] / 16);
         Node playerNode = new Node(this.playerPosition[0] / 16, this.playerPosition[1] / 16);
-        if (playerNode.getX() == 80) playerNode.setX(79);
-        if (playerNode.getY() == 60) playerNode.setY(59);
+
+        enemyNode.setX(Math.min(enemyNode.getX(), 79));
+        enemyNode.setY(Math.min(enemyNode.getY(), 59));
+        playerNode.setX(Math.min(playerNode.getX(), 79));
+        playerNode.setY(Math.min(playerNode.getY(), 59));
+
         if (gameData.getMap().getAiMap() == null) {
             gameData.getMap().setAiMap(new int[80][60]);
         }
@@ -91,7 +95,7 @@ public class AIMovement {
 
     private void aiShoot() {
         if (enemyPlugin != null) {
-            if (System.currentTimeMillis() - this.enemyPlugin.getLastShot() > 2000 && this.distance < 150 && this.distance > 10) {
+            if (System.currentTimeMillis() - this.enemyPlugin.getLastShot() > 2000 && this.distance < 250 && this.distance > 10) {
                 this.inputs.add(Inputs.KEY_SPACE);
                 this.enemyPlugin.setLastShot(System.currentTimeMillis());
             }

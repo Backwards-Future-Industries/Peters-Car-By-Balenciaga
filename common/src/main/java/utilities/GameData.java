@@ -79,7 +79,7 @@ public class GameData {
         }
     }
 
-    public void  AddComponent(Type type){
+    public void addComponent(Type type){
         addComponentLock.lock();
         try {
             Layers layer = spiLocator.getiDrawableMap().get(type).getLayer();
@@ -97,7 +97,7 @@ public class GameData {
     public void addBullet(Type type, Entity entity){
         addComponentLock.lock();
         try {
-            Entity bullet = spiLocator.getBullet().create(entity.getPosition(),entity.getRadians());
+            Entity bullet = spiLocator.getBullet().create(entity);
             entityMap.get(type).add(bullet);
 
 
