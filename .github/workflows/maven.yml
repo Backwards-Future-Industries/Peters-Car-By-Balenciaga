@@ -28,7 +28,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: unit-tests-jacoco
-          path: coverage/target/site/jacoco-aggregate/index.html
+          path: coverage/target/site
         
       - name: Build and Run Tests
         run: mvn test --batch-mode --fail-at-end
