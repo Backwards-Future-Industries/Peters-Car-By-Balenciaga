@@ -114,7 +114,6 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         CommonMap map = gameData.getMap();
         g.drawImage(map.getSprite().getImage(), 0, 0, panel);
     }
-
     @Override
     public Layers getLayer() {
         return Layers.BACKGROUND;

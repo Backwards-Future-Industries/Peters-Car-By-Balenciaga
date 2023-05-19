@@ -1,6 +1,6 @@
 import map.Tile;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import utilities.TileType;
 
@@ -12,10 +12,6 @@ public class TileTest {
     TileType tileType;
     Color expectedColor;
 
-    @BeforeEach
-    public void setup(){
-
-    }
     // Tests if the bitmaps color correlates to the visual tiles
     @Test
     public void TileGrass() {

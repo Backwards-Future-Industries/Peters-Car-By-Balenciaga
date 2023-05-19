@@ -15,9 +15,12 @@ public class BitmapTest {
     private Bitmap bitmap;
 
 
+
+
     @BeforeEach
     public void setUp() {
         bitmap = new Bitmap();
+
     }
 
     @Test
@@ -63,13 +66,8 @@ public class BitmapTest {
 
     @Test
     public void testConstructor() {
-        // Arrange
         URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
-
-        // Act
         Bitmap bitmap = new Bitmap();
-
-        // Assert
         Assertions.assertNotNull(bitmap.getMap());
         Assertions.assertNotNull(bitmap.getAiMap());
         Assertions.assertTrue(bitmap.getMap().length > 0);
