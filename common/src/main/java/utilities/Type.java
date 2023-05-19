@@ -8,6 +8,7 @@ public enum Type {
     BULLET,
     OBSTACLE,
     UNDEFINED,
-    MAP
+    MAP,
+    COLLISION
 
 }

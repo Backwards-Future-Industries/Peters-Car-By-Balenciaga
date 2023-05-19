@@ -42,17 +42,20 @@ public class Image {
     public BufferedImage getImage() {
         return image;
     }
+
     public void scale(double sx, double sy){
         scaleTransform = AffineTransform.getScaleInstance(sx,sy);
         AffineTransformOp op = new AffineTransformOp(scaleTransform, AffineTransformOp.TYPE_BILINEAR);
         image = op.filter(sourceImage,image);
 
     }
+
     public void rotate(double addition, int[] position){
         rotation = rotation + addition;
         transform = AffineTransform.getRotateInstance(rotation,position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
         transform.transform(sourceRectangle,0,transformedRectangle,0,4);
     }
+
     public void freshRotate(double radians, int[] position){
         rotation = radians;
         transform = AffineTransform.getRotateInstance(rotation, position[0]+image.getWidth()/2,position[1]+image.getHeight()/2);
@@ -65,5 +68,18 @@ public class Image {
 
     public Point[] getPoints() {
         return (Point[]) transformedRectangle;
+    }
+
+    /**
+     * Redo the source rectangle to the given x and y in point [0]
+     */
+    public void redoSourceRectangle(int x, int y){
+
+        sourceRectangle[0] = new Point(x,y);
+        sourceRectangle[1] = new Point(x+image.getWidth(),y );
+        sourceRectangle[2] = new Point(x+image.getWidth(),y+image.getHeight());
+        sourceRectangle[3] = new Point(x,y+image.getHeight());
+
+        this.transformedRectangle = sourceRectangle.clone();
     }
 }

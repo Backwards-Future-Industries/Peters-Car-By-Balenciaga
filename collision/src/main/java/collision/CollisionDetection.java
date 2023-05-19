@@ -5,11 +5,15 @@ import interfaces.ICollision;
 import interfaces.IProcessing;
 import utilities.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class CollisionDetection implements IProcessing {
+
+    private int max_x;
+    private int max_y;
+    private final int min_x = 0;
+    private final int min_y = 0;
 
     public CollisionDetection() {
     }
@@ -17,7 +21,11 @@ public class CollisionDetection implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
-        for (Entity entity1 : collidableEntities(gameData)){
+        for (Entity entity1: collidableEntities(gameData)){
+
+            setMinMaxValues(gameData);
+            if(bulletKiller(entity1,gameData)) continue;
+
             for (Entity entity2: collidableEntities(gameData)){
 
                 //check to see if they are the same entity
@@ -28,17 +36,23 @@ public class CollisionDetection implements IProcessing {
                     if (this.isColliding(entity1,entity2)){
                         ((ICollision) entity1).onCollision(entity2);
                         ((ICollision) entity2).onCollision(entity1);
-
-                        if (entity1.getType() == Type.OBSTACLE || entity2.getType() == Type.OBSTACLE) {
-                            if (entity1.getType() == Type.OBSTACLE && entity2.getType() == Type.OBSTACLE) {
-                                continue;
-                            }
-                            entity1.setPosition(obstacleCollision(entity1, entity2));
-                        }
+                        avoidOverlap(entity1,entity2);
                     }
                 }
             }
         }
+    }
+
+    public boolean isColliding(Entity entity1, Entity entity2) {
+        //return isSATCollision(entity1, entity2);
+        //in case SAT check somehow fails
+        return isBoxCollision(
+                entity1.getPosition(),
+                entity2.getPosition(),
+                new int[]{entity1.getSprite().getImage().getWidth(),
+                        entity1.getSprite().getImage().getHeight()},
+                new int[]{entity2.getSprite().getImage().getWidth(),
+                        entity2.getSprite().getImage().getHeight()});
     }
 
     /**
@@ -49,7 +63,7 @@ public class CollisionDetection implements IProcessing {
      * @param entity2 second shape
      * @return true if colliding, false if not
      */
-    public boolean isColliding(Entity entity1, Entity entity2) {
+    private boolean isSATCollision(Entity entity1, Entity entity2){
         Vector2D[] axesToCheck = {
                 new Vector2D(1,0), new Vector2D(0,1),
                 new Vector2D(1,0), new Vector2D(0,1)
@@ -63,7 +77,6 @@ public class CollisionDetection implements IProcessing {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -95,49 +108,88 @@ public class CollisionDetection implements IProcessing {
     }
 
 
+    /**
+     * Avoids overlap between two entities by using their position,
+     * dimensions and differences in position in the form of a minimum translation vector
+     */
+    private void avoidOverlap(Entity entity1, Entity entity2){
+
+        int[] newPos = new int[2];
+
+        int[] e1Pos = entity1.getPosition();
+        int[] e2Pos = entity2.getPosition();
+
+        int e1width = entity1.getSprite().getImage().getWidth();
+        int e1height = entity1.getSprite().getImage().getHeight();
+        int e2width = entity2.getSprite().getImage().getWidth();
+        int e2height = entity2.getSprite().getImage().getHeight();
+
+        int dx =  calculateMTV(e1Pos[0], e1width, e2Pos[0], e2width);
+        int dy =  calculateMTV(e1Pos[1], e1height, e2Pos[1], e2height);
+
+        if(entity1.getPosition()[0] + dx < min_x){
+        }
+        else if (entity1.getPosition()[0] + dx > max_x) {
+            newPos[0] = max_x;
+        } else {
+            newPos[0] = entity1.getPosition()[0] + dx;
+        }
+        if (entity1.getPosition()[1] + dy < min_y) {
+        } else if (entity1.getPosition()[1] + dy > max_y) {
+            newPos[1] = max_y;
+        } else {
+            newPos[1] = entity1.getPosition()[1] + dy;
+        }
+
+        entity1.setPosition(newPos);
+    }
 
     /**
-     * Places entity at the edge of the obstacle, in the direction that
-     * entity hit the obstacle from.
-     * @param entity Entity of Type PLAYER or ENEMY, obstacle is of Type OBSTACLE
-     * @return A new position for Entity1
+     * Helper method for
+     * Calculates the minimum translation vector for a collision between two entities
+     * The MTV is needed for a more consistent better feeling reposition
      */
-    private int[] obstacleCollision(Entity entity, Entity obstacle){
+    private int calculateMTV(int posA, int sizeA, int posB, int sizeB) {
+        int halfA = sizeA / 2;
+        int halfB = sizeB / 2;
 
-        int[] newPos = new int[]{0,0};
+        int centerA = posA + halfA;
+        int centerB = posB + halfB;
 
-        int[] ePos = entity.getPosition();
-        int[] oPos = obstacle.getPosition();
+        int distance = Math.abs(centerA - centerB);
+        int overlap = halfA + halfB - distance;
 
-        //Getting the dimensions of both entities
-        int[] entityDimensions = new int[]{entity.getSprite().getImage().getWidth(), entity.getSprite().getImage().getHeight()}; 
-        int[] obstacleDimensions = new int[]{obstacle.getSprite().getImage().getWidth(), obstacle.getSprite().getImage().getHeight()};
-
-        //Entity is above obstacle
-        if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = ePos[0];
-            newPos[1] = oPos[1] - entityDimensions[1] - obstacleDimensions[1];
+        if (overlap > 0) {
+            if (centerA < centerB) {
+                return -overlap;
+            } else {
+                return overlap;
+            }
         }
 
-        //Entity is below obstacle
-        if (ePos[0] < oPos[0] && ePos[1] > oPos[1]){
-            newPos[0] = ePos[0];
-            newPos[1] = oPos[1] + entityDimensions[1] + obstacleDimensions[1];
+        return overlap;
+    }
+
+
+    /**
+     * A simple way for us to eliminate any bullets that get stuck at the edge of the screen
+     * @param entity any entity
+     * @param gameData the gameData
+     * @return true if entity is a bullet and is outside the screen, false otherwise
+     */
+    private boolean bulletKiller(Entity entity, GameData gameData) {
+
+        if (entity.getType()==Type.BULLET){
+            if (entity.getPosition()[0] > max_x - entity.getSprite().getImage().getWidth()
+                    || entity.getPosition()[0] < min_x
+                    || entity.getPosition()[1] > max_y - entity.getSprite().getImage().getHeight()
+                    || entity.getPosition()[1] < min_y){
+                ((ICollision) entity).onCollision(entity);
+                return true;
+            }
         }
 
-        //Entity is to the left of obstacle
-        if (ePos[0] > oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = oPos[0] - entityDimensions[0] - obstacleDimensions[0];
-            newPos[1] = ePos[1];
-        }
-
-        //Entity is to the right of obstacle
-        if (ePos[0] < oPos[0] && ePos[1] < oPos[1]){
-            newPos[0] = oPos[0] + entityDimensions[0] + obstacleDimensions[0];
-            newPos[1] = ePos[1];
-        }
-
-        return newPos;
+        return false;
     }
 
     private static LinkedList<Entity> collidableEntities(GameData gameData){
@@ -147,6 +199,11 @@ public class CollisionDetection implements IProcessing {
         allEntities.addAll(gameData.getEntityList(Type.BULLET));
         allEntities.addAll(gameData.getEntityList(Type.OBSTACLE));
         return allEntities;
+    }
+
+    private void setMinMaxValues(GameData gameData){
+        max_x = (int) gameData.getScreenSize().getWidth();
+        max_y = (int) gameData.getScreenSize().getHeight();
     }
 
     /**
@@ -165,5 +222,9 @@ public class CollisionDetection implements IProcessing {
         return false;
     }
 
+    @Override
+    public String toString(){
+        return Type.COLLISION.toString();
+    }
 }
 

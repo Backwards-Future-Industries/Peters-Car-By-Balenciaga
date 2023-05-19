@@ -1,10 +1,12 @@
 package map;
 
 import abstractClasses.Entity;
+import interfaces.ICollision;
 import utilities.TileType;
 import utilities.Type;
 
-public class Tile extends Entity {
+public class Tile extends Entity implements ICollision {
+
     public Tile(TileType tileType) {
         switch (tileType) {
             case EARTH -> setSprite(Tile.class.getResource("/mapImages/EARTH.png"), new double[]{1, 1});
@@ -23,4 +25,8 @@ public class Tile extends Entity {
         }
     }
 
+    @Override
+    public void onCollision(Entity collidingEntity) {
+
+    }
 }
