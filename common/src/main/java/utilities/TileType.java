@@ -11,6 +11,7 @@ public enum TileType {
     ROADLINESIDE(Color.MAGENTA),
     STLEFT(Color.PINK),
     STRIGHT(Color.YELLOW),
+    PARKING(Color.ORANGE),
     BLANK(Color.CYAN);
 
     private Color color;
