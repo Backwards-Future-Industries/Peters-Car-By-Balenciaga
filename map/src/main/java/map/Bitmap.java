@@ -30,6 +30,7 @@ public class Bitmap {
             TileType.ROADLINESIDE,
             TileType.STLEFT,
             TileType.STRIGHT,
+            TileType.PARKING,
             TileType.BLANK};
 
     public Bitmap() {
@@ -80,7 +81,6 @@ public class Bitmap {
             case GRASS -> 2;
             case EARTH -> 1;
             case OBSTACLE -> 3;
-            case ROAD -> 0;
             default -> 0;
         };
     }

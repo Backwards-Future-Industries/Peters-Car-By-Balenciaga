@@ -24,6 +24,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     private Tile roadLineSide;
     private Tile stLeft;
     private Tile stRight;
+    private Tile parking;
     private BufferedImage bufferedImage;
 
     public Map() {
@@ -39,6 +40,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         this.roadLineSide = new Tile(TileType.ROADLINESIDE);
         this.stLeft = new Tile(TileType.STLEFT);
         this.stRight = new Tile(TileType.STRIGHT);
+        this.parking = new Tile(TileType.PARKING);
         combinedTiles(gameData);
         this.setAiMap(bitmap.getAiMap());
     }
@@ -89,6 +91,8 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                     case STLEFT -> g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
 
                     case STRIGHT -> g.drawImage(stRight.getSprite().getImage(), position[0], position[1], null);
+
+                    case PARKING -> g.drawImage(parking.getSprite().getImage(), position[0], position[1], null);
                 }
                 if (tileType == TileType.OBSTACLE) {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);

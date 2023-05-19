@@ -18,6 +18,7 @@ public class Tile extends Entity {
             case ROADLINESIDE -> setSprite(Tile.class.getResource("/mapImages/ROADLINESIDE.png"), new double[]{1, 1});
             case STLEFT -> setSprite(Tile.class.getResource("/mapImages/STLEFT.png"), new double[]{1, 1});
             case STRIGHT -> setSprite(Tile.class.getResource("/mapImages/STRIGHT.png"), new double[]{1, 1});
+            case PARKING -> setSprite(Tile.class.getResource("/mapImages/PARKING.png"), new double[]{1, 1});
 
         }
     }
