@@ -45,7 +45,6 @@ public class BulletPlugin extends Entity implements IBulletService, IDrawable {
 
             AffineTransform transform = bullet.getSprite().getTransform();
             g.setTransform(transform);
-            //System.out.println("Bullet drawn");
             g.drawImage(bullet.getSprite().getImage(), position[0], position[1], panel);
         }
     }
@@ -64,19 +63,19 @@ public class BulletPlugin extends Entity implements IBulletService, IDrawable {
         skewedPosition[1] = (int) (center.y + vector.getY());
 
         //This is for debugging it generates a geogebra script that can be used to visualize entities points and the bullets spawn point and direction
-//        System.out.print("Execute[{");
-//        int counter = 0;
-//        String[] pointNames = {"A", "B", "C", "D"};
-//        for (Point point : points) {
-//            System.out.print("\""+pointNames[counter] + "=" + "(" + point.getX() + ", " + point.getY() + ")\",");
-//            counter++;
-//        }
-//        System.out.print("\"CenterAB=" + "(" + centerAB.getX() + ", " + centerAB.getY() + ")\",");
-//        System.out.print("\"CenterCD=" + "(" + centerCD.getX() + ", " + centerCD.getY() + ")\",");
-//        System.out.print("\"Center=" + "(" + center.getX() + ", " + center.getY() + ")\",");
-//        System.out.print("\"Entity=" + "(" + entity.getPosition()[0] + ", " + entity.getPosition()[1] + ")\",");
-//        System.out.print("\"Bullet=" + "(" + skewedPosition[0] + ", " + skewedPosition[1] + ")\"}]");
-//        System.out.println();
+        /*System.out.print("Execute[{");
+        int counter = 0;
+        String[] pointNames = {"A", "B", "C", "D"};
+        for (Point point : points) {
+            System.out.print("\""+pointNames[counter] + "=" + "(" + point.getX() + ", " + point.getY() + ")\",");
+            counter++;
+        }
+        System.out.print("\"CenterAB=" + "(" + centerAB.getX() + ", " + centerAB.getY() + ")\",");
+        System.out.print("\"CenterCD=" + "(" + centerCD.getX() + ", " + centerCD.getY() + ")\",");
+        System.out.print("\"Center=" + "(" + center.getX() + ", " + center.getY() + ")\",");
+        System.out.print("\"Entity=" + "(" + entity.getPosition()[0] + ", " + entity.getPosition()[1] + ")\",");
+        System.out.print("\"Bullet=" + "(" + skewedPosition[0] + ", " + skewedPosition[1] + ")\"}]");
+        System.out.println();*/
         return skewedPosition;
     }
 

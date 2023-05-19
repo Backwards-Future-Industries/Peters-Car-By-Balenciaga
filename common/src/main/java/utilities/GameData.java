@@ -44,7 +44,6 @@ public class GameData {
         this.addComponentLock = new ReentrantLock(true);
         this.mapLock = new ReentrantLock(true);
         this.spiLocator = SPIlocator.getSpIlocator();
-        System.out.println("Eibert was here!");
         addAllProcess();
     }
 
