@@ -10,6 +10,11 @@ import java.util.LinkedList;
 
 public class CollisionDetection implements IProcessing {
 
+    private int max_x;
+    private int max_y;
+    private final int min_x = 0;
+    private final int min_y = 0;
+
     public CollisionDetection() {
     }
 
@@ -18,6 +23,7 @@ public class CollisionDetection implements IProcessing {
 
         for (Entity entity1: collidableEntities(gameData)){
 
+            setMinMaxValues(gameData);
             if(bulletKiller(entity1,gameData)) continue;
 
             for (Entity entity2: collidableEntities(gameData)){
@@ -108,6 +114,8 @@ public class CollisionDetection implements IProcessing {
      */
     private void avoidOverlap(Entity entity1, Entity entity2){
 
+        int[] newPos = new int[2];
+
         int[] e1Pos = entity1.getPosition();
         int[] e2Pos = entity2.getPosition();
 
@@ -119,7 +127,21 @@ public class CollisionDetection implements IProcessing {
         int dx =  calculateMTV(e1Pos[0], e1width, e2Pos[0], e2width);
         int dy =  calculateMTV(e1Pos[1], e1height, e2Pos[1], e2height);
 
-        entity1.setPosition(new int[]{entity1.getPosition()[0] + dx, entity1.getPosition()[1] + dy});
+        if(entity1.getPosition()[0] + dx < min_x){
+        }
+        else if (entity1.getPosition()[0] + dx > max_x) {
+            newPos[0] = max_x;
+        } else {
+            newPos[0] = entity1.getPosition()[0] + dx;
+        }
+        if (entity1.getPosition()[1] + dy < min_y) {
+        } else if (entity1.getPosition()[1] + dy > max_y) {
+            newPos[1] = max_y;
+        } else {
+            newPos[1] = entity1.getPosition()[1] + dy;
+        }
+
+        entity1.setPosition(newPos);
     }
 
     /**
@@ -157,11 +179,6 @@ public class CollisionDetection implements IProcessing {
      */
     private boolean bulletKiller(Entity entity, GameData gameData) {
 
-        int max_x = (int) gameData.getScreenSize().getWidth();
-        int max_y = (int) gameData.getScreenSize().getHeight();
-        int min_x = 0;
-        int min_y = 0;
-
         if (entity.getType()==Type.BULLET){
             if (entity.getPosition()[0] > max_x - entity.getSprite().getImage().getWidth()
                     || entity.getPosition()[0] < min_x
@@ -182,6 +199,11 @@ public class CollisionDetection implements IProcessing {
         allEntities.addAll(gameData.getEntityList(Type.BULLET));
         allEntities.addAll(gameData.getEntityList(Type.OBSTACLE));
         return allEntities;
+    }
+
+    private void setMinMaxValues(GameData gameData){
+        max_x = (int) gameData.getScreenSize().getWidth();
+        max_y = (int) gameData.getScreenSize().getHeight();
     }
 
     /**
