@@ -82,4 +82,12 @@ public class Image {
 
         this.transformedRectangle = sourceRectangle.clone();
     }
+
+    public Point[] updateTransformedRectangle(int x, int y, double radians){
+        this.redoSourceRectangle(x,y);
+        rotation = radians;
+        transform = AffineTransform.getRotateInstance(rotation, x+ (double) image.getWidth() /2,y+ (double) image.getHeight() /2);
+        transform.transform(sourceRectangle,0,transformedRectangle,0,4);
+        return (Point[]) transformedRectangle;
+    }
 }

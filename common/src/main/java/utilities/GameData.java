@@ -80,7 +80,7 @@ public class GameData {
         }
     }
 
-    public void  AddComponent(Type type){
+    public void addComponent(Type type){
         addComponentLock.lock();
         try {
             Layers layer = spiLocator.getiDrawableMap().get(type).getLayer();

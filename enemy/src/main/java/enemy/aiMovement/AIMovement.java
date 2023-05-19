@@ -95,7 +95,7 @@ public class AIMovement {
 
     private void aiShoot() {
         if (enemyPlugin != null) {
-            if (System.currentTimeMillis() - this.enemyPlugin.getLastShot() > 2000 && this.distance < 150 && this.distance > 10) {
+            if (System.currentTimeMillis() - this.enemyPlugin.getLastShot() > 2000 && this.distance < 250 && this.distance > 10) {
                 this.inputs.add(Inputs.KEY_SPACE);
                 this.enemyPlugin.setLastShot(System.currentTimeMillis());
             }
