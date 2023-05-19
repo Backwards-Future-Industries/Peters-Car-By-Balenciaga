@@ -58,7 +58,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: Code Coverage
           conclusion: ${{ job.status }}
-          output: "{\"summary\":\"coverage\"}"
+          output: "{\"summary\":\"coverage\",\"text_description\":\"This will be overridden\"}"
           output_text_description_file: coverage/summary.md
           
       - name: Build and Run Tests
