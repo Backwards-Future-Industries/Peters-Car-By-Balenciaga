@@ -73,7 +73,7 @@ public class GameData {
         }
     }
 
-    public void addAllprocess() {
+    public void addAllProcess() {
         for (Type type : Type.values()) {
             IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
             if (iProcessing != null) {
