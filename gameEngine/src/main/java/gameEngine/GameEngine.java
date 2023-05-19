@@ -103,7 +103,6 @@ public class GameEngine {
 
     public void createInitialComponents() {
         gameData.AddComponent(Type.PLAYER);
-        gameData.AddComponent(Type.ENEMY);
 
     }
 }

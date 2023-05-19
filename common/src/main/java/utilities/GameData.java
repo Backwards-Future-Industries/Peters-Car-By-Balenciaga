@@ -44,6 +44,7 @@ public class GameData {
         this.addComponentLock = new ReentrantLock(true);
         this.mapLock = new ReentrantLock(true);
         this.spiLocator = SPIlocator.getSpIlocator();
+        System.out.println("Eibert was here!");
         addAllProcess();
     }
 
@@ -97,7 +98,7 @@ public class GameData {
     public void addBullet(Type type, Entity entity){
         addComponentLock.lock();
         try {
-            Entity bullet = spiLocator.getBullet().create(entity.getPosition(),entity.getRadians());
+            Entity bullet = spiLocator.getBullet().create(entity);
             entityMap.get(type).add(bullet);
 
 
