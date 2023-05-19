@@ -47,6 +47,7 @@ public class GameData {
         this.addComponentLock = new ReentrantLock(true);
         this.mapLock = new ReentrantLock(true);
         this.spiLocator = SPIlocator.getSpIlocator();
+        addAllprocess();
     }
 
     private void createMap() {
@@ -281,13 +282,15 @@ public class GameData {
     }
 
     private void printStatus() {
-        System.out.println("--------------------------");
+        /*System.out.println("--------------------------");
         for (LinkedList<Entity> linkedList : entityMap.values()) {
             for (Entity entity : linkedList) {
                 System.out.println(entity.getType() + ": " + entity.getPosition()[0] + "," + entity.getPosition()[1]);
             }
         }
         System.out.println("--------------------------");
+
+         */
     }
 
     public void setMap(CommonMap map) {
@@ -297,5 +300,15 @@ public class GameData {
         }finally {
             mapLock.unlock();
         }
+    }
+
+    public CommonMap getMap(){
+        mapLock.lock();
+        try {
+            return this.map;
+        }finally {
+            mapLock.unlock();
+        }
+
     }
 }

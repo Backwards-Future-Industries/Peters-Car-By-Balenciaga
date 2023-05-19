@@ -18,15 +18,16 @@ public class EnemyMovement implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity enemy : gameData.getEntityList(Type.ENEMY)) {
-            this.entity = enemy;
-        }
-        if (this.entity.equals(null)){
-            return;
-        }
+            aiMovement.updateData(gameData, enemy);
+            ArrayList<Inputs> generatedInputs = aiMovement.getInputsBasedOnAStar();
 
-        aiMovement = new AIMovement(gameData, this.entity);
-        SPIlocator.getSpIlocator().getMovement().defaultMove(aiMovement.getInputsBasedOnAStar(), this.entity, gameData);
-        this.entity.getSprite().freshRotate(this.entity.getRadians(), this.entity.getPosition());
+            if (generatedInputs.contains(Inputs.KEY_SPACE)) {
+                gameData.addBullet(Type.BULLET, enemy);
+            }
+
+            SPIlocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);
+            enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
+        }
     }
 
     @Override

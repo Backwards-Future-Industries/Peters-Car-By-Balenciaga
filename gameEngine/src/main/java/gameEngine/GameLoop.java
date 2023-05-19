@@ -17,7 +17,6 @@ public class GameLoop implements Runnable {
 
     @Override
     public void run() {
-
         inputs = gameEngine.getInputs();
 
         if (inputs.contains(Inputs.KEY_ESC)){
@@ -25,7 +24,6 @@ public class GameLoop implements Runnable {
             return;
         }
         updateProcess(inputs);
-
     }
 
 
