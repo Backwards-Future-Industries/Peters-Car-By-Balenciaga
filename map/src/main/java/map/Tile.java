@@ -27,6 +27,9 @@ public class Tile extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity collidingEntity) {
+    }
 
+    public String toString(){
+        return this.getPosition()[0]+";"+this.getPosition()[1];
     }
 }

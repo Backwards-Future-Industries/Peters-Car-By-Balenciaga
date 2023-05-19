@@ -11,6 +11,8 @@ import utilities.Type;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.*;
+import java.util.List;
 
 
 public class Map extends CommonMap implements IDrawable, IMapService {
@@ -70,6 +72,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         TileType[][] map = bitmap.getMap();
 
         int[] position = new int[]{0, 0};
+        LinkedList<Tile> obstacleList = new LinkedList<>();
 
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
@@ -97,13 +100,30 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                     g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
                     Tile tile = new Tile(TileType.OBSTACLE);
                     tile.setPosition(position);
-                    gameData.addNewEntity(tile);
+                    obstacleList.add(tile);
                 }
                 position = new int[]{position[0], position[1] + 16};
             }
             position = new int[]{position[0] + 16, 0};
         }
+
+        obstacleList.sort(new TileComparatorY());
+        System.out.println(obstacleList);
+        TreeMap<Integer, ArrayList<Tile>> mapX = new TreeMap<>();
+
+        for(Tile tile : obstacleList){
+            int[] pos = tile.getPosition();
+            if (!mapX.containsKey(pos[1])){
+                mapX.put(pos[1],new ArrayList<>());
+            }
+            mapX.get(tile.getPosition()[1]).add(tile);
+        }
+
+
+
+        System.out.println();
     }
+
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
