@@ -13,9 +13,26 @@ public class Bitmap {
     private TileType[][] map;
     private BufferedImage bitmap;
     private int[][] aiMap;
-    private Color[] arrayOfColors = {Color.GREEN, Color.WHITE, Color.RED, Color.GRAY, Color.BLUE, Color.MAGENTA, Color.PINK, Color.YELLOW, Color.CYAN};
-    private TileType[] arrayOfTileTypes = {TileType.GRASS, TileType.EARTH, TileType.OBSTACLE, TileType.ROAD, TileType.ROADLINEUP, TileType.ROADLINESIDE, TileType.STLEFT, TileType.STRIGHT, TileType.BLANK};
-    public Bitmap(){
+    private Color[] arrayOfColors = {Color.GREEN,
+            Color.WHITE,
+            Color.RED,
+            Color.GRAY,
+            Color.BLUE,
+            Color.MAGENTA,
+            Color.PINK,
+            Color.YELLOW,
+            Color.CYAN};
+    private TileType[] arrayOfTileTypes = {TileType.GRASS,
+            TileType.EARTH,
+            TileType.OBSTACLE,
+            TileType.ROAD,
+            TileType.ROADLINEUP,
+            TileType.ROADLINESIDE,
+            TileType.STLEFT,
+            TileType.STRIGHT,
+            TileType.BLANK};
+
+    public Bitmap() {
         URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
         try {
             bitmap = ImageIO.read(url);
@@ -27,7 +44,7 @@ public class Bitmap {
         loadMap();
     }
 
-    private void loadMap(){
+    private void loadMap() {
         for (int y = 0; y < bitmap.getHeight(); y++) {
             for (int x = 0; x < bitmap.getWidth(); x++) {
                 //bitmask magic by https://stackoverflow.com/questions/25761438/understanding-bufferedimage-getrgb-output-values
@@ -40,7 +57,7 @@ public class Bitmap {
 
     }
 
-    private TileType findTile(int pixelColor){
+    private TileType findTile(int pixelColor) {
         for (Color color : arrayOfColors) {
             if (pixelColor == color.getRGB()) {
                 return getColorTileType(color);
@@ -58,7 +75,7 @@ public class Bitmap {
         return TileType.BLANK;
     }
 
-    private int tileTypeToInt(TileType tileType){
+    private int tileTypeToInt(TileType tileType) {
         return switch (tileType) {
             case GRASS -> 2;
             case EARTH -> 1;
