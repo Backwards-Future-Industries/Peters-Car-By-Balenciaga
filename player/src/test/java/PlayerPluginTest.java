@@ -3,8 +3,6 @@ import interfaces.IPlugin;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import player.Player;
 import player.PlayerPlugin;
 import utilities.GameData;
@@ -25,7 +23,7 @@ public class PlayerPluginTest {
 
     @Test
     public void testPosition() {
-        //Arange
+        //Arrange
         Entity playerPlugin = new Player();
 
         //Act
@@ -39,7 +37,7 @@ public class PlayerPluginTest {
 
     @Test
     public void testCreation() {
-        //Arange
+        //Arrange
         IPlugin iPlugin = new PlayerPlugin();
 
         //Act
@@ -52,7 +50,7 @@ public class PlayerPluginTest {
 
     @Test
     public void testDelete() {
-        //Arange
+        //Arrange
         LinkedList<Entity> entityMap = new LinkedList<>();
         IPlugin iPlugin = new PlayerPlugin()
         ;
@@ -61,7 +59,7 @@ public class PlayerPluginTest {
         this.gameData.addNewEntity(iPlugin.create());
         iPlugin.delete(gameData, gameData.getEntityList(Type.PLAYER).get(0));
 
-        //Asert
+        //Assert
         Assertions.assertEquals(entityMap, gameData.getEntityList(Type.PLAYER));
     }
 }
