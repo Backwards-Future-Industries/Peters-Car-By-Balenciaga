@@ -22,43 +22,6 @@ public class CollisionDetection implements IProcessing {
     public CollisionDetection() {
     }
 
-    //SAT helper method
-    private static boolean overlapOnAxis(Entity entity1, Entity entity2, Vector2D axis) {
-        Vector2D interval1 = getInterval(entity1, axis);
-        Vector2D interval2 = getInterval(entity2, axis);
-
-        return ((interval2.getX() <= interval1.getY()) && (interval1.getX() <= interval2.getY()));
-    }
-
-    //SAT helper method
-    private static Vector2D getInterval(Entity entity, Vector2D axis) {
-        Vector2D result = new Vector2D(0, 0);
-
-        Point[] points = entity.getSprite().updateTransformedRectangle(entity.getPosition()[0], entity.getPosition()[1], entity.getRadians());
-        result.setX(axis.dot(Vector2D.pointToVector(points[0])));
-        result.setY(result.getX());
-        for (int i = 1; i < 4; i++) {
-            double projection = axis.dot(Vector2D.pointToVector(points[i]));
-            if (projection < result.getX()) {
-                result.setX(projection);
-            }
-            if (projection > result.getY()) {
-                result.setY(projection);
-            }
-        }
-
-        return result;
-    }
-
-    private static LinkedList<Entity> collidableEntities(GameData gameData) {
-        LinkedList<Entity> allEntities = new LinkedList<>();
-        allEntities.addAll(gameData.getEntityList(Type.ENEMY));
-        allEntities.addAll(gameData.getEntityList(Type.PLAYER));
-        allEntities.addAll(gameData.getEntityList(Type.BULLET));
-        allEntities.addAll(gameData.getEntityList(Type.OBSTACLE));
-        return allEntities;
-    }
-
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
 
@@ -77,7 +40,7 @@ public class CollisionDetection implements IProcessing {
                     if (this.isColliding(entity1, entity2)) {
                         ((ICollision) entity1).onCollision(entity2);
                         ((ICollision) entity2).onCollision(entity1);
-                        avoidOverlap(entity1, entity2);
+                        avoidOverlap(entity1);
                     }
                 }
             }
@@ -113,67 +76,41 @@ public class CollisionDetection implements IProcessing {
         return true;
     }
 
+    //SAT helper method
+    private static boolean overlapOnAxis(Entity entity1, Entity entity2, Vector2D axis) {
+        Vector2D interval1 = getInterval(entity1, axis);
+        Vector2D interval2 = getInterval(entity2, axis);
+
+        return ((interval2.getX() <= interval1.getY()) && (interval1.getX() <= interval2.getY()));
+    }
+
+    //SAT helper method
+    private static Vector2D getInterval(Entity entity, Vector2D axis) {
+        Vector2D result = new Vector2D(0, 0);
+
+        Point[] points = entity.getSprite().updateTransformedRectangle(entity.getPosition()[0], entity.getPosition()[1], entity.getRadians());
+        result.setX(axis.dot(Vector2D.pointToVector(points[0])));
+        result.setY(result.getX());
+        for (int i = 1; i < 4; i++) {
+            double projection = axis.dot(Vector2D.pointToVector(points[i]));
+            if (projection < result.getX()) {
+                result.setX(projection);
+            }
+            if (projection > result.getY()) {
+                result.setY(projection);
+            }
+        }
+
+        return result;
+    }
+
     /**
      * Avoids overlap between two entities by using their position,
      * dimensions and differences in position in the form of a minimum translation vector
      */
-    private void avoidOverlap(Entity entity1, Entity entity2) {
-        /*
-        int[] newPos = new int[2];
-
-        int[] e1Pos = entity1.getPosition();
-        int[] e2Pos = entity2.getPosition();
-
-        int e1width = entity1.getSprite().getImage().getWidth();
-        int e1height = entity1.getSprite().getImage().getHeight();
-        int e2width = entity2.getSprite().getImage().getWidth();
-        int e2height = entity2.getSprite().getImage().getHeight();
-
-        int dx =  calculateMTV(e1Pos[0], e1width, e2Pos[0], e2width);
-        int dy =  calculateMTV(e1Pos[1], e1height, e2Pos[1], e2height);
-
-        if(entity1.getPosition()[0] + dx < min_x){
-        }
-        else if (entity1.getPosition()[0] + dx > max_x) {
-            newPos[0] = max_x;
-        } else {
-            newPos[0] = entity1.getPosition()[0] + dx;
-        }
-        if (entity1.getPosition()[1] + dy < min_y) {
-        } else if (entity1.getPosition()[1] + dy > max_y) {
-            newPos[1] = max_y;
-        } else {
-            newPos[1] = entity1.getPosition()[1] + dy;
-        }*/
+    private void avoidOverlap(Entity entity1) {
         entity1.setDirection(Vector2D.reverseVector(entity1.getDirection()));
         entity1.setRadians(entity1.getRadians() + Math.PI);
-        //entity1.setPosition(newPos);
-    }
-
-    /**
-     * Helper method for
-     * Calculates the minimum translation vector for a collision between two entities
-     * The MTV is needed for a more consistent better feeling reposition
-     */
-    private int calculateMTV(int posA, int sizeA, int posB, int sizeB) {
-        int halfA = sizeA / 2;
-        int halfB = sizeB / 2;
-
-        int centerA = posA + halfA;
-        int centerB = posB + halfB;
-
-        int distance = Math.abs(centerA - centerB);
-        int overlap = halfA + halfB - distance;
-
-        if (overlap > 0) {
-            if (centerA < centerB) {
-                return -overlap;
-            } else {
-                return overlap;
-            }
-        }
-
-        return overlap;
     }
 
     /**
@@ -195,6 +132,15 @@ public class CollisionDetection implements IProcessing {
         return false;
     }
 
+    private static LinkedList<Entity> collidableEntities(GameData gameData) {
+        LinkedList<Entity> allEntities = new LinkedList<>();
+        allEntities.addAll(gameData.getEntityList(Type.ENEMY));
+        allEntities.addAll(gameData.getEntityList(Type.PLAYER));
+        allEntities.addAll(gameData.getEntityList(Type.BULLET));
+        allEntities.addAll(gameData.getEntityList(Type.OBSTACLE));
+        return allEntities;
+    }
+
     private void setMinMaxValues(GameData gameData) {
         max_x = (int) gameData.getScreenSize().getWidth();
         max_y = (int) gameData.getScreenSize().getHeight();
@@ -206,11 +152,7 @@ public class CollisionDetection implements IProcessing {
      */
     @Deprecated
     private boolean isBoxCollision(int[] e1Pos, int[] e2Pos, int[] e1Dimmensions, int[] e2Dimensions) {
-        if (e2Pos[0] < e1Pos[0] + e1Dimmensions[0] && e2Pos[0] + e2Dimensions[0] > e1Pos[0] && e2Pos[1] < e1Pos[1] + e1Dimmensions[1] && e2Pos[1] + e2Dimensions[1] > e1Pos[1]) {
-            return true;
-        }
-
-        return false;
+        return e2Pos[0] < e1Pos[0] + e1Dimmensions[0] && e2Pos[0] + e2Dimensions[0] > e1Pos[0] && e2Pos[1] < e1Pos[1] + e1Dimmensions[1] && e2Pos[1] + e2Dimensions[1] > e1Pos[1];
     }
 
     @Override
