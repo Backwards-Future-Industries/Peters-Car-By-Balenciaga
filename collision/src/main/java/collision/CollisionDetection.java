@@ -30,9 +30,7 @@ public class CollisionDetection implements IProcessing {
                     if (this.isColliding(entity1,entity2)){
                         ((ICollision) entity1).onCollision(entity2);
                         ((ICollision) entity2).onCollision(entity1);
-                        if (entity1.getType() != Type.OBSTACLE || entity2.getType() != Type.OBSTACLE){
-                           resolveCollision(entity1,entity2);
-                        }
+                        avoidOverlap(entity1,entity2);
                     }
                 }
             }
@@ -105,22 +103,21 @@ public class CollisionDetection implements IProcessing {
 
 
     /**
-     * Resolves the collision between two entities ensuring that they do not overlap
+     * Avoids overlap between two entities by using their position,
+     * dimensions and differences in position in the form of a minimum translation vector
      */
-    private void resolveCollision(Entity entity1, Entity entity2){
+    private void avoidOverlap(Entity entity1, Entity entity2){
 
-        int dx =  calculateMTV(
-                entity1.getPosition()[0],
-                entity1.getSprite().getImage().getWidth(),
-                entity2.getPosition()[0],
-                entity2.getSprite().getImage().getWidth());
-        int dy =  calculateMTV(
-                entity1.getPosition()[1],
-                entity1.getSprite().getImage().getHeight(),
-                entity2.getPosition()[1],
-                entity2.getSprite().getImage().getHeight());
+        int[] e1Pos = entity1.getPosition();
+        int[] e2Pos = entity2.getPosition();
 
+        int e1width = entity1.getSprite().getImage().getWidth();
+        int e1height = entity1.getSprite().getImage().getHeight();
+        int e2width = entity2.getSprite().getImage().getWidth();
+        int e2height = entity2.getSprite().getImage().getHeight();
 
+        int dx =  calculateMTV(e1Pos[0], e1width, e2Pos[0], e2width);
+        int dy =  calculateMTV(e1Pos[1], e1height, e2Pos[1], e2height);
 
         entity1.setPosition(new int[]{entity1.getPosition()[0] + dx, entity1.getPosition()[1] + dy});
     }
@@ -128,6 +125,7 @@ public class CollisionDetection implements IProcessing {
     /**
      * Helper method for
      * Calculates the minimum translation vector for a collision between two entities
+     * The MTV is needed for a more consistent better feeling reposition
      */
     private int calculateMTV(int posA, int sizeA, int posB, int sizeB) {
         int halfA = sizeA / 2;
@@ -147,7 +145,7 @@ public class CollisionDetection implements IProcessing {
             }
         }
 
-        return 0;
+        return overlap;
     }
 
 
