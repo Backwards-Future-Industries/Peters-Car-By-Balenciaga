@@ -4,7 +4,12 @@ import abstractClasses.Entity;
 import utilities.TileType;
 import utilities.Type;
 
-public class Tile extends Entity {
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+
+public class Tile extends Entity{
+
     public Tile(TileType tileType) {
         switch (tileType){
             case EARTH ->
@@ -29,4 +34,8 @@ public class Tile extends Entity {
         }
     }
 
+    @Override
+    public String toString(){
+        return this.getPosition()[0]+";"+this.getPosition()[1];
+    }
 }
