@@ -85,8 +85,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
 
                     case ROADLINEUP -> g.drawImage(roadLineUp.getSprite().getImage(), position[0], position[1], null);
 
-                    case ROADLINESIDE ->
-                            g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
+                    case ROADLINESIDE -> g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
 
                     case STLEFT -> g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
 

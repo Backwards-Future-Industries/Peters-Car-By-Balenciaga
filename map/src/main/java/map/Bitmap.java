@@ -21,6 +21,7 @@ public class Bitmap {
             Color.MAGENTA,
             Color.PINK,
             Color.YELLOW,
+            Color.ORANGE,
             Color.CYAN};
     private TileType[] arrayOfTileTypes = {TileType.GRASS,
             TileType.EARTH,
@@ -34,7 +35,7 @@ public class Bitmap {
             TileType.BLANK};
 
     public Bitmap() {
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
+        URL url = Bitmap.class.getResource("/bitmaps/bitMap12.0.png");
         try {
             bitmap = ImageIO.read(url);
         } catch (IOException e) {
