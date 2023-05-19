@@ -27,7 +27,7 @@ public class Bitmap {
         loadMap();
     }
 
-    public void loadMap(){
+    private void loadMap(){
         for (int y = 0; y < bitmap.getHeight(); y++) {
             for (int x = 0; x < bitmap.getWidth(); x++) {
                 //bitmask magic by https://stackoverflow.com/questions/25761438/understanding-bufferedimage-getrgb-output-values
