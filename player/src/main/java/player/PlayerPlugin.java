@@ -11,12 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
-
+import java.util.UUID;
 
 public class PlayerPlugin implements IPlugin, IDrawable {
 
     private Entity newPlayer;
-
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/petersCar.png");
 
 
