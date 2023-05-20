@@ -1,5 +1,6 @@
 import abstractClasses.CommonMap;
 import abstractClasses.Entity;
+import enemy.Enemy;
 import enemy.EnemyPlugin;
 import enemy.aiMovement.AIMovement;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +29,7 @@ class AIMovementTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         playerPlugin = new ConcreteEntity();
-        enemyPlugin = new EnemyPlugin();
+        enemyPlugin = new Enemy();
         enemyPlugin.setPosition(new int[]{1, 1});
         gameData = new GameData();
         aIMovement = new AIMovement();

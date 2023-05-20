@@ -2,6 +2,7 @@ package bullet;
 
 import abstractClasses.Entity;
 import interfaces.ICollision;
+import utilities.Type;
 
 public class Bullet extends Entity implements ICollision {
 
@@ -10,8 +11,11 @@ public class Bullet extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity entity) {
-        System.out.println("bing bong");
-        this.setHealth(0);
+        if (entity.getType()== Type.BULLET){
+            this.setHealth(this.getHealth()-1);
+        } else {
+            this.setHealth(0);
+        }
     }
 
 }
