@@ -49,7 +49,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     public CommonMap create(GameData gameData) {
         Map map = new Map(gameData);
         map.setSprite(map.bufferedImage, new double[]{1, 1});
-        map.setPosition(new Point(0, 0));
+        map.setPosition(new Point(1, 1));
         return map;
     }
 

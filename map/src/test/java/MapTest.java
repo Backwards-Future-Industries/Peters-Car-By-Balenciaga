@@ -20,6 +20,7 @@ public class MapTest {
     @BeforeEach
     public void setUp() {
         //Arrange
+        map = new Map();
         MockitoAnnotations.initMocks(this);
     }
 

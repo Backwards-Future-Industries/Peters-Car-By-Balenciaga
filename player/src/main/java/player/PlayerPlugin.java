@@ -21,18 +21,15 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     public PlayerPlugin() {
     }
 
-
     @Override
     public Entity create() {
         this.newPlayer = new Player();
         this.newPlayer.setHealth(5);
-        this.newPlayer.setPosition(new int[]{1280,900});
+        this.newPlayer.setPosition(new Point(1260, 900));
         this.newPlayer.setSprite(sprite, new double[]{0.2, 0.2});
         this.newPlayer.setAcceleration(0.2);
         this.newPlayer.setMaxSpeed(1.8);
         this.newPlayer.setType(Type.PLAYER);
-        this.newPlayer.setPosition(new int[]{1280, 960});
-        System.out.println("Player spawned");
 
         return this.newPlayer;
     }
@@ -49,11 +46,11 @@ public class PlayerPlugin implements IPlugin, IDrawable {
         for (Entity player : gameData.getEntityList(Type.PLAYER)) {
             if (player.getType() == Type.PLAYER) {
 
-                int[] position = player.getPosition();
+                Point position = player.getPosition();
 
                 AffineTransform transform = player.getSprite().getTransform();
                 g.setTransform(transform);
-                g.drawImage(player.getSprite().getImage(), position[0], position[1], panel);
+                g.drawImage(player.getSprite().getImage(), position.x, position.y, panel);
             }
         }
     }

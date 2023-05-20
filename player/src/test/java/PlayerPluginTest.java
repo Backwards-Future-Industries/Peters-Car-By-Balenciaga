@@ -7,15 +7,13 @@ import player.Player;
 import player.PlayerPlugin;
 import utilities.GameData;
 import utilities.Type;
-import utilities.Vector2D;
 
-import java.awt.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class PlayerPluginTest {
 
-    IPlugin iPlugin;
-    Player player;
+    private IPlugin iPlugin;
+    private Player player;
 
     @BeforeEach
     public void setUp() {
