@@ -6,20 +6,21 @@ import utilities.GameData;
 import utilities.Inputs;
 import utilities.Vector2D;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class DefaultMovement implements IMovement {
-    public int[] defaultMove(ArrayList<Inputs> inputs, Entity entity, GameData gameData) {
+    public Point defaultMove(ArrayList<Inputs> inputs, Entity entity, GameData gameData) {
         Vector2D direction = entity.getDirection();
         double acceleration = entity.getAcceleration();
         double radians = entity.getRadians();
         double maxSpeed = entity.getMaxSpeed();
-        int[] newPosition = new int[2];
+        Point newPosition = new Point(0, 0);
 
         if (inputs.contains(Inputs.KEY_W)) accelerate(acceleration, direction, radians);
         if (inputs.contains(Inputs.KEY_S)) deAccelerate(acceleration, direction, radians);
-        if (inputs.contains(Inputs.KEY_A)) radians = rotate(direction, radians, -1,maxSpeed);
-        if (inputs.contains(Inputs.KEY_D)) radians = rotate(direction, radians, 1,maxSpeed);
+        if (inputs.contains(Inputs.KEY_A)) radians = rotate(direction, radians, -1, maxSpeed);
+        if (inputs.contains(Inputs.KEY_D)) radians = rotate(direction, radians, 1, maxSpeed);
 
         //Prevents radians from being negative (Completely unnecessary but looks nice :))
         if (radians < 0) {
@@ -42,13 +43,15 @@ public class DefaultMovement implements IMovement {
         entity.setRadians(radians);
         entity.setDirection(direction);
 
-        newPosition[0] = (int) (entity.getPosition()[0] + Math.round(direction.getX()));
-        newPosition[1] = (int) (entity.getPosition()[1] + Math.round(direction.getY()));
+        newPosition.x = (int) (entity.getPosition().x + Math.round(direction.getX()));
+        newPosition.y = (int) (entity.getPosition().y + Math.round(direction.getY()));
 
-        if (newPosition[0] > gameData.getScreenSize().width-entity.getSprite().getImage().getWidth()) newPosition[0] = gameData.getScreenSize().width-entity.getSprite().getImage().getWidth();
-        if (newPosition[0] < 0) newPosition[0] = 0;
-        if (newPosition[1] > gameData.getScreenSize().height-entity.getSprite().getImage().getHeight()) newPosition[1] = gameData.getScreenSize().height-entity.getSprite().getImage().getHeight();
-        if (newPosition[1] < 0) newPosition[1] = 0;
+        if (newPosition.x > gameData.getScreenSize().width - entity.getSprite().getImage().getWidth())
+            newPosition.x = gameData.getScreenSize().width - entity.getSprite().getImage().getWidth();
+        if (newPosition.x < 0) newPosition.x = 0;
+        if (newPosition.y > gameData.getScreenSize().height - entity.getSprite().getImage().getHeight())
+            newPosition.y = gameData.getScreenSize().height - entity.getSprite().getImage().getHeight();
+        if (newPosition.y < 0) newPosition.y = 0;
 
         entity.setPosition(newPosition);
 
@@ -66,8 +69,8 @@ public class DefaultMovement implements IMovement {
     }
 
     //Using the rotation matrix to rotate the direction vector and updating its radians
-    private double rotate(Vector2D direction, double radians, int rotationDirection,double maxSpeed) {
-        double rotationSpeed = (Math.PI * ((double) 1 / 32))*(direction.getLength()/maxSpeed);
+    private double rotate(Vector2D direction, double radians, int rotationDirection, double maxSpeed) {
+        double rotationSpeed = (Math.PI * ((double) 1 / 32)) * (direction.getLength() / maxSpeed);
         double sin = Math.sin(rotationDirection * rotationSpeed);
         double cos = Math.cos(rotationDirection * rotationSpeed);
         direction.setX(direction.getX() * cos - direction.getY() * sin);
