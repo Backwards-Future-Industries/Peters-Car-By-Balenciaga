@@ -1,56 +1,61 @@
+import map.Bitmap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import abstractClasses.CommonMap;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
-import map.Bitmap;
 import utilities.TileType;
+
+import java.awt.image.BufferedImage;
 
 public class BitmapTest {
 
     private Bitmap bitmap;
-    
+    private TileType[][] map;
+    private BufferedImage testBitmap;
+    private int[][] aiMap;
+
+
     @BeforeEach
     public void setUp() {
+        //Arrange
         bitmap = new Bitmap();
-
+        testBitmap = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
     }
 
     @Test
     public void getMap() {
-        TileType[][] map = bitmap.getMap();
-        // Perform assertions on the map
+        //Act
+        map = bitmap.getMap();
+
+        //Assert
         Assertions.assertNotNull(map);
     }
 
     @Test
     public void setBitmap() {
-        BufferedImage testBitmap = new BufferedImage(2, 2, BufferedImage.TYPE_INT_RGB);
+        //Act
         bitmap.setBitmap(testBitmap);
+
+        //Assert
         Assertions.assertEquals(testBitmap, bitmap.getBitmap());
     }
 
     @Test
     public void getAiMap() {
-        int[][] aiMap = bitmap.getAiMap();
-        // Perform assertions on the aiMap
+        //Act
+        aiMap = bitmap.getAiMap();
+
+        //Assert
         Assertions.assertNotNull(aiMap);
     }
 
 
     @Test
     public void testConstructor() {
-        URL url = Bitmap.class.getResource("/bitmaps/bitMap8.0.png");
-        Bitmap bitmap = new Bitmap();
+        //Assert
         Assertions.assertNotNull(bitmap.getMap());
         Assertions.assertNotNull(bitmap.getAiMap());
         Assertions.assertTrue(bitmap.getMap().length > 0);
         Assertions.assertTrue(bitmap.getAiMap().length > 0);
-        // Additional assertions based on your specific requirements
     }
 
 

@@ -49,7 +49,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     public CommonMap create(GameData gameData) {
         Map map = new Map(gameData);
         map.setSprite(map.bufferedImage, new double[]{1, 1});
-        map.setPosition(new int[]{1, 1});
+        map.setPosition(new Point(0, 0));
         return map;
     }
 
@@ -69,39 +69,40 @@ public class Map extends CommonMap implements IDrawable, IMapService {
         Graphics2D g = bufferedImage.createGraphics();
         TileType[][] map = bitmap.getMap();
 
-        int[] position = new int[]{0, 0};
+        Point position = new Point(0, 0);
 
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
                 TileType tileType = map[y][x];
                 switch (tileType) {
-                    case EARTH -> g.drawImage(earth.getSprite().getImage(), position[0], position[1], null);
+                    case EARTH -> g.drawImage(earth.getSprite().getImage(), position.x, position.y, null);
 
-                    case GRASS -> g.drawImage(grass.getSprite().getImage(), position[0], position[1], null);
+                    case GRASS -> g.drawImage(grass.getSprite().getImage(), position.x, position.y, null);
 
-                    case OBSTACLE -> g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
+                    case OBSTACLE -> g.drawImage(obstacle.getSprite().getImage(), position.x, position.y, null);
 
-                    case ROAD -> g.drawImage(road.getSprite().getImage(), position[0], position[1], null);
+                    case ROAD -> g.drawImage(road.getSprite().getImage(), position.x, position.y, null);
 
-                    case ROADLINEUP -> g.drawImage(roadLineUp.getSprite().getImage(), position[0], position[1], null);
+                    case ROADLINEUP -> g.drawImage(roadLineUp.getSprite().getImage(), position.x, position.y, null);
 
-                    case ROADLINESIDE -> g.drawImage(roadLineSide.getSprite().getImage(), position[0], position[1], null);
+                    case ROADLINESIDE -> g.drawImage(roadLineSide.getSprite().getImage(), position.x, position.y, null);
 
-                    case STLEFT -> g.drawImage(stLeft.getSprite().getImage(), position[0], position[1], null);
+                    case STLEFT -> g.drawImage(stLeft.getSprite().getImage(), position.x, position.y, null);
 
-                    case STRIGHT -> g.drawImage(stRight.getSprite().getImage(), position[0], position[1], null);
+                    case STRIGHT -> g.drawImage(stRight.getSprite().getImage(), position.x, position.y, null);
 
-                    case PARKING -> g.drawImage(parking.getSprite().getImage(), position[0], position[1], null);
+                    case PARKING -> g.drawImage(parking.getSprite().getImage(), position.x, position.y, null);
                 }
                 if (tileType == TileType.OBSTACLE) {
-                    g.drawImage(obstacle.getSprite().getImage(), position[0], position[1], null);
+                    g.drawImage(obstacle.getSprite().getImage(), position.x, position.y, null);
                     Tile tile = new Tile(TileType.OBSTACLE);
                     tile.setPosition(position);
                     gameData.addNewEntity(tile);
                 }
-                position = new int[]{position[0], position[1] + 16};
+                position.y += 16;
             }
-            position = new int[]{position[0] + 16, 0};
+            position.x += 16;
+            position.y = 0;
         }
     }
 
