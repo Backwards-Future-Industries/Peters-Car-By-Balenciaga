@@ -6,7 +6,7 @@ public class OurThreadFactory implements ThreadFactory {
 
     private String name;
 
-    public OurThreadFactory(String name){
+    public OurThreadFactory(String name) {
         this.name = name;
     }
 

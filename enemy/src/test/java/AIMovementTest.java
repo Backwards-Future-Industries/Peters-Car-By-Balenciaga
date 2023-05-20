@@ -5,6 +5,7 @@ import enemy.aiMovement.AIMovement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import utilities.GameData;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @Disabled
@@ -38,7 +40,7 @@ class AIMovementTest {
         enemy.setPosition(new Point(1, 1));
         gameData = new GameData();
         aIMovement = new AIMovement();
-
+        map = mock(CommonMap.class, Answers.CALLS_REAL_METHODS);
         when(gameData.getMap()).thenReturn(map);
         when(map.getAiMap()).thenReturn(new int[][]{
                 {1, 1, 1, 1, 1},

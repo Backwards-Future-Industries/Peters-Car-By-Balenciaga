@@ -22,9 +22,7 @@ public class GameEngine {
     private JFrame window;
     private JPanel panel;
     private GameData gameData;
-
     private Dimension screenSize;
-
     private ScheduledExecutorService gameLoopExecutor;
     private ScheduledExecutorService drawLoopExecutor;
 
@@ -103,7 +101,7 @@ public class GameEngine {
 
     public void createInitialComponents() {
         gameData.addComponent(Type.PLAYER);
-        //gameData.addComponent(Type.ENEMY);
+        gameData.addComponent(Type.ENEMY);
 
     }
 }
