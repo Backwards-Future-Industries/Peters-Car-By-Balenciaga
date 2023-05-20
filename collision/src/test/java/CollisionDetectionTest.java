@@ -10,6 +10,7 @@ import utilities.image.ImageLoader;
 
 import java.awt.*;
 import java.net.URL;
+
 import static org.mockito.Mockito.when;
 
 class CollisionDetectionTest {
@@ -24,7 +25,7 @@ class CollisionDetectionTest {
     private static URL sprite = CollisionDetectionTest.class.getClassLoader().getResource("images/placeholder.png");
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         //Arrange
         MockitoAnnotations.initMocks(this);
         when(this.testEntity1.getSprite()).thenReturn(ImageLoader.loadImage(sprite, new double[]{1, 1}));
@@ -34,25 +35,31 @@ class CollisionDetectionTest {
         //Act
         testEntity1.setHealth(1);
         testEntity2.setHealth(1);
-        testEntity1.setSprite(sprite, new double[]{1,1});
-        testEntity2.setSprite(sprite, new double[]{1,1});
+        testEntity1.setSprite(sprite, new double[]{1, 1});
+        testEntity2.setSprite(sprite, new double[]{1, 1});
         testEntity1.setType(Type.PLAYER);
         testEntity2.setType(Type.ENEMY);
     }
 
     @Test
     void testCollisionDetection() {
-        testEntity1.getSprite().redoSourceRectangle(0,0);
+        //Act
+        testEntity1.getSprite().redoSourceRectangle(0, 0);
         when(this.testEntity2.getPosition()).thenReturn(new Point(479, 0));
         testEntity2.getSprite().redoSourceRectangle(479, 0);
+
+        //Assert
         Assertions.assertTrue(collisionDetection.isColliding(testEntity1, testEntity2));
     }
 
     @Test
     void testNoCollision() {
-        testEntity1.getSprite().redoSourceRectangle(0,0);
+        //Act
+        testEntity1.getSprite().redoSourceRectangle(0, 0);
         when(this.testEntity2.getPosition()).thenReturn(new Point(0, 289));
         testEntity2.getSprite().redoSourceRectangle(0, 289);
+
+        //Assert
         Assertions.assertFalse(collisionDetection.isColliding(testEntity1, testEntity2));
     }
 

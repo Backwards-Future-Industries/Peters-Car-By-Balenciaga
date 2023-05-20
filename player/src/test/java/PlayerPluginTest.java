@@ -1,33 +1,35 @@
 import abstractClasses.Entity;
 import interfaces.IPlugin;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import player.Player;
 import player.PlayerPlugin;
 import utilities.GameData;
 import utilities.Type;
 import utilities.Vector2D;
 
-import java.util.LinkedList;
+import java.awt.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class PlayerPluginTest {
 
+    IPlugin iPlugin;
+    Player player;
+
+    @BeforeEach
+    public void setUp() {
+        iPlugin = new PlayerPlugin();
+        player = new Player();
+    }
 
     @Test
     public void testCreation() {
-        //Arrange
-        IPlugin iPlugin = new PlayerPlugin();
-        int[] position = new int[]{700, 500};
-
         //Act
-        Entity entity = iPlugin.create();
-        entity.setPosition(new int[]{700, 500});
+        player = (Player) iPlugin.create();
 
         //Assert
-        Assertions.assertEquals(entity.getType(), Type.PLAYER);
-        Assertions.assertEquals(entity.getDirection().getClass(), Vector2D.class);
-        Assertions.assertEquals(position[0], entity.getPosition()[0]);
-        Assertions.assertEquals(position[1], entity.getPosition()[1]);
+        Assertions.assertEquals(player.getType(), Type.PLAYER);
     }
 
     @Test

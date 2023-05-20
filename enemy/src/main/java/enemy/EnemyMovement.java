@@ -21,8 +21,8 @@ public class EnemyMovement implements IProcessing {
             aiMovement.updateData(gameData, enemy);
             ArrayList<Inputs> generatedInputs = aiMovement.getInputsBasedOnAStar();
 
-            if (enemy.getHealth() == 0){
-                SPILocator.getSpIlocator().getPluginMap().get(enemy.getType()).delete(gameData,enemy);
+            if (enemy.getHealth() == 0) {
+                SPILocator.getSpIlocator().getPluginMap().get(enemy.getType()).delete(gameData, enemy);
             }
 
             if (generatedInputs.contains(Inputs.KEY_SPACE)) {

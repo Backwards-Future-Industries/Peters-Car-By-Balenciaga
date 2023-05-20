@@ -56,9 +56,9 @@ public class Image {
         transform.transform(sourceRectangle, 0, transformedRectangle, 0, 4);
     }
 
-    public void freshRotate(double radians, int[] position) {
+    public void freshRotate(double radians, Point position) {
         rotation = radians;
-        transform = AffineTransform.getRotateInstance(rotation, position[0] + image.getWidth() / 2, position[1] + image.getHeight() / 2);
+        transform = AffineTransform.getRotateInstance(rotation, position.x + image.getWidth() / 2, position.y + image.getHeight() / 2);
         transform.transform(sourceRectangle, 0, transformedRectangle, 0, 4);
     }
 

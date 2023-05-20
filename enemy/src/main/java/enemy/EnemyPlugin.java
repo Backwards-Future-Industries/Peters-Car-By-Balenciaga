@@ -27,7 +27,7 @@ public class EnemyPlugin implements IPlugin, IDrawable {
         Random random = new Random();
         int x = random.nextInt(1000);
         int y = random.nextInt(800);
-        this.enemy.setPosition(new int[]{x, y});
+        this.enemy.setPosition(new Point(x, y));
         this.enemy.setSprite(defaultImage, new double[]{0.2, 0.2});
         this.enemy.setAcceleration(0.15);
         this.enemy.setMaxSpeed(1);
@@ -47,11 +47,11 @@ public class EnemyPlugin implements IPlugin, IDrawable {
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
         for (Entity enemy : gameData.getEntityList(Type.ENEMY)) {
             if (enemy.getType() == Type.ENEMY) {
-                int[] position = enemy.getPosition();
+                Point position = enemy.getPosition();
 
                 AffineTransform transform = enemy.getSprite().getTransform();
                 g.setTransform(transform);
-                g.drawImage(enemy.getSprite().getImage(), position[0], position[1], panel);
+                g.drawImage(enemy.getSprite().getImage(), position.x, position.y, panel);
 
             }
         }
