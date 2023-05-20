@@ -10,7 +10,7 @@ public class GameLoop implements Runnable {
     private ArrayList<Inputs> inputs;
     private GameEngine gameEngine;
 
-    public GameLoop(ArrayList<Inputs> inputs, GameEngine gameEngine){
+    public GameLoop(ArrayList<Inputs> inputs, GameEngine gameEngine) {
         this.inputs = inputs;
         this.gameEngine = gameEngine;
     }
@@ -19,7 +19,7 @@ public class GameLoop implements Runnable {
     public void run() {
         inputs = gameEngine.getInputs();
 
-        if (inputs.contains(Inputs.KEY_ESC)){
+        if (inputs.contains(Inputs.KEY_ESC)) {
             gameEngine.stop();
             return;
         }
@@ -27,12 +27,10 @@ public class GameLoop implements Runnable {
     }
 
 
-
-
-    private void updateProcess(ArrayList<Inputs> inputs){
-            for (IProcessing iProcessing : gameEngine.getGameData().getProcesses()){
-                iProcessing.process(inputs,gameEngine.getGameData());
-            }
+    private void updateProcess(ArrayList<Inputs> inputs) {
+        for (IProcessing iProcessing : gameEngine.getGameData().getProcesses()) {
+            iProcessing.process(inputs, gameEngine.getGameData());
+        }
 
     }
 

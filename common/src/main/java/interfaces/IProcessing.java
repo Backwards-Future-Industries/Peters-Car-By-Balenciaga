@@ -7,5 +7,5 @@ import java.util.ArrayList;
 
 public interface IProcessing {
 
-    public void process(ArrayList<Inputs> inputs, GameData gameData);
+    void process(ArrayList<Inputs> inputs, GameData gameData);
 }

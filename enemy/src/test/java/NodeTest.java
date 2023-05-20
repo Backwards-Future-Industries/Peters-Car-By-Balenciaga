@@ -9,95 +9,96 @@ class NodeTest {
     private Node parentNode;
     private Node node2;
     private Node node3;
+
     @BeforeEach
     void setUp() {
-        parentNode = new Node(2,2);
+        parentNode = new Node(2, 2);
 
-        node = new Node(5,5);
+        node = new Node(5, 5);
         node.setC(5);
         node.setH(5);
         node.setF(10);
         node.setParent(parentNode);
 
-        node2 = new Node(1,1);
+        node2 = new Node(1, 1);
         node2.setF(15);
 
-        node3 = new Node(1,1);
+        node3 = new Node(1, 1);
         node2.setF(10);
 
     }
 
     @Test
     void getX() {
-        assertEquals(5,node.getX());
+        assertEquals(5, node.getX());
     }
 
     @Test
     void getY() {
-        assertEquals(5,node.getY());
+        assertEquals(5, node.getY());
     }
 
     @Test
     void setX() {
         node.setX(2);
-        assertEquals(2,node.getX());
+        assertEquals(2, node.getX());
     }
 
     @Test
     void setY() {
         node.setY(2);
-        assertEquals(2,node.getY());
+        assertEquals(2, node.getY());
     }
 
     @Test
     void getC() {
-        assertEquals(5,node.getC());
+        assertEquals(5, node.getC());
     }
 
     @Test
     void setC() {
         node.setC(2);
-        assertEquals(2,node.getC());
+        assertEquals(2, node.getC());
     }
 
     @Test
     void getH() {
-        assertEquals(5,node.getH());
+        assertEquals(5, node.getH());
     }
 
     @Test
     void setH() {
         node.setH(2);
-        assertEquals(2,node.getH());
+        assertEquals(2, node.getH());
     }
 
     @Test
     void getF() {
-        assertEquals(10,node.getF());
+        assertEquals(10, node.getF());
     }
 
     @Test
     void setF() {
         node.setF(15);
-        assertEquals(15,node.getF());
+        assertEquals(15, node.getF());
     }
 
     @Test
     void getParent() {
-        assertEquals(parentNode,node.getParent());
+        assertEquals(parentNode, node.getParent());
     }
 
     @Test
     void setParent() {
-        Node parent2 = new Node(12,12);
+        Node parent2 = new Node(12, 12);
         node.setParent(parent2);
-        assertEquals(parent2,node.getParent());
+        assertEquals(parent2, node.getParent());
     }
 
     @Test
     void compareTo() {
-        assertEquals(0,node.compareTo(node2));
-        assertEquals(1,node.compareTo(node3));
+        assertEquals(0, node.compareTo(node2));
+        assertEquals(1, node.compareTo(node3));
     }
 
     @Test
@@ -110,7 +111,7 @@ class NodeTest {
 
     @Test
     void testHashCode() {
-        assertEquals(160,node.hashCode());
+        assertEquals(160, node.hashCode());
     }
 
     @Test
@@ -118,6 +119,6 @@ class NodeTest {
         assertEquals("Node{" +
                 "x=" + 5 +
                 ", y=" + 5 +
-                "}",node.toString());
+                "}", node.toString());
     }
 }

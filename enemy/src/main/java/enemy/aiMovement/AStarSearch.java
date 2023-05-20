@@ -61,23 +61,27 @@ public class AStarSearch {
         int x = node.getX();
         int y = node.getY();
 
-        if (y > 0 && (this.map[y - 1][x] == 0 || this.map[y - 1][x] == 1 || this.map[y - 1][x] == 2)) {
+        if (y > 0 && isNotObstacle(x, y)) {
             neighbors.add(new Node(x, y - 1));
         }
 
-        if (y < this.height - 1 && (this.map[y + 1][x] == 0 || this.map[y + 1][x] == 1 || this.map[y + 1][x] == 2)) {
+        if (y < this.height - 1 && (isNotObstacle(x, y + 1))) {
             neighbors.add(new Node(x, y + 1));
         }
 
-        if (x > 0 && (this.map[y][x - 1] == 0 || this.map[y][x - 1] == 1 || this.map[y][x - 1] == 2)) {
+        if (x > 0 && (isNotObstacle(x - 1, y))) {
             neighbors.add(new Node(x - 1, y));
         }
 
-        if (x < this.width - 1 && (this.map[y][x + 1] == 0 || this.map[y][x + 1] == 1 || this.map[y][x + 1] == 2)) {
+        if (x < this.width - 1 && (isNotObstacle(x + 1, y))) {
             neighbors.add(new Node(x + 1, y));
         }
 
         return neighbors;
+    }
+
+    private boolean isNotObstacle(int x, int y) {
+        return this.map[y - 1][x] == 0 || this.map[y - 1][x] == 1 || this.map[y - 1][x] == 2;
     }
 
     private List<Node> reconstructPath(Node node) {

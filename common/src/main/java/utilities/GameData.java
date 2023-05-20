@@ -7,13 +7,10 @@ import interfaces.IPlugin;
 import interfaces.IProcessing;
 
 import java.awt.*;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedDeque;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData {
@@ -31,10 +28,10 @@ public class GameData {
 
     private Dimension screenSize;
     private CommonMap map;
-    private SPIlocator spiLocator;
+    private SPILocator spiLocator;
 
 
-    public GameData(){
+    public GameData() {
         this.entityMap = new HashMap<Type, LinkedList<Entity>>();
         createMap();
         this.processes = new LinkedList<IProcessing>();
@@ -46,14 +43,14 @@ public class GameData {
         this.newLock = new ReentrantLock(true);
         this.addComponentLock = new ReentrantLock(true);
         this.mapLock = new ReentrantLock(true);
-        this.spiLocator = SPIlocator.getSpIlocator();
+        this.spiLocator = SPILocator.getSpIlocator();
         addAllProcess();
     }
 
 
-    private void createMap(){
-        for (Type type : Type.values()){
-            this.entityMap.put(type,new LinkedList<>());
+    private void createMap() {
+        for (Type type : Type.values()) {
+            this.entityMap.put(type, new LinkedList<>());
         }
     }
 
@@ -76,22 +73,22 @@ public class GameData {
 
     public void addAllProcess() {
         for (Type type : Type.values()) {
-            IProcessing iProcessing = SPIlocator.getSpIlocator().getProcessingMap().get(type);
+            IProcessing iProcessing = SPILocator.getSpIlocator().getProcessingMap().get(type);
             if (iProcessing != null) {
-                processes.add(SPIlocator.getSpIlocator().getProcessingMap().get(type));
+                processes.add(SPILocator.getSpIlocator().getProcessingMap().get(type));
             }
         }
     }
 
-    public void addComponent(Type type){
+    public void addComponent(Type type) {
         addComponentLock.lock();
         try {
 
-            if (SPIlocator.getSpIlocator().getiDrawableMap().get(type) != null) {
-                Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
-                addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type), layer);
+            if (SPILocator.getSpIlocator().getiDrawableMap().get(type) != null) {
+                Layer layer = SPILocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+                addDrawables(SPILocator.getSpIlocator().getiDrawableMap().get(type), layer);
 
-                Entity entity = SPIlocator.getSpIlocator().getPluginMap().get(type).create();
+                Entity entity = SPILocator.getSpIlocator().getPluginMap().get(type).create();
                 entityMap.get(type).add(entity);
             }
 
@@ -105,27 +102,26 @@ public class GameData {
     public void addBullet(Type type, Entity entity) {
         addComponentLock.lock();
         try {
-            if (SPIlocator.getSpIlocator().getiDrawableMap().get(type) != null) {
-                Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity);
+            if (SPILocator.getSpIlocator().getiDrawableMap().get(type) != null) {
+                Entity bullet = SPILocator.getSpIlocator().getBullet().create(entity);
                 entityMap.get(type).add(bullet);
 
 
-                Layers layer = SPIlocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
-                addDrawables(SPIlocator.getSpIlocator().getiDrawableMap().get(type), layer);
+                Layer layer = SPILocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
+                addDrawables(SPILocator.getSpIlocator().getiDrawableMap().get(type), layer);
             }
         } finally {
             addComponentLock.unlock();
-            printStatus();
         }
     }
 
-    public void addMap(){
+    public void addMap() {
         mapLock.lock();
         try {
-            this.map =  spiLocator.getMap().create(this);
-            Layers layer = spiLocator.getiDrawableMap().get(Type.MAP).getLayer();
-            addDrawables(spiLocator.getiDrawableMap().get(Type.MAP),layer);
-        }finally {
+            this.map = spiLocator.getMap().create(this);
+            Layer layer = spiLocator.getiDrawableMap().get(Type.MAP).getLayer();
+            addDrawables(spiLocator.getiDrawableMap().get(Type.MAP), layer);
+        } finally {
             mapLock.unlock();
         }
     }
@@ -156,12 +152,12 @@ public class GameData {
     }
 
     /**
-     * Works just like {@link GameData#addDrawables(IDrawable, Layers)}. Layers is presumed to be Middleground.
+     * Works just like {@link GameData#addDrawables(IDrawable, Layer)}. Layers is presumed to be Middleground.
      *
-     * @see GameData#addDrawables(IDrawable, Layers)
+     * @see GameData#addDrawables(IDrawable, Layer)
      */
     public boolean addDrawables(IDrawable draw) {
-        return addDrawables(draw, Layers.MIDDLEGROUND);
+        return addDrawables(draw, Layer.MIDDLEGROUND);
     }
 
     /**
@@ -169,20 +165,20 @@ public class GameData {
      * @param layer which layer it should be drawn on.
      * @return returns true if successful.
      */
-    public boolean addDrawables(IDrawable draw, Layers layer) {
+    public boolean addDrawables(IDrawable draw, Layer layer) {
         drawLock.lock();
         try {
-            if (layer == Layers.BACKGROUND) {
+            if (layer == Layer.BACKGROUND) {
                 if (this.background.add(draw)) {
                     return true;
                 }
             }
-            if (layer == Layers.MIDDLEGROUND) {
+            if (layer == Layer.MIDDLEGROUND) {
                 if (this.middleground.add(draw)) {
                     return true;
                 }
             }
-            if (layer == Layers.FOREGROUND) {
+            if (layer == Layer.FOREGROUND) {
                 if (this.foreground.add(draw)) {
                     return true;
                 }
@@ -211,69 +207,6 @@ public class GameData {
         }
     }
 
-    /**
-     * @param process implementation of {@link IProcessing} that's ready to join the gameLoop.
-     * @return returns true if successful.
-     */
-    public boolean addProcesses(IProcessing process) {
-        processLock.lock();
-        try {
-            if (this.processes.add(process)) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            processLock.unlock();
-        }
-    }
-
-    /**
-     * @param drawable implementation of {@link IDrawable} that has to be removed.
-     * @param layer    which layer it resides on.
-     * @return returns true if successful.
-     */
-    public boolean removeDrawables(IDrawable drawable, Layers layer) {
-        drawLock.lock();
-        try {
-            if (layer == Layers.BACKGROUND) {
-                if (this.background.remove(drawable)) {
-                    return true;
-                }
-            }
-            if (layer == Layers.MIDDLEGROUND) {
-                if (this.middleground.remove(drawable)) {
-                    return true;
-                }
-            }
-            if (layer == Layers.FOREGROUND) {
-                if (this.foreground.remove(drawable)) {
-                    return true;
-                }
-            }
-        } finally {
-            drawLock.unlock();
-        }
-        return false;
-    }
-
-    /**
-     * @param process implementation of {@link IProcessing} that has to be removed.
-     * @return returns true if successful.
-     */
-    public boolean removeProcesses(IProcessing process) {
-        processLock.lock();
-        try {
-            if (processes.remove(process)) {
-                return true;
-            } else {
-                return false;
-            }
-        } finally {
-            processLock.lock();
-        }
-    }
-
     public Dimension getScreenSize() {
         return screenSize;
     }
@@ -282,11 +215,30 @@ public class GameData {
         this.screenSize = screenSize;
     }
 
+    public void setMap(CommonMap map) {
+        mapLock.lock();
+        try {
+            this.map = map;
+        } finally {
+            mapLock.unlock();
+        }
+    }
+
+    public CommonMap getMap() {
+        mapLock.lock();
+        try {
+            return this.map;
+        } finally {
+            mapLock.unlock();
+        }
+
+    }
+
     private void printStatus() {
         System.out.println("--------------------------");
         for (LinkedList<Entity> linkedList : entityMap.values()){
             for(Entity entity : linkedList){
-                System.out.println(entity.getType() +": " + entity.getPosition()[0]+","+entity.getPosition()[1]);
+                System.out.println(entity.getType() +": " + entity.getPosition().x+","+entity.getPosition().y);
             }
         }
         System.out.println("--------------------------");
@@ -294,22 +246,4 @@ public class GameData {
 
     }
 
-    public void setMap(CommonMap map) {
-        mapLock.lock();
-        try {
-            this.map = map;
-        }finally {
-            mapLock.unlock();
-        }
-    }
-
-    public CommonMap getMap(){
-        mapLock.lock();
-        try {
-            return this.map;
-        }finally {
-            mapLock.unlock();
-        }
-
-    }
 }

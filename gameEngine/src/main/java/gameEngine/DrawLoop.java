@@ -1,10 +1,10 @@
 package gameEngine;
 
-public class DrawLoop implements Runnable{
+public class DrawLoop implements Runnable {
 
     private GameEngine gameEngine;
 
-    public DrawLoop(GameEngine gameEngine){
+    public DrawLoop(GameEngine gameEngine) {
         this.gameEngine = gameEngine;
     }
 

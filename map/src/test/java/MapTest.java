@@ -1,58 +1,46 @@
 import abstractClasses.CommonMap;
 import map.Bitmap;
 import map.Map;
-import map.Tile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import utilities.GameData;
-import utilities.Layers;
-import utilities.TileType;
 
-import java.awt.image.BufferedImage;
 
 public class MapTest {
 
     private Map map;
-    private GameData gameData;
     private Bitmap bitmap;
+    @Mock
+    private GameData gameData;
 
-    private Tile grass;
-    private Tile earth;
-    private Tile obstacle;
-    private Tile road;
-    private Tile roadLineUp;
-    private Tile roadLineSide;
-    private Tile stLeft;
-    private Tile stRight;
-    private BufferedImage bufferedImage;
 
-    private Tile expectedTile;
     @BeforeEach
     public void setUp() {
-        GameData gameData = new GameData();
-        map = new Map(gameData);
+        //Arrange
+        map = new Map();
+        MockitoAnnotations.initMocks(this);
     }
+
     @Test
     public void testCreate() {
-        GameData gameData = new GameData();
+        //Act
         CommonMap mapResult = map.create(gameData);
+
+        //Assert
         Assertions.assertNotNull(mapResult);
     }
+
     @Test
     public void Map() {
+        //Arrange
         this.bitmap = new Bitmap();
-        this.grass = new Tile(TileType.GRASS);
-        this.earth = new Tile(TileType.EARTH);
-        this.obstacle = new Tile(TileType.OBSTACLE);
-        this.road = new Tile(TileType.ROAD);
-        this.roadLineUp = new Tile(TileType.ROADLINEUP);
-        this.roadLineSide = new Tile(TileType.ROADLINESIDE);
-        this.stLeft = new Tile(TileType.STLEFT);
-        this.stRight = new Tile(TileType.STRIGHT);
+
+        //Assert
         Assertions.assertNotNull(bitmap.getMap());
     }
-    
 
 
 }

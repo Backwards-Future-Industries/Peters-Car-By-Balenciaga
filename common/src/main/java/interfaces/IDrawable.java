@@ -1,7 +1,7 @@
 package interfaces;
 
 import utilities.GameData;
-import utilities.Layers;
+import utilities.Layer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,5 +9,5 @@ import java.awt.*;
 public interface IDrawable {
     void draw(Graphics2D g, JPanel panel, GameData gameData);
 
-    Layers getLayer();
+    Layer getLayer();
 }
