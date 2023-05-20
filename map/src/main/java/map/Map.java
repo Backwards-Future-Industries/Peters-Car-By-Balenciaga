@@ -129,7 +129,7 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                 int[] startPos = entry.getValue().getFirst().getPosition();
                 Tile tile = new Tile(TileType.OBSTACLE);
                 tile.setPosition(startPos);
-                tile.setSprite(Map.class.getResource("/mapImages/obstacle2.png"),new double[]{entry.getValue().size(),1});
+                tile.setSprite(Map.class.getResource("/mapImages/OBSTACLE.png"),new double[]{entry.getValue().size(),1});
                 testEntities.add(tile);
                 test.put(entry.getKey(),true);
                 obstacleList.removeAll(entry.getValue());
