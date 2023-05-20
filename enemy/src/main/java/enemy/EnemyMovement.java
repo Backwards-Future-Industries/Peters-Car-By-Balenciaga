@@ -5,7 +5,7 @@ import enemy.aiMovement.AIMovement;
 import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.SPIlocator;
+import utilities.SPILocator;
 import utilities.Type;
 
 import java.util.ArrayList;
@@ -22,14 +22,14 @@ public class EnemyMovement implements IProcessing {
             ArrayList<Inputs> generatedInputs = aiMovement.getInputsBasedOnAStar();
 
             if (enemy.getHealth() == 0){
-                SPIlocator.getSpIlocator().getPluginMap().get(enemy.getType()).delete(gameData,enemy);
+                SPILocator.getSpIlocator().getPluginMap().get(enemy.getType()).delete(gameData,enemy);
             }
 
             if (generatedInputs.contains(Inputs.KEY_SPACE)) {
                 gameData.addBullet(Type.BULLET, enemy);
             }
 
-            SPIlocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);
+            SPILocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);
             enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
 
 

@@ -1,5 +1,5 @@
 package utilities;
 
-public enum Layers {
+public enum Layer {
     FOREGROUND, MIDDLEGROUND, BACKGROUND
 }

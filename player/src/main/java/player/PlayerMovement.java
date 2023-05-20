@@ -4,7 +4,7 @@ import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.SPIlocator;
+import utilities.SPILocator;
 import utilities.Type;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class PlayerMovement implements IProcessing {
         }
 
         if(player.getHealth() < 0){
-            SPIlocator.getSpIlocator().getPluginMap().get(player.getType()).delete(gameData,player);
+            SPILocator.getSpIlocator().getPluginMap().get(player.getType()).delete(gameData,player);
         }
 
         if (inputs.contains(Inputs.KEY_C)) {
@@ -34,7 +34,7 @@ public class PlayerMovement implements IProcessing {
             if (processesPressed > 120) {
                 bulletsShot = 0;
             }
-            player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(), player, gameData));
+            player.setPosition(SPILocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(), player, gameData));
             player.getSprite().freshRotate(player.getRadians(), player.getPosition());
             return;
         }
@@ -47,7 +47,7 @@ public class PlayerMovement implements IProcessing {
                 gameData.addBullet(Type.BULLET, player);
             }
         }
-        player.setPosition(SPIlocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
+        player.setPosition(SPILocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
         player.getSprite().freshRotate(player.getRadians(), player.getPosition());
 
 

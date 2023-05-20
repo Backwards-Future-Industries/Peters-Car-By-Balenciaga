@@ -1,30 +1,30 @@
 package abstractClasses;
 
 import utilities.Type;
-
 import utilities.Vector2D;
 
-import java.net.URL;
 
-public abstract class Entity extends Progenitor{
+public abstract class Entity extends Progenitor {
     private int health;
     private Type type;
     private double acceleration;
     private double maxSpeed;
     // Instead of radians, I have made a Shape-Array that contains shapes. The shapes in the array will be the mapImages
     private Vector2D direction;
-    
-    public Entity(){
+
+    public Entity() {
         this.health = 1;
         this.type = Type.UNDEFINED;
         this.acceleration = 1.;
         this.maxSpeed = 1.;
-        this.direction = new Vector2D(0.,0.);;
+        this.direction = new Vector2D(0., 0.);
+        ;
     }
 
     public int getHealth() {
         return health;
     }
+
     public void setHealth(int health) {
         this.health = health;
     }

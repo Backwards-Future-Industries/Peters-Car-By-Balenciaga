@@ -4,7 +4,7 @@ import abstractClasses.Entity;
 import interfaces.IProcessing;
 import utilities.GameData;
 import utilities.Inputs;
-import utilities.SPIlocator;
+import utilities.SPILocator;
 import utilities.Type;
 
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ public class BulletControlSystem implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity bullet : gameData.getEntityList(Type.BULLET)) {
-            if (bullet.getHealth() == 0){
-                SPIlocator.getSpIlocator().getBullet().delete(gameData, bullet);
+            if (bullet.getHealth() <= 0) {
+                SPILocator.getSpIlocator().getBullet().delete(gameData, bullet);
             }
-            SPIlocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(List.of(KEY_W)), bullet, gameData);
+            SPILocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(List.of(KEY_W)), bullet, gameData);
 
         }
 

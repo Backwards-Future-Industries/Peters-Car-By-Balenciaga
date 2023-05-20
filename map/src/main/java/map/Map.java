@@ -4,7 +4,7 @@ import abstractClasses.CommonMap;
 import interfaces.IDrawable;
 import interfaces.IMapService;
 import utilities.GameData;
-import utilities.Layers;
+import utilities.Layer;
 import utilities.TileType;
 import utilities.Type;
 
@@ -112,8 +112,8 @@ public class Map extends CommonMap implements IDrawable, IMapService {
     }
 
     @Override
-    public Layers getLayer() {
-        return Layers.BACKGROUND;
+    public Layer getLayer() {
+        return Layer.BACKGROUND;
     }
 
     @Override

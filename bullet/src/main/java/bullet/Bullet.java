@@ -11,8 +11,8 @@ public class Bullet extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity entity) {
-        if (entity.getType()== Type.BULLET){
-            this.setHealth(this.getHealth()-1);
+        if (entity.getType() == Type.BULLET) {
+            this.setHealth(this.getHealth() - 1);
         } else {
             this.setHealth(0);
         }

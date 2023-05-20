@@ -4,7 +4,7 @@ import abstractClasses.Entity;
 import interfaces.IDrawable;
 import interfaces.IPlugin;
 import utilities.GameData;
-import utilities.Layers;
+import utilities.Layer;
 import utilities.Type;
 
 import javax.swing.*;
@@ -58,8 +58,8 @@ public class EnemyPlugin implements IPlugin, IDrawable {
     }
 
     @Override
-    public Layers getLayer() {
-        return Layers.MIDDLEGROUND;
+    public Layer getLayer() {
+        return Layer.MIDDLEGROUND;
     }
 
     @Override

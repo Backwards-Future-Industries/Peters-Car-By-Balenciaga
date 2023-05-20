@@ -8,11 +8,11 @@ import java.util.LinkedList;
 import java.util.ServiceLoader;
 
 
-public class SPIlocator {
+public class SPILocator {
 
 
-    private static SPIlocator spIlocator;
-    private HashMap<Type,IPlugin> pluginMap;
+    private static SPILocator spIlocator;
+    private HashMap<Type, IPlugin> pluginMap;
 
     private HashMap<Type, IProcessing> processingMap;
 
@@ -24,41 +24,41 @@ public class SPIlocator {
     private IMapService map;
 
 
-    private SPIlocator(){
+    private SPILocator() {
         this.pluginMap = new HashMap<>();
         this.iDrawableMap = new HashMap<>();
         this.processingMap = new HashMap<>();
         makeList();
     }
 
-    public static SPIlocator getSpIlocator(){
-        if (spIlocator == null){
-            spIlocator = new SPIlocator();
+    public static SPILocator getSpIlocator() {
+        if (spIlocator == null) {
+            spIlocator = new SPILocator();
         }
         return spIlocator;
     }
 
-    private void makeList(){
-        for (IPlugin iPlugin : loadPlugins()){
-            for (Type t : Type.values()){
-                if (iPlugin.toString().equals(t.toString())){
-                    pluginMap.put(t,iPlugin);
+    private void makeList() {
+        for (IPlugin iPlugin : loadPlugins()) {
+            for (Type t : Type.values()) {
+                if (iPlugin.toString().equals(t.toString())) {
+                    pluginMap.put(t, iPlugin);
                 }
             }
         }
 
-        for (IDrawable iDrawable : loadDrawables()){
-            for (Type t : Type.values()){
-                if (iDrawable.toString().equals(t.toString())){
-                    iDrawableMap.put(t,iDrawable);
+        for (IDrawable iDrawable : loadDrawables()) {
+            for (Type t : Type.values()) {
+                if (iDrawable.toString().equals(t.toString())) {
+                    iDrawableMap.put(t, iDrawable);
                 }
             }
         }
 
-        for (IProcessing iProcessing : loadProcesses()){
-            for (Type t : Type.values()){
-                if (iProcessing.toString().equals(t.toString())){
-                    processingMap.put(t,iProcessing);
+        for (IProcessing iProcessing : loadProcesses()) {
+            for (Type t : Type.values()) {
+                if (iProcessing.toString().equals(t.toString())) {
+                    processingMap.put(t, iProcessing);
                 }
             }
         }
@@ -68,61 +68,61 @@ public class SPIlocator {
         loadMap();
     }
 
-    private Collection<IPlugin> loadPlugins(){
+    private Collection<IPlugin> loadPlugins() {
         ServiceLoader<IPlugin> serviceLoader = ServiceLoader.load(IPlugin.class);
 
         LinkedList<IPlugin> list = new LinkedList<>();
 
-        for (IPlugin instance : serviceLoader){
+        for (IPlugin instance : serviceLoader) {
             list.add(instance);
         }
         return list;
     }
 
-    private Collection<IDrawable> loadDrawables(){
+    private Collection<IDrawable> loadDrawables() {
         ServiceLoader<IDrawable> serviceLoader = ServiceLoader.load(IDrawable.class);
 
         LinkedList<IDrawable> list = new LinkedList<>();
 
-        for (IDrawable instance : serviceLoader){
+        for (IDrawable instance : serviceLoader) {
             list.add(instance);
         }
 
         return list;
     }
 
-    private Collection<IProcessing> loadProcesses(){
+    private Collection<IProcessing> loadProcesses() {
         ServiceLoader<IProcessing> serviceLoader = ServiceLoader.load(IProcessing.class);
 
         LinkedList<IProcessing> list = new LinkedList<>();
 
-        for (IProcessing instance : serviceLoader){
+        for (IProcessing instance : serviceLoader) {
             list.add(instance);
         }
 
         return list;
     }
 
-    private void loadMovement(){
+    private void loadMovement() {
         ServiceLoader<IMovement> serviceLoader = ServiceLoader.load(IMovement.class);
 
-        for(IMovement instance : serviceLoader){
+        for (IMovement instance : serviceLoader) {
             movement = instance;
         }
     }
 
-    private void loadBullet(){
+    private void loadBullet() {
         ServiceLoader<IBulletService> serviceLoader = ServiceLoader.load(IBulletService.class);
 
-        for(IBulletService instance : serviceLoader){
+        for (IBulletService instance : serviceLoader) {
             bullet = instance;
         }
     }
 
-    private void loadMap(){
+    private void loadMap() {
         ServiceLoader<IMapService> serviceLoader = ServiceLoader.load(IMapService.class);
 
-        for(IMapService instance : serviceLoader){
+        for (IMapService instance : serviceLoader) {
             map = instance;
         }
     }
@@ -147,6 +147,8 @@ public class SPIlocator {
         return movement;
     }
 
-    public IMapService getMap(){return map;}
+    public IMapService getMap() {
+        return map;
+    }
 }
 
