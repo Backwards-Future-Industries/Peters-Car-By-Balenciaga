@@ -17,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData {
-    private Map<Type, ConcurrentLinkedDeque<Entity>> entityMap;
+    private Map<Type, LinkedList<Entity>> entityMap;
     private List<IProcessing> processes;
     private List<IDrawable> foreground;
     private List<IDrawable> middleground;
@@ -35,7 +35,7 @@ public class GameData {
 
 
     public GameData(){
-        this.entityMap = new HashMap<Type, ConcurrentLinkedDeque<Entity>>();
+        this.entityMap = new HashMap<Type, LinkedList<Entity>>();
         createMap();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
@@ -53,7 +53,7 @@ public class GameData {
 
     private void createMap(){
         for (Type type : Type.values()){
-            this.entityMap.put(type,new ConcurrentLinkedDeque<>());
+            this.entityMap.put(type,new LinkedList<>());
         }
     }
 
@@ -134,7 +134,7 @@ public class GameData {
      * @return List of all entities that's inbound for the game.
      */
 
-    public ConcurrentLinkedDeque<Entity> getEntityList(Type type) {
+    public LinkedList<Entity> getEntityList(Type type) {
         newLock.lock();
         try {
             return this.entityMap.get(type);
@@ -284,7 +284,7 @@ public class GameData {
 
     private void printStatus() {
         System.out.println("--------------------------");
-        for (ConcurrentLinkedDeque<Entity> linkedList : entityMap.values()){
+        for (LinkedList<Entity> linkedList : entityMap.values()){
             for(Entity entity : linkedList){
                 System.out.println(entity.getType() +": " + entity.getPosition()[0]+","+entity.getPosition()[1]);
             }

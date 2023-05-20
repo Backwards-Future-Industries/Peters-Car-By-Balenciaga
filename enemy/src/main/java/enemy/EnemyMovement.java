@@ -21,12 +21,18 @@ public class EnemyMovement implements IProcessing {
             aiMovement.updateData(gameData, enemy);
             ArrayList<Inputs> generatedInputs = aiMovement.getInputsBasedOnAStar();
 
+            if (enemy.getHealth() == 0){
+                SPIlocator.getSpIlocator().getPluginMap().get(enemy.getType()).delete(gameData,enemy);
+            }
+
             if (generatedInputs.contains(Inputs.KEY_SPACE)) {
                 gameData.addBullet(Type.BULLET, enemy);
             }
 
             SPIlocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);
             enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
+
+
         }
     }
 

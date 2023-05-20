@@ -25,6 +25,10 @@ public class PlayerMovement implements IProcessing {
             return;
         }
 
+        if(player.getHealth() == 0){
+            SPIlocator.getSpIlocator().getPluginMap().get(player.getType()).delete(gameData,player);
+        }
+
         if (inputs.contains(Inputs.KEY_C)) {
             processesPressed++;
             if (processesPressed > 120) {
