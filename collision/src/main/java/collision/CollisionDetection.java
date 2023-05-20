@@ -14,8 +14,8 @@ import java.util.LinkedList;
 
 public class CollisionDetection implements IProcessing {
 
-    private final int min_x = 0;
-    private final int min_y = 0;
+    private final int min_x = 1;
+    private final int min_y = 1;
     private int max_x;
     private int max_y;
 
@@ -111,6 +111,10 @@ public class CollisionDetection implements IProcessing {
     private void avoidOverlap(Entity entity1) {
         entity1.setDirection(Vector2D.reverseVector(entity1.getDirection()));
         entity1.setRadians(entity1.getRadians() + Math.PI);
+        int[] newPosition = new int[2];
+        newPosition[0] = (int) (entity1.getPosition()[0] + Math.round(entity1.getDirection().getX()));
+        newPosition[1] = (int) (entity1.getPosition()[1] + Math.round(entity1.getDirection().getY()));
+        entity1.setPosition(newPosition);
     }
 
     /**
@@ -142,8 +146,8 @@ public class CollisionDetection implements IProcessing {
     }
 
     private void setMinMaxValues(GameData gameData) {
-        max_x = (int) gameData.getScreenSize().getWidth();
-        max_y = (int) gameData.getScreenSize().getHeight();
+        max_x = (int) gameData.getScreenSize().getWidth() - 1;
+        max_y = (int) gameData.getScreenSize().getHeight() - 1;
     }
 
     /**

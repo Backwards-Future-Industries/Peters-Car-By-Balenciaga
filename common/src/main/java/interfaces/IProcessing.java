@@ -1,6 +1,5 @@
 package interfaces;
 
-import abstractClasses.Entity;
 import utilities.GameData;
 import utilities.Inputs;
 

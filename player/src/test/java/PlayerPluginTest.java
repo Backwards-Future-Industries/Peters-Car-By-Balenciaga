@@ -1,27 +1,48 @@
 import abstractClasses.Entity;
+import interfaces.IPlugin;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import player.Player;
 import player.PlayerPlugin;
+import utilities.GameData;
+import utilities.Type;
+import utilities.Vector2D;
 
-import java.io.IOException;
+import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class PlayerPluginTest {
-    private int[] position;
-    private Entity playerPlugin;
 
-    @BeforeEach
-    void setPlayerPlugin() {
-        this.playerPlugin = new Player();
-        this.playerPlugin.setPosition(new int[]{700, 500});
-        this.position = new int[]{700, 500};
+
+    @Test
+    public void testCreation() {
+        //Arrange
+        IPlugin iPlugin = new PlayerPlugin();
+        int[] position = new int[]{700, 500};
+
+        //Act
+        Entity entity = iPlugin.create();
+        entity.setPosition(new int[]{700, 500});
+
+        //Assert
+        Assertions.assertEquals(entity.getType(), Type.PLAYER);
+        Assertions.assertEquals(entity.getDirection().getClass(), Vector2D.class);
+        Assertions.assertEquals(position[0], entity.getPosition()[0]);
+        Assertions.assertEquals(position[1], entity.getPosition()[1]);
     }
 
     @Test
-    public void testPosition() {
-        Assertions.assertEquals(this.position[0], playerPlugin.getPosition()[0]);
-        Assertions.assertEquals(this.position[1], playerPlugin.getPosition()[1]);
+    public void testDelete() {
+        //Arrange
+        ConcurrentLinkedDeque<Entity> entityMap = new ConcurrentLinkedDeque<>();
+        IPlugin iPlugin = new PlayerPlugin();
+        GameData gameData = new GameData();
+
+        //Act
+        gameData.addNewEntity(iPlugin.create());
+        iPlugin.delete(gameData, gameData.getEntityList(Type.PLAYER).getFirst());
+
+        //Assert
+        Assertions.assertTrue(gameData.getEntityList(Type.PLAYER).isEmpty());
     }
 }
 

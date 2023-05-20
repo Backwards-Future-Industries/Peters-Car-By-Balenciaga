@@ -48,7 +48,7 @@
         </dependency>
         <dependency>
             <groupId>peters.car</groupId>
-            <artifactId>grillBullet</artifactId>
+            <artifactId>bullet</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

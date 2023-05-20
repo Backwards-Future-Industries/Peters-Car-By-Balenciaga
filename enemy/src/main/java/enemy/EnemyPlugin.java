@@ -13,9 +13,9 @@ import java.awt.geom.AffineTransform;
 import java.net.URL;
 import java.util.Random;
 
-public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
+public class EnemyPlugin implements IPlugin, IDrawable {
     private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/enemyCar.png");
-    private Entity enemy;
+    private Enemy enemy;
 
     public EnemyPlugin() {
     }
@@ -38,8 +38,8 @@ public class EnemyPlugin extends Entity implements IPlugin, IDrawable {
     }
 
     @Override
-    public Entity delete(GameData gameEngine) {
-        return null;
+    public void delete(GameData gameData, Entity entity) {
+        gameData.getEntityList(this.enemy.getType()).remove(entity);
     }
 
 

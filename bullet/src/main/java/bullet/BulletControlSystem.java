@@ -1,4 +1,4 @@
-package grillBullet;
+package bullet;
 
 import abstractClasses.Entity;
 import interfaces.IProcessing;
@@ -17,8 +17,13 @@ public class BulletControlSystem implements IProcessing {
     @Override
     public void process(ArrayList<Inputs> inputs, GameData gameData) {
         for (Entity bullet : gameData.getEntityList(Type.BULLET)) {
+            if (bullet.getHealth() == 0){
+                SPIlocator.getSpIlocator().getBullet().delete(gameData, bullet);
+            }
             SPIlocator.getSpIlocator().getMovement().defaultMove(new ArrayList<>(List.of(KEY_W)), bullet, gameData);
+
         }
+
     }
 
     @Override

@@ -1,12 +1,10 @@
 package gameEngine;
 
-import interfaces.IProcessing;
+import utilities.Inputs;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-
-import utilities.Inputs;
 
 public class UserInputs extends KeyAdapter {
 

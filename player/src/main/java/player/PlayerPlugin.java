@@ -1,23 +1,20 @@
 package player;
 
-import interfaces.*;
 import abstractClasses.Entity;
+import interfaces.IDrawable;
+import interfaces.IPlugin;
 import utilities.GameData;
 import utilities.Layers;
 import utilities.Type;
-import utilities.Vector2D;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-
-
 public class PlayerPlugin implements IPlugin, IDrawable {
 
     private Entity newPlayer;
-
     private static final URL sprite = PlayerPlugin.class.getResource("/playerImages/petersCar.png");
 
 
@@ -34,15 +31,18 @@ public class PlayerPlugin implements IPlugin, IDrawable {
         this.newPlayer.setAcceleration(0.2);
         this.newPlayer.setMaxSpeed(1.8);
         this.newPlayer.setType(Type.PLAYER);
+        this.newPlayer.setPosition(new int[]{1280, 960});
+        System.out.println("Player spawned");
 
         return this.newPlayer;
     }
 
 
     @Override
-    public Entity delete(GameData gameData) {
-        return null;
+    public void delete(GameData gameData, Entity entity) {
+        gameData.getEntityList(this.newPlayer.getType()).remove(entity);
     }
+
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
@@ -64,7 +64,7 @@ public class PlayerPlugin implements IPlugin, IDrawable {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return Type.PLAYER.toString();
     }
 }

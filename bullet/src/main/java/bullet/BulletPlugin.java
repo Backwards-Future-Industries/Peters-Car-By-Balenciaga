@@ -1,4 +1,4 @@
-package grillBullet;
+package bullet;
 
 import abstractClasses.Entity;
 import interfaces.IBulletService;
@@ -13,13 +13,14 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
 
-public class BulletPlugin extends Entity implements IBulletService, IDrawable {
+public class BulletPlugin implements IBulletService, IDrawable {
     private static final URL sprite = Bullet.class.getResource("/grillBuletImages/Beef.png");
-    Entity bullet;
+    Bullet bullet;
 
     @Override
     public Entity create(Entity entity) {
         this.bullet = new Bullet();
+        this.bullet.setHealth(2);
         this.bullet.setSprite(sprite, new double[]{1, 1});
         this.bullet.setPosition(getCenter(entity));
         this.bullet.setRadians(entity.getRadians());
@@ -33,8 +34,8 @@ public class BulletPlugin extends Entity implements IBulletService, IDrawable {
 
 
     @Override
-    public void delete(GameData gameData) {
-
+    public void delete(GameData gameData, Entity entity) {
+        gameData.getEntityList(this.bullet.getType()).remove(entity);
     }
 
     @Override
