@@ -36,6 +36,7 @@ public abstract class Progenitor {
 
     public void setScale(double[] scale) {
         this.scale = scale;
+        this.sprite.scale(scale[0],scale[1]);
     }
     public int[] getPosition() {
         return position;

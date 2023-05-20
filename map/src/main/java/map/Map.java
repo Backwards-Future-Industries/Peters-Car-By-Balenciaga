@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.List;
 
 
@@ -112,21 +113,88 @@ public class Map extends CommonMap implements IDrawable, IMapService {
 
         obstacleList.sort(new TileComparatorY());
         System.out.println(obstacleList);
-        TreeMap<Integer, ArrayList<Tile>> mapX = new TreeMap<>();
+        TreeMap<Integer, LinkedList<Tile>> mapX = new TreeMap<>();
 
         for(Tile tile : obstacleList){
             int[] pos = tile.getPosition();
             if (!mapX.containsKey(pos[1])){
-                mapX.put(pos[1],new ArrayList<>());
+                mapX.put(pos[1],new LinkedList<>());
             }
             mapX.get(tile.getPosition()[1]).add(tile);
         }
 
+        LinkedList<Tile> testEntities = new LinkedList<>();
 
+        TreeMap<Integer,Boolean> test = new TreeMap<>();
+        TreeMap<Integer,LinkedList<Tile>> fuckedObstacles = new TreeMap<>();
+        for (var entry : mapX.entrySet()){
+            if(validateX(entry.getValue())){
+                int[] startPos = entry.getValue().getFirst().getPosition();
+                Tile tile = new Tile(TileType.OBSTACLE);
+                tile.setPosition(startPos);
+                tile.setSprite(Map.class.getResource("/mapImages/obstacle2.png"),new double[]{entry.getValue().size(),1});
+                testEntities.add(tile);
+                test.put(entry.getKey(),true);
+                obstacleList.removeAll(entry.getValue());
+            }else {
+                test.put(entry.getKey(),false);
+                fuckedObstacles.put(entry.getKey(),entry.getValue());
+            }
+        }
 
-        System.out.println();
+        LinkedList<Tile> newTestEntities = new LinkedList<>();
+        for(int i = 0; i<testEntities.size()-1; i++){
+            if(testEntities.get(i).getPosition()[1]+16 == testEntities.get(i+1).getPosition()[1]){
+                int[] startPos = testEntities.get(i).getPosition();
+                Tile tile = new Tile(TileType.OBSTACLE);
+                tile.setPosition(startPos);
+                tile.setSprite(testEntities.get(i).getSprite().getImage(), new double[]{1,2});
+                newTestEntities.add(tile);
+            }
+        }
+
+        obstacleList.sort(new TileComparatorX());
+
+        LinkedList<Tile> fuckedTile = new LinkedList<>();
+        boolean firstTime = true;
+        int pollCounter = 1;
+        int[] startPos = new int[]{0,0};
+        for(int i = 0; i<obstacleList.size()-1; i++){
+            if(firstTime){
+                firstTime = false;
+                startPos = obstacleList.get(i).getPosition();
+            }
+            if(obstacleList.get(i).getPosition()[1]+16 == obstacleList.get(i+1).getPosition()[1]){
+                pollCounter += 1;
+            }else {
+                Tile newTile = new Tile(TileType.OBSTACLE);
+                newTile.setPosition(startPos);
+                newTile.setSprite(newTile.getSprite().getImage(), new double[]{1,pollCounter});
+                fuckedTile.add(newTile);
+                pollCounter = 1;
+                firstTime = true;
+            }
+        }
+
+        for(int i = 0; i<fuckedTile.size()-1; i++){
+            if(fuckedTile.get(i).getPosition()[0]+16 == fuckedTile.get(i+1).getPosition()[0]){
+                int[] startPos2 = fuckedTile.get(i).getPosition();
+                Tile tile2 = new Tile(TileType.OBSTACLE);
+                tile2.setPosition(startPos2);
+                tile2.setSprite(fuckedTile.get(i).getSprite().getImage(), new double[]{2,1});
+                newTestEntities.add(tile2);
+            }
+        }
     }
 
+    private boolean validateX(LinkedList<Tile> tiles){
+        for(int i = 0; i<tiles.size()-1;i++){
+            if(tiles.get(i).getPosition()[0]+16 != tiles.get(i+1).getPosition()[0]){
+                return false;
+            }
+        }
+        return true;
+    }
 
     @Override
     public void draw(Graphics2D g, JPanel panel, GameData gameData) {
