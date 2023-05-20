@@ -99,10 +99,9 @@ public class Map extends CommonMap implements IDrawable, IMapService {
                     tile.setPosition(position);
                     gameData.addNewEntity(tile);
                 }
-                position.y += 16;
+                position = new Point(position.x, position.y + 16);
             }
-            position.x += 16;
-            position.y = 0;
+            position = new Point(position.x + 16, 0);
         }
     }
 

@@ -25,8 +25,5 @@ public class Enemy extends Entity implements ICollision {
             this.setHealth(this.getHealth() - 5);
         }
 
-        if (collidingEntity.getType() == Type.OBSTACLE) {
-            this.setHealth(this.getHealth() - 1);
-        }
     }
 }

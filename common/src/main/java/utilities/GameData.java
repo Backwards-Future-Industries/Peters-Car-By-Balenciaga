@@ -94,6 +94,7 @@ public class GameData {
 
         } finally {
             addComponentLock.unlock();
+            printStatus();
         }
 
     }
@@ -232,4 +233,17 @@ public class GameData {
         }
 
     }
+
+    private void printStatus() {
+        System.out.println("--------------------------");
+        for (LinkedList<Entity> linkedList : entityMap.values()){
+            for(Entity entity : linkedList){
+                System.out.println(entity.getType() +": " + entity.getPosition().x+","+entity.getPosition().y);
+            }
+        }
+        System.out.println("--------------------------");
+
+
+    }
+
 }
