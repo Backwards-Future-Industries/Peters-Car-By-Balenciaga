@@ -1,4 +1,5 @@
 import abstractClasses.Entity;
+import bullet.Bullet;
 import bullet.BulletPlugin;
 import interfaces.IBulletService;
 import org.junit.jupiter.api.Assertions;
@@ -20,9 +21,10 @@ class BulletTest {
         IBulletService iBulletService = new BulletPlugin();
         int[] position = {2, 4};
         Vector2D direction = new Vector2D(20,50);
+        Entity bullet = new Bullet();
 
         //Act
-        Entity bullet = iBulletService.create(new int[]{2,4},2.5);
+        bullet.setPosition(new int[]{2,4});
         bullet.setHealth(1);
         bullet.setAcceleration(1);
         bullet.setMaxSpeed(3);
@@ -39,10 +41,12 @@ class BulletTest {
     @Test
     void testCreate(){
         //Arrange
-        IBulletService iBulletService = new BulletPlugin();
+        ConcreteBulletEntity entity = new ConcreteBulletEntity();
 
         //Act
-        Entity entity = iBulletService.create(new int[]{2,4},2);
+        entity.setPosition(new int[]{2,4});
+        entity.setType(Type.BULLET);
+        entity.setRadians(2);
 
         //Assert
         Assertions.assertEquals( Type.BULLET,entity.getType());
@@ -54,15 +58,17 @@ class BulletTest {
     void testDelete(){
         //Arrange
         LinkedList<Entity> entityMap = new LinkedList<>();
-        IBulletService iBulletService = new BulletPlugin();
+        BulletPlugin iBulletService = new BulletPlugin();
+        ConcreteBulletEntity bullet = new ConcreteBulletEntity();
         GameData gameData = new GameData();
 
         //Act
-        gameData.addNewEntity(iBulletService.create(new int[]{2,2},2));
-        iBulletService.delete(gameData,gameData.getEntityList(Type.BULLET).get(0));
+        Entity entity = iBulletService.create(bullet);
+        gameData.addNewEntity(entity);
+        iBulletService.delete(gameData,gameData.getEntityList(Type.BULLET).getFirst());
 
         //Assert
-        Assertions.assertEquals(entityMap,gameData.getEntityList(Type.BULLET));
+        Assertions.assertTrue(gameData.getEntityList(Type.BULLET).isEmpty());
     }
 
 }

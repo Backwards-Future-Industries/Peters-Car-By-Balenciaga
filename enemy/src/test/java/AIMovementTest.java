@@ -27,7 +27,7 @@ class AIMovementTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        playerPlugin = new concreteEntity();
+        playerPlugin = new ConcreteEntity();
         enemyPlugin = new EnemyPlugin();
         enemyPlugin.setPosition(new int[]{1, 1});
         gameData = new GameData();

@@ -8,6 +8,7 @@ import utilities.Type;
 import utilities.Vector2D;
 
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class PlayerPluginTest {
 
@@ -32,16 +33,16 @@ public class PlayerPluginTest {
     @Test
     public void testDelete() {
         //Arrange
-        LinkedList<Entity> entityMap = new LinkedList<>();
+        ConcurrentLinkedDeque<Entity> entityMap = new ConcurrentLinkedDeque<>();
         IPlugin iPlugin = new PlayerPlugin();
         GameData gameData = new GameData();
 
         //Act
         gameData.addNewEntity(iPlugin.create());
-        iPlugin.delete(gameData, gameData.getEntityList(Type.PLAYER).get(0));
+        iPlugin.delete(gameData, gameData.getEntityList(Type.PLAYER).getFirst());
 
         //Assert
-        Assertions.assertEquals(entityMap,gameData.getEntityList(Type.PLAYER));
+        Assertions.assertTrue(gameData.getEntityList(Type.PLAYER).isEmpty());
     }
 }
 

@@ -9,13 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EntityTest {
 
-    private concreteEntity entity;
+    private ConcreteEntity entity;
     private URL sprite;
 
     @BeforeEach
     void setUp() {
         this.sprite = EntityTest.class.getClassLoader().getResource("images/placeholder.png");
-        this.entity = new concreteEntity();
+        this.entity = new ConcreteEntity();
         this.entity.setHealth(10);
         this.entity.setSprite(sprite,new double[]{1,1});
 

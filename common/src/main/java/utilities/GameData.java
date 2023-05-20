@@ -8,18 +8,16 @@ import interfaces.IProcessing;
 
 import java.awt.*;
 
-import interfaces.IPlugin;
-import interfaces.IProcessing;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class GameData {
-    private Map<Type,CopyOnWriteArrayList<Entity>> entityMap;
+    private Map<Type, ConcurrentLinkedDeque<Entity>> entityMap;
     private List<IProcessing> processes;
     private List<IDrawable> foreground;
     private List<IDrawable> middleground;
@@ -37,7 +35,7 @@ public class GameData {
 
 
     public GameData(){
-        this.entityMap = new HashMap<Type,CopyOnWriteArrayList<Entity>>();
+        this.entityMap = new HashMap<Type, ConcurrentLinkedDeque<Entity>>();
         createMap();
         this.processes = new LinkedList<IProcessing>();
         this.foreground = new LinkedList<IDrawable>();
@@ -55,7 +53,7 @@ public class GameData {
 
     private void createMap(){
         for (Type type : Type.values()){
-            this.entityMap.put(type,new CopyOnWriteArrayList<Entity>());
+            this.entityMap.put(type,new ConcurrentLinkedDeque<>());
         }
     }
 
@@ -108,7 +106,7 @@ public class GameData {
         addComponentLock.lock();
         try {
             if (SPIlocator.getSpIlocator().getiDrawableMap().get(type) != null) {
-                Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity.getPosition(), entity.getRadians());
+                Entity bullet = SPIlocator.getSpIlocator().getBullet().create(entity);
                 entityMap.get(type).add(bullet);
 
 
@@ -136,7 +134,7 @@ public class GameData {
      * @return List of all entities that's inbound for the game.
      */
 
-    public CopyOnWriteArrayList<Entity> getEntityList(Type type) {
+    public ConcurrentLinkedDeque<Entity> getEntityList(Type type) {
         newLock.lock();
         try {
             return this.entityMap.get(type);
@@ -286,7 +284,7 @@ public class GameData {
 
     private void printStatus() {
         System.out.println("--------------------------");
-        for (CopyOnWriteArrayList<Entity> linkedList : entityMap.values()){
+        for (ConcurrentLinkedDeque<Entity> linkedList : entityMap.values()){
             for(Entity entity : linkedList){
                 System.out.println(entity.getType() +": " + entity.getPosition()[0]+","+entity.getPosition()[1]);
             }

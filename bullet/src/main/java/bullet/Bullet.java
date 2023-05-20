@@ -10,6 +10,7 @@ public class Bullet extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity entity) {
+        System.out.println("bing bong");
         this.setHealth(0);
     }
 

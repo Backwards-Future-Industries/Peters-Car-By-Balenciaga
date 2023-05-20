@@ -103,7 +103,7 @@ public class GameEngine {
 
     public void createInitialComponents() {
         gameData.addComponent(Type.PLAYER);
-        gameData.addComponent(Type.ENEMY);
+        //gameData.addComponent(Type.ENEMY);
 
     }
 }
