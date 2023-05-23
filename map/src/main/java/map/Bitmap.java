@@ -44,6 +44,7 @@ public class Bitmap {
         this.map = new TileType[bitmap.getWidth()][bitmap.getHeight()];
         this.aiMap = new int[bitmap.getHeight()][bitmap.getWidth()];
         loadMap();
+        increaseObstacleSize();
     }
 
     private void loadMap() {
@@ -100,6 +101,17 @@ public class Bitmap {
 
     public int[][] getAiMap() {
         return aiMap;
+    }
+
+    private void increaseObstacleSize() {
+        for (int i = 0; i < this.aiMap.length; i++) {
+            for (int j = 0; j < this.aiMap[1].length; j++) {
+                if (i > 0 && this.aiMap[i - 1][j] == 3 && this.aiMap[i][j] != 3) this.aiMap[i][j] = 5;
+                if (i < this.aiMap.length - 1 && this.aiMap[i + 1][j] == 3 && this.aiMap[i][j] != 3) this.aiMap[i][j] = 5;
+                if (j > 0 && this.aiMap[i][j - 1] == 3 && this.aiMap[i][j] != 3) this.aiMap[i][j] = 5;
+                if (j < this.aiMap[1].length - 1 && this.aiMap[i][j + 1] == 3 && this.aiMap[i][j] != 3) this.aiMap[i][j] = 5;
+            }
+        }
     }
 
 }
