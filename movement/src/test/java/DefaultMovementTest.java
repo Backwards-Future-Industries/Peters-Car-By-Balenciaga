@@ -1,7 +1,6 @@
 import abstractClasses.Entity;
 import movement.DefaultMovement;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -12,7 +11,6 @@ import utilities.image.ImageLoader;
 
 import java.awt.*;
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
