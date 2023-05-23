@@ -1,3 +1,5 @@
+package gameEngine;
+
 import gameEngine.GameEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +22,6 @@ class GameEngineTest {
     @Mock
     private GameData gameData;
 
-
     @BeforeEach
     void setUp() {
         //Arrange
@@ -32,7 +33,6 @@ class GameEngineTest {
     @EnabledOnOs(LINUX)
     @Test
     public void OpenWindowTestOnLinux(){
-
         //Assert
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
         Assertions.assertEquals(dimension.width ,gameEngine.getWindow().getWidth());
@@ -43,14 +43,10 @@ class GameEngineTest {
     @EnabledOnOs(WINDOWS)
     @Test
     public void OpenWindowTestOnWindows(){
-
         //Assert
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
         Assertions.assertEquals(dimension.width ,gameEngine.getWindow().getWidth()-16);
         Assertions.assertEquals(1,gameEngine.getWindow().getKeyListeners().length);
         Assertions.assertTrue(gameEngine.getWindow().isVisible());
     }
-
-
-
 }

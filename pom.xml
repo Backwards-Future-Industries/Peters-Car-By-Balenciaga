@@ -10,8 +10,8 @@
     <packaging>pom</packaging>
 
     <properties>
-        <maven.compiler.source>19</maven.compiler.source>
-        <maven.compiler.target>19</maven.compiler.target>
+        <maven.compiler.source>20</maven.compiler.source>
+        <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit-platform.version>5.7.0</junit-platform.version>
         <java>java</java>
@@ -190,7 +190,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-clean-plugin</artifactId>
-                        <version>3.2.0</version>
+                        <version>3.1.0</version>
                         <configuration>
                             <filesets>
                                 <fileset>
@@ -214,7 +214,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.0.2</version>
+                        <version>3.5.0</version>
                         <executions>
                             <execution>
                                 <id>copy-installed</id>
