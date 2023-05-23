@@ -32,7 +32,6 @@ class AIMovementTest {
         //Arrange
         MockitoAnnotations.initMocks(this);
         enemy = new Enemy();
-        enemy.setPosition(new Point(1, 1));
         aIMovement = new AIMovement();
         when(gameData.getMap()).thenReturn(map);
         when(map.getAiMap()).thenReturn(new int[][]{
@@ -46,12 +45,21 @@ class AIMovementTest {
         LinkedList<Entity> playerList = new LinkedList<>();
         playerList.add(player);
         when(gameData.getEntityList(Type.PLAYER)).thenReturn(playerList);
+
+        //Act
+        enemy.setPosition(new Point(1, 1));
     }
 
     @Test
     void getInputsBasedOnAStar() {
+        //Arrange
+        ArrayList<Inputs> inputs = new ArrayList<>();
+
+        //Act
         aIMovement.updateData(gameData, enemy);
-        ArrayList<Inputs> inputs = aIMovement.getInputsBasedOnAStar();
+        inputs = aIMovement.getInputsBasedOnAStar();
+
+        //Assert
         assertTrue(inputs.contains(Inputs.KEY_W));
     }
 }
