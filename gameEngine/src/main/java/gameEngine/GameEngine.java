@@ -99,7 +99,7 @@ public class GameEngine {
         return gameData;
     }
 
-    public void createInitialComponents() {
+    private void createInitialComponents() {
         gameData.addComponent(Type.PLAYER);
         gameData.addComponent(Type.ENEMY);
 
