@@ -65,15 +65,15 @@ public class AStarSearch {
             neighbors.add(new Node(x, y - 1));
         }
 
-        if (y < this.height - 1 && (isNotObstacle(x, y + 1))) {
+        if (y < this.height - 1 && (isNotObstacle(x, y + 2))) {
             neighbors.add(new Node(x, y + 1));
         }
 
-        if (x > 0 && (isNotObstacle(x - 1, y))) {
+        if (x > 0 && (isNotObstacle(x - 1, y+1))) {
             neighbors.add(new Node(x - 1, y));
         }
 
-        if (x < this.width - 1 && (isNotObstacle(x + 1, y))) {
+        if (x < this.width - 1 && (isNotObstacle(x + 1, y+1))) {
             neighbors.add(new Node(x + 1, y));
         }
 
