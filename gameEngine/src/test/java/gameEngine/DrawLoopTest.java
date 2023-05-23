@@ -24,7 +24,7 @@ class DrawLoopTest {
     }
 
     @Test
-    void testRun() {
+    void testRun_fr4_1() {
         //Act
         assertDoesNotThrow(() ->
                 drawLoop.run()

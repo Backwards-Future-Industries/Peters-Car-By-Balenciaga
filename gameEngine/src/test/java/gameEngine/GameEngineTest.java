@@ -32,7 +32,7 @@ class GameEngineTest {
 
     @EnabledOnOs(LINUX)
     @Test
-    public void OpenWindowTestOnLinux(){
+    public void OpenWindowTestOnLinux_fr4(){
         //Assert
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
         Assertions.assertEquals(dimension.width ,gameEngine.getWindow().getWidth());
@@ -42,7 +42,7 @@ class GameEngineTest {
 
     @EnabledOnOs(WINDOWS)
     @Test
-    public void OpenWindowTestOnWindows(){
+    public void OpenWindowTestOnWindows_fr4(){
         //Assert
         Assertions.assertEquals("Peter's car",gameEngine.getWindow().getTitle());
         Assertions.assertEquals(dimension.width ,gameEngine.getWindow().getWidth()-16);

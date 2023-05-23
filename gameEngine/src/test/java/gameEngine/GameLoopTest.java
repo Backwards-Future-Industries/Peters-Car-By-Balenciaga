@@ -40,7 +40,7 @@ class GameLoopTest {
     }
 
     @Test
-    void testRun() {
+    void testRun_fr4_2() {
         //Act
         when(gameEngine.getGameData()).thenReturn(gameData);
         when(gameEngine.getGameData().getProcesses()).thenReturn(this.list);
