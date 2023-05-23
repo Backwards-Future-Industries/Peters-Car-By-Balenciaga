@@ -3,12 +3,13 @@ import interfaces.IPlugin;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import player.Player;
+import player.PlayerMovement;
 import player.PlayerPlugin;
 import utilities.GameData;
 import utilities.Type;
-
-import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class PlayerPluginTest {
 
@@ -17,6 +18,7 @@ public class PlayerPluginTest {
 
     @BeforeEach
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         iPlugin = new PlayerPlugin();
         player = new Player();
     }
@@ -33,7 +35,6 @@ public class PlayerPluginTest {
     @Test
     public void testDelete() {
         //Arrange
-        ConcurrentLinkedDeque<Entity> entityMap = new ConcurrentLinkedDeque<>();
         IPlugin iPlugin = new PlayerPlugin();
         GameData gameData = new GameData();
 
@@ -43,6 +44,20 @@ public class PlayerPluginTest {
 
         //Assert
         Assertions.assertTrue(gameData.getEntityList(Type.PLAYER).isEmpty());
+    }
+
+    @Test
+    public void testColideFunction(){
+        //Arrange
+        Entity entity = new Player();
+
+        //Act
+        player.setHealth(1);
+        entity.setType(Type.OBSTACLE);
+        player.onCollision(entity);
+
+        //Assert
+        Assertions.assertEquals(0,player.getHealth());
     }
 }
 

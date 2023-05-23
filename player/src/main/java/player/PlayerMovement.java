@@ -39,6 +39,13 @@ public class PlayerMovement implements IProcessing {
         }
 
         processesPressed = 0;
+        shoot(inputs, gameData);
+        player.setPosition(SPILocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
+        player.getSprite().freshRotate(player.getRadians(), player.getPosition());
+
+    }
+
+    private void shoot(ArrayList<Inputs> inputs, GameData gameData) {
         if (inputs.contains(Inputs.KEY_SPACE) && bulletsShot < 4) {
             if (System.currentTimeMillis() - lastShot > 200) {
                 bulletsShot++;
@@ -46,9 +53,6 @@ public class PlayerMovement implements IProcessing {
                 gameData.addBullet(Type.BULLET, player);
             }
         }
-        player.setPosition(SPILocator.getSpIlocator().getMovement().defaultMove(inputs, player, gameData));
-        player.getSprite().freshRotate(player.getRadians(), player.getPosition());
-
     }
 
 
