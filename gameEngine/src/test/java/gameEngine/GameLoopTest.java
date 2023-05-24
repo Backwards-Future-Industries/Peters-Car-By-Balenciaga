@@ -18,7 +18,6 @@ class GameLoopTest {
     //Arrange
     @Mock
     private GameEngine gameEngine;
-    @Mock
     private LinkedList<IProcessing> list;
     @Mock
     private GameData gameData;
