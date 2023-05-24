@@ -45,14 +45,16 @@ public class PlayerControlSystem implements IProcessing {
 
     }
 
-    private void shoot(ArrayList<Inputs> inputs, GameData gameData) {
+    public boolean shoot(ArrayList<Inputs> inputs, GameData gameData) {
         if (inputs.contains(Inputs.KEY_SPACE) && bulletsShot < 4) {
             if (System.currentTimeMillis() - lastShot > 200) {
                 bulletsShot++;
                 lastShot = System.currentTimeMillis();
                 gameData.addBullet(Type.BULLET, player);
+                return true;
             }
         }
+        return false;
     }
 
 
