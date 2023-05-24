@@ -87,6 +87,17 @@ public class PlayerPluginTest {
         //Assert
         Assertions.assertTrue(playerControlSystem.shoot(new ArrayList<>(List.of(Inputs.KEY_SPACE)),this.gameData));
     }
+
+    @Test
+    public void testShootDelay(){
+        //Act
+        for(int i = 0; i < 5; i++){
+            playerControlSystem.shoot(new ArrayList<>(List.of(Inputs.KEY_SPACE)),this.gameData);
+        }
+
+        //Assert
+        Assertions.assertFalse(playerControlSystem.shoot(new ArrayList<>(List.of(Inputs.KEY_SPACE)),this.gameData));
+    }
 }
 
 
