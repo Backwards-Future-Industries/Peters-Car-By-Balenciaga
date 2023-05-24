@@ -62,7 +62,7 @@ class GameEngineTest {
     }
 
     @Test
-    public void accessToAllPositions(){
+    public void accessToAllPositions_fr4_1(){
         //Arrange
         Entity enemy = mock(Entity.class);
         when(enemy.getPosition()).thenReturn(new Point(5,5));
