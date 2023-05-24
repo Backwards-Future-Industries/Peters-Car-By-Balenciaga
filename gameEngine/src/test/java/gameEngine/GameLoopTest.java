@@ -30,6 +30,8 @@ class GameLoopTest {
         MockitoAnnotations.initMocks(this);
         this.gameLoop =  new GameLoop(new ArrayList<>(),gameEngine);
         this.list = new LinkedList<>();
+
+        //Act
         this.list.add(new IProcessing() {
             @Override
             public void process(ArrayList<Inputs> inputs, GameData gameData) {
@@ -40,9 +42,11 @@ class GameLoopTest {
 
     @Test
     void testRun_fr4_2() {
-        //Act
+        //Arrange
         when(gameEngine.getGameData()).thenReturn(gameData);
         when(gameEngine.getGameData().getProcesses()).thenReturn(this.list);
+
+        //Assert
         assertDoesNotThrow(() ->
                 gameLoop.run()
         );

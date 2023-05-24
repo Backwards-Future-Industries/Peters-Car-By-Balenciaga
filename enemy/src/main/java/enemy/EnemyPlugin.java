@@ -11,11 +11,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 public class EnemyPlugin implements IPlugin, IDrawable {
     private static final URL defaultImage = EnemyPlugin.class.getResource("/enemyImages/enemyCar.png");
     private Enemy enemy;
+
+    private final LinkedList<Point> spawnPoints = new LinkedList<>(List.of(new Point(100, 200), new Point(300, 300), new Point(500, 200)));
 
     public EnemyPlugin() {
     }
@@ -24,10 +28,7 @@ public class EnemyPlugin implements IPlugin, IDrawable {
     public Entity create() {
         this.enemy = new Enemy();
         this.enemy.setHealth(10);
-        Random random = new Random();
-        int x = random.nextInt(1000);
-        int y = random.nextInt(800);
-        this.enemy.setPosition(new Point(x, y));
+        this.enemy.setPosition(spawnPoints.poll());
         this.enemy.setSprite(defaultImage, new double[]{0.2, 0.2});
         this.enemy.setAcceleration(0.15);
         this.enemy.setMaxSpeed(1);

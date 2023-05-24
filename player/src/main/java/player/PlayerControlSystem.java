@@ -9,7 +9,7 @@ import utilities.Type;
 
 import java.util.ArrayList;
 
-public class PlayerMovement implements IProcessing {
+public class PlayerControlSystem implements IProcessing {
     private Entity player;
     private long lastShot = 0;
     private int processesPressed = 0;

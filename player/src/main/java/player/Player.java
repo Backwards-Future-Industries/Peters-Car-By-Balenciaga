@@ -8,7 +8,6 @@ public class Player extends Entity implements ICollision {
 
     @Override
     public void onCollision(Entity collidingEntity) {
-        System.out.println(this.getHealth());
 
         if (collidingEntity.getType() == Type.BULLET) {
             this.setHealth(this.getHealth() - 1);
