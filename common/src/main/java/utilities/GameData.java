@@ -99,20 +99,21 @@ public class GameData {
 
     }
 
-    public void addBullet(Type type, Entity entity) {
+    public boolean addBullet(Type type, Entity entity) {
         addComponentLock.lock();
         try {
             if (SPILocator.getSpIlocator().getiDrawableMap().get(type) != null) {
                 Entity bullet = SPILocator.getSpIlocator().getBullet().create(entity);
                 entityMap.get(type).add(bullet);
 
-
                 Layer layer = SPILocator.getSpIlocator().getiDrawableMap().get(type).getLayer();
                 addDrawables(SPILocator.getSpIlocator().getiDrawableMap().get(type), layer);
+                return true;
             }
         } finally {
             addComponentLock.unlock();
         }
+        return false;
     }
 
     public void addMap() {
