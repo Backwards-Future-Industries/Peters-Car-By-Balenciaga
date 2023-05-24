@@ -10,7 +10,7 @@ import utilities.Type;
 
 import java.util.ArrayList;
 
-public class EnemyControl implements IProcessing {
+public class EnemyControlSystem implements IProcessing {
 
     private AIMovement aiMovement = new AIMovement();
 

@@ -1,4 +1,4 @@
-import enemy.EnemyControl;
+import enemy.EnemyControlSystem;
 
 module enemy {
     exports enemy;
@@ -10,5 +10,5 @@ module enemy {
 
     provides interfaces.IPlugin with enemy.EnemyPlugin;
     provides interfaces.IDrawable with enemy.EnemyPlugin;
-    provides interfaces.IProcessing with EnemyControl;
+    provides interfaces.IProcessing with EnemyControlSystem;
 }

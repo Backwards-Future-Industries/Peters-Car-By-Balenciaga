@@ -1,4 +1,4 @@
-import player.PlayerControl;
+import player.PlayerControlSystem;
 
 module player {
     exports player;
@@ -12,5 +12,5 @@ module player {
 
     provides interfaces.IPlugin with player.PlayerPlugin;
     provides interfaces.IDrawable with player.PlayerPlugin;
-    provides interfaces.IProcessing with PlayerControl;
+    provides interfaces.IProcessing with PlayerControlSystem;
 }
