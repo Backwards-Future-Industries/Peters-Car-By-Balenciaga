@@ -1,3 +1,5 @@
+import enemy.EnemyControl;
+
 module enemy {
     exports enemy;
     exports enemy.aiMovement;
@@ -8,5 +10,5 @@ module enemy {
 
     provides interfaces.IPlugin with enemy.EnemyPlugin;
     provides interfaces.IDrawable with enemy.EnemyPlugin;
-    provides interfaces.IProcessing with enemy.EnemyMovement;
+    provides interfaces.IProcessing with EnemyControl;
 }
