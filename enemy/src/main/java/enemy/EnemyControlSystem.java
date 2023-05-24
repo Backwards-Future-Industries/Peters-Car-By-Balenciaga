@@ -25,15 +25,20 @@ public class EnemyControlSystem implements IProcessing {
                 SPILocator.getSpIlocator().getPluginMap().get(enemy.getType()).delete(gameData, enemy);
             }
 
-            if (generatedInputs.contains(Inputs.KEY_SPACE)) {
-                gameData.addBullet(Type.BULLET, enemy);
-            }
-
+            shoot(gameData, enemy, generatedInputs);
             SPILocator.getSpIlocator().getMovement().defaultMove(generatedInputs, enemy, gameData);
             enemy.getSprite().freshRotate(enemy.getRadians(), enemy.getPosition());
 
 
         }
+    }
+
+    public boolean shoot(GameData gameData, Entity enemy, ArrayList<Inputs> generatedInputs) {
+        if (generatedInputs.contains(Inputs.KEY_SPACE)) {
+            gameData.addBullet(Type.BULLET, enemy);
+            return true;
+        }
+        return false;
     }
 
     @Override
