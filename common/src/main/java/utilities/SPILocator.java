@@ -31,7 +31,7 @@ public class SPILocator {
         makeList();
     }
 
-    public static SPILocator getSpIlocator() {
+    synchronized public static SPILocator getSpIlocator() {
         if (spIlocator == null) {
             spIlocator = new SPILocator();
         }
