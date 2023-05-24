@@ -76,4 +76,17 @@ class BulletTest {
         Assertions.assertTrue(gameData.getEntityList(Type.BULLET).isEmpty());
     }
 
+    @Test
+    public void testColideFunction(){
+        //Arrange
+        Entity entity = new Bullet();
+
+        //Act
+        bullet.setHealth(1);
+        entity.setType(Type.OBSTACLE);
+        bullet.onCollision(entity);
+
+        //Assert
+        Assertions.assertEquals(0,bullet.getHealth());
+    }
 }

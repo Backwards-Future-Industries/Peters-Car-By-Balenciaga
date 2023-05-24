@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ServiceLoader;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 public class SPILocator {
@@ -22,6 +23,7 @@ public class SPILocator {
 
     private IBulletService bullet;
     private IMapService map;
+    private static ReentrantLock lock = new ReentrantLock();
 
 
     private SPILocator() {
@@ -32,10 +34,16 @@ public class SPILocator {
     }
 
     public static SPILocator getSpIlocator() {
-        if (spIlocator == null) {
-            spIlocator = new SPILocator();
+        lock.lock();
+        try {
+            if (spIlocator == null) {
+                spIlocator = new SPILocator();
+
+            }
+            return spIlocator;
+        } finally {
+            lock.unlock();
         }
-        return spIlocator;
     }
 
     private void makeList() {
