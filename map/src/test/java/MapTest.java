@@ -19,26 +19,19 @@ public class MapTest {
 
     @BeforeEach
     public void setUp() {
-        //Arrange
         map = new Map();
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void testCreate() {
-        //Act
         CommonMap mapResult = map.create(gameData);
-
-        //Assert
         Assertions.assertNotNull(mapResult);
     }
 
     @Test
     public void Map() {
-        //Arrange
         this.bitmap = new Bitmap();
-
-        //Assert
         Assertions.assertNotNull(bitmap.getMap());
     }
 

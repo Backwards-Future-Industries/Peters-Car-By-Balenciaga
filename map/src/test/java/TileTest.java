@@ -15,10 +15,7 @@ public class TileTest {
 
     @BeforeEach
     public void setUp() {
-        //Arrange
         tiles = new LinkedList<>();
-
-        //Act
         for (TileType tileType : TileType.values()) {
             tiles.add(new Tile(tileType));
         }
@@ -26,7 +23,6 @@ public class TileTest {
 
     @Test
     public void testConstructor() {
-        //Assert
         Assertions.assertNotNull(tiles);
         Assertions.assertTrue(tiles.size() == TileType.values().length);
     }
